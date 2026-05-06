@@ -1,0 +1,21 @@
+# Invalid: 'nature' is required on RelatedWeakness but omitted here.
+id: 79
+name: Bad Related Weakness
+abstraction: BASE
+structure: SIMPLE
+status: DRAFT
+description: This weakness has a related_weakness entry missing the required 'nature' field.
+related_weaknesses:
+- cwe_id: 74
+  view_id: 1000
+mapping_notes:
+  usage: ALLOWED
+  rationale: Example only.
+  comments: Example only.
+  reasons:
+  - ACCEPTABLE_USE
+content_history:
+  submission:
+    submission_date: '2023-01-01'
+    submission_version: "1.0"
+    submission_release_date: '2023-01-01'

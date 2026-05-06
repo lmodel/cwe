@@ -1,0 +1,15 @@
+# Changes here will be overwritten by Copier
+_commit: v0.4.2-27-g50f4982
+_src_path: gh:linkml/linkml-project-copier
+add_example: true
+copyright_year: '2026'
+email: noel.mcloughlin@gmail.com
+full_name: Noel McLoughlin
+gh_action_docs_preview: true
+gh_action_pypi: true
+github_org: lmodel
+license: Apache-2.0
+project_description: Mitre CWE - LinkML Schema
+project_name: cwe
+project_slug: cwe
+

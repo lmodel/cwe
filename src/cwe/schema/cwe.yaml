@@ -1,0 +1,131 @@
+---
+id: https://w3id.org/lmodel/cwe
+name: cwe
+title: cwe
+description: |-
+  MITRE Common Vulnerabilities and Exposures (CVE) LinkML Schema
+license: Apache-2.0
+
+source: https://github.com/CVEProject/cve-schema/blob/main/schema/CVE_Record_Format.json
+version:   # vendor version if available
+annotations:  {}  # vendor metadata
+
+see_also:
+  - https://lmodel.github.io/cwe
+
+prefixes:
+  nvd: https://w3id.org/lmodel/nist-nvd/
+  cve: https://w3id.org/lmodel/cwe/
+  kev: https://w3id.org/lmodel/kev-catalog/
+  core: https://w3id.org/lmodel/vulnerability-core/
+
+default_prefix: cve
+default_range: string
+
+imports:
+  - ./vulnerability_core
+
+subsets:
+  cve_record:
+    description: Required CVE Record Format fields
+
+  cna_metadata:
+    description: CNA and program governance metadata
+
+enums:
+  CVEState:
+    permissible_values:
+      PUBLIC:
+      RESERVED:
+      REJECT:
+      DISPUTED:
+      DUPLICATE:
+
+  CNATag:
+    permissible_values:
+      unsupported-when-assigned:
+      exclusively-hosted-service:
+      disputed:
+      duplicate:
+
+classes:
+  CVERecord:
+    is_a: Vulnerability
+    description: Official CVE Record corresponding to a CVE ID.
+    slots:
+      - assigner_org_id
+      - assigner_short_name
+      - assign_date
+      - publication_date
+      - affected
+      - tags
+      - problem_types
+      - fixes
+      - references
+      - state
+      - disputed
+    slot_usage:
+      assigner_org_id:
+        required: true
+      references:
+        required: true
+
+  AssigningCNA:
+    description: CNA entity assigning the CVE.
+    slots:
+      - org_id
+      - short_name
+      - contact_url
+
+  FixInformation:
+    description: Version and remediation details.
+    slots:
+      - fixed_version
+      - remediation
+      - advisory_url
+
+slots:
+  assigner_org_id:
+  
+  assigner_short_name:
+  
+  assign_date:
+    range: datetime
+  
+  publication_date:
+    range: datetime
+  
+  affected:
+    range: Product
+    multivalued: true
+  
+  tags:
+    range: CNATag
+    multivalued: true
+  
+  problem_types:
+    range: Weakness
+    multivalued: true
+  
+  fixes:
+    range: FixInformation
+    multivalued: true
+  
+  state:
+    range: CVEState
+  
+  disputed:
+    range: boolean
+  
+  org_id:
+  
+  short_name:
+  
+  contact_url:
+  
+  fixed_version:
+  
+  remediation:
+  
+  advisory_url:
+    range: uri

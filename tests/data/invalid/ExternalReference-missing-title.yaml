@@ -1,0 +1,5 @@
+# Invalid: 'title' is required on ExternalReference but omitted here.
+reference_id: REF-99
+authors:
+- Some Author
+publication_year: "2020"
