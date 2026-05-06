@@ -1,0 +1,11 @@
+{
+   "WIKIDATA": "https://www.wikidata.org/wiki/",
+   "capec": "https://w3id.org/lmodel/capec/",
+   "cwe": "https://w3id.org/lmodel/cwe/",
+   "dct": "http://purl.org/dc/terms/",
+   "linkml": "https://w3id.org/linkml/",
+   "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+   "schema": "http://schema.org/",
+   "skos": "http://www.w3.org/2004/02/skos/core#",
+   "xsd": "http://www.w3.org/2001/XMLSchema#"
+}

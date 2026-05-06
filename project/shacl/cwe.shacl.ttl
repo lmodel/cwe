@@ -1,0 +1,1285 @@
+@prefix cwe: <https://w3id.org/lmodel/cwe/> .
+@prefix dct: <http://purl.org/dc/terms/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema1: <http://schema.org/> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+cwe:WeaknessCatalog a sh:NodeShape ;
+    rdfs:comment "Top-level container for a CWE catalog snapshot (Weakness_Catalog in XSD). Holds weakness entries, categories, views, external references, and NVD weakness observations." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class cwe:Weakness ;
+            sh:description "Canonical CWE weakness entries in this catalog snapshot." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 3 ;
+            sh:path cwe:weaknesses ],
+        [ sh:datatype xsd:date ;
+            sh:description "Date associated with a catalog snapshot or a name-change event." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path dct:date ],
+        [ sh:datatype xsd:string ;
+            sh:description "Short human-readable name or title for this entity." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path rdfs:label ],
+        [ sh:class cwe:NVDWeaknessObservation ;
+            sh:description "Weakness observations from NVD vulnerability detail pages." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 7 ;
+            sh:path cwe:observations ],
+        [ sh:datatype xsd:string ;
+            sh:description "Version string of the catalog, entry, or submission." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path schema1:version ],
+        [ sh:class cwe:ExternalReference ;
+            sh:description "External references shared across CWE entries in this catalog." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 6 ;
+            sh:path cwe:external_references ],
+        [ sh:class cwe:Category ;
+            sh:description "CWE categories grouping weaknesses by a common characteristic." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 4 ;
+            sh:path cwe:categories ],
+        [ sh:class cwe:View ;
+            sh:description "CWE views providing different perspectives on the catalog." ;
+            sh:nodeKind sh:IRI ;
+            sh:order 5 ;
+            sh:path cwe:views ] ;
+    sh:targetClass cwe:WeaknessCatalog .
+
+cwe:AlternateTerm a sh:NodeShape ;
+    rdfs:comment "Another name by which this weakness may be known (AlternateTermsType/Alternate_Term in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "An alternate term by which this weakness may be known." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path cwe:term ],
+        [ sh:datatype xsd:string ;
+            sh:description "Narrative description of the entity." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path dct:description ] ;
+    sh:targetClass cwe:AlternateTerm .
+
+cwe:ApplicablePlatforms a sh:NodeShape ;
+    rdfs:comment "Languages, operating systems, architectures, and technologies where a weakness could appear (ApplicablePlatformsType in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class cwe:TechnologyPlatform ;
+            sh:description "Technologies applicable to this weakness." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path cwe:technologies ],
+        [ sh:class cwe:OSPlatform ;
+            sh:description "Operating systems applicable to this weakness." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path cwe:operating_systems ],
+        [ sh:class cwe:LanguagePlatform ;
+            sh:description "Programming languages applicable to this weakness." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path cwe:languages ],
+        [ sh:class cwe:ArchitecturePlatform ;
+            sh:description "Processor architectures applicable to this weakness." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path cwe:architectures ] ;
+    sh:targetClass cwe:ApplicablePlatforms .
+
+cwe:ArchitecturePlatform a sh:NodeShape ;
+    rdfs:comment "A processor architecture or class applicable to a weakness (Architecture element in ApplicablePlatformsType)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Class of the processor architecture." ;
+            sh:in ( "EMBEDDED" "MICROCOMPUTER" "WORKSTATION" "NOT_ARCHITECTURE_SPECIFIC" ) ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path cwe:class_ ],
+        [ sh:description "Name of the processor architecture." ;
+            sh:in ( "ALPHA" "ARM" "ITANIUM" "POWER_ARCHITECTURE" "SPARC" "X86" "OTHER" ) ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path rdfs:label ],
+        [ sh:description "Regularity with which this weakness applies to this architecture." ;
+            sh:in ( "OFTEN" "SOMETIMES" "RARELY" "UNDETERMINED" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path cwe:prevalence ] ;
+    sh:targetClass cwe:ArchitecturePlatform .
+
+cwe:Audience a sh:NodeShape ;
+    rdfs:comment "A target stakeholder group for a CWE view or category (AudienceType/Stakeholder in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Narrative description of the entity." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path dct:description ],
+        [ sh:description "Type of stakeholder in the CWE community." ;
+            sh:in ( "ACADEMIC_RESEARCHERS" "APPLIED_RESEARCHERS" "ASSESSMENT_TEAMS" "ASSESSMENT_TOOL_VENDORS" "CWE_TEAM" "EDUCATORS" "HARDWARE_DESIGNERS" "INFORMATION_PROVIDERS" "PRODUCT_CUSTOMERS" "PRODUCT_VENDORS" "SOFTWARE_DEVELOPERS" "VULNERABILITY_ANALYSTS" "OTHER" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path cwe:type ] ;
+    sh:targetClass cwe:Audience .
+
+cwe:Category a sh:NodeShape ;
+    rdfs:comment "A collection of weaknesses grouped by a shared characteristic (CategoryType in XSD). Organizational mechanism only; not for mapping." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Short human-readable name or title for this entity." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path rdfs:label ],
+        [ sh:description "Lifecycle status of the CWE entry, category, or view." ;
+            sh:in ( "DEPRECATED" "DRAFT" "INCOMPLETE" "OBSOLETE" "STABLE" "USABLE" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path cwe:status ],
+        [ sh:class cwe:MappingNotes ;
+            sh:description "Guidance for when and whether to map an issue to this entry." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 7 ;
+            sh:path cwe:mapping_notes ],
+        [ sh:class cwe:TaxonomyMapping ;
+            sh:description "Mappings to equivalent entries in external taxonomies." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path cwe:taxonomy_mappings ],
+        [ sh:class cwe:Note ;
+            sh:description "Additional comments about this entry." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path skos:note ],
+        [ sh:class cwe:CWEReference ;
+            sh:description "Links to external references defined in the catalog." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path cwe:references ],
+        [ sh:class cwe:ContentHistory ;
+            sh:description "Tracks the original author and subsequent modifications." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path cwe:content_history ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Unique numeric identifier for the CWE entry, category, or view." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dct:identifier ],
+        [ sh:class cwe:Relationship ;
+            sh:description "Membership relationships for a CWE category." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path cwe:relationships ],
+        [ sh:datatype xsd:string ;
+            sh:description "Key points that define a category." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path cwe:summary ] ;
+    sh:targetClass cwe:Category .
+
+cwe:CommonConsequence a sh:NodeShape ;
+    rdfs:comment "Individual consequence associated with a weakness (CommonConsequencesType/Consequence in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Additional contextual note." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path cwe:note ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unique identifier for a common consequence (e.g. CC-1)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path cwe:consequence_id ],
+        [ sh:description "Technical impacts that arise if the weakness is exploited." ;
+            sh:in ( "MODIFY_MEMORY" "READ_MEMORY" "MODIFY_FILES_OR_DIRECTORIES" "READ_FILES_OR_DIRECTORIES" "MODIFY_APPLICATION_DATA" "READ_APPLICATION_DATA" "DOS_CRASH_EXIT_OR_RESTART" "DOS_AMPLIFICATION" "DOS_INSTABILITY" "DOS_RESOURCE_CONSUMPTION_CPU" "DOS_RESOURCE_CONSUMPTION_MEMORY" "DOS_RESOURCE_CONSUMPTION_OTHER" "EXECUTE_UNAUTHORIZED_CODE_OR_COMMANDS" "GAIN_PRIVILEGES_OR_ASSUME_IDENTITY" "BYPASS_PROTECTION_MECHANISM" "HIDE_ACTIVITIES" "ALTER_EXECUTION_LOGIC" "QUALITY_DEGRADATION" "UNEXPECTED_STATE" "VARIES_BY_CONTEXT" "INCREASE_ANALYTICAL_COMPLEXITY" "REDUCE_MAINTAINABILITY" "REDUCE_PERFORMANCE" "REDUCE_RELIABILITY" "OTHER" ) ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path cwe:impacts ],
+        [ sh:description "Security properties violated by this consequence." ;
+            sh:in ( "CONFIDENTIALITY" "INTEGRITY" "AVAILABILITY" "ACCESS_CONTROL" "ACCOUNTABILITY" "AUTHENTICATION" "AUTHORIZATION" "NON_REPUDIATION" "OTHER" ) ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path cwe:scopes ],
+        [ sh:description "Likelihood of this specific consequence." ;
+            sh:in ( "HIGH" "MEDIUM" "LOW" "UNKNOWN" ) ;
+            sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path cwe:likelihood ] ;
+    sh:targetClass cwe:CommonConsequence .
+
+cwe:Contribution a sh:NodeShape ;
+    rdfs:comment "A contribution record documenting donated content or feedback (ContentHistoryType/Contribution in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Whether the contribution was Content or Feedback." ;
+            sh:in ( "CONTENT" "FEEDBACK" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path cwe:type ],
+        [ sh:datatype xsd:date ;
+            sh:description "Release date of the CWE version containing the contribution." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path cwe:contribution_release_date ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of the contributor." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path cwe:contribution_name ],
+        [ sh:datatype xsd:date ;
+            sh:description "Date of the contribution." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path cwe:contribution_date ],
+        [ sh:datatype xsd:string ;
+            sh:description "CWE version in which the contribution first appeared." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path cwe:contribution_version ],
+        [ sh:datatype xsd:string ;
+            sh:description "Comment related to the contribution." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path cwe:contribution_comment ],
+        [ sh:datatype xsd:string ;
+            sh:description "Organization of the contributor." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path cwe:contribution_organization ] ;
+    sh:targetClass cwe:Contribution .
+
+cwe:DemonstrativeExample a sh:NodeShape ;
+    rdfs:comment "A code example illustrating how a weakness may appear (DemonstrativeExamplesType/Demonstrative_Example in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Interleaved body text paragraphs for a demonstrative example." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path cwe:body_texts ],
+        [ sh:class cwe:ExampleCode ;
+            sh:description "Structured code snippets within a demonstrative example." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path cwe:example_codes ],
+        [ sh:datatype xsd:string ;
+            sh:description "Context and setting for the demonstrative example." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path cwe:intro_text ],
+        [ sh:class cwe:CWEReference ;
+            sh:description "Links to external references defined in the catalog." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path cwe:references ],
+        [ sh:datatype xsd:string ;
+            sh:description "Optional title for a demonstrative example." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path cwe:title_text ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unique identifier for a demonstrative example (e.g. DX-1)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path cwe:demonstrative_example_id ] ;
+    sh:targetClass cwe:DemonstrativeExample .
+
+cwe:DetectionMethod a sh:NodeShape ;
+    rdfs:comment "A method that may be employed to detect a weakness, with effectiveness (DetectionMethodsType/Detection_Method in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Unique identifier for a detection method entry (e.g. DM-1)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path cwe:detection_method_id ],
+        [ sh:description "Effectiveness level (range narrowed to DetectionEffectiveness or MitigationEffectiveness per class via slot_usage)." ;
+            sh:in ( "HIGH" "MODERATE" "SOAR_PARTIAL" "OPPORTUNISTIC" "LIMITED" "NONE" ) ;
+            sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path cwe:effectiveness ],
+        [ sh:description "Detection method (range narrowed per class via slot_usage)." ;
+            sh:in ( "AUTOMATED_ANALYSIS" "AUTOMATED_DYNAMIC_ANALYSIS" "AUTOMATED_STATIC_ANALYSIS" "AUTOMATED_STATIC_ANALYSIS_SOURCE_CODE" "AUTOMATED_STATIC_ANALYSIS_BINARY_OR_BYTECODE" "FUZZING" "MANUAL_ANALYSIS" "MANUAL_DYNAMIC_ANALYSIS" "MANUAL_STATIC_ANALYSIS" "MANUAL_STATIC_ANALYSIS_SOURCE_CODE" "MANUAL_STATIC_ANALYSIS_BINARY_OR_BYTECODE" "WHITE_BOX" "BLACK_BOX" "ARCHITECTURE_OR_DESIGN_REVIEW" "DYNAMIC_ANALYSIS_WITH_MANUAL_RESULTS_INTERPRETATION" "DYNAMIC_ANALYSIS_WITH_AUTOMATED_RESULTS_INTERPRETATION" "FORMAL_VERIFICATION" "SIMULATION_EMULATION" "OTHER" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 1 ;
+            sh:path cwe:method ],
+        [ sh:datatype xsd:string ;
+            sh:description "Strengths and shortcomings of this detection or mitigation." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path cwe:effectiveness_notes ],
+        [ sh:datatype xsd:string ;
+            sh:description "Narrative description of the entity." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path dct:description ] ;
+    sh:targetClass cwe:DetectionMethod .
+
+cwe:ExampleCode a sh:NodeShape ;
+    rdfs:comment "A structured code snippet within a demonstrative example (StructuredCodeType in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Text content of the code snippet." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path cwe:content ],
+        [ sh:description "Nature of the code (Bad, Good, Attack, Mitigation, etc.)." ;
+            sh:in ( "ATTACK" "BAD" "GOOD" "INFORMATIVE" "MITIGATION" "RESULT" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path skos:related ],
+        [ sh:description "Programming language used in this code example." ;
+            sh:in ( "ADA" "ARM_ASSEMBLY" "ASP" "ASP_DOT_NET" "BASIC" "C" "C_PLUS_PLUS" "C_SHARP" "COBOL" "FORTRAN" "FSHARP" "GO" "HTML" "JAVA" "JAVASCRIPT" "JSON" "JSP" "OBJECTIVE_C" "PASCAL" "PERL" "PHP" "PSEUDOCODE" "PYTHON" "RUBY" "RUST" "SHELL" "SQL" "SWIFT" "VB_DOT_NET" "VERILOG" "VHDL" "XML" "X86_ASSEMBLY" "OTHER" ) ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path cwe:language ] ;
+    sh:targetClass cwe:ExampleCode .
+
+cwe:ExternalReference a sh:NodeShape ;
+    rdfs:comment "Pointer to external reading material shared across CWE entries (ExternalReferenceType in XSD). Identified by Reference_ID (e.g. REF-1)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Descriptive title for a reference or catalog element." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path dct:title ],
+        [ sh:datatype xsd:string ;
+            sh:description "Month of publication in --MM format." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path cwe:publication_month ],
+        [ sh:datatype xsd:date ;
+            sh:description "Date when the URL was last validated to exist." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path cwe:url_date ],
+        [ sh:datatype xsd:string ;
+            sh:description "Globally unique identifier for an external reference (e.g. REF-1)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dct:identifier ],
+        [ sh:datatype xsd:anyURI ;
+            sh:description "URL pointing to the reference resource." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 9 ;
+            sh:path schema1:url ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of the magazine or journal." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path cwe:publication ],
+        [ sh:datatype xsd:string ;
+            sh:description "Day of publication in ---DD format." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path cwe:publication_day ],
+        [ sh:datatype xsd:string ;
+            sh:description "Authors of the referenced material." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path cwe:authors ],
+        [ sh:datatype xsd:string ;
+            sh:description "Year of publication in YYYY format." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path cwe:publication_year ],
+        [ sh:datatype xsd:string ;
+            sh:description "Edition of the material being referenced." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path cwe:edition ],
+        [ sh:datatype xsd:string ;
+            sh:description "Publisher of the referenced material." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 8 ;
+            sh:path cwe:publisher ] ;
+    sh:targetClass cwe:ExternalReference .
+
+cwe:LanguagePlatform a sh:NodeShape ;
+    rdfs:comment "A programming language or language class applicable to a weakness with associated prevalence (Language element in ApplicablePlatformsType)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Name of the programming language." ;
+            sh:in ( "ADA" "ARM_ASSEMBLY" "ASP" "ASP_DOT_NET" "BASIC" "C" "C_PLUS_PLUS" "C_SHARP" "COBOL" "FORTRAN" "FSHARP" "GO" "HTML" "JAVA" "JAVASCRIPT" "JSON" "JSP" "OBJECTIVE_C" "PASCAL" "PERL" "PHP" "PSEUDOCODE" "PYTHON" "RUBY" "RUST" "SHELL" "SQL" "SWIFT" "VB_DOT_NET" "VERILOG" "VHDL" "XML" "X86_ASSEMBLY" "OTHER" ) ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path rdfs:label ],
+        [ sh:description "Class of the programming language." ;
+            sh:in ( "ASSEMBLY" "COMPILED" "HARDWARE_DESCRIPTION_LANGUAGE" "INTERPRETED" "OBJECT_ORIENTED" "MEMORY_UNSAFE" "NOT_LANGUAGE_SPECIFIC" ) ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path cwe:class_ ],
+        [ sh:description "Regularity with which this weakness applies to this language." ;
+            sh:in ( "OFTEN" "SOMETIMES" "RARELY" "UNDETERMINED" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path cwe:prevalence ] ;
+    sh:targetClass cwe:LanguagePlatform .
+
+cwe:MappingSuggestion a sh:NodeShape ;
+    rdfs:comment "A suggested alternative CWE entry for mapping purposes (SuggestionsType/Suggestion in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Explanatory comment (e.g. on a mapping suggestion)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path cwe:comment ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Numeric CWE ID (foreign key in relationships and members)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path cwe:cwe_id ] ;
+    sh:targetClass cwe:MappingSuggestion .
+
+cwe:ModeOfIntroduction a sh:NodeShape ;
+    rdfs:comment "Information about how and when a weakness may be introduced (ModesOfIntroductionType/Introduction in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Lifecycle phase for introduction or mitigation." ;
+            sh:in ( "POLICY" "REQUIREMENTS" "ARCHITECTURE_AND_DESIGN" "IMPLEMENTATION" "BUILD_AND_COMPILATION" "TESTING" "DOCUMENTATION" "BUNDLING" "DISTRIBUTION" "INSTALLATION" "SYSTEM_CONFIGURATION" "OPERATION" "PATCHING_AND_MAINTENANCE" "PORTING" "INTEGRATION" "MANUFACTURING" "DECOMMISSIONING_AND_END_OF_LIFE" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path cwe:phase ],
+        [ sh:datatype xsd:string ;
+            sh:description "Additional contextual note." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path cwe:note ] ;
+    sh:targetClass cwe:ModeOfIntroduction .
+
+cwe:Modification a sh:NodeShape ;
+    rdfs:comment "A modification record documenting a change to a CWE entry (ContentHistoryType/Modification in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Importance level of this modification." ;
+            sh:in ( "NORMAL" "CRITICAL" ) ;
+            sh:maxCount 1 ;
+            sh:order 5 ;
+            sh:path cwe:modification_importance ],
+        [ sh:datatype xsd:string ;
+            sh:description "CWE version in which the modification first appeared." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path cwe:modification_version ],
+        [ sh:datatype xsd:string ;
+            sh:description "Organization of the modifier." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path cwe:modification_organization ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of the person who made the modification." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path cwe:modification_name ],
+        [ sh:datatype xsd:date ;
+            sh:description "Date on which the modification was made." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path cwe:modification_date ],
+        [ sh:datatype xsd:date ;
+            sh:description "Release date of the CWE version containing the modification." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path cwe:modification_release_date ],
+        [ sh:datatype xsd:string ;
+            sh:description "Comment describing what was changed." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 6 ;
+            sh:path cwe:modification_comment ] ;
+    sh:targetClass cwe:Modification .
+
+cwe:NVDWeaknessObservation a sh:NodeShape ;
+    rdfs:comment "Weakness observation from an NVD vulnerability detail page." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Source or origin of the data." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path dct:source ],
+        [ sh:description "Source label for the weakness row (e.g. NIST, ASSIGNER)." ;
+            sh:in ( "MITRE" "NIST" "ASSIGNER" "CNA" "OTHER" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path dct:source ],
+        [ sh:class cwe:Weakness ;
+            sh:description "Referenced CWE entry for this observation." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:IRI ;
+            sh:order 2 ;
+            sh:path schema1:about ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identifier for an NVD weakness observation row." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dct:identifier ],
+        [ sh:datatype xsd:string ;
+            sh:description "CVE identifier where this weakness observation appears." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path dct:references ;
+            sh:pattern "^CVE-[0-9]{4}-[0-9]+$" ] ;
+    sh:targetClass cwe:NVDWeaknessObservation .
+
+cwe:OSPlatform a sh:NodeShape ;
+    rdfs:comment "An operating system or OS class applicable to a weakness (Operating_System element in ApplicablePlatformsType)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Version of the operating system." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path schema1:version ],
+        [ sh:description "Class of the operating system." ;
+            sh:in ( "LINUX" "MACOS" "UNIX" "WINDOWS" "NOT_OS_SPECIFIC" ) ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path cwe:class_ ],
+        [ sh:description "Name of the operating system." ;
+            sh:in ( "AIX" "ANDROID" "BLACKBERRY_OS" "CHROME_OS" "DARWIN" "FREEBSD" "IOS" "MACOS" "NETBSD" "OPENBSD" "RED_HAT" "SOLARIS" "SUSE" "TVOS" "UBUNTU" "WATCHOS" "WINDOWS_9X" "WINDOWS_EMBEDDED" "WINDOWS_NT" ) ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path rdfs:label ],
+        [ sh:description "Regularity with which this weakness applies to this OS." ;
+            sh:in ( "OFTEN" "SOMETIMES" "RARELY" "UNDETERMINED" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 4 ;
+            sh:path cwe:prevalence ],
+        [ sh:datatype xsd:string ;
+            sh:description "CPE identifier for this operating system." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path cwe:cpe_id ] ;
+    sh:targetClass cwe:OSPlatform .
+
+cwe:ObservedExample a sh:NodeShape ;
+    rdfs:comment "A reference to a real-world instance of a weakness, typically a CVE (ObservedExampleType/Observed_Example in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Identifier for a real-world example (e.g. CVE-2005-1951)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path cwe:reference ],
+        [ sh:datatype xsd:string ;
+            sh:description "Narrative description of the entity." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path dct:description ],
+        [ sh:datatype xsd:anyURI ;
+            sh:description "URL providing more information about the observed example." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path cwe:link ] ;
+    sh:targetClass cwe:ObservedExample .
+
+cwe:PotentialMitigation a sh:NodeShape ;
+    rdfs:comment "A potential mitigation for a weakness (PotentialMitigationsType/Mitigation in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Effectiveness level (range narrowed to DetectionEffectiveness or MitigationEffectiveness per class via slot_usage)." ;
+            sh:in ( "HIGH" "MODERATE" "LIMITED" "INCIDENTAL" "DEFENSE_IN_DEPTH" "DISCOURAGED_COMMON_PRACTICE" "NONE" ) ;
+            sh:maxCount 1 ;
+            sh:order 4 ;
+            sh:path cwe:effectiveness ],
+        [ sh:datatype xsd:string ;
+            sh:description "Unique identifier for a potential mitigation (e.g. MIT-1)." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path cwe:mitigation_id ],
+        [ sh:datatype xsd:string ;
+            sh:description "Narrative description of the entity." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path dct:description ],
+        [ sh:description "Lifecycle phases during which a mitigation may be applied." ;
+            sh:in ( "POLICY" "REQUIREMENTS" "ARCHITECTURE_AND_DESIGN" "IMPLEMENTATION" "BUILD_AND_COMPILATION" "TESTING" "DOCUMENTATION" "BUNDLING" "DISTRIBUTION" "INSTALLATION" "SYSTEM_CONFIGURATION" "OPERATION" "PATCHING_AND_MAINTENANCE" "PORTING" "INTEGRATION" "MANUFACTURING" "DECOMMISSIONING_AND_END_OF_LIFE" ) ;
+            sh:order 1 ;
+            sh:path cwe:phases ],
+        [ sh:description "General protection strategy to which a mitigation contributes." ;
+            sh:in ( "ATTACK_SURFACE_REDUCTION" "COMPILATION_OR_BUILD_HARDENING" "ENFORCEMENT_BY_CONVERSION" "ENVIRONMENT_HARDENING" "FIREWALL" "INPUT_VALIDATION" "LANGUAGE_SELECTION" "LIBRARIES_OR_FRAMEWORKS" "RESOURCE_LIMITATION" "OUTPUT_ENCODING" "PARAMETERIZATION" "REFACTORING" "SANDBOX_OR_JAIL" "SEPARATION_OF_PRIVILEGE" ) ;
+            sh:maxCount 1 ;
+            sh:order 2 ;
+            sh:path cwe:strategy ],
+        [ sh:datatype xsd:string ;
+            sh:description "Strengths and shortcomings of this detection or mitigation." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path cwe:effectiveness_notes ] ;
+    sh:targetClass cwe:PotentialMitigation .
+
+cwe:PreviousEntryName a sh:NodeShape ;
+    rdfs:comment "A previous name used for a CWE entry before a substantive rename (ContentHistoryType/Previous_Entry_Name in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "The previous name of this CWE entry." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path rdfs:label ],
+        [ sh:datatype xsd:date ;
+            sh:description "Date on which this name was last used." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path dct:date ],
+        [ sh:datatype xsd:string ;
+            sh:description "CWE version in which the name change occurred." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path schema1:version ] ;
+    sh:targetClass cwe:PreviousEntryName .
+
+cwe:RelatedWeakness a sh:NodeShape ;
+    rdfs:comment "Typed directional relationship from one CWE entry to another (RelatedWeaknessesType/Related_Weakness in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:description "ID of a named chain for CanFollow/CanPrecede relationships." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path cwe:chain_id ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Numeric ID of the target CWE entry." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path cwe:cwe_id ],
+        [ sh:datatype xsd:integer ;
+            sh:description "View within which this relationship is relevant." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path cwe:view_id ],
+        [ sh:description "Set to \"Primary\" for the primary ChildOf relationship in the given view." ;
+            sh:in ( "PRIMARY" ) ;
+            sh:maxCount 1 ;
+            sh:order 4 ;
+            sh:path cwe:ordinal ],
+        [ sh:description "Nature of the relationship." ;
+            sh:in ( "CHILD_OF" "PARENT_OF" "STARTS_WITH" "CAN_FOLLOW" "CAN_PRECEDE" "REQUIRED_BY" "REQUIRES" "CAN_ALSO_BE" "PEER_OF" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path skos:related ] ;
+    sh:targetClass cwe:RelatedWeakness .
+
+cwe:Relationship a sh:NodeShape ;
+    rdfs:comment "Container for category membership relationships (RelationshipsType in XSD). Holds Has_Member and optionally Member_Of lists." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class cwe:CatalogMember ;
+            sh:description "CWE entries that belong to this category or view." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path cwe:has_member ],
+        [ sh:class cwe:CatalogMember ;
+            sh:description "Views or categories that this entry belongs to." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path cwe:member_of ] ;
+    sh:targetClass cwe:Relationship .
+
+cwe:Submission a sh:NodeShape ;
+    rdfs:comment "Initial submission record for a CWE entry (ContentHistoryType/Submission in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Organization of the submitter." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path cwe:submission_organization ],
+        [ sh:datatype xsd:string ;
+            sh:description "Name of the person who submitted this entry." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path cwe:submission_name ],
+        [ sh:datatype xsd:date ;
+            sh:description "Date on which this entry was submitted." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path cwe:submission_date ],
+        [ sh:datatype xsd:string ;
+            sh:description "Optional comment related to the submission." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 5 ;
+            sh:path cwe:submission_comment ],
+        [ sh:datatype xsd:date ;
+            sh:description "Release date of the CWE version that added this entry." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path cwe:submission_release_date ],
+        [ sh:datatype xsd:string ;
+            sh:description "CWE version in which this entry was first added." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path cwe:submission_version ] ;
+    sh:targetClass cwe:Submission .
+
+cwe:TechnologyPlatform a sh:NodeShape ;
+    rdfs:comment "A technology or technology class applicable to a weakness (Technology element in ApplicablePlatformsType)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Name of the technology." ;
+            sh:in ( "AI_ML" "WEB_SERVER" "DATABASE_SERVER" "ACCELERATOR_HARDWARE" "ANALOG_AND_MIXED_SIGNAL_HARDWARE" "AUDIO_VIDEO_HARDWARE" "BUS_INTERFACE_HARDWARE" "CLOCK_COUNTER_HARDWARE" "COMMUNICATION_HARDWARE" "CONTROLLER_HARDWARE" "MEMORY_HARDWARE" "MICROCONTROLLER_HARDWARE" "NETWORK_ON_CHIP_HARDWARE" "POWER_MANAGEMENT_HARDWARE" "PROCESSOR_HARDWARE" "SECURITY_HARDWARE" "SENSOR_HARDWARE" "STORAGE_HARDWARE" "TEST_DEBUG_HARDWARE" "OTHER" ) ;
+            sh:maxCount 1 ;
+            sh:order 0 ;
+            sh:path rdfs:label ],
+        [ sh:description "Class of the technology." ;
+            sh:in ( "CLIENT_SERVER" "CLOUD_COMPUTING" "ICS_OT" "MAINFRAME" "MOBILE" "N_TIER" "SOA" "SYSTEM_ON_CHIP" "WEB_BASED" "NOT_TECHNOLOGY_SPECIFIC" ) ;
+            sh:maxCount 1 ;
+            sh:order 1 ;
+            sh:path cwe:class_ ],
+        [ sh:description "Regularity with which this weakness applies to this technology." ;
+            sh:in ( "OFTEN" "SOMETIMES" "RARELY" "UNDETERMINED" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path cwe:prevalence ] ;
+    sh:targetClass cwe:TechnologyPlatform .
+
+cwe:View a sh:NodeShape ;
+    rdfs:comment "A perspective from which to look at weaknesses in the catalog (ViewType in XSD). Types: Graph, Explicit slice, Implicit slice." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Perspective from which a view has been constructed." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 4 ;
+            sh:path cwe:objective ],
+        [ sh:class cwe:Audience ;
+            sh:description "Target stakeholder groups for this view or category." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 5 ;
+            sh:path cwe:audience ],
+        [ sh:datatype xsd:string ;
+            sh:description "XSL query identifying members of an implicit slice view." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path cwe:filter ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Unique numeric identifier for the CWE entry, category, or view." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dct:identifier ],
+        [ sh:class cwe:MappingNotes ;
+            sh:description "Guidance for when and whether to map an issue to this entry." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path cwe:mapping_notes ],
+        [ sh:class cwe:Note ;
+            sh:description "Additional comments about this entry." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 10 ;
+            sh:path skos:note ],
+        [ sh:class cwe:CWEReference ;
+            sh:description "Links to external references defined in the catalog." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path cwe:references ],
+        [ sh:description "Lifecycle status of the CWE entry, category, or view." ;
+            sh:in ( "DEPRECATED" "DRAFT" "INCOMPLETE" "OBSOLETE" "STABLE" "USABLE" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path cwe:status ],
+        [ sh:class cwe:ContentHistory ;
+            sh:description "Tracks the original author and subsequent modifications." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path cwe:content_history ],
+        [ sh:datatype xsd:string ;
+            sh:description "Short human-readable name or title for this entity." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path rdfs:label ],
+        [ sh:class cwe:CatalogMember ;
+            sh:description "Member entries for a CWE view." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 6 ;
+            sh:path cwe:members ],
+        [ sh:description "Type of view (Graph, Explicit, or Implicit)." ;
+            sh:in ( "GRAPH" "EXPLICIT" "IMPLICIT" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 2 ;
+            sh:path cwe:type ] ;
+    sh:targetClass cwe:View .
+
+cwe:WeaknessOrdinality a sh:NodeShape ;
+    rdfs:comment "Potential ordering relationship with other weaknesses (WeaknessOrdinalitiesType/Weakness_Ordinality in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Ordinality level (Primary, Resultant, or Indirect)." ;
+            sh:in ( "PRIMARY" "RESULTANT" "INDIRECT" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path cwe:ordinality ],
+        [ sh:datatype xsd:string ;
+            sh:description "Context in which this ordering relationship exists." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path dct:description ] ;
+    sh:targetClass cwe:WeaknessOrdinality .
+
+cwe:TaxonomyMapping a sh:NodeShape ;
+    rdfs:comment "A mapping from a CWE entry to an equivalent entry in an external taxonomy (TaxonomyMappingsType/Taxonomy_Mapping in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Name of the entry in the external taxonomy." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path cwe:entry_name ],
+        [ sh:description "How close the CWE entry is to the mapped taxonomy entry." ;
+            sh:in ( "EXACT" "CWE_MORE_ABSTRACT" "CWE_MORE_SPECIFIC" "IMPRECISE" "PERSPECTIVE" ) ;
+            sh:maxCount 1 ;
+            sh:order 3 ;
+            sh:path cwe:mapping_fit ],
+        [ sh:datatype xsd:string ;
+            sh:description "ID of the entry in the external taxonomy." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path cwe:entry_id ],
+        [ sh:description "Name of the external taxonomy to which the mapping is made." ;
+            sh:in ( "SEVEN_PERNICIOUS_KINGDOMS" "NINETEEN_DEADLY_SINS" "ASLAM" "BISHOP" "CERT_C_SECURE_CODING" "CERT_CPP_SECURE_CODING" "THE_CERT_ORACLE_SECURE_CODING_STANDARD_FOR_JAVA_2011" "CLASP" "ISA_IEC_62443" "LANDWEHR" "OMG_ASCSM" "OMG_ASCRM" "OMG_ASCMM" "OMG_ASCPEM" "OWASP_TOP_TEN_2004" "OWASP_TOP_TEN_2007" "OWASP_TOP_TEN" "PLOVER" "PROTECTION_ANALYSIS" "RISOS" "SEI_CERT_C_CODING_STANDARD" "SEI_CERT_CPP_CODING_STANDARD" "SEI_CERT_ORACLE_CODING_STANDARD_FOR_JAVA" "SEI_CERT_PERL_CODING_STANDARD" "SOFTWARE_FAULT_PATTERNS" "WEBER_KARGER_PARADKAR" "WASC" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path cwe:taxonomy_name ] ;
+    sh:targetClass cwe:TaxonomyMapping .
+
+cwe:Weakness a sh:NodeShape ;
+    rdfs:comment "Canonical CWE weakness record (WeaknessType in XSD). Describes a specific type of weakness and the full set of associated information." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class cwe:ObservedExample ;
+            sh:description "Real-world instances of this weakness." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 19 ;
+            sh:path cwe:observed_examples ],
+        [ sh:class cwe:ContentHistory ;
+            sh:description "Tracks the original author and subsequent modifications." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 28 ;
+            sh:path cwe:content_history ],
+        [ sh:class cwe:AlternateTerm ;
+            sh:description "Other names by which this weakness is known." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 11 ;
+            sh:path cwe:alternate_terms ],
+        [ sh:datatype xsd:string ;
+            sh:description "Conditions that could increase the likelihood of exploit." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 13 ;
+            sh:path cwe:exploitation_factors ],
+        [ sh:description "Qualitative likelihood that the weakness can be exploited." ;
+            sh:in ( "HIGH" "MEDIUM" "LOW" "UNKNOWN" ) ;
+            sh:maxCount 1 ;
+            sh:order 14 ;
+            sh:path cwe:likelihood_of_exploit ],
+        [ sh:class cwe:DetectionMethod ;
+            sh:description "Methods that may be employed to detect this weakness." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 16 ;
+            sh:path cwe:detection_methods ],
+        [ sh:datatype xsd:string ;
+            sh:description "Source or origin of the data." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 30 ;
+            sh:path dct:source ],
+        [ sh:datatype xsd:string ;
+            sh:description "Optional diagram filename or reference associated with the entry." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 7 ;
+            sh:path cwe:diagram ],
+        [ sh:class cwe:PotentialMitigation ;
+            sh:description "Potential mitigations associated with this weakness." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 17 ;
+            sh:path cwe:potential_mitigations ],
+        [ sh:class cwe:ModeOfIntroduction ;
+            sh:description "Information about how and when this weakness may be introduced." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 12 ;
+            sh:path cwe:modes_of_introduction ],
+        [ sh:datatype xsd:string ;
+            sh:description "Narrative description of the entity." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path dct:description ],
+        [ sh:datatype xsd:string ;
+            sh:description "Free-form tags for grouping and downstream filtering." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 29 ;
+            sh:path cwe:tags ],
+        [ sh:description "System resources that can be affected by exploiting this weakness." ;
+            sh:in ( "CPU" "FILE_OR_DIRECTORY" "MEMORY" "SYSTEM_PROCESS" "OTHER" ) ;
+            sh:order 21 ;
+            sh:path cwe:affected_resources ],
+        [ sh:class cwe:TaxonomyMapping ;
+            sh:description "Mappings to equivalent entries in external taxonomies." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 22 ;
+            sh:path cwe:taxonomy_mappings ],
+        [ sh:datatype xsd:integer ;
+            sh:description "CAPEC identifiers of attack patterns associated with this weakness." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 23 ;
+            sh:path skos:related ],
+        [ sh:class cwe:ApplicablePlatforms ;
+            sh:description "Languages, OS, architectures, and technologies where this weakness can appear." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 9 ;
+            sh:path cwe:applicable_platforms ],
+        [ sh:class cwe:MappingNotes ;
+            sh:description "Guidance for when and whether to map an issue to this entry." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 26 ;
+            sh:path cwe:mapping_notes ],
+        [ sh:datatype xsd:string ;
+            sh:description "Short human-readable name or title for this entity." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path rdfs:label ],
+        [ sh:class cwe:Note ;
+            sh:description "Additional comments about this entry." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 27 ;
+            sh:path skos:note ],
+        [ sh:description "Structural nature of the weakness (Simple, Chain, or Composite)." ;
+            sh:in ( "SIMPLE" "CHAIN" "COMPOSITE" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 5 ;
+            sh:path cwe:structure ],
+        [ sh:class cwe:CommonConsequence ;
+            sh:description "Individual consequences associated with this weakness." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 15 ;
+            sh:path cwe:common_consequences ],
+        [ sh:description "Functional areas in which this weakness is most likely to occur." ;
+            sh:in ( "AUTHENTICATION" "AUTHORIZATION" "CODE_LIBRARIES" "COUNTERS" "CRYPTOGRAPHY" "ERROR_HANDLING" "INTERPROCESS_COMMUNICATION" "FILE_PROCESSING" "LOGGING" "MEMORY_MANAGEMENT" "NETWORKING" "NUMBER_PROCESSING" "PROGRAM_INVOCATION" "PROTECTION_MECHANISM" "SESSION_MANAGEMENT" "SIGNALS" "STRING_PROCESSING" "NOT_FUNCTIONAL_AREA_SPECIFIC" "POWER" "CLOCK" ) ;
+            sh:order 20 ;
+            sh:path cwe:functional_areas ],
+        [ sh:class cwe:RelatedWeakness ;
+            sh:description "Typed relationships to other CWE entries." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 24 ;
+            sh:path cwe:related_weaknesses ],
+        [ sh:description "Lifecycle status of the CWE entry, category, or view." ;
+            sh:in ( "DEPRECATED" "DRAFT" "INCOMPLETE" "OBSOLETE" "STABLE" "USABLE" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 6 ;
+            sh:path cwe:status ],
+        [ sh:datatype xsd:string ;
+            sh:description "Extended description providing additional details beyond the core concept." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 3 ;
+            sh:path cwe:extended_description ],
+        [ sh:datatype xsd:string ;
+            sh:description "Background information relevant but not describing the weakness itself." ;
+            sh:nodeKind sh:Literal ;
+            sh:order 10 ;
+            sh:path cwe:background_details ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Unique numeric identifier for the CWE entry, category, or view." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path dct:identifier ],
+        [ sh:description "CWE abstraction tier (e.g. Base or Variant)." ;
+            sh:in ( "PILLAR" "CLASS" "BASE" "VARIANT" "COMPOUND" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 4 ;
+            sh:path skos:broader ],
+        [ sh:class cwe:WeaknessOrdinality ;
+            sh:description "Potential ordering relationships of this weakness with others." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 8 ;
+            sh:path cwe:weakness_ordinalities ],
+        [ sh:class cwe:CWEReference ;
+            sh:description "Links to external references defined in the catalog." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 25 ;
+            sh:path cwe:references ],
+        [ sh:class cwe:DemonstrativeExample ;
+            sh:description "Code examples illustrating how this weakness may appear." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 18 ;
+            sh:path cwe:demonstrative_examples ] ;
+    sh:targetClass cwe:Weakness .
+
+cwe:CatalogMember a sh:NodeShape ;
+    rdfs:comment "A Has_Member or Member_Of entry specifying a CWE ID and the View ID in which the membership holds (MemberType in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:integer ;
+            sh:description "View ID within which a relationship or membership is relevant." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path cwe:view_id ],
+        [ sh:datatype xsd:integer ;
+            sh:description "Numeric CWE ID (foreign key in relationships and members)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path cwe:cwe_id ] ;
+    sh:targetClass cwe:CatalogMember .
+
+cwe:ContentHistory a sh:NodeShape ;
+    rdfs:comment "Tracks the original author and subsequent modifications (ContentHistoryType in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:class cwe:Contribution ;
+            sh:description "Contribution records for this entry." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 2 ;
+            sh:path cwe:contributions ],
+        [ sh:class cwe:Submission ;
+            sh:description "Initial submission information for this entry." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 0 ;
+            sh:path cwe:submission ],
+        [ sh:class cwe:PreviousEntryName ;
+            sh:description "Previous names used for this entry before a substantive rename." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 3 ;
+            sh:path cwe:previous_entry_names ],
+        [ sh:class cwe:Modification ;
+            sh:description "Ordered list of modifications made to this entry." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 1 ;
+            sh:path cwe:modifications ] ;
+    sh:targetClass cwe:ContentHistory .
+
+cwe:MappingNotes a sh:NodeShape ;
+    rdfs:comment "Guidance for when and whether to map an issue to a CWE entry (MappingNotesType in XSD). Required on every Weakness, Category, and View." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Vocabulary summary of the mapping usage recommendation." ;
+            sh:in ( "ABSTRACTION" "CATEGORY" "VIEW" "DEPRECATED" "POTENTIAL_DEPRECATION" "FREQUENT_MISUSE" "FREQUENT_MISINTERPRETATION" "MULTIPLE_USE" "CWE_OVERLAP" "ACCEPTABLE_USE" "POTENTIAL_MAJOR_CHANGES" "OTHER" ) ;
+            sh:minCount 1 ;
+            sh:order 3 ;
+            sh:path cwe:reasons ],
+        [ sh:datatype xsd:string ;
+            sh:description "Further clarification for the mapping notes reader." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 2 ;
+            sh:path cwe:comments ],
+        [ sh:class cwe:MappingSuggestion ;
+            sh:description "Suggested alternative CWE entries for mapping." ;
+            sh:nodeKind sh:BlankNodeOrIRI ;
+            sh:order 4 ;
+            sh:path cwe:suggestions ],
+        [ sh:datatype xsd:string ;
+            sh:description "Context for the mapping usage designation." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path cwe:rationale ],
+        [ sh:description "Whether this CWE entry is supported for mapping." ;
+            sh:in ( "ALLOWED" "ALLOWED_WITH_REVIEW" "DISCOURAGED" "PROHIBITED" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path cwe:usage ] ;
+    sh:targetClass cwe:MappingNotes .
+
+cwe:Note a sh:NodeShape ;
+    rdfs:comment "Additional commentary about a CWE entry (NotesType/Note in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:description "Type of note (Maintenance, Terminology, Research Gap, etc.)." ;
+            sh:in ( "APPLICABLE_PLATFORM" "MAINTENANCE" "RELATIONSHIP" "RESEARCH_GAP" "TERMINOLOGY" "THEORETICAL" "OTHER" ) ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:order 0 ;
+            sh:path cwe:type ],
+        [ sh:datatype xsd:string ;
+            sh:description "Textual content of a note." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path cwe:content ] ;
+    sh:targetClass cwe:Note .
+
+cwe:CWEReference a sh:NodeShape ;
+    rdfs:comment "Link from a CWE entry to an ExternalReference in the catalog (ReferencesType/Reference in XSD)." ;
+    sh:closed true ;
+    sh:ignoredProperties ( rdf:type ) ;
+    sh:property [ sh:datatype xsd:string ;
+            sh:description "Section title or page number specific to this use of the reference." ;
+            sh:maxCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 1 ;
+            sh:path cwe:section ],
+        [ sh:datatype xsd:string ;
+            sh:description "Identifier of the ExternalReference being linked to (e.g. REF-1)." ;
+            sh:maxCount 1 ;
+            sh:minCount 1 ;
+            sh:nodeKind sh:Literal ;
+            sh:order 0 ;
+            sh:path cwe:external_reference_id ] ;
+    sh:targetClass cwe:CWEReference .
+

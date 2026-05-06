@@ -1,0 +1,812 @@
+# metamodel_version: 1.7.0
+# version: 7.3
+enum AffectedResource
+  {
+    CPU
+    FILE_OR_DIRECTORY
+    MEMORY
+    SYSTEM_PROCESS
+    OTHER
+  }
+
+enum ArchitectureClass
+  {
+    EMBEDDED
+    MICROCOMPUTER
+    WORKSTATION
+    NOT_ARCHITECTURE_SPECIFIC
+  }
+
+enum ArchitectureName
+  {
+    ALPHA
+    ARM
+    ITANIUM
+    POWER_ARCHITECTURE
+    SPARC
+    X86
+    OTHER
+  }
+
+enum CodeNature
+  {
+    ATTACK
+    BAD
+    GOOD
+    INFORMATIVE
+    MITIGATION
+    RESULT
+  }
+
+enum ContentImportance
+  {
+    NORMAL
+    CRITICAL
+  }
+
+enum ContributionType
+  {
+    CONTENT
+    FEEDBACK
+  }
+
+enum CWEViewType
+  {
+    GRAPH
+    EXPLICIT
+    IMPLICIT
+  }
+
+enum DetectionEffectiveness
+  {
+    HIGH
+    MODERATE
+    SOAR_PARTIAL
+    OPPORTUNISTIC
+    LIMITED
+    NONE
+  }
+
+enum DetectionMethodType
+  {
+    AUTOMATED_ANALYSIS
+    AUTOMATED_DYNAMIC_ANALYSIS
+    AUTOMATED_STATIC_ANALYSIS
+    AUTOMATED_STATIC_ANALYSIS_SOURCE_CODE
+    AUTOMATED_STATIC_ANALYSIS_BINARY_OR_BYTECODE
+    FUZZING
+    MANUAL_ANALYSIS
+    MANUAL_DYNAMIC_ANALYSIS
+    MANUAL_STATIC_ANALYSIS
+    MANUAL_STATIC_ANALYSIS_SOURCE_CODE
+    MANUAL_STATIC_ANALYSIS_BINARY_OR_BYTECODE
+    WHITE_BOX
+    BLACK_BOX
+    ARCHITECTURE_OR_DESIGN_REVIEW
+    DYNAMIC_ANALYSIS_WITH_MANUAL_RESULTS_INTERPRETATION
+    DYNAMIC_ANALYSIS_WITH_AUTOMATED_RESULTS_INTERPRETATION
+    FORMAL_VERIFICATION
+    SIMULATION_EMULATION
+    OTHER
+  }
+
+enum FunctionalArea
+  {
+    AUTHENTICATION
+    AUTHORIZATION
+    CODE_LIBRARIES
+    COUNTERS
+    CRYPTOGRAPHY
+    ERROR_HANDLING
+    INTERPROCESS_COMMUNICATION
+    FILE_PROCESSING
+    LOGGING
+    MEMORY_MANAGEMENT
+    NETWORKING
+    NUMBER_PROCESSING
+    PROGRAM_INVOCATION
+    PROTECTION_MECHANISM
+    SESSION_MANAGEMENT
+    SIGNALS
+    STRING_PROCESSING
+    NOT_FUNCTIONAL_AREA_SPECIFIC
+    POWER
+    CLOCK
+  }
+
+enum LanguageClass
+  {
+    ASSEMBLY
+    COMPILED
+    HARDWARE_DESCRIPTION_LANGUAGE
+    INTERPRETED
+    OBJECT_ORIENTED
+    MEMORY_UNSAFE
+    NOT_LANGUAGE_SPECIFIC
+  }
+
+enum LifecyclePhase
+  {
+    POLICY
+    REQUIREMENTS
+    ARCHITECTURE_AND_DESIGN
+    IMPLEMENTATION
+    BUILD_AND_COMPILATION
+    TESTING
+    DOCUMENTATION
+    BUNDLING
+    DISTRIBUTION
+    INSTALLATION
+    SYSTEM_CONFIGURATION
+    OPERATION
+    PATCHING_AND_MAINTENANCE
+    PORTING
+    INTEGRATION
+    MANUFACTURING
+    DECOMMISSIONING_AND_END_OF_LIFE
+  }
+
+enum LikelihoodLevel
+  {
+    HIGH
+    MEDIUM
+    LOW
+    UNKNOWN
+  }
+
+enum MappingReason
+  {
+    ABSTRACTION
+    CATEGORY
+    VIEW
+    DEPRECATED
+    POTENTIAL_DEPRECATION
+    FREQUENT_MISUSE
+    FREQUENT_MISINTERPRETATION
+    MULTIPLE_USE
+    CWE_OVERLAP
+    ACCEPTABLE_USE
+    POTENTIAL_MAJOR_CHANGES
+    OTHER
+  }
+
+enum MappingUsage
+  {
+    ALLOWED
+    ALLOWED_WITH_REVIEW
+    DISCOURAGED
+    PROHIBITED
+  }
+
+enum MitigationEffectiveness
+  {
+    HIGH
+    MODERATE
+    LIMITED
+    INCIDENTAL
+    DEFENSE_IN_DEPTH
+    DISCOURAGED_COMMON_PRACTICE
+    NONE
+  }
+
+enum MitigationStrategy
+  {
+    ATTACK_SURFACE_REDUCTION
+    COMPILATION_OR_BUILD_HARDENING
+    ENFORCEMENT_BY_CONVERSION
+    ENVIRONMENT_HARDENING
+    FIREWALL
+    INPUT_VALIDATION
+    LANGUAGE_SELECTION
+    LIBRARIES_OR_FRAMEWORKS
+    RESOURCE_LIMITATION
+    OUTPUT_ENCODING
+    PARAMETERIZATION
+    REFACTORING
+    SANDBOX_OR_JAIL
+    SEPARATION_OF_PRIVILEGE
+  }
+
+enum NoteType
+  {
+    APPLICABLE_PLATFORM
+    MAINTENANCE
+    RELATIONSHIP
+    RESEARCH_GAP
+    TERMINOLOGY
+    THEORETICAL
+    OTHER
+  }
+
+enum OperatingSystemClass
+  {
+    LINUX
+    MACOS
+    UNIX
+    WINDOWS
+    NOT_OS_SPECIFIC
+  }
+
+enum OperatingSystemName
+  {
+    AIX
+    ANDROID
+    BLACKBERRY_OS
+    CHROME_OS
+    DARWIN
+    FREEBSD
+    IOS
+    MACOS
+    NETBSD
+    OPENBSD
+    RED_HAT
+    SOLARIS
+    SUSE
+    TVOS
+    UBUNTU
+    WATCHOS
+    WINDOWS_9X
+    WINDOWS_EMBEDDED
+    WINDOWS_NT
+  }
+
+enum OrdinalQualifier
+  {
+    PRIMARY
+  }
+
+enum PlatformPrevalence
+  {
+    OFTEN
+    SOMETIMES
+    RARELY
+    UNDETERMINED
+  }
+
+enum ProgrammingLanguage
+  {
+    ADA
+    ARM_ASSEMBLY
+    ASP
+    ASP_DOT_NET
+    BASIC
+    C
+    C_PLUS_PLUS
+    C_SHARP
+    COBOL
+    FORTRAN
+    FSHARP
+    GO
+    HTML
+    JAVA
+    JAVASCRIPT
+    JSON
+    JSP
+    OBJECTIVE_C
+    PASCAL
+    PERL
+    PHP
+    PSEUDOCODE
+    PYTHON
+    RUBY
+    RUST
+    SHELL
+    SQL
+    SWIFT
+    VB_DOT_NET
+    VERILOG
+    VHDL
+    XML
+    X86_ASSEMBLY
+    OTHER
+  }
+
+enum SecurityScope
+  {
+    CONFIDENTIALITY
+    INTEGRITY
+    AVAILABILITY
+    ACCESS_CONTROL
+    ACCOUNTABILITY
+    AUTHENTICATION
+    AUTHORIZATION
+    NON_REPUDIATION
+    OTHER
+  }
+
+enum StakeholderType
+  {
+    ACADEMIC_RESEARCHERS
+    APPLIED_RESEARCHERS
+    ASSESSMENT_TEAMS
+    ASSESSMENT_TOOL_VENDORS
+    CWE_TEAM
+    EDUCATORS
+    HARDWARE_DESIGNERS
+    INFORMATION_PROVIDERS
+    PRODUCT_CUSTOMERS
+    PRODUCT_VENDORS
+    SOFTWARE_DEVELOPERS
+    VULNERABILITY_ANALYSTS
+    OTHER
+  }
+
+enum TaxonomyMappingFit
+  {
+    EXACT
+    CWE_MORE_ABSTRACT
+    CWE_MORE_SPECIFIC
+    IMPRECISE
+    PERSPECTIVE
+  }
+
+enum TaxonomyName
+  {
+    SEVEN_PERNICIOUS_KINGDOMS
+    NINETEEN_DEADLY_SINS
+    ASLAM
+    BISHOP
+    CERT_C_SECURE_CODING
+    CERT_CPP_SECURE_CODING
+    THE_CERT_ORACLE_SECURE_CODING_STANDARD_FOR_JAVA_2011
+    CLASP
+    ISA_IEC_62443
+    LANDWEHR
+    OMG_ASCSM
+    OMG_ASCRM
+    OMG_ASCMM
+    OMG_ASCPEM
+    OWASP_TOP_TEN_2004
+    OWASP_TOP_TEN_2007
+    OWASP_TOP_TEN
+    PLOVER
+    PROTECTION_ANALYSIS
+    RISOS
+    SEI_CERT_C_CODING_STANDARD
+    SEI_CERT_CPP_CODING_STANDARD
+    SEI_CERT_ORACLE_CODING_STANDARD_FOR_JAVA
+    SEI_CERT_PERL_CODING_STANDARD
+    SOFTWARE_FAULT_PATTERNS
+    WEBER_KARGER_PARADKAR
+    WASC
+  }
+
+enum TechnicalImpact
+  {
+    MODIFY_MEMORY
+    READ_MEMORY
+    MODIFY_FILES_OR_DIRECTORIES
+    READ_FILES_OR_DIRECTORIES
+    MODIFY_APPLICATION_DATA
+    READ_APPLICATION_DATA
+    DOS_CRASH_EXIT_OR_RESTART
+    DOS_AMPLIFICATION
+    DOS_INSTABILITY
+    DOS_RESOURCE_CONSUMPTION_CPU
+    DOS_RESOURCE_CONSUMPTION_MEMORY
+    DOS_RESOURCE_CONSUMPTION_OTHER
+    EXECUTE_UNAUTHORIZED_CODE_OR_COMMANDS
+    GAIN_PRIVILEGES_OR_ASSUME_IDENTITY
+    BYPASS_PROTECTION_MECHANISM
+    HIDE_ACTIVITIES
+    ALTER_EXECUTION_LOGIC
+    QUALITY_DEGRADATION
+    UNEXPECTED_STATE
+    VARIES_BY_CONTEXT
+    INCREASE_ANALYTICAL_COMPLEXITY
+    REDUCE_MAINTAINABILITY
+    REDUCE_PERFORMANCE
+    REDUCE_RELIABILITY
+    OTHER
+  }
+
+enum TechnologyClass
+  {
+    CLIENT_SERVER
+    CLOUD_COMPUTING
+    ICS_OT
+    MAINFRAME
+    MOBILE
+    N_TIER
+    SOA
+    SYSTEM_ON_CHIP
+    WEB_BASED
+    NOT_TECHNOLOGY_SPECIFIC
+  }
+
+enum TechnologyName
+  {
+    AI_ML
+    WEB_SERVER
+    DATABASE_SERVER
+    ACCELERATOR_HARDWARE
+    ANALOG_AND_MIXED_SIGNAL_HARDWARE
+    AUDIO_VIDEO_HARDWARE
+    BUS_INTERFACE_HARDWARE
+    CLOCK_COUNTER_HARDWARE
+    COMMUNICATION_HARDWARE
+    CONTROLLER_HARDWARE
+    MEMORY_HARDWARE
+    MICROCONTROLLER_HARDWARE
+    NETWORK_ON_CHIP_HARDWARE
+    POWER_MANAGEMENT_HARDWARE
+    PROCESSOR_HARDWARE
+    SECURITY_HARDWARE
+    SENSOR_HARDWARE
+    STORAGE_HARDWARE
+    TEST_DEBUG_HARDWARE
+    OTHER
+  }
+
+enum WeaknessAbstraction
+  {
+    PILLAR
+    CLASS
+    BASE
+    VARIANT
+    COMPOUND
+  }
+
+enum WeaknessOrdinalityLevel
+  {
+    PRIMARY
+    RESULTANT
+    INDIRECT
+  }
+
+enum WeaknessRelationNature
+  {
+    CHILD_OF
+    PARENT_OF
+    STARTS_WITH
+    CAN_FOLLOW
+    CAN_PRECEDE
+    REQUIRED_BY
+    REQUIRES
+    CAN_ALSO_BE
+    PEER_OF
+  }
+
+enum WeaknessSource
+  {
+    MITRE
+    NIST
+    ASSIGNER
+    CNA
+    OTHER
+  }
+
+enum WeaknessStatus
+  {
+    DEPRECATED
+    DRAFT
+    INCOMPLETE
+    OBSOLETE
+    STABLE
+    USABLE
+  }
+
+enum WeaknessStructure
+  {
+    SIMPLE
+    CHAIN
+    COMPOSITE
+  }
+
+type AlternateTerm
+  {
+    term: String!
+    description: String
+  }
+
+type ApplicablePlatforms
+  {
+    languages: [LanguagePlatform]
+    operatingSystems: [OSPlatform]
+    architectures: [ArchitecturePlatform]
+    technologies: [TechnologyPlatform]
+  }
+
+type ArchitecturePlatform
+  {
+    name: ArchitectureName
+    class: ArchitectureClass
+    prevalence: PlatformPrevalence!
+  }
+
+type Audience
+  {
+    type: StakeholderType!
+    description: String
+  }
+
+type CatalogMember
+  {
+    cweId: Int!
+    viewId: Int!
+  }
+
+type Category
+  {
+    id: Int!
+    name: String!
+    status: WeaknessStatus!
+    summary: String!
+    relationships: Relationship
+    taxonomyMappings: [TaxonomyMapping]
+    references: [CWEReference]
+    mappingNotes: MappingNotes!
+    notes: [Note]
+    contentHistory: ContentHistory!
+  }
+
+type CommonConsequence
+  {
+    consequenceId: String
+    scopes: [SecurityScope]!
+    impacts: [TechnicalImpact]!
+    likelihood: LikelihoodLevel
+    note: String
+  }
+
+type ContentHistory
+  {
+    submission: Submission!
+    modifications: [Modification]
+    contributions: [Contribution]
+    previousEntryNames: [PreviousEntryName]
+  }
+
+type Contribution
+  {
+    type: ContributionType!
+    contributionName: String
+    contributionOrganization: String
+    contributionDate: Date!
+    contributionVersion: String
+    contributionReleaseDate: Date
+    contributionComment: String
+  }
+
+type CWEReference
+  {
+    externalReferenceId: String!
+    section: String
+  }
+
+type DemonstrativeExample
+  {
+    demonstrativeExampleId: String
+    titleText: String
+    introText: String!
+    bodyTexts: [String]
+    exampleCodes: [ExampleCode]
+    references: [CWEReference]
+  }
+
+type DetectionMethod
+  {
+    detectionMethodId: String
+    method: DetectionMethodType!
+    description: String!
+    effectiveness: DetectionEffectiveness
+    effectivenessNotes: String
+  }
+
+type ExampleCode
+  {
+    nature: CodeNature!
+    language: ProgrammingLanguage
+    content: String
+  }
+
+type ExternalReference
+  {
+    referenceId: String!
+    title: String!
+    authors: [String]
+    edition: String
+    publication: String
+    publicationYear: String
+    publicationMonth: String
+    publicationDay: String
+    publisher: String
+    url: String
+    urlDate: Date
+  }
+
+type LanguagePlatform
+  {
+    name: ProgrammingLanguage
+    class: LanguageClass
+    prevalence: PlatformPrevalence!
+  }
+
+type MappingNotes
+  {
+    usage: MappingUsage!
+    rationale: String!
+    comments: String!
+    reasons: [MappingReason]!
+    suggestions: [MappingSuggestion]
+  }
+
+type MappingSuggestion
+  {
+    cweId: Int!
+    comment: String!
+  }
+
+type ModeOfIntroduction
+  {
+    phase: LifecyclePhase!
+    note: String
+  }
+
+type Modification
+  {
+    modificationName: String
+    modificationOrganization: String
+    modificationDate: Date!
+    modificationVersion: String
+    modificationReleaseDate: Date
+    modificationImportance: ContentImportance
+    modificationComment: String
+  }
+
+type Note
+  {
+    type: NoteType!
+    content: String
+  }
+
+type NVDWeaknessObservation
+  {
+    observationId: String!
+    observedInCve: CveId!
+    weakness: Weakness!
+    reportedBy: WeaknessSource!
+    source: String
+  }
+
+type ObservedExample
+  {
+    reference: String!
+    description: String!
+    link: String!
+  }
+
+type OSPlatform
+  {
+    name: OperatingSystemName
+    class: OperatingSystemClass
+    version: String
+    cpeId: String
+    prevalence: PlatformPrevalence!
+  }
+
+type PotentialMitigation
+  {
+    mitigationId: String
+    phases: [LifecyclePhase]
+    strategy: MitigationStrategy
+    description: String!
+    effectiveness: MitigationEffectiveness
+    effectivenessNotes: String
+  }
+
+type PreviousEntryName
+  {
+    name: String!
+    date: Date!
+    version: String
+  }
+
+type RelatedWeakness
+  {
+    nature: WeaknessRelationNature!
+    cweId: Int!
+    viewId: Int!
+    chainId: Int
+    ordinal: OrdinalQualifier
+  }
+
+type Relationship
+  {
+    hasMember: [CatalogMember]
+    memberOf: [CatalogMember]
+  }
+
+type Submission
+  {
+    submissionName: String
+    submissionOrganization: String
+    submissionDate: Date!
+    submissionVersion: String!
+    submissionReleaseDate: Date!
+    submissionComment: String
+  }
+
+type TaxonomyMapping
+  {
+    taxonomyName: TaxonomyName!
+    entryId: String
+    entryName: String
+    mappingFit: TaxonomyMappingFit
+  }
+
+type TechnologyPlatform
+  {
+    name: TechnologyName
+    class: TechnologyClass
+    prevalence: PlatformPrevalence!
+  }
+
+type View
+  {
+    id: Int!
+    name: String!
+    type: CWEViewType!
+    status: WeaknessStatus!
+    objective: String!
+    audience: [Audience]
+    members: [CatalogMember]
+    filter: String
+    references: [CWEReference]
+    mappingNotes: MappingNotes!
+    notes: [Note]
+    contentHistory: ContentHistory!
+  }
+
+type Weakness
+  {
+    id: Int!
+    name: String!
+    description: String!
+    extendedDescription: String
+    abstraction: WeaknessAbstraction!
+    structure: WeaknessStructure!
+    status: WeaknessStatus!
+    diagram: String
+    weaknessOrdinalities: [WeaknessOrdinality]
+    applicablePlatforms: ApplicablePlatforms
+    backgroundDetails: [String]
+    alternateTerms: [AlternateTerm]
+    modesOfIntroduction: [ModeOfIntroduction]
+    exploitationFactors: [String]
+    likelihoodOfExploit: LikelihoodLevel
+    commonConsequences: [CommonConsequence]
+    detectionMethods: [DetectionMethod]
+    potentialMitigations: [PotentialMitigation]
+    demonstrativeExamples: [DemonstrativeExample]
+    observedExamples: [ObservedExample]
+    functionalAreas: [FunctionalArea]
+    affectedResources: [AffectedResource]
+    taxonomyMappings: [TaxonomyMapping]
+    relatedAttackPatterns: [Int]
+    relatedWeaknesses: [RelatedWeakness]
+    references: [CWEReference]
+    mappingNotes: MappingNotes!
+    notes: [Note]
+    contentHistory: ContentHistory!
+    tags: [String]
+    source: String
+  }
+
+type WeaknessCatalog
+  {
+    name: String!
+    version: String!
+    date: Date!
+    weaknesses: [Weakness]
+    categories: [Category]
+    views: [View]
+    externalReferences: [ExternalReference]
+    observations: [NVDWeaknessObservation]
+  }
+
+type WeaknessOrdinality
+  {
+    ordinality: WeaknessOrdinalityLevel!
+    description: String
+  }

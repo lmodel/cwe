@@ -1,0 +1,322 @@
+ syntax="proto3";
+ package
+// metamodel_version: 1.7.0
+// version: 7.3
+// Another name by which this weakness may be known (AlternateTermsType/Alternate_Term in XSD).
+message AlternateTerm
+ {
+  string term = 0
+  string description = 0
+ }
+// Languages, operating systems, architectures, and technologies where a weakness could appear (ApplicablePlatformsType in XSD).
+message ApplicablePlatforms
+ {
+ repeated  languagePlatform languages = 0
+ repeated  oSPlatform operatingSystems = 0
+ repeated  architecturePlatform architectures = 0
+ repeated  technologyPlatform technologies = 0
+ }
+// A processor architecture or class applicable to a weakness (Architecture element in ApplicablePlatformsType).
+message ArchitecturePlatform
+ {
+  architectureName name = 0
+  architectureClass class = 0
+  platformPrevalence prevalence = 0
+ }
+// A target stakeholder group for a CWE view or category (AudienceType/Stakeholder in XSD).
+message Audience
+ {
+  stakeholderType type = 0
+  string description = 0
+ }
+// A Has_Member or Member_Of entry specifying a CWE ID and the View ID in which the membership holds (MemberType in XSD).
+message CatalogMember
+ {
+  integer cweId = 0
+  integer viewId = 0
+ }
+// A collection of weaknesses grouped by a shared characteristic (CategoryType in XSD). Organizational mechanism only; not for mapping.
+message Category
+ {
+  integer id = 0
+  string name = 0
+  weaknessStatus status = 0
+  string summary = 0
+  relationship relationships = 0
+ repeated  taxonomyMapping taxonomyMappings = 0
+ repeated  cWEReference references = 0
+  mappingNotes mappingNotes = 0
+ repeated  note notes = 0
+  contentHistory contentHistory = 0
+ }
+// Individual consequence associated with a weakness (CommonConsequencesType/Consequence in XSD).
+message CommonConsequence
+ {
+  string consequenceId = 0
+ repeated  securityScope scopes = 0
+ repeated  technicalImpact impacts = 0
+  likelihoodLevel likelihood = 0
+  string note = 0
+ }
+// Tracks the original author and subsequent modifications (ContentHistoryType in XSD).
+message ContentHistory
+ {
+  submission submission = 0
+ repeated  modification modifications = 0
+ repeated  contribution contributions = 0
+ repeated  previousEntryName previousEntryNames = 0
+ }
+// A contribution record documenting donated content or feedback (ContentHistoryType/Contribution in XSD).
+message Contribution
+ {
+  contributionType type = 0
+  string contributionName = 0
+  string contributionOrganization = 0
+  date contributionDate = 0
+  string contributionVersion = 0
+  date contributionReleaseDate = 0
+  string contributionComment = 0
+ }
+// Link from a CWE entry to an ExternalReference in the catalog (ReferencesType/Reference in XSD).
+message CWEReference
+ {
+  string externalReferenceId = 0
+  string section = 0
+ }
+// A code example illustrating how a weakness may appear (DemonstrativeExamplesType/Demonstrative_Example in XSD).
+message DemonstrativeExample
+ {
+  string demonstrativeExampleId = 0
+  string titleText = 0
+  string introText = 0
+ repeated  string bodyTexts = 0
+ repeated  exampleCode exampleCodes = 0
+ repeated  cWEReference references = 0
+ }
+// A method that may be employed to detect a weakness, with effectiveness (DetectionMethodsType/Detection_Method in XSD).
+message DetectionMethod
+ {
+  string detectionMethodId = 0
+  detectionMethodType method = 0
+  string description = 0
+  detectionEffectiveness effectiveness = 0
+  string effectivenessNotes = 0
+ }
+// A structured code snippet within a demonstrative example (StructuredCodeType in XSD).
+message ExampleCode
+ {
+  codeNature nature = 0
+  programmingLanguage language = 0
+  string content = 0
+ }
+// Pointer to external reading material shared across CWE entries (ExternalReferenceType in XSD). Identified by Reference_ID (e.g. REF-1).
+message ExternalReference
+ {
+  string referenceId = 0
+  string title = 0
+ repeated  string authors = 0
+  string edition = 0
+  string publication = 0
+  string publicationYear = 0
+  string publicationMonth = 0
+  string publicationDay = 0
+  string publisher = 0
+  uri url = 0
+  date urlDate = 0
+ }
+// A programming language or language class applicable to a weakness with associated prevalence (Language element in ApplicablePlatformsType).
+message LanguagePlatform
+ {
+  programmingLanguage name = 0
+  languageClass class = 0
+  platformPrevalence prevalence = 0
+ }
+// Guidance for when and whether to map an issue to a CWE entry (MappingNotesType in XSD). Required on every Weakness, Category, and View.
+message MappingNotes
+ {
+  mappingUsage usage = 0
+  string rationale = 0
+  string comments = 0
+ repeated  mappingReason reasons = 0
+ repeated  mappingSuggestion suggestions = 0
+ }
+// A suggested alternative CWE entry for mapping purposes (SuggestionsType/Suggestion in XSD).
+message MappingSuggestion
+ {
+  integer cweId = 0
+  string comment = 0
+ }
+// Information about how and when a weakness may be introduced (ModesOfIntroductionType/Introduction in XSD).
+message ModeOfIntroduction
+ {
+  lifecyclePhase phase = 0
+  string note = 0
+ }
+// A modification record documenting a change to a CWE entry (ContentHistoryType/Modification in XSD).
+message Modification
+ {
+  string modificationName = 0
+  string modificationOrganization = 0
+  date modificationDate = 0
+  string modificationVersion = 0
+  date modificationReleaseDate = 0
+  contentImportance modificationImportance = 0
+  string modificationComment = 0
+ }
+// Additional commentary about a CWE entry (NotesType/Note in XSD).
+message Note
+ {
+  noteType type = 0
+  string content = 0
+ }
+// Weakness observation from an NVD vulnerability detail page.
+message NVDWeaknessObservation
+ {
+  string observationId = 0
+  cveId observedInCve = 0
+  weakness weakness = 0
+  weaknessSource reportedBy = 0
+  string source = 0
+ }
+// A reference to a real-world instance of a weakness, typically a CVE (ObservedExampleType/Observed_Example in XSD).
+message ObservedExample
+ {
+  string reference = 0
+  string description = 0
+  uri link = 0
+ }
+// An operating system or OS class applicable to a weakness (Operating_System element in ApplicablePlatformsType).
+message OSPlatform
+ {
+  operatingSystemName name = 0
+  operatingSystemClass class = 0
+  string version = 0
+  string cpeId = 0
+  platformPrevalence prevalence = 0
+ }
+// A potential mitigation for a weakness (PotentialMitigationsType/Mitigation in XSD).
+message PotentialMitigation
+ {
+  string mitigationId = 0
+ repeated  lifecyclePhase phases = 0
+  mitigationStrategy strategy = 0
+  string description = 0
+  mitigationEffectiveness effectiveness = 0
+  string effectivenessNotes = 0
+ }
+// A previous name used for a CWE entry before a substantive rename (ContentHistoryType/Previous_Entry_Name in XSD).
+message PreviousEntryName
+ {
+  string name = 0
+  date date = 0
+  string version = 0
+ }
+// Typed directional relationship from one CWE entry to another (RelatedWeaknessesType/Related_Weakness in XSD).
+message RelatedWeakness
+ {
+  weaknessRelationNature nature = 0
+  integer cweId = 0
+  integer viewId = 0
+  integer chainId = 0
+  ordinalQualifier ordinal = 0
+ }
+// Container for category membership relationships (RelationshipsType in XSD). Holds Has_Member and optionally Member_Of lists.
+message Relationship
+ {
+ repeated  catalogMember hasMember = 0
+ repeated  catalogMember memberOf = 0
+ }
+// Initial submission record for a CWE entry (ContentHistoryType/Submission in XSD).
+message Submission
+ {
+  string submissionName = 0
+  string submissionOrganization = 0
+  date submissionDate = 0
+  string submissionVersion = 0
+  date submissionReleaseDate = 0
+  string submissionComment = 0
+ }
+// A mapping from a CWE entry to an equivalent entry in an external taxonomy (TaxonomyMappingsType/Taxonomy_Mapping in XSD).
+message TaxonomyMapping
+ {
+  taxonomyName taxonomyName = 0
+  string entryId = 0
+  string entryName = 0
+  taxonomyMappingFit mappingFit = 0
+ }
+// A technology or technology class applicable to a weakness (Technology element in ApplicablePlatformsType).
+message TechnologyPlatform
+ {
+  technologyName name = 0
+  technologyClass class = 0
+  platformPrevalence prevalence = 0
+ }
+// A perspective from which to look at weaknesses in the catalog (ViewType in XSD). Types: Graph, Explicit slice, Implicit slice.
+message View
+ {
+  integer id = 0
+  string name = 0
+  cWEViewType type = 0
+  weaknessStatus status = 0
+  string objective = 0
+ repeated  audience audience = 0
+ repeated  catalogMember members = 0
+  string filter = 0
+ repeated  cWEReference references = 0
+  mappingNotes mappingNotes = 0
+ repeated  note notes = 0
+  contentHistory contentHistory = 0
+ }
+// Canonical CWE weakness record (WeaknessType in XSD). Describes a specific type of weakness and the full set of associated information.
+message Weakness
+ {
+  integer id = 0
+  string name = 0
+  string description = 0
+  string extendedDescription = 0
+  weaknessAbstraction abstraction = 0
+  weaknessStructure structure = 0
+  weaknessStatus status = 0
+  string diagram = 0
+ repeated  weaknessOrdinality weaknessOrdinalities = 0
+  applicablePlatforms applicablePlatforms = 0
+ repeated  string backgroundDetails = 0
+ repeated  alternateTerm alternateTerms = 0
+ repeated  modeOfIntroduction modesOfIntroduction = 0
+ repeated  string exploitationFactors = 0
+  likelihoodLevel likelihoodOfExploit = 0
+ repeated  commonConsequence commonConsequences = 0
+ repeated  detectionMethod detectionMethods = 0
+ repeated  potentialMitigation potentialMitigations = 0
+ repeated  demonstrativeExample demonstrativeExamples = 0
+ repeated  observedExample observedExamples = 0
+ repeated  functionalArea functionalAreas = 0
+ repeated  affectedResource affectedResources = 0
+ repeated  taxonomyMapping taxonomyMappings = 0
+ repeated  integer relatedAttackPatterns = 0
+ repeated  relatedWeakness relatedWeaknesses = 0
+ repeated  cWEReference references = 0
+  mappingNotes mappingNotes = 0
+ repeated  note notes = 0
+  contentHistory contentHistory = 0
+ repeated  string tags = 0
+  string source = 0
+ }
+// Top-level container for a CWE catalog snapshot (Weakness_Catalog in XSD). Holds weakness entries, categories, views, external references, and NVD weakness observations.
+message WeaknessCatalog
+ {
+  string name = 0
+  string version = 0
+  date date = 0
+ repeated  weakness weaknesses = 0
+ repeated  category categories = 0
+ repeated  view views = 0
+ repeated  externalReference externalReferences = 0
+ repeated  nVDWeaknessObservation observations = 0
+ }
+// Potential ordering relationship with other weaknesses (WeaknessOrdinalitiesType/Weakness_Ordinality in XSD).
+message WeaknessOrdinality
+ {
+  weaknessOrdinalityLevel ordinality = 0
+  string description = 0
+ }

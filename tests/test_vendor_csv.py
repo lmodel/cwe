@@ -67,7 +67,7 @@ def test_file_exists(view_id, path):
 
 
 # ---------------------------------------------------------------------------
-# Structure – shared across all three files
+# Structure - shared across all three files
 # ---------------------------------------------------------------------------
 
 @pytest.mark.parametrize("view_id", list(VIEW_FILES))
@@ -140,7 +140,7 @@ def test_row_count_above_minimum(view_id, expected_min):
 
 
 # ---------------------------------------------------------------------------
-# View 699 – Software Development
+# View 699 - Software Development
 # ---------------------------------------------------------------------------
 
 class TestSoftwareDevelopmentView699:
@@ -177,7 +177,7 @@ class TestSoftwareDevelopmentView699:
 
 
 # ---------------------------------------------------------------------------
-# View 1000 – Research Concepts
+# View 1000 - Research Concepts
 # ---------------------------------------------------------------------------
 
 class TestResearchConceptsView1000:
@@ -212,7 +212,7 @@ class TestResearchConceptsView1000:
 
 
 # ---------------------------------------------------------------------------
-# View 1194 – Hardware Design
+# View 1194 - Hardware Design
 # ---------------------------------------------------------------------------
 
 class TestHardwareDesignView1194:

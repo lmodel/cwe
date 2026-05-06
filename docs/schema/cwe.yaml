@@ -1,0 +1,5238 @@
+name: cwe
+annotations:
+  xsd_schema_version:
+    tag: xsd_schema_version
+    value: '7.3'
+  xsd_namespace:
+    tag: xsd_namespace
+    value: http://cwe.mitre.org/cwe-7
+  source_columns:
+    tag: source_columns
+    value: CWE-ID,CWE Name,Source
+description: 'MITRE Common Weakness Enumeration (CWE) LinkML Schema.
+
+
+  Self-contained schema covering the full MITRE CWE XSD: weakness entries,
+
+  categories, views, external references, and NVD weakness observations (CWE-ID,
+
+  CWE Name, Source).'
+title: cwe
+source: https://cwe.mitre.org/data/downloads.html
+see_also:
+- https://lmodel.github.io/cwe
+- https://cwe.mitre.org/data/index.html
+- https://nvd.nist.gov/
+id: https://w3id.org/lmodel/cwe
+version: '7.3'
+imports:
+- linkml:types
+license: Apache-2.0
+prefixes:
+  capec:
+    prefix_prefix: capec
+    prefix_reference: https://w3id.org/lmodel/capec/
+  cwe:
+    prefix_prefix: cwe
+    prefix_reference: https://w3id.org/lmodel/cwe/
+  linkml:
+    prefix_prefix: linkml
+    prefix_reference: https://w3id.org/linkml/
+  schema:
+    prefix_prefix: schema
+    prefix_reference: http://schema.org/
+  dct:
+    prefix_prefix: dct
+    prefix_reference: http://purl.org/dc/terms/
+  skos:
+    prefix_prefix: skos
+    prefix_reference: http://www.w3.org/2004/02/skos/core#
+  rdfs:
+    prefix_prefix: rdfs
+    prefix_reference: http://www.w3.org/2000/01/rdf-schema#
+  xsd:
+    prefix_prefix: xsd
+    prefix_reference: http://www.w3.org/2001/XMLSchema#
+  WIKIDATA:
+    prefix_prefix: WIKIDATA
+    prefix_reference: https://www.wikidata.org/wiki/
+default_prefix: cwe
+default_range: string
+subsets:
+  cwe_dictionary:
+    name: cwe_dictionary
+    definition_uri: https://w3id.org/lmodel/cwe/CweDictionary
+    description: Canonical MITRE CWE dictionary records.
+    from_schema: https://w3id.org/lmodel/cwe
+  nvd_weakness_observation:
+    name: nvd_weakness_observation
+    definition_uri: https://w3id.org/lmodel/cwe/NvdWeaknessObservation
+    description: Weakness rows observed in NVD vulnerability detail pages.
+    from_schema: https://w3id.org/lmodel/cwe
+types:
+  CveId:
+    name: CveId
+    definition_uri: https://w3id.org/lmodel/cwe/CveId
+    description: 'A CVE identifier assigned by a CVE Numbering Authority (CNA). Format:
+      CVE-YYYY-NNNNN.'
+    from_schema: https://w3id.org/lmodel/cwe
+    base: str
+    uri: xsd:string
+    pattern: ^CVE-[0-9]{4}-[0-9]+$
+  string:
+    name: string
+    definition_uri: https://w3id.org/linkml/String
+    description: A character string
+    notes:
+    - In RDF serializations, a slot with range of string is treated as a literal or
+      type xsd:string.   If you are authoring schemas in LinkML YAML, the type is
+      referenced with the lower case "string".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Text
+    base: str
+    uri: xsd:string
+  integer:
+    name: integer
+    definition_uri: https://w3id.org/linkml/Integer
+    description: An integer
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "integer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Integer
+    base: int
+    uri: xsd:integer
+  boolean:
+    name: boolean
+    definition_uri: https://w3id.org/linkml/Boolean
+    description: A binary (true or false) value
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "boolean".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Boolean
+    base: Bool
+    uri: xsd:boolean
+    repr: bool
+  float:
+    name: float
+    definition_uri: https://w3id.org/linkml/Float
+    description: A real number that conforms to the xsd:float specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "float".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:float
+  double:
+    name: double
+    definition_uri: https://w3id.org/linkml/Double
+    description: A real number that conforms to the xsd:double specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "double".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:double
+  decimal:
+    name: decimal
+    definition_uri: https://w3id.org/linkml/Decimal
+    description: A real number with arbitrary precision that conforms to the xsd:decimal
+      specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "decimal".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    broad_mappings:
+    - schema:Number
+    base: Decimal
+    uri: xsd:decimal
+  time:
+    name: time
+    definition_uri: https://w3id.org/linkml/Time
+    description: A time object represents a (local) time of day, independent of any
+      particular day
+    notes:
+    - URI is dateTime because OWL reasoners do not work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "time".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Time
+    base: XSDTime
+    uri: xsd:time
+    repr: str
+  date:
+    name: date
+    definition_uri: https://w3id.org/linkml/Date
+    description: a date (year, month and day) in an idealized calendar
+    notes:
+    - URI is dateTime because OWL reasoners don't work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Date
+    base: XSDDate
+    uri: xsd:date
+    repr: str
+  datetime:
+    name: datetime
+    definition_uri: https://w3id.org/linkml/Datetime
+    description: The combination of a date and time
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:DateTime
+    base: XSDDateTime
+    uri: xsd:dateTime
+    repr: str
+  date_or_datetime:
+    name: date_or_datetime
+    definition_uri: https://w3id.org/linkml/DateOrDatetime
+    description: Either a date or a datetime
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date_or_datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: linkml:DateOrDatetime
+    repr: str
+  uriorcurie:
+    name: uriorcurie
+    definition_uri: https://w3id.org/linkml/Uriorcurie
+    description: a URI or a CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uriorcurie".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: URIorCURIE
+    uri: xsd:anyURI
+    repr: str
+  curie:
+    name: curie
+    definition_uri: https://w3id.org/linkml/Curie
+    conforms_to: https://www.w3.org/TR/curie/
+    description: a compact URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "curie".
+    comments:
+    - in RDF serializations this MUST be expanded to a URI
+    - in non-RDF serializations MAY be serialized as the compact representation
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: Curie
+    uri: xsd:string
+    repr: str
+  uri:
+    name: uri
+    definition_uri: https://w3id.org/linkml/Uri
+    conforms_to: https://www.ietf.org/rfc/rfc3987.txt
+    description: a complete URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uri".
+    comments:
+    - in RDF serializations a slot with range of uri is treated as a literal or type
+      xsd:anyURI unless it is an identifier or a reference to an identifier, in which
+      case it is translated directly to a node
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:URL
+    base: URI
+    uri: xsd:anyURI
+    repr: str
+  ncname:
+    name: ncname
+    definition_uri: https://w3id.org/linkml/Ncname
+    description: Prefix part of CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "ncname".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NCName
+    uri: xsd:string
+    repr: str
+  objectidentifier:
+    name: objectidentifier
+    definition_uri: https://w3id.org/linkml/Objectidentifier
+    description: A URI or CURIE that represents an object in the model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "objectidentifier".
+    comments:
+    - Used for inheritance and type checking
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: ElementIdentifier
+    uri: shex:iri
+    repr: str
+  nodeidentifier:
+    name: nodeidentifier
+    definition_uri: https://w3id.org/linkml/Nodeidentifier
+    description: A URI, CURIE or BNODE that represents a node in a model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "nodeidentifier".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NodeIdentifier
+    uri: shex:nonLiteral
+    repr: str
+  jsonpointer:
+    name: jsonpointer
+    definition_uri: https://w3id.org/linkml/Jsonpointer
+    conforms_to: https://datatracker.ietf.org/doc/html/rfc6901
+    description: A string encoding a JSON Pointer. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to a valid object within the current
+      instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpointer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  jsonpath:
+    name: jsonpath
+    definition_uri: https://w3id.org/linkml/Jsonpath
+    conforms_to: https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html
+    description: A string encoding a JSON Path. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to zero or more valid objects within
+      the current instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  sparqlpath:
+    name: sparqlpath
+    definition_uri: https://w3id.org/linkml/Sparqlpath
+    conforms_to: https://www.w3.org/TR/sparql11-query/#propertypaths
+    description: A string encoding a SPARQL Property Path. The value of the string
+      MUST conform to SPARQL syntax and SHOULD dereference to zero or more valid objects
+      within the current instance document when encoded as RDF.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "sparqlpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+enums:
+  WeaknessSource:
+    name: WeaknessSource
+    definition_uri: https://w3id.org/lmodel/cwe/WeaknessSource
+    description: Source attribution for weakness data in NVD/CVE contexts.
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      MITRE:
+        text: MITRE
+        description: Data sourced from MITRE CWE content.
+      NIST:
+        text: NIST
+        description: Data produced by NIST/NVD analysis.
+      ASSIGNER:
+        text: ASSIGNER
+        description: Data provided by the CVE assigner/CNA.
+      CNA:
+        text: CNA
+        description: Data provided by a CVE Numbering Authority.
+      OTHER:
+        text: OTHER
+        description: Other or unspecified source.
+  WeaknessAbstraction:
+    name: WeaknessAbstraction
+    definition_uri: https://w3id.org/lmodel/cwe/WeaknessAbstraction
+    description: CWE abstraction layer (AbstractionEnumeration in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      PILLAR:
+        text: PILLAR
+        description: Most abstract type; a theme for all class/base/variant weaknesses.
+      CLASS:
+        text: CLASS
+        description: Abstract, independent of any specific language or technology.
+      BASE:
+        text: BASE
+        description: Mostly independent of resource or technology; supports detection/prevention.
+      VARIANT:
+        text: VARIANT
+        description: Linked to a specific language or technology.
+      COMPOUND:
+        text: COMPOUND
+        description: "Meaningful aggregation \u2014 Chain or Composite."
+  WeaknessStatus:
+    name: WeaknessStatus
+    definition_uri: https://w3id.org/lmodel/cwe/WeaknessStatus
+    description: Lifecycle status of a CWE entry, category, or view (StatusEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      DEPRECATED:
+        text: DEPRECATED
+        description: Removed from CWE; likely a duplicate or created in error.
+      DRAFT:
+        text: DRAFT
+        description: All important elements filled; may still have problems or gaps.
+      INCOMPLETE:
+        text: INCOMPLETE
+        description: Not all important elements filled; quality not guaranteed.
+      OBSOLETE:
+        text: OBSOLETE
+        description: Still valid but no longer relevant; likely superseded.
+      STABLE:
+        text: STABLE
+        description: All important elements verified; unlikely to change significantly.
+      USABLE:
+        text: USABLE
+        description: Has received close extensive review; critical elements verified.
+  WeaknessStructure:
+    name: WeaknessStructure
+    definition_uri: https://w3id.org/lmodel/cwe/WeaknessStructure
+    description: Structural nature of a weakness (StructureEnumeration in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      SIMPLE:
+        text: SIMPLE
+        description: Single weakness whose exploitation is not dependent on another
+          weakness.
+      CHAIN:
+        text: CHAIN
+        description: Set of weaknesses reachable consecutively to produce a vulnerability.
+      COMPOSITE:
+        text: COMPOSITE
+        description: Set of weaknesses that must all be present simultaneously.
+  LikelihoodLevel:
+    name: LikelihoodLevel
+    definition_uri: https://w3id.org/lmodel/cwe/LikelihoodLevel
+    description: Likelihood of exploitation or occurrence (LikelihoodEnumeration in
+      XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      HIGH:
+        text: HIGH
+      MEDIUM:
+        text: MEDIUM
+      LOW:
+        text: LOW
+      UNKNOWN:
+        text: UNKNOWN
+        description: Actual likelihood is not known.
+  WeaknessRelationNature:
+    name: WeaknessRelationNature
+    definition_uri: https://w3id.org/lmodel/cwe/WeaknessRelationNature
+    description: Nature of a directional relationship between two CWE entries (RelatedNatureEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      CHILD_OF:
+        text: CHILD_OF
+        description: Related weakness at a higher level of abstraction.
+      PARENT_OF:
+        text: PARENT_OF
+        description: Related weakness at a lower level of abstraction.
+      STARTS_WITH:
+        text: STARTS_WITH
+        description: Chaining; this weakness starts the chain.
+      CAN_FOLLOW:
+        text: CAN_FOLLOW
+        description: Chaining; this weakness can follow the target.
+      CAN_PRECEDE:
+        text: CAN_PRECEDE
+        description: Chaining; this weakness can precede the target.
+      REQUIRED_BY:
+        text: REQUIRED_BY
+        description: Composite; this weakness is required by the target.
+      REQUIRES:
+        text: REQUIRES
+        description: Composite; this weakness requires the target.
+      CAN_ALSO_BE:
+        text: CAN_ALSO_BE
+        description: In proper context can also be perceived as the target weakness.
+      PEER_OF:
+        text: PEER_OF
+        description: Shows similarity with the target; no precise fit elsewhere.
+  WeaknessOrdinalityLevel:
+    name: WeaknessOrdinalityLevel
+    definition_uri: https://w3id.org/lmodel/cwe/WeaknessOrdinalityLevel
+    description: Potential ordering relationship of a weakness relative to others
+      (OrdinalityEnumeration in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      PRIMARY:
+        text: PRIMARY
+        description: Weakness exists independent of other weaknesses.
+      RESULTANT:
+        text: RESULTANT
+        description: Weakness exists only in the presence of other weaknesses.
+      INDIRECT:
+        text: INDIRECT
+        description: Does not directly lead to security weaknesses but may facilitate
+          them.
+  OrdinalQualifier:
+    name: OrdinalQualifier
+    definition_uri: https://w3id.org/lmodel/cwe/OrdinalQualifier
+    description: Marks a related-weakness relationship as the primary one for a given
+      <Nature, CWE_ID, View_ID> triple (OrdinalEnumeration in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      PRIMARY:
+        text: PRIMARY
+        description: Primary ChildOf relationship for this weakness in the given view.
+  SecurityScope:
+    name: SecurityScope
+    definition_uri: https://w3id.org/lmodel/cwe/SecurityScope
+    description: Security property area that can be violated by exploiting a weakness
+      (ScopeEnumeration in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      CONFIDENTIALITY:
+        text: CONFIDENTIALITY
+      INTEGRITY:
+        text: INTEGRITY
+      AVAILABILITY:
+        text: AVAILABILITY
+      ACCESS_CONTROL:
+        text: ACCESS_CONTROL
+      ACCOUNTABILITY:
+        text: ACCOUNTABILITY
+      AUTHENTICATION:
+        text: AUTHENTICATION
+      AUTHORIZATION:
+        text: AUTHORIZATION
+      NON_REPUDIATION:
+        text: NON_REPUDIATION
+      OTHER:
+        text: OTHER
+  TechnicalImpact:
+    name: TechnicalImpact
+    definition_uri: https://w3id.org/lmodel/cwe/TechnicalImpact
+    description: Technical impact of successfully exploiting a weakness (TechnicalImpactEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      MODIFY_MEMORY:
+        text: MODIFY_MEMORY
+      READ_MEMORY:
+        text: READ_MEMORY
+      MODIFY_FILES_OR_DIRECTORIES:
+        text: MODIFY_FILES_OR_DIRECTORIES
+      READ_FILES_OR_DIRECTORIES:
+        text: READ_FILES_OR_DIRECTORIES
+      MODIFY_APPLICATION_DATA:
+        text: MODIFY_APPLICATION_DATA
+      READ_APPLICATION_DATA:
+        text: READ_APPLICATION_DATA
+      DOS_CRASH_EXIT_OR_RESTART:
+        text: DOS_CRASH_EXIT_OR_RESTART
+        description: 'DoS: Crash, Exit, or Restart'
+      DOS_AMPLIFICATION:
+        text: DOS_AMPLIFICATION
+        description: 'DoS: Amplification'
+      DOS_INSTABILITY:
+        text: DOS_INSTABILITY
+        description: 'DoS: Instability'
+      DOS_RESOURCE_CONSUMPTION_CPU:
+        text: DOS_RESOURCE_CONSUMPTION_CPU
+        description: 'DoS: Resource Consumption (CPU)'
+      DOS_RESOURCE_CONSUMPTION_MEMORY:
+        text: DOS_RESOURCE_CONSUMPTION_MEMORY
+        description: 'DoS: Resource Consumption (Memory)'
+      DOS_RESOURCE_CONSUMPTION_OTHER:
+        text: DOS_RESOURCE_CONSUMPTION_OTHER
+        description: 'DoS: Resource Consumption (Other)'
+      EXECUTE_UNAUTHORIZED_CODE_OR_COMMANDS:
+        text: EXECUTE_UNAUTHORIZED_CODE_OR_COMMANDS
+      GAIN_PRIVILEGES_OR_ASSUME_IDENTITY:
+        text: GAIN_PRIVILEGES_OR_ASSUME_IDENTITY
+      BYPASS_PROTECTION_MECHANISM:
+        text: BYPASS_PROTECTION_MECHANISM
+      HIDE_ACTIVITIES:
+        text: HIDE_ACTIVITIES
+      ALTER_EXECUTION_LOGIC:
+        text: ALTER_EXECUTION_LOGIC
+      QUALITY_DEGRADATION:
+        text: QUALITY_DEGRADATION
+      UNEXPECTED_STATE:
+        text: UNEXPECTED_STATE
+      VARIES_BY_CONTEXT:
+        text: VARIES_BY_CONTEXT
+      INCREASE_ANALYTICAL_COMPLEXITY:
+        text: INCREASE_ANALYTICAL_COMPLEXITY
+        description: Makes vulnerability harder to find and fix.
+      REDUCE_MAINTAINABILITY:
+        text: REDUCE_MAINTAINABILITY
+      REDUCE_PERFORMANCE:
+        text: REDUCE_PERFORMANCE
+      REDUCE_RELIABILITY:
+        text: REDUCE_RELIABILITY
+      OTHER:
+        text: OTHER
+  LifecyclePhase:
+    name: LifecyclePhase
+    definition_uri: https://w3id.org/lmodel/cwe/LifecyclePhase
+    description: Phase in the product lifecycle where a weakness may be introduced
+      or a mitigation applied (PhaseEnumeration in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      POLICY:
+        text: POLICY
+      REQUIREMENTS:
+        text: REQUIREMENTS
+      ARCHITECTURE_AND_DESIGN:
+        text: ARCHITECTURE_AND_DESIGN
+      IMPLEMENTATION:
+        text: IMPLEMENTATION
+      BUILD_AND_COMPILATION:
+        text: BUILD_AND_COMPILATION
+      TESTING:
+        text: TESTING
+      DOCUMENTATION:
+        text: DOCUMENTATION
+      BUNDLING:
+        text: BUNDLING
+      DISTRIBUTION:
+        text: DISTRIBUTION
+      INSTALLATION:
+        text: INSTALLATION
+      SYSTEM_CONFIGURATION:
+        text: SYSTEM_CONFIGURATION
+      OPERATION:
+        text: OPERATION
+      PATCHING_AND_MAINTENANCE:
+        text: PATCHING_AND_MAINTENANCE
+      PORTING:
+        text: PORTING
+      INTEGRATION:
+        text: INTEGRATION
+      MANUFACTURING:
+        text: MANUFACTURING
+      DECOMMISSIONING_AND_END_OF_LIFE:
+        text: DECOMMISSIONING_AND_END_OF_LIFE
+  MitigationStrategy:
+    name: MitigationStrategy
+    definition_uri: https://w3id.org/lmodel/cwe/MitigationStrategy
+    description: General strategy for protecting a system (MitigationStrategyEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      ATTACK_SURFACE_REDUCTION:
+        text: ATTACK_SURFACE_REDUCTION
+      COMPILATION_OR_BUILD_HARDENING:
+        text: COMPILATION_OR_BUILD_HARDENING
+      ENFORCEMENT_BY_CONVERSION:
+        text: ENFORCEMENT_BY_CONVERSION
+      ENVIRONMENT_HARDENING:
+        text: ENVIRONMENT_HARDENING
+      FIREWALL:
+        text: FIREWALL
+      INPUT_VALIDATION:
+        text: INPUT_VALIDATION
+      LANGUAGE_SELECTION:
+        text: LANGUAGE_SELECTION
+      LIBRARIES_OR_FRAMEWORKS:
+        text: LIBRARIES_OR_FRAMEWORKS
+      RESOURCE_LIMITATION:
+        text: RESOURCE_LIMITATION
+      OUTPUT_ENCODING:
+        text: OUTPUT_ENCODING
+      PARAMETERIZATION:
+        text: PARAMETERIZATION
+      REFACTORING:
+        text: REFACTORING
+      SANDBOX_OR_JAIL:
+        text: SANDBOX_OR_JAIL
+      SEPARATION_OF_PRIVILEGE:
+        text: SEPARATION_OF_PRIVILEGE
+  DetectionMethodType:
+    name: DetectionMethodType
+    definition_uri: https://w3id.org/lmodel/cwe/DetectionMethodType
+    description: Method that may be employed to detect a weakness (DetectionMethodEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      AUTOMATED_ANALYSIS:
+        text: AUTOMATED_ANALYSIS
+      AUTOMATED_DYNAMIC_ANALYSIS:
+        text: AUTOMATED_DYNAMIC_ANALYSIS
+      AUTOMATED_STATIC_ANALYSIS:
+        text: AUTOMATED_STATIC_ANALYSIS
+      AUTOMATED_STATIC_ANALYSIS_SOURCE_CODE:
+        text: AUTOMATED_STATIC_ANALYSIS_SOURCE_CODE
+        description: Automated Static Analysis - Source Code
+      AUTOMATED_STATIC_ANALYSIS_BINARY_OR_BYTECODE:
+        text: AUTOMATED_STATIC_ANALYSIS_BINARY_OR_BYTECODE
+        description: Automated Static Analysis - Binary or Bytecode
+      FUZZING:
+        text: FUZZING
+      MANUAL_ANALYSIS:
+        text: MANUAL_ANALYSIS
+      MANUAL_DYNAMIC_ANALYSIS:
+        text: MANUAL_DYNAMIC_ANALYSIS
+      MANUAL_STATIC_ANALYSIS:
+        text: MANUAL_STATIC_ANALYSIS
+      MANUAL_STATIC_ANALYSIS_SOURCE_CODE:
+        text: MANUAL_STATIC_ANALYSIS_SOURCE_CODE
+        description: Manual Static Analysis - Source Code
+      MANUAL_STATIC_ANALYSIS_BINARY_OR_BYTECODE:
+        text: MANUAL_STATIC_ANALYSIS_BINARY_OR_BYTECODE
+        description: Manual Static Analysis - Binary or Bytecode
+      WHITE_BOX:
+        text: WHITE_BOX
+      BLACK_BOX:
+        text: BLACK_BOX
+      ARCHITECTURE_OR_DESIGN_REVIEW:
+        text: ARCHITECTURE_OR_DESIGN_REVIEW
+      DYNAMIC_ANALYSIS_WITH_MANUAL_RESULTS_INTERPRETATION:
+        text: DYNAMIC_ANALYSIS_WITH_MANUAL_RESULTS_INTERPRETATION
+      DYNAMIC_ANALYSIS_WITH_AUTOMATED_RESULTS_INTERPRETATION:
+        text: DYNAMIC_ANALYSIS_WITH_AUTOMATED_RESULTS_INTERPRETATION
+      FORMAL_VERIFICATION:
+        text: FORMAL_VERIFICATION
+      SIMULATION_EMULATION:
+        text: SIMULATION_EMULATION
+      OTHER:
+        text: OTHER
+  DetectionEffectiveness:
+    name: DetectionEffectiveness
+    definition_uri: https://w3id.org/lmodel/cwe/DetectionEffectiveness
+    description: Effectiveness of a detection method (DetectionEffectivenessEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      HIGH:
+        text: HIGH
+        description: Succeeds frequently; few false reports.
+      MODERATE:
+        text: MODERATE
+        description: Applicable broadly but may lack complete coverage.
+      SOAR_PARTIAL:
+        text: SOAR_PARTIAL
+        description: Cost-effective for partial coverage per IATAC SOAR report.
+      OPPORTUNISTIC:
+        text: OPPORTUNISTIC
+        description: May succeed by chance rather than reliably.
+      LIMITED:
+        text: LIMITED
+        description: Useful in limited circumstances.
+      NONE:
+        text: NONE
+        description: Highly unlikely to work.
+  MitigationEffectiveness:
+    name: MitigationEffectiveness
+    definition_uri: https://w3id.org/lmodel/cwe/MitigationEffectiveness
+    description: Effectiveness of a potential mitigation (EffectivenessEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      HIGH:
+        text: HIGH
+        description: Frequently eliminates the weakness entirely.
+      MODERATE:
+        text: MODERATE
+        description: Prevents multiple forms but lacks complete coverage.
+      LIMITED:
+        text: LIMITED
+        description: Useful in limited circumstances.
+      INCIDENTAL:
+        text: INCIDENTAL
+        description: Generally not effective; only protects by chance.
+      DEFENSE_IN_DEPTH:
+        text: DEFENSE_IN_DEPTH
+        description: Minimizes impact rather than preventing the weakness.
+      DISCOURAGED_COMMON_PRACTICE:
+        text: DISCOURAGED_COMMON_PRACTICE
+        description: Commonly attempted but known to be ineffective or risky.
+      NONE:
+        text: NONE
+  NoteType:
+    name: NoteType
+    definition_uri: https://w3id.org/lmodel/cwe/NoteType
+    description: Type of note on a CWE entry (NoteTypeEnumeration in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      APPLICABLE_PLATFORM:
+        text: APPLICABLE_PLATFORM
+      MAINTENANCE:
+        text: MAINTENANCE
+      RELATIONSHIP:
+        text: RELATIONSHIP
+      RESEARCH_GAP:
+        text: RESEARCH_GAP
+      TERMINOLOGY:
+        text: TERMINOLOGY
+      THEORETICAL:
+        text: THEORETICAL
+      OTHER:
+        text: OTHER
+  CWEViewType:
+    name: CWEViewType
+    definition_uri: https://w3id.org/lmodel/cwe/CWEViewType
+    description: Type of CWE view (ViewTypeEnumeration in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      GRAPH:
+        text: GRAPH
+        description: Hierarchical representation from a specific vantage point.
+      EXPLICIT:
+        text: EXPLICIT
+        description: Flat list related through an external factor (e.g. Top-N list).
+      IMPLICIT:
+        text: IMPLICIT
+        description: Subset identified by an XSL filter expression.
+  FunctionalArea:
+    name: FunctionalArea
+    definition_uri: https://w3id.org/lmodel/cwe/FunctionalArea
+    description: Functional area where a weakness is most likely to occur (FunctionalAreaEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      AUTHENTICATION:
+        text: AUTHENTICATION
+      AUTHORIZATION:
+        text: AUTHORIZATION
+      CODE_LIBRARIES:
+        text: CODE_LIBRARIES
+      COUNTERS:
+        text: COUNTERS
+      CRYPTOGRAPHY:
+        text: CRYPTOGRAPHY
+      ERROR_HANDLING:
+        text: ERROR_HANDLING
+      INTERPROCESS_COMMUNICATION:
+        text: INTERPROCESS_COMMUNICATION
+      FILE_PROCESSING:
+        text: FILE_PROCESSING
+      LOGGING:
+        text: LOGGING
+      MEMORY_MANAGEMENT:
+        text: MEMORY_MANAGEMENT
+      NETWORKING:
+        text: NETWORKING
+      NUMBER_PROCESSING:
+        text: NUMBER_PROCESSING
+      PROGRAM_INVOCATION:
+        text: PROGRAM_INVOCATION
+      PROTECTION_MECHANISM:
+        text: PROTECTION_MECHANISM
+      SESSION_MANAGEMENT:
+        text: SESSION_MANAGEMENT
+      SIGNALS:
+        text: SIGNALS
+      STRING_PROCESSING:
+        text: STRING_PROCESSING
+      NOT_FUNCTIONAL_AREA_SPECIFIC:
+        text: NOT_FUNCTIONAL_AREA_SPECIFIC
+      POWER:
+        text: POWER
+      CLOCK:
+        text: CLOCK
+  AffectedResource:
+    name: AffectedResource
+    definition_uri: https://w3id.org/lmodel/cwe/AffectedResource
+    description: System resource that can be affected by exploiting a weakness (ResourceEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      CPU:
+        text: CPU
+      FILE_OR_DIRECTORY:
+        text: FILE_OR_DIRECTORY
+      MEMORY:
+        text: MEMORY
+      SYSTEM_PROCESS:
+        text: SYSTEM_PROCESS
+      OTHER:
+        text: OTHER
+  PlatformPrevalence:
+    name: PlatformPrevalence
+    definition_uri: https://w3id.org/lmodel/cwe/PlatformPrevalence
+    description: Regularity with which a weakness applies to a given platform (PrevalenceEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      OFTEN:
+        text: OFTEN
+      SOMETIMES:
+        text: SOMETIMES
+      RARELY:
+        text: RARELY
+      UNDETERMINED:
+        text: UNDETERMINED
+  ProgrammingLanguage:
+    name: ProgrammingLanguage
+    definition_uri: https://w3id.org/lmodel/cwe/ProgrammingLanguage
+    description: Source code language or data format (LanguageNameEnumeration in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      ADA:
+        text: ADA
+      ARM_ASSEMBLY:
+        text: ARM_ASSEMBLY
+      ASP:
+        text: ASP
+      ASP_DOT_NET:
+        text: ASP_DOT_NET
+      BASIC:
+        text: BASIC
+      C:
+        text: C
+      C_PLUS_PLUS:
+        text: C_PLUS_PLUS
+      C_SHARP:
+        text: C_SHARP
+      COBOL:
+        text: COBOL
+      FORTRAN:
+        text: FORTRAN
+      FSHARP:
+        text: FSHARP
+      GO:
+        text: GO
+      HTML:
+        text: HTML
+      JAVA:
+        text: JAVA
+      JAVASCRIPT:
+        text: JAVASCRIPT
+      JSON:
+        text: JSON
+      JSP:
+        text: JSP
+      OBJECTIVE_C:
+        text: OBJECTIVE_C
+      PASCAL:
+        text: PASCAL
+      PERL:
+        text: PERL
+      PHP:
+        text: PHP
+      PSEUDOCODE:
+        text: PSEUDOCODE
+      PYTHON:
+        text: PYTHON
+      RUBY:
+        text: RUBY
+      RUST:
+        text: RUST
+      SHELL:
+        text: SHELL
+      SQL:
+        text: SQL
+      SWIFT:
+        text: SWIFT
+      VB_DOT_NET:
+        text: VB_DOT_NET
+      VERILOG:
+        text: VERILOG
+      VHDL:
+        text: VHDL
+      XML:
+        text: XML
+      X86_ASSEMBLY:
+        text: X86_ASSEMBLY
+      OTHER:
+        text: OTHER
+  LanguageClass:
+    name: LanguageClass
+    definition_uri: https://w3id.org/lmodel/cwe/LanguageClass
+    description: Class of programming language (LanguageClassEnumeration in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      ASSEMBLY:
+        text: ASSEMBLY
+      COMPILED:
+        text: COMPILED
+      HARDWARE_DESCRIPTION_LANGUAGE:
+        text: HARDWARE_DESCRIPTION_LANGUAGE
+      INTERPRETED:
+        text: INTERPRETED
+      OBJECT_ORIENTED:
+        text: OBJECT_ORIENTED
+      MEMORY_UNSAFE:
+        text: MEMORY_UNSAFE
+      NOT_LANGUAGE_SPECIFIC:
+        text: NOT_LANGUAGE_SPECIFIC
+  ArchitectureName:
+    name: ArchitectureName
+    definition_uri: https://w3id.org/lmodel/cwe/ArchitectureName
+    description: Processor architecture (ArchitectureNameEnumeration in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      ALPHA:
+        text: ALPHA
+      ARM:
+        text: ARM
+      ITANIUM:
+        text: ITANIUM
+      POWER_ARCHITECTURE:
+        text: POWER_ARCHITECTURE
+      SPARC:
+        text: SPARC
+      X86:
+        text: X86
+      OTHER:
+        text: OTHER
+  ArchitectureClass:
+    name: ArchitectureClass
+    definition_uri: https://w3id.org/lmodel/cwe/ArchitectureClass
+    description: Class of processor architecture (ArchitectureClassEnumeration in
+      XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      EMBEDDED:
+        text: EMBEDDED
+      MICROCOMPUTER:
+        text: MICROCOMPUTER
+      WORKSTATION:
+        text: WORKSTATION
+      NOT_ARCHITECTURE_SPECIFIC:
+        text: NOT_ARCHITECTURE_SPECIFIC
+  OperatingSystemName:
+    name: OperatingSystemName
+    definition_uri: https://w3id.org/lmodel/cwe/OperatingSystemName
+    description: Operating system (OperatingSystemNameEnumeration in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      AIX:
+        text: AIX
+      ANDROID:
+        text: ANDROID
+      BLACKBERRY_OS:
+        text: BLACKBERRY_OS
+      CHROME_OS:
+        text: CHROME_OS
+      DARWIN:
+        text: DARWIN
+      FREEBSD:
+        text: FREEBSD
+      IOS:
+        text: IOS
+      MACOS:
+        text: MACOS
+      NETBSD:
+        text: NETBSD
+      OPENBSD:
+        text: OPENBSD
+      RED_HAT:
+        text: RED_HAT
+      SOLARIS:
+        text: SOLARIS
+      SUSE:
+        text: SUSE
+      TVOS:
+        text: TVOS
+      UBUNTU:
+        text: UBUNTU
+      WATCHOS:
+        text: WATCHOS
+      WINDOWS_9X:
+        text: WINDOWS_9X
+      WINDOWS_EMBEDDED:
+        text: WINDOWS_EMBEDDED
+      WINDOWS_NT:
+        text: WINDOWS_NT
+  OperatingSystemClass:
+    name: OperatingSystemClass
+    definition_uri: https://w3id.org/lmodel/cwe/OperatingSystemClass
+    description: Class of operating system (OperatingSystemClassEnumeration in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      LINUX:
+        text: LINUX
+      MACOS:
+        text: MACOS
+      UNIX:
+        text: UNIX
+      WINDOWS:
+        text: WINDOWS
+      NOT_OS_SPECIFIC:
+        text: NOT_OS_SPECIFIC
+  TechnologyName:
+    name: TechnologyName
+    definition_uri: https://w3id.org/lmodel/cwe/TechnologyName
+    description: Specific technology applicable to a weakness (TechnologyNameEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      AI_ML:
+        text: AI_ML
+      WEB_SERVER:
+        text: WEB_SERVER
+      DATABASE_SERVER:
+        text: DATABASE_SERVER
+      ACCELERATOR_HARDWARE:
+        text: ACCELERATOR_HARDWARE
+      ANALOG_AND_MIXED_SIGNAL_HARDWARE:
+        text: ANALOG_AND_MIXED_SIGNAL_HARDWARE
+      AUDIO_VIDEO_HARDWARE:
+        text: AUDIO_VIDEO_HARDWARE
+      BUS_INTERFACE_HARDWARE:
+        text: BUS_INTERFACE_HARDWARE
+      CLOCK_COUNTER_HARDWARE:
+        text: CLOCK_COUNTER_HARDWARE
+      COMMUNICATION_HARDWARE:
+        text: COMMUNICATION_HARDWARE
+      CONTROLLER_HARDWARE:
+        text: CONTROLLER_HARDWARE
+      MEMORY_HARDWARE:
+        text: MEMORY_HARDWARE
+      MICROCONTROLLER_HARDWARE:
+        text: MICROCONTROLLER_HARDWARE
+      NETWORK_ON_CHIP_HARDWARE:
+        text: NETWORK_ON_CHIP_HARDWARE
+      POWER_MANAGEMENT_HARDWARE:
+        text: POWER_MANAGEMENT_HARDWARE
+      PROCESSOR_HARDWARE:
+        text: PROCESSOR_HARDWARE
+      SECURITY_HARDWARE:
+        text: SECURITY_HARDWARE
+      SENSOR_HARDWARE:
+        text: SENSOR_HARDWARE
+      STORAGE_HARDWARE:
+        text: STORAGE_HARDWARE
+      TEST_DEBUG_HARDWARE:
+        text: TEST_DEBUG_HARDWARE
+      OTHER:
+        text: OTHER
+  TechnologyClass:
+    name: TechnologyClass
+    definition_uri: https://w3id.org/lmodel/cwe/TechnologyClass
+    description: Class of technology (TechnologyClassEnumeration in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      CLIENT_SERVER:
+        text: CLIENT_SERVER
+      CLOUD_COMPUTING:
+        text: CLOUD_COMPUTING
+      ICS_OT:
+        text: ICS_OT
+      MAINFRAME:
+        text: MAINFRAME
+      MOBILE:
+        text: MOBILE
+      N_TIER:
+        text: N_TIER
+      SOA:
+        text: SOA
+      SYSTEM_ON_CHIP:
+        text: SYSTEM_ON_CHIP
+      WEB_BASED:
+        text: WEB_BASED
+      NOT_TECHNOLOGY_SPECIFIC:
+        text: NOT_TECHNOLOGY_SPECIFIC
+  TaxonomyMappingFit:
+    name: TaxonomyMappingFit
+    definition_uri: https://w3id.org/lmodel/cwe/TaxonomyMappingFit
+    description: Closeness of a mapping to an external taxonomy (TaxonomyMappingFitEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      EXACT:
+        text: EXACT
+      CWE_MORE_ABSTRACT:
+        text: CWE_MORE_ABSTRACT
+      CWE_MORE_SPECIFIC:
+        text: CWE_MORE_SPECIFIC
+      IMPRECISE:
+        text: IMPRECISE
+      PERSPECTIVE:
+        text: PERSPECTIVE
+  TaxonomyName:
+    name: TaxonomyName
+    definition_uri: https://w3id.org/lmodel/cwe/TaxonomyName
+    description: Known taxonomy that can be mapped to CWE (TaxonomyNameEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      SEVEN_PERNICIOUS_KINGDOMS:
+        text: SEVEN_PERNICIOUS_KINGDOMS
+      NINETEEN_DEADLY_SINS:
+        text: NINETEEN_DEADLY_SINS
+      ASLAM:
+        text: ASLAM
+      BISHOP:
+        text: BISHOP
+      CERT_C_SECURE_CODING:
+        text: CERT_C_SECURE_CODING
+      CERT_CPP_SECURE_CODING:
+        text: CERT_CPP_SECURE_CODING
+      THE_CERT_ORACLE_SECURE_CODING_STANDARD_FOR_JAVA_2011:
+        text: THE_CERT_ORACLE_SECURE_CODING_STANDARD_FOR_JAVA_2011
+      CLASP:
+        text: CLASP
+      ISA_IEC_62443:
+        text: ISA_IEC_62443
+      LANDWEHR:
+        text: LANDWEHR
+      OMG_ASCSM:
+        text: OMG_ASCSM
+      OMG_ASCRM:
+        text: OMG_ASCRM
+      OMG_ASCMM:
+        text: OMG_ASCMM
+      OMG_ASCPEM:
+        text: OMG_ASCPEM
+      OWASP_TOP_TEN_2004:
+        text: OWASP_TOP_TEN_2004
+      OWASP_TOP_TEN_2007:
+        text: OWASP_TOP_TEN_2007
+      OWASP_TOP_TEN:
+        text: OWASP_TOP_TEN
+      PLOVER:
+        text: PLOVER
+      PROTECTION_ANALYSIS:
+        text: PROTECTION_ANALYSIS
+      RISOS:
+        text: RISOS
+      SEI_CERT_C_CODING_STANDARD:
+        text: SEI_CERT_C_CODING_STANDARD
+      SEI_CERT_CPP_CODING_STANDARD:
+        text: SEI_CERT_CPP_CODING_STANDARD
+      SEI_CERT_ORACLE_CODING_STANDARD_FOR_JAVA:
+        text: SEI_CERT_ORACLE_CODING_STANDARD_FOR_JAVA
+      SEI_CERT_PERL_CODING_STANDARD:
+        text: SEI_CERT_PERL_CODING_STANDARD
+      SOFTWARE_FAULT_PATTERNS:
+        text: SOFTWARE_FAULT_PATTERNS
+      WEBER_KARGER_PARADKAR:
+        text: WEBER_KARGER_PARADKAR
+      WASC:
+        text: WASC
+  MappingUsage:
+    name: MappingUsage
+    definition_uri: https://w3id.org/lmodel/cwe/MappingUsage
+    description: Whether a CWE entry should be used for mapping (UsageEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      ALLOWED:
+        text: ALLOWED
+        description: May be used to map to real-world vulnerabilities.
+      ALLOWED_WITH_REVIEW:
+        text: ALLOWED_WITH_REVIEW
+        description: May be used in limited situations requiring careful review.
+      DISCOURAGED:
+        text: DISCOURAGED
+        description: Should not be used for mapping.
+      PROHIBITED:
+        text: PROHIBITED
+        description: Must not be used for mapping.
+  MappingReason:
+    name: MappingReason
+    definition_uri: https://w3id.org/lmodel/cwe/MappingReason
+    description: Reason why a CWE entry should not be used for mapping (ReasonEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      ABSTRACTION:
+        text: ABSTRACTION
+      CATEGORY:
+        text: CATEGORY
+      VIEW:
+        text: VIEW
+      DEPRECATED:
+        text: DEPRECATED
+      POTENTIAL_DEPRECATION:
+        text: POTENTIAL_DEPRECATION
+      FREQUENT_MISUSE:
+        text: FREQUENT_MISUSE
+      FREQUENT_MISINTERPRETATION:
+        text: FREQUENT_MISINTERPRETATION
+      MULTIPLE_USE:
+        text: MULTIPLE_USE
+      CWE_OVERLAP:
+        text: CWE_OVERLAP
+      ACCEPTABLE_USE:
+        text: ACCEPTABLE_USE
+      POTENTIAL_MAJOR_CHANGES:
+        text: POTENTIAL_MAJOR_CHANGES
+      OTHER:
+        text: OTHER
+  StakeholderType:
+    name: StakeholderType
+    definition_uri: https://w3id.org/lmodel/cwe/StakeholderType
+    description: Type of stakeholder in the CWE community (StakeholderEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      ACADEMIC_RESEARCHERS:
+        text: ACADEMIC_RESEARCHERS
+      APPLIED_RESEARCHERS:
+        text: APPLIED_RESEARCHERS
+      ASSESSMENT_TEAMS:
+        text: ASSESSMENT_TEAMS
+      ASSESSMENT_TOOL_VENDORS:
+        text: ASSESSMENT_TOOL_VENDORS
+      CWE_TEAM:
+        text: CWE_TEAM
+      EDUCATORS:
+        text: EDUCATORS
+      HARDWARE_DESIGNERS:
+        text: HARDWARE_DESIGNERS
+      INFORMATION_PROVIDERS:
+        text: INFORMATION_PROVIDERS
+      PRODUCT_CUSTOMERS:
+        text: PRODUCT_CUSTOMERS
+      PRODUCT_VENDORS:
+        text: PRODUCT_VENDORS
+      SOFTWARE_DEVELOPERS:
+        text: SOFTWARE_DEVELOPERS
+      VULNERABILITY_ANALYSTS:
+        text: VULNERABILITY_ANALYSTS
+      OTHER:
+        text: OTHER
+  CodeNature:
+    name: CodeNature
+    definition_uri: https://w3id.org/lmodel/cwe/CodeNature
+    description: Nature of a code snippet in a demonstrative example (StructuredCodeNatureEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      ATTACK:
+        text: ATTACK
+      BAD:
+        text: BAD
+      GOOD:
+        text: GOOD
+      INFORMATIVE:
+        text: INFORMATIVE
+      MITIGATION:
+        text: MITIGATION
+      RESULT:
+        text: RESULT
+  ContentImportance:
+    name: ContentImportance
+    definition_uri: https://w3id.org/lmodel/cwe/ContentImportance
+    description: Importance level of a content modification (ImportanceEnumeration
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      NORMAL:
+        text: NORMAL
+      CRITICAL:
+        text: CRITICAL
+        description: Changes the meaning or interpretation of the entry.
+  ContributionType:
+    name: ContributionType
+    definition_uri: https://w3id.org/lmodel/cwe/ContributionType
+    description: Whether a contribution was donated content or general feedback.
+    from_schema: https://w3id.org/lmodel/cwe
+    permissible_values:
+      CONTENT:
+        text: CONTENT
+        description: Content donated to the CWE entry.
+      FEEDBACK:
+        text: FEEDBACK
+        description: General feedback given about the CWE entry.
+slots:
+  id:
+    name: id
+    definition_uri: https://w3id.org/lmodel/cwe/id
+    description: Unique numeric identifier for the CWE entry, category, or view.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:identifier
+    slot_uri: dct:identifier
+    identifier: true
+    owner: View
+    domain_of:
+    - Weakness
+    - Category
+    - View
+    range: integer
+    required: true
+  name:
+    name: name
+    definition_uri: https://w3id.org/lmodel/cwe/name
+    description: Short human-readable name or title for this entity.
+    from_schema: https://w3id.org/lmodel/cwe
+    aliases:
+    - label
+    mappings:
+    - rdfs:label
+    slot_uri: rdfs:label
+    owner: PreviousEntryName
+    domain_of:
+    - WeaknessCatalog
+    - Weakness
+    - Category
+    - View
+    - LanguagePlatform
+    - OSPlatform
+    - ArchitecturePlatform
+    - TechnologyPlatform
+    - PreviousEntryName
+    range: string
+  title:
+    name: title
+    definition_uri: https://w3id.org/lmodel/cwe/title
+    description: Descriptive title for a reference or catalog element.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:title
+    slot_uri: dct:title
+    owner: ExternalReference
+    domain_of:
+    - ExternalReference
+    range: string
+  description:
+    name: description
+    definition_uri: https://w3id.org/lmodel/cwe/description
+    description: Narrative description of the entity.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:description
+    exact_mappings:
+    - schema:description
+    slot_uri: dct:description
+    owner: Audience
+    domain_of:
+    - Weakness
+    - WeaknessOrdinality
+    - AlternateTerm
+    - DetectionMethod
+    - PotentialMitigation
+    - ObservedExample
+    - Audience
+    range: string
+  version:
+    name: version
+    definition_uri: https://w3id.org/lmodel/cwe/version
+    description: Version string of the catalog, entry, or submission.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - schema:version
+    slot_uri: schema:version
+    owner: PreviousEntryName
+    domain_of:
+    - WeaknessCatalog
+    - OSPlatform
+    - PreviousEntryName
+    range: string
+  date:
+    name: date
+    definition_uri: https://w3id.org/lmodel/cwe/date
+    description: Date associated with a catalog snapshot or a name-change event.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:date
+    slot_uri: dct:date
+    owner: PreviousEntryName
+    domain_of:
+    - WeaknessCatalog
+    - PreviousEntryName
+    range: date
+  source:
+    name: source
+    definition_uri: https://w3id.org/lmodel/cwe/source
+    description: Source or origin of the data.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:source
+    slot_uri: dct:source
+    owner: NVDWeaknessObservation
+    domain_of:
+    - Weakness
+    - NVDWeaknessObservation
+    range: string
+  url:
+    name: url
+    definition_uri: https://w3id.org/lmodel/cwe/url
+    description: URL pointing to the reference resource.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - schema:url
+    slot_uri: schema:url
+    owner: ExternalReference
+    domain_of:
+    - ExternalReference
+    range: uri
+  url_date:
+    name: url_date
+    definition_uri: https://w3id.org/lmodel/cwe/url_date
+    description: Date when the URL was last validated to exist.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:url_date
+    owner: ExternalReference
+    domain_of:
+    - ExternalReference
+    range: date
+  summary:
+    name: summary
+    definition_uri: https://w3id.org/lmodel/cwe/summary
+    description: Key points that define a category.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:summary
+    owner: Category
+    domain_of:
+    - Category
+    range: string
+  objective:
+    name: objective
+    definition_uri: https://w3id.org/lmodel/cwe/objective
+    description: Perspective from which a view has been constructed.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:objective
+    owner: View
+    domain_of:
+    - View
+    range: string
+  filter:
+    name: filter
+    definition_uri: https://w3id.org/lmodel/cwe/filter
+    description: XSL query identifying members of an implicit slice view.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:filter
+    owner: View
+    domain_of:
+    - View
+    range: string
+  comment:
+    name: comment
+    definition_uri: https://w3id.org/lmodel/cwe/comment
+    description: Explanatory comment (e.g. on a mapping suggestion).
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:comment
+    owner: MappingSuggestion
+    domain_of:
+    - MappingSuggestion
+    range: string
+  abstraction:
+    name: abstraction
+    definition_uri: https://w3id.org/lmodel/cwe/abstraction
+    description: CWE abstraction tier (e.g. Base or Variant).
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - skos:broader
+    slot_uri: skos:broader
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: WeaknessAbstraction
+  structure:
+    name: structure
+    definition_uri: https://w3id.org/lmodel/cwe/structure
+    description: Structural nature of the weakness (Simple, Chain, or Composite).
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:structure
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: WeaknessStructure
+  status:
+    name: status
+    definition_uri: https://w3id.org/lmodel/cwe/status
+    description: Lifecycle status of the CWE entry, category, or view.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:status
+    owner: View
+    domain_of:
+    - Weakness
+    - Category
+    - View
+    range: WeaknessStatus
+  diagram:
+    name: diagram
+    definition_uri: https://w3id.org/lmodel/cwe/diagram
+    description: Optional diagram filename or reference associated with the entry.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:diagram
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: string
+  extended_description:
+    name: extended_description
+    definition_uri: https://w3id.org/lmodel/cwe/extended_description
+    description: Extended description providing additional details beyond the core
+      concept.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:extended_description
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: string
+  likelihood_of_exploit:
+    name: likelihood_of_exploit
+    definition_uri: https://w3id.org/lmodel/cwe/likelihood_of_exploit
+    description: Qualitative likelihood that the weakness can be exploited.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:likelihood_of_exploit
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: LikelihoodLevel
+  tags:
+    name: tags
+    definition_uri: https://w3id.org/lmodel/cwe/tags
+    description: Free-form tags for grouping and downstream filtering.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:tags
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: string
+    multivalued: true
+  type:
+    name: type
+    definition_uri: https://w3id.org/lmodel/cwe/type
+    description: Type discriminator (narrowed per class via slot_usage).
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:type
+    owner: Contribution
+    domain_of:
+    - View
+    - Audience
+    - Note
+    - Contribution
+    range: string
+  phase:
+    name: phase
+    definition_uri: https://w3id.org/lmodel/cwe/phase
+    description: Lifecycle phase for introduction or mitigation.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:phase
+    owner: ModeOfIntroduction
+    domain_of:
+    - ModeOfIntroduction
+    range: LifecyclePhase
+  phases:
+    name: phases
+    definition_uri: https://w3id.org/lmodel/cwe/phases
+    description: Lifecycle phases during which a mitigation may be applied.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:phases
+    owner: PotentialMitigation
+    domain_of:
+    - PotentialMitigation
+    range: LifecyclePhase
+    multivalued: true
+  strategy:
+    name: strategy
+    definition_uri: https://w3id.org/lmodel/cwe/strategy
+    description: General protection strategy to which a mitigation contributes.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:strategy
+    owner: PotentialMitigation
+    domain_of:
+    - PotentialMitigation
+    range: MitigationStrategy
+  effectiveness:
+    name: effectiveness
+    definition_uri: https://w3id.org/lmodel/cwe/effectiveness
+    description: Effectiveness level (range narrowed to DetectionEffectiveness or
+      MitigationEffectiveness per class via slot_usage).
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:effectiveness
+    owner: PotentialMitigation
+    domain_of:
+    - DetectionMethod
+    - PotentialMitigation
+    range: string
+  effectiveness_notes:
+    name: effectiveness_notes
+    definition_uri: https://w3id.org/lmodel/cwe/effectiveness_notes
+    description: Strengths and shortcomings of this detection or mitigation.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:effectiveness_notes
+    owner: PotentialMitigation
+    domain_of:
+    - DetectionMethod
+    - PotentialMitigation
+    range: string
+  method:
+    name: method
+    definition_uri: https://w3id.org/lmodel/cwe/method
+    description: Detection method (range narrowed per class via slot_usage).
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:method
+    owner: DetectionMethod
+    domain_of:
+    - DetectionMethod
+    range: string
+  usage:
+    name: usage
+    definition_uri: https://w3id.org/lmodel/cwe/usage
+    description: Whether this CWE entry is supported for mapping.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:usage
+    owner: MappingNotes
+    domain_of:
+    - MappingNotes
+    range: MappingUsage
+  rationale:
+    name: rationale
+    definition_uri: https://w3id.org/lmodel/cwe/rationale
+    description: Context for the mapping usage designation.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:rationale
+    owner: MappingNotes
+    domain_of:
+    - MappingNotes
+    range: string
+  comments:
+    name: comments
+    definition_uri: https://w3id.org/lmodel/cwe/comments
+    description: Further clarification for the mapping notes reader.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:comments
+    owner: MappingNotes
+    domain_of:
+    - MappingNotes
+    range: string
+  reasons:
+    name: reasons
+    definition_uri: https://w3id.org/lmodel/cwe/reasons
+    description: Vocabulary summary of the mapping usage recommendation.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:reasons
+    owner: MappingNotes
+    domain_of:
+    - MappingNotes
+    range: MappingReason
+    multivalued: true
+  ordinality:
+    name: ordinality
+    definition_uri: https://w3id.org/lmodel/cwe/ordinality
+    description: Ordinality level (Primary, Resultant, or Indirect).
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:ordinality
+    owner: WeaknessOrdinality
+    domain_of:
+    - WeaknessOrdinality
+    range: WeaknessOrdinalityLevel
+  nature:
+    name: nature
+    definition_uri: https://w3id.org/lmodel/cwe/nature
+    description: Nature or kind qualifier for this entity (narrowed per class via
+      slot_usage).
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - skos:related
+    slot_uri: skos:related
+    owner: ExampleCode
+    domain_of:
+    - RelatedWeakness
+    - ExampleCode
+    range: string
+  class_:
+    name: class_
+    definition_uri: https://w3id.org/lmodel/cwe/class_
+    description: Class or category of a platform (narrowed per class via slot_usage).
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:class_
+    owner: TechnologyPlatform
+    domain_of:
+    - LanguagePlatform
+    - OSPlatform
+    - ArchitecturePlatform
+    - TechnologyPlatform
+    range: string
+  prevalence:
+    name: prevalence
+    definition_uri: https://w3id.org/lmodel/cwe/prevalence
+    description: Regularity with which a weakness applies to this platform.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:prevalence
+    owner: TechnologyPlatform
+    domain_of:
+    - LanguagePlatform
+    - OSPlatform
+    - ArchitecturePlatform
+    - TechnologyPlatform
+    range: PlatformPrevalence
+  language:
+    name: language
+    definition_uri: https://w3id.org/lmodel/cwe/language
+    description: Programming language for a code example or platform context.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:language
+    owner: ExampleCode
+    domain_of:
+    - ExampleCode
+    range: ProgrammingLanguage
+  cpe_id:
+    name: cpe_id
+    definition_uri: https://w3id.org/lmodel/cwe/cpe_id
+    description: CPE identifier for a platform.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:cpe_id
+    owner: OSPlatform
+    domain_of:
+    - OSPlatform
+    range: string
+  cwe_id:
+    name: cwe_id
+    definition_uri: https://w3id.org/lmodel/cwe/cwe_id
+    description: Numeric CWE ID (foreign key in relationships and members).
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:cwe_id
+    owner: MappingSuggestion
+    domain_of:
+    - RelatedWeakness
+    - CatalogMember
+    - MappingSuggestion
+    range: integer
+  view_id:
+    name: view_id
+    definition_uri: https://w3id.org/lmodel/cwe/view_id
+    description: View ID within which a relationship or membership is relevant.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:view_id
+    owner: CatalogMember
+    domain_of:
+    - RelatedWeakness
+    - CatalogMember
+    range: integer
+  chain_id:
+    name: chain_id
+    definition_uri: https://w3id.org/lmodel/cwe/chain_id
+    description: ID of a named chain for CanFollow/CanPrecede relationships.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:chain_id
+    owner: RelatedWeakness
+    domain_of:
+    - RelatedWeakness
+    range: integer
+  ordinal:
+    name: ordinal
+    definition_uri: https://w3id.org/lmodel/cwe/ordinal
+    description: Set to "Primary" for the primary ChildOf relationship in the given
+      view.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:ordinal
+    owner: RelatedWeakness
+    domain_of:
+    - RelatedWeakness
+    range: OrdinalQualifier
+  scopes:
+    name: scopes
+    definition_uri: https://w3id.org/lmodel/cwe/scopes
+    description: Security properties violated by this consequence.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:scopes
+    owner: CommonConsequence
+    domain_of:
+    - CommonConsequence
+    range: SecurityScope
+    multivalued: true
+  impacts:
+    name: impacts
+    definition_uri: https://w3id.org/lmodel/cwe/impacts
+    description: Technical impacts that arise if the weakness is exploited.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:impacts
+    owner: CommonConsequence
+    domain_of:
+    - CommonConsequence
+    range: TechnicalImpact
+    multivalued: true
+  likelihood:
+    name: likelihood
+    definition_uri: https://w3id.org/lmodel/cwe/likelihood
+    description: Likelihood of this specific consequence.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:likelihood
+    owner: CommonConsequence
+    domain_of:
+    - CommonConsequence
+    range: LikelihoodLevel
+  note:
+    name: note
+    definition_uri: https://w3id.org/lmodel/cwe/note
+    description: Additional contextual note.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:note
+    owner: CommonConsequence
+    domain_of:
+    - ModeOfIntroduction
+    - CommonConsequence
+    range: string
+  content:
+    name: content
+    definition_uri: https://w3id.org/lmodel/cwe/content
+    description: Textual content of a note.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:content
+    owner: Note
+    domain_of:
+    - ExampleCode
+    - Note
+    range: string
+  term:
+    name: term
+    definition_uri: https://w3id.org/lmodel/cwe/term
+    description: An alternate term by which this weakness may be known.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:term
+    owner: AlternateTerm
+    domain_of:
+    - AlternateTerm
+    range: string
+  detection_method_id:
+    name: detection_method_id
+    definition_uri: https://w3id.org/lmodel/cwe/detection_method_id
+    description: Unique identifier for a detection method entry (e.g. DM-1).
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:detection_method_id
+    owner: DetectionMethod
+    domain_of:
+    - DetectionMethod
+    range: string
+  mitigation_id:
+    name: mitigation_id
+    definition_uri: https://w3id.org/lmodel/cwe/mitigation_id
+    description: Unique identifier for a potential mitigation (e.g. MIT-1).
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:mitigation_id
+    owner: PotentialMitigation
+    domain_of:
+    - PotentialMitigation
+    range: string
+  demonstrative_example_id:
+    name: demonstrative_example_id
+    definition_uri: https://w3id.org/lmodel/cwe/demonstrative_example_id
+    description: Unique identifier for a demonstrative example (e.g. DX-1).
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:demonstrative_example_id
+    owner: DemonstrativeExample
+    domain_of:
+    - DemonstrativeExample
+    range: string
+  title_text:
+    name: title_text
+    definition_uri: https://w3id.org/lmodel/cwe/title_text
+    description: Optional title for a demonstrative example.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:title_text
+    owner: DemonstrativeExample
+    domain_of:
+    - DemonstrativeExample
+    range: string
+  intro_text:
+    name: intro_text
+    definition_uri: https://w3id.org/lmodel/cwe/intro_text
+    description: Context and setting for the demonstrative example.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:intro_text
+    owner: DemonstrativeExample
+    domain_of:
+    - DemonstrativeExample
+    range: string
+  body_texts:
+    name: body_texts
+    definition_uri: https://w3id.org/lmodel/cwe/body_texts
+    description: Interleaved body text paragraphs for a demonstrative example.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:body_texts
+    owner: DemonstrativeExample
+    domain_of:
+    - DemonstrativeExample
+    range: string
+    multivalued: true
+  reference:
+    name: reference
+    definition_uri: https://w3id.org/lmodel/cwe/reference
+    description: Identifier for a real-world example (e.g. CVE-2005-1951).
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:reference
+    owner: ObservedExample
+    domain_of:
+    - ObservedExample
+    range: string
+  link:
+    name: link
+    definition_uri: https://w3id.org/lmodel/cwe/link
+    description: URL providing more information about the observed example.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:link
+    owner: ObservedExample
+    domain_of:
+    - ObservedExample
+    range: uri
+  taxonomy_name:
+    name: taxonomy_name
+    definition_uri: https://w3id.org/lmodel/cwe/taxonomy_name
+    description: Name of the external taxonomy to which the mapping is made.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:taxonomy_name
+    owner: TaxonomyMapping
+    domain_of:
+    - TaxonomyMapping
+    range: TaxonomyName
+  entry_id:
+    name: entry_id
+    definition_uri: https://w3id.org/lmodel/cwe/entry_id
+    description: ID of the entry in the external taxonomy.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:entry_id
+    owner: TaxonomyMapping
+    domain_of:
+    - TaxonomyMapping
+    range: string
+  entry_name:
+    name: entry_name
+    definition_uri: https://w3id.org/lmodel/cwe/entry_name
+    description: Name of the entry in the external taxonomy.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:entry_name
+    owner: TaxonomyMapping
+    domain_of:
+    - TaxonomyMapping
+    range: string
+  mapping_fit:
+    name: mapping_fit
+    definition_uri: https://w3id.org/lmodel/cwe/mapping_fit
+    description: How close the CWE entry is to the mapped taxonomy entry.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:mapping_fit
+    owner: TaxonomyMapping
+    domain_of:
+    - TaxonomyMapping
+    range: TaxonomyMappingFit
+  related_attack_patterns:
+    name: related_attack_patterns
+    definition_uri: https://w3id.org/lmodel/cwe/related_attack_patterns
+    description: CAPEC identifiers of attack patterns associated with this weakness.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - skos:related
+    slot_uri: skos:related
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: integer
+    multivalued: true
+  functional_areas:
+    name: functional_areas
+    definition_uri: https://w3id.org/lmodel/cwe/functional_areas
+    description: Functional areas in which this weakness is most likely to occur.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:functional_areas
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: FunctionalArea
+    multivalued: true
+  affected_resources:
+    name: affected_resources
+    definition_uri: https://w3id.org/lmodel/cwe/affected_resources
+    description: System resources that can be affected by exploiting this weakness.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:affected_resources
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: AffectedResource
+    multivalued: true
+  background_details:
+    name: background_details
+    definition_uri: https://w3id.org/lmodel/cwe/background_details
+    description: Background information relevant but not describing the weakness itself.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:background_details
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: string
+    multivalued: true
+  exploitation_factors:
+    name: exploitation_factors
+    definition_uri: https://w3id.org/lmodel/cwe/exploitation_factors
+    description: Conditions that could increase the likelihood of exploit.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:exploitation_factors
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: string
+    multivalued: true
+  reference_id:
+    name: reference_id
+    definition_uri: https://w3id.org/lmodel/cwe/reference_id
+    description: Globally unique identifier for an external reference (e.g. REF-1).
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:identifier
+    slot_uri: dct:identifier
+    identifier: true
+    owner: ExternalReference
+    domain_of:
+    - ExternalReference
+    range: string
+    required: true
+  authors:
+    name: authors
+    definition_uri: https://w3id.org/lmodel/cwe/authors
+    description: Authors of the referenced material.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:authors
+    owner: ExternalReference
+    domain_of:
+    - ExternalReference
+    range: string
+    multivalued: true
+  edition:
+    name: edition
+    definition_uri: https://w3id.org/lmodel/cwe/edition
+    description: Edition of the material being referenced.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:edition
+    owner: ExternalReference
+    domain_of:
+    - ExternalReference
+    range: string
+  publication:
+    name: publication
+    definition_uri: https://w3id.org/lmodel/cwe/publication
+    description: Name of the magazine or journal.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:publication
+    owner: ExternalReference
+    domain_of:
+    - ExternalReference
+    range: string
+  publication_year:
+    name: publication_year
+    definition_uri: https://w3id.org/lmodel/cwe/publication_year
+    description: Year of publication in YYYY format.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:publication_year
+    owner: ExternalReference
+    domain_of:
+    - ExternalReference
+    range: string
+  publication_month:
+    name: publication_month
+    definition_uri: https://w3id.org/lmodel/cwe/publication_month
+    description: Month of publication in --MM format.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:publication_month
+    owner: ExternalReference
+    domain_of:
+    - ExternalReference
+    range: string
+  publication_day:
+    name: publication_day
+    definition_uri: https://w3id.org/lmodel/cwe/publication_day
+    description: Day of publication in ---DD format.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:publication_day
+    owner: ExternalReference
+    domain_of:
+    - ExternalReference
+    range: string
+  publisher:
+    name: publisher
+    definition_uri: https://w3id.org/lmodel/cwe/publisher
+    description: Publisher of the referenced material.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:publisher
+    owner: ExternalReference
+    domain_of:
+    - ExternalReference
+    range: string
+  external_reference_id:
+    name: external_reference_id
+    definition_uri: https://w3id.org/lmodel/cwe/external_reference_id
+    description: Identifier of the ExternalReference being linked to (e.g. REF-1).
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:external_reference_id
+    owner: CWEReference
+    domain_of:
+    - CWEReference
+    range: string
+  section:
+    name: section
+    definition_uri: https://w3id.org/lmodel/cwe/section
+    description: Section title or page number specific to this use of the reference.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:section
+    owner: CWEReference
+    domain_of:
+    - CWEReference
+    range: string
+  consequence_id:
+    name: consequence_id
+    definition_uri: https://w3id.org/lmodel/cwe/consequence_id
+    description: Unique identifier for a common consequence (e.g. CC-1).
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:consequence_id
+    owner: CommonConsequence
+    domain_of:
+    - CommonConsequence
+    range: string
+  submission_name:
+    name: submission_name
+    definition_uri: https://w3id.org/lmodel/cwe/submission_name
+    description: Name of the person who submitted this entry.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:submission_name
+    owner: Submission
+    domain_of:
+    - Submission
+    range: string
+  submission_organization:
+    name: submission_organization
+    definition_uri: https://w3id.org/lmodel/cwe/submission_organization
+    description: Organization of the submitter.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:submission_organization
+    owner: Submission
+    domain_of:
+    - Submission
+    range: string
+  submission_date:
+    name: submission_date
+    definition_uri: https://w3id.org/lmodel/cwe/submission_date
+    description: Date on which this entry was submitted.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:submission_date
+    owner: Submission
+    domain_of:
+    - Submission
+    range: date
+  submission_version:
+    name: submission_version
+    definition_uri: https://w3id.org/lmodel/cwe/submission_version
+    description: CWE version in which this entry was first added.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:submission_version
+    owner: Submission
+    domain_of:
+    - Submission
+    range: string
+  submission_release_date:
+    name: submission_release_date
+    definition_uri: https://w3id.org/lmodel/cwe/submission_release_date
+    description: Release date of the CWE version that added this entry.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:submission_release_date
+    owner: Submission
+    domain_of:
+    - Submission
+    range: date
+  submission_comment:
+    name: submission_comment
+    definition_uri: https://w3id.org/lmodel/cwe/submission_comment
+    description: Optional comment related to the submission.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:submission_comment
+    owner: Submission
+    domain_of:
+    - Submission
+    range: string
+  modification_name:
+    name: modification_name
+    definition_uri: https://w3id.org/lmodel/cwe/modification_name
+    description: Name of the person who made the modification.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:modification_name
+    owner: Modification
+    domain_of:
+    - Modification
+    range: string
+  modification_organization:
+    name: modification_organization
+    definition_uri: https://w3id.org/lmodel/cwe/modification_organization
+    description: Organization of the modifier.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:modification_organization
+    owner: Modification
+    domain_of:
+    - Modification
+    range: string
+  modification_date:
+    name: modification_date
+    definition_uri: https://w3id.org/lmodel/cwe/modification_date
+    description: Date on which the modification was made.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:modification_date
+    owner: Modification
+    domain_of:
+    - Modification
+    range: date
+  modification_version:
+    name: modification_version
+    definition_uri: https://w3id.org/lmodel/cwe/modification_version
+    description: CWE version in which the modification first appeared.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:modification_version
+    owner: Modification
+    domain_of:
+    - Modification
+    range: string
+  modification_release_date:
+    name: modification_release_date
+    definition_uri: https://w3id.org/lmodel/cwe/modification_release_date
+    description: Release date of the CWE version containing the modification.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:modification_release_date
+    owner: Modification
+    domain_of:
+    - Modification
+    range: date
+  modification_importance:
+    name: modification_importance
+    definition_uri: https://w3id.org/lmodel/cwe/modification_importance
+    description: Importance level of this modification.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:modification_importance
+    owner: Modification
+    domain_of:
+    - Modification
+    range: ContentImportance
+  modification_comment:
+    name: modification_comment
+    definition_uri: https://w3id.org/lmodel/cwe/modification_comment
+    description: Comment describing what was changed.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:modification_comment
+    owner: Modification
+    domain_of:
+    - Modification
+    range: string
+  contribution_name:
+    name: contribution_name
+    definition_uri: https://w3id.org/lmodel/cwe/contribution_name
+    description: Name of the contributor.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:contribution_name
+    owner: Contribution
+    domain_of:
+    - Contribution
+    range: string
+  contribution_organization:
+    name: contribution_organization
+    definition_uri: https://w3id.org/lmodel/cwe/contribution_organization
+    description: Organization of the contributor.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:contribution_organization
+    owner: Contribution
+    domain_of:
+    - Contribution
+    range: string
+  contribution_date:
+    name: contribution_date
+    definition_uri: https://w3id.org/lmodel/cwe/contribution_date
+    description: Date of the contribution.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:contribution_date
+    owner: Contribution
+    domain_of:
+    - Contribution
+    range: date
+  contribution_version:
+    name: contribution_version
+    definition_uri: https://w3id.org/lmodel/cwe/contribution_version
+    description: CWE version in which the contribution first appeared.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:contribution_version
+    owner: Contribution
+    domain_of:
+    - Contribution
+    range: string
+  contribution_release_date:
+    name: contribution_release_date
+    definition_uri: https://w3id.org/lmodel/cwe/contribution_release_date
+    description: Release date of the CWE version containing the contribution.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:contribution_release_date
+    owner: Contribution
+    domain_of:
+    - Contribution
+    range: date
+  contribution_comment:
+    name: contribution_comment
+    definition_uri: https://w3id.org/lmodel/cwe/contribution_comment
+    description: Comment related to the contribution.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:contribution_comment
+    owner: Contribution
+    domain_of:
+    - Contribution
+    range: string
+  observation_id:
+    name: observation_id
+    definition_uri: https://w3id.org/lmodel/cwe/observation_id
+    description: Identifier for an NVD weakness observation row.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:identifier
+    slot_uri: dct:identifier
+    identifier: true
+    owner: NVDWeaknessObservation
+    domain_of:
+    - NVDWeaknessObservation
+    range: string
+    required: true
+  observed_in_cve:
+    name: observed_in_cve
+    definition_uri: https://w3id.org/lmodel/cwe/observed_in_cve
+    description: CVE identifier where this weakness observation appears.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:references
+    slot_uri: dct:references
+    owner: NVDWeaknessObservation
+    domain_of:
+    - NVDWeaknessObservation
+    range: CveId
+  weakness:
+    name: weakness
+    definition_uri: https://w3id.org/lmodel/cwe/weakness
+    description: Referenced CWE entry for this observation.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - schema:about
+    slot_uri: schema:about
+    owner: NVDWeaknessObservation
+    domain_of:
+    - NVDWeaknessObservation
+    range: Weakness
+  reported_by:
+    name: reported_by
+    definition_uri: https://w3id.org/lmodel/cwe/reported_by
+    description: Source label for the weakness row (e.g. NIST, ASSIGNER).
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:source
+    slot_uri: dct:source
+    owner: NVDWeaknessObservation
+    domain_of:
+    - NVDWeaknessObservation
+    range: WeaknessSource
+  weaknesses:
+    name: weaknesses
+    definition_uri: https://w3id.org/lmodel/cwe/weaknesses
+    description: Canonical CWE weakness entries in this catalog snapshot.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:weaknesses
+    owner: WeaknessCatalog
+    domain_of:
+    - WeaknessCatalog
+    range: Weakness
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  categories:
+    name: categories
+    definition_uri: https://w3id.org/lmodel/cwe/categories
+    description: CWE categories grouping weaknesses by a common characteristic.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:categories
+    owner: WeaknessCatalog
+    domain_of:
+    - WeaknessCatalog
+    range: Category
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  views:
+    name: views
+    definition_uri: https://w3id.org/lmodel/cwe/views
+    description: CWE views providing different perspectives on the catalog.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:views
+    owner: WeaknessCatalog
+    domain_of:
+    - WeaknessCatalog
+    range: View
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  external_references:
+    name: external_references
+    definition_uri: https://w3id.org/lmodel/cwe/external_references
+    description: External references shared across CWE entries in this catalog.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:external_references
+    owner: WeaknessCatalog
+    domain_of:
+    - WeaknessCatalog
+    range: ExternalReference
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  observations:
+    name: observations
+    definition_uri: https://w3id.org/lmodel/cwe/observations
+    description: Weakness observations from NVD vulnerability detail pages.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:observations
+    owner: WeaknessCatalog
+    domain_of:
+    - WeaknessCatalog
+    range: NVDWeaknessObservation
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  weakness_ordinalities:
+    name: weakness_ordinalities
+    definition_uri: https://w3id.org/lmodel/cwe/weakness_ordinalities
+    description: Potential ordering relationships of this weakness with others.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:weakness_ordinalities
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: WeaknessOrdinality
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  applicable_platforms:
+    name: applicable_platforms
+    definition_uri: https://w3id.org/lmodel/cwe/applicable_platforms
+    description: Languages, OS, architectures, and technologies where this weakness
+      can appear.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:applicable_platforms
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: ApplicablePlatforms
+    inlined: true
+    inlined_as_list: true
+  languages:
+    name: languages
+    definition_uri: https://w3id.org/lmodel/cwe/languages
+    description: Programming languages applicable to this weakness.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:languages
+    owner: ApplicablePlatforms
+    domain_of:
+    - ApplicablePlatforms
+    range: LanguagePlatform
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  operating_systems:
+    name: operating_systems
+    definition_uri: https://w3id.org/lmodel/cwe/operating_systems
+    description: Operating systems applicable to this weakness.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:operating_systems
+    owner: ApplicablePlatforms
+    domain_of:
+    - ApplicablePlatforms
+    range: OSPlatform
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  architectures:
+    name: architectures
+    definition_uri: https://w3id.org/lmodel/cwe/architectures
+    description: Processor architectures applicable to this weakness.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:architectures
+    owner: ApplicablePlatforms
+    domain_of:
+    - ApplicablePlatforms
+    range: ArchitecturePlatform
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  technologies:
+    name: technologies
+    definition_uri: https://w3id.org/lmodel/cwe/technologies
+    description: Technologies applicable to this weakness.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:technologies
+    owner: ApplicablePlatforms
+    domain_of:
+    - ApplicablePlatforms
+    range: TechnologyPlatform
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  alternate_terms:
+    name: alternate_terms
+    definition_uri: https://w3id.org/lmodel/cwe/alternate_terms
+    description: Other names by which this weakness is known.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:alternate_terms
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: AlternateTerm
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  modes_of_introduction:
+    name: modes_of_introduction
+    definition_uri: https://w3id.org/lmodel/cwe/modes_of_introduction
+    description: Information about how and when this weakness may be introduced.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:modes_of_introduction
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: ModeOfIntroduction
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  common_consequences:
+    name: common_consequences
+    definition_uri: https://w3id.org/lmodel/cwe/common_consequences
+    description: Individual consequences associated with this weakness.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:common_consequences
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: CommonConsequence
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  detection_methods:
+    name: detection_methods
+    definition_uri: https://w3id.org/lmodel/cwe/detection_methods
+    description: Methods that may be employed to detect this weakness.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:detection_methods
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: DetectionMethod
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  potential_mitigations:
+    name: potential_mitigations
+    definition_uri: https://w3id.org/lmodel/cwe/potential_mitigations
+    description: Potential mitigations associated with this weakness.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:potential_mitigations
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: PotentialMitigation
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  demonstrative_examples:
+    name: demonstrative_examples
+    definition_uri: https://w3id.org/lmodel/cwe/demonstrative_examples
+    description: Code examples illustrating how this weakness may appear.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:demonstrative_examples
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: DemonstrativeExample
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  example_codes:
+    name: example_codes
+    definition_uri: https://w3id.org/lmodel/cwe/example_codes
+    description: Structured code snippets within a demonstrative example.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:example_codes
+    owner: DemonstrativeExample
+    domain_of:
+    - DemonstrativeExample
+    range: ExampleCode
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  observed_examples:
+    name: observed_examples
+    definition_uri: https://w3id.org/lmodel/cwe/observed_examples
+    description: Real-world instances of this weakness.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:observed_examples
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: ObservedExample
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  taxonomy_mappings:
+    name: taxonomy_mappings
+    definition_uri: https://w3id.org/lmodel/cwe/taxonomy_mappings
+    description: Mappings to equivalent entries in external taxonomies.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:taxonomy_mappings
+    owner: Category
+    domain_of:
+    - Weakness
+    - Category
+    range: TaxonomyMapping
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  related_weaknesses:
+    name: related_weaknesses
+    definition_uri: https://w3id.org/lmodel/cwe/related_weaknesses
+    description: Typed relationships to other CWE entries.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:related_weaknesses
+    owner: Weakness
+    domain_of:
+    - Weakness
+    range: RelatedWeakness
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  references:
+    name: references
+    definition_uri: https://w3id.org/lmodel/cwe/references
+    description: Links to external references defined in the catalog.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:references
+    owner: DemonstrativeExample
+    domain_of:
+    - Weakness
+    - Category
+    - View
+    - DemonstrativeExample
+    range: CWEReference
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  mapping_notes:
+    name: mapping_notes
+    definition_uri: https://w3id.org/lmodel/cwe/mapping_notes
+    description: Guidance for when and whether to map an issue to this entry.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:mapping_notes
+    owner: View
+    domain_of:
+    - Weakness
+    - Category
+    - View
+    range: MappingNotes
+    inlined: true
+    inlined_as_list: true
+  suggestions:
+    name: suggestions
+    definition_uri: https://w3id.org/lmodel/cwe/suggestions
+    description: Suggested alternative CWE entries for mapping.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:suggestions
+    owner: MappingNotes
+    domain_of:
+    - MappingNotes
+    range: MappingSuggestion
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  notes:
+    name: notes
+    definition_uri: https://w3id.org/lmodel/cwe/notes
+    description: Additional comments about this entry.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - skos:note
+    slot_uri: skos:note
+    owner: View
+    domain_of:
+    - Weakness
+    - Category
+    - View
+    range: Note
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  content_history:
+    name: content_history
+    definition_uri: https://w3id.org/lmodel/cwe/content_history
+    description: Tracks the original author and subsequent modifications.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:content_history
+    owner: View
+    domain_of:
+    - Weakness
+    - Category
+    - View
+    range: ContentHistory
+    inlined: true
+    inlined_as_list: true
+  submission:
+    name: submission
+    definition_uri: https://w3id.org/lmodel/cwe/submission
+    description: Initial submission information for this entry.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:submission
+    owner: ContentHistory
+    domain_of:
+    - ContentHistory
+    range: Submission
+    inlined: true
+    inlined_as_list: true
+  modifications:
+    name: modifications
+    definition_uri: https://w3id.org/lmodel/cwe/modifications
+    description: Ordered list of modifications made to this entry.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:modifications
+    owner: ContentHistory
+    domain_of:
+    - ContentHistory
+    range: Modification
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  contributions:
+    name: contributions
+    definition_uri: https://w3id.org/lmodel/cwe/contributions
+    description: Contribution records for this entry.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:contributions
+    owner: ContentHistory
+    domain_of:
+    - ContentHistory
+    range: Contribution
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  previous_entry_names:
+    name: previous_entry_names
+    definition_uri: https://w3id.org/lmodel/cwe/previous_entry_names
+    description: Previous names used for this entry before a substantive rename.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:previous_entry_names
+    owner: ContentHistory
+    domain_of:
+    - ContentHistory
+    range: PreviousEntryName
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  members:
+    name: members
+    definition_uri: https://w3id.org/lmodel/cwe/members
+    description: Member entries for a CWE view.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:members
+    owner: View
+    domain_of:
+    - View
+    range: CatalogMember
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  has_member:
+    name: has_member
+    definition_uri: https://w3id.org/lmodel/cwe/has_member
+    description: CWE entries that belong to this category or view.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:has_member
+    owner: Relationship
+    domain_of:
+    - Relationship
+    range: CatalogMember
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  member_of:
+    name: member_of
+    definition_uri: https://w3id.org/lmodel/cwe/member_of
+    description: Views or categories that this entry belongs to.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:member_of
+    owner: Relationship
+    domain_of:
+    - Relationship
+    range: CatalogMember
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  relationships:
+    name: relationships
+    definition_uri: https://w3id.org/lmodel/cwe/relationships
+    description: Membership relationships for a CWE category.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:relationships
+    owner: Category
+    domain_of:
+    - Category
+    range: Relationship
+    inlined: true
+    inlined_as_list: true
+  audience:
+    name: audience
+    definition_uri: https://w3id.org/lmodel/cwe/audience
+    description: Target stakeholder groups for this view or category.
+    from_schema: https://w3id.org/lmodel/cwe
+    slot_uri: cwe:audience
+    owner: View
+    domain_of:
+    - View
+    range: Audience
+    multivalued: true
+    inlined: true
+    inlined_as_list: true
+  WeaknessCatalog_name:
+    name: WeaknessCatalog_name
+    definition_uri: https://w3id.org/lmodel/cwe/name
+    description: Short human-readable name or title for this entity.
+    from_schema: https://w3id.org/lmodel/cwe
+    aliases:
+    - label
+    mappings:
+    - rdfs:label
+    is_a: name
+    domain: WeaknessCatalog
+    slot_uri: rdfs:label
+    identifier: true
+    alias: name
+    owner: WeaknessCatalog
+    domain_of:
+    - WeaknessCatalog
+    is_usage_slot: true
+    usage_slot_name: name
+    range: string
+    required: true
+  WeaknessCatalog_version:
+    name: WeaknessCatalog_version
+    definition_uri: https://w3id.org/lmodel/cwe/version
+    description: Version string of the catalog, entry, or submission.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - schema:version
+    is_a: version
+    domain: WeaknessCatalog
+    slot_uri: schema:version
+    alias: version
+    owner: WeaknessCatalog
+    domain_of:
+    - WeaknessCatalog
+    is_usage_slot: true
+    usage_slot_name: version
+    range: string
+    required: true
+  WeaknessCatalog_date:
+    name: WeaknessCatalog_date
+    definition_uri: https://w3id.org/lmodel/cwe/date
+    description: Date associated with a catalog snapshot or a name-change event.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:date
+    is_a: date
+    domain: WeaknessCatalog
+    slot_uri: dct:date
+    alias: date
+    owner: WeaknessCatalog
+    domain_of:
+    - WeaknessCatalog
+    is_usage_slot: true
+    usage_slot_name: date
+    range: date
+    required: true
+  Weakness_id:
+    name: Weakness_id
+    definition_uri: https://w3id.org/lmodel/cwe/id
+    description: Unique numeric identifier for the CWE entry, category, or view.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:identifier
+    is_a: id
+    domain: Weakness
+    slot_uri: dct:identifier
+    identifier: true
+    alias: id
+    owner: Weakness
+    domain_of:
+    - Weakness
+    is_usage_slot: true
+    usage_slot_name: id
+    range: integer
+    required: true
+  Weakness_name:
+    name: Weakness_name
+    definition_uri: https://w3id.org/lmodel/cwe/name
+    description: Short human-readable name or title for this entity.
+    from_schema: https://w3id.org/lmodel/cwe
+    aliases:
+    - label
+    mappings:
+    - rdfs:label
+    is_a: name
+    domain: Weakness
+    slot_uri: rdfs:label
+    alias: name
+    owner: Weakness
+    domain_of:
+    - Weakness
+    is_usage_slot: true
+    usage_slot_name: name
+    range: string
+    required: true
+  Weakness_description:
+    name: Weakness_description
+    definition_uri: https://w3id.org/lmodel/cwe/description
+    description: Narrative description of the entity.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:description
+    exact_mappings:
+    - schema:description
+    is_a: description
+    domain: Weakness
+    slot_uri: dct:description
+    alias: description
+    owner: Weakness
+    domain_of:
+    - Weakness
+    is_usage_slot: true
+    usage_slot_name: description
+    range: string
+    required: true
+  Weakness_abstraction:
+    name: Weakness_abstraction
+    definition_uri: https://w3id.org/lmodel/cwe/abstraction
+    description: CWE abstraction tier (e.g. Base or Variant).
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - skos:broader
+    is_a: abstraction
+    domain: Weakness
+    slot_uri: skos:broader
+    alias: abstraction
+    owner: Weakness
+    domain_of:
+    - Weakness
+    is_usage_slot: true
+    usage_slot_name: abstraction
+    range: WeaknessAbstraction
+    required: true
+  Weakness_structure:
+    name: Weakness_structure
+    definition_uri: https://w3id.org/lmodel/cwe/structure
+    description: Structural nature of the weakness (Simple, Chain, or Composite).
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: structure
+    domain: Weakness
+    slot_uri: cwe:structure
+    alias: structure
+    owner: Weakness
+    domain_of:
+    - Weakness
+    is_usage_slot: true
+    usage_slot_name: structure
+    range: WeaknessStructure
+    required: true
+  Weakness_status:
+    name: Weakness_status
+    definition_uri: https://w3id.org/lmodel/cwe/status
+    description: Lifecycle status of the CWE entry, category, or view.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: status
+    domain: Weakness
+    slot_uri: cwe:status
+    alias: status
+    owner: Weakness
+    domain_of:
+    - Weakness
+    is_usage_slot: true
+    usage_slot_name: status
+    range: WeaknessStatus
+    required: true
+  Weakness_mapping_notes:
+    name: Weakness_mapping_notes
+    definition_uri: https://w3id.org/lmodel/cwe/mapping_notes
+    description: Guidance for when and whether to map an issue to this entry.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: mapping_notes
+    domain: Weakness
+    slot_uri: cwe:mapping_notes
+    alias: mapping_notes
+    owner: Weakness
+    domain_of:
+    - Weakness
+    is_usage_slot: true
+    usage_slot_name: mapping_notes
+    range: MappingNotes
+    required: true
+    inlined: true
+    inlined_as_list: true
+  Weakness_content_history:
+    name: Weakness_content_history
+    definition_uri: https://w3id.org/lmodel/cwe/content_history
+    description: Tracks the original author and subsequent modifications.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: content_history
+    domain: Weakness
+    slot_uri: cwe:content_history
+    alias: content_history
+    owner: Weakness
+    domain_of:
+    - Weakness
+    is_usage_slot: true
+    usage_slot_name: content_history
+    range: ContentHistory
+    required: true
+    inlined: true
+    inlined_as_list: true
+  Category_id:
+    name: Category_id
+    definition_uri: https://w3id.org/lmodel/cwe/id
+    description: Unique numeric identifier for the CWE entry, category, or view.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:identifier
+    is_a: id
+    domain: Category
+    slot_uri: dct:identifier
+    identifier: true
+    alias: id
+    owner: Category
+    domain_of:
+    - Category
+    is_usage_slot: true
+    usage_slot_name: id
+    range: integer
+    required: true
+  Category_name:
+    name: Category_name
+    definition_uri: https://w3id.org/lmodel/cwe/name
+    description: Short human-readable name or title for this entity.
+    from_schema: https://w3id.org/lmodel/cwe
+    aliases:
+    - label
+    mappings:
+    - rdfs:label
+    is_a: name
+    domain: Category
+    slot_uri: rdfs:label
+    alias: name
+    owner: Category
+    domain_of:
+    - Category
+    is_usage_slot: true
+    usage_slot_name: name
+    range: string
+    required: true
+  Category_status:
+    name: Category_status
+    definition_uri: https://w3id.org/lmodel/cwe/status
+    description: Lifecycle status of the CWE entry, category, or view.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: status
+    domain: Category
+    slot_uri: cwe:status
+    alias: status
+    owner: Category
+    domain_of:
+    - Category
+    is_usage_slot: true
+    usage_slot_name: status
+    range: WeaknessStatus
+    required: true
+  Category_summary:
+    name: Category_summary
+    definition_uri: https://w3id.org/lmodel/cwe/summary
+    description: Key points that define a category.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: summary
+    domain: Category
+    slot_uri: cwe:summary
+    alias: summary
+    owner: Category
+    domain_of:
+    - Category
+    is_usage_slot: true
+    usage_slot_name: summary
+    range: string
+    required: true
+  Category_mapping_notes:
+    name: Category_mapping_notes
+    definition_uri: https://w3id.org/lmodel/cwe/mapping_notes
+    description: Guidance for when and whether to map an issue to this entry.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: mapping_notes
+    domain: Category
+    slot_uri: cwe:mapping_notes
+    alias: mapping_notes
+    owner: Category
+    domain_of:
+    - Category
+    is_usage_slot: true
+    usage_slot_name: mapping_notes
+    range: MappingNotes
+    required: true
+    inlined: true
+    inlined_as_list: true
+  Category_content_history:
+    name: Category_content_history
+    definition_uri: https://w3id.org/lmodel/cwe/content_history
+    description: Tracks the original author and subsequent modifications.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: content_history
+    domain: Category
+    slot_uri: cwe:content_history
+    alias: content_history
+    owner: Category
+    domain_of:
+    - Category
+    is_usage_slot: true
+    usage_slot_name: content_history
+    range: ContentHistory
+    required: true
+    inlined: true
+    inlined_as_list: true
+  View_id:
+    name: View_id
+    definition_uri: https://w3id.org/lmodel/cwe/id
+    description: Unique numeric identifier for the CWE entry, category, or view.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:identifier
+    is_a: id
+    domain: View
+    slot_uri: dct:identifier
+    identifier: true
+    alias: id
+    owner: View
+    domain_of:
+    - View
+    is_usage_slot: true
+    usage_slot_name: id
+    range: integer
+    required: true
+  View_name:
+    name: View_name
+    definition_uri: https://w3id.org/lmodel/cwe/name
+    description: Short human-readable name or title for this entity.
+    from_schema: https://w3id.org/lmodel/cwe
+    aliases:
+    - label
+    mappings:
+    - rdfs:label
+    is_a: name
+    domain: View
+    slot_uri: rdfs:label
+    alias: name
+    owner: View
+    domain_of:
+    - View
+    is_usage_slot: true
+    usage_slot_name: name
+    range: string
+    required: true
+  View_status:
+    name: View_status
+    definition_uri: https://w3id.org/lmodel/cwe/status
+    description: Lifecycle status of the CWE entry, category, or view.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: status
+    domain: View
+    slot_uri: cwe:status
+    alias: status
+    owner: View
+    domain_of:
+    - View
+    is_usage_slot: true
+    usage_slot_name: status
+    range: WeaknessStatus
+    required: true
+  View_objective:
+    name: View_objective
+    definition_uri: https://w3id.org/lmodel/cwe/objective
+    description: Perspective from which a view has been constructed.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: objective
+    domain: View
+    slot_uri: cwe:objective
+    alias: objective
+    owner: View
+    domain_of:
+    - View
+    is_usage_slot: true
+    usage_slot_name: objective
+    range: string
+    required: true
+  View_mapping_notes:
+    name: View_mapping_notes
+    definition_uri: https://w3id.org/lmodel/cwe/mapping_notes
+    description: Guidance for when and whether to map an issue to this entry.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: mapping_notes
+    domain: View
+    slot_uri: cwe:mapping_notes
+    alias: mapping_notes
+    owner: View
+    domain_of:
+    - View
+    is_usage_slot: true
+    usage_slot_name: mapping_notes
+    range: MappingNotes
+    required: true
+    inlined: true
+    inlined_as_list: true
+  View_content_history:
+    name: View_content_history
+    definition_uri: https://w3id.org/lmodel/cwe/content_history
+    description: Tracks the original author and subsequent modifications.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: content_history
+    domain: View
+    slot_uri: cwe:content_history
+    alias: content_history
+    owner: View
+    domain_of:
+    - View
+    is_usage_slot: true
+    usage_slot_name: content_history
+    range: ContentHistory
+    required: true
+    inlined: true
+    inlined_as_list: true
+  View_type:
+    name: View_type
+    definition_uri: https://w3id.org/lmodel/cwe/type
+    description: Type of view (Graph, Explicit, or Implicit).
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: type
+    domain: View
+    slot_uri: cwe:type
+    alias: type
+    owner: View
+    domain_of:
+    - View
+    is_usage_slot: true
+    usage_slot_name: type
+    range: CWEViewType
+    required: true
+  ExternalReference_reference_id:
+    name: ExternalReference_reference_id
+    definition_uri: https://w3id.org/lmodel/cwe/reference_id
+    description: Globally unique identifier for an external reference (e.g. REF-1).
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:identifier
+    is_a: reference_id
+    domain: ExternalReference
+    slot_uri: dct:identifier
+    identifier: true
+    alias: reference_id
+    owner: ExternalReference
+    domain_of:
+    - ExternalReference
+    is_usage_slot: true
+    usage_slot_name: reference_id
+    range: string
+    required: true
+  ExternalReference_title:
+    name: ExternalReference_title
+    definition_uri: https://w3id.org/lmodel/cwe/title
+    description: Descriptive title for a reference or catalog element.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:title
+    is_a: title
+    domain: ExternalReference
+    slot_uri: dct:title
+    alias: title
+    owner: ExternalReference
+    domain_of:
+    - ExternalReference
+    is_usage_slot: true
+    usage_slot_name: title
+    range: string
+    required: true
+  CWEReference_external_reference_id:
+    name: CWEReference_external_reference_id
+    definition_uri: https://w3id.org/lmodel/cwe/external_reference_id
+    description: Identifier of the ExternalReference being linked to (e.g. REF-1).
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: external_reference_id
+    domain: CWEReference
+    slot_uri: cwe:external_reference_id
+    alias: external_reference_id
+    owner: CWEReference
+    domain_of:
+    - CWEReference
+    is_usage_slot: true
+    usage_slot_name: external_reference_id
+    range: string
+    required: true
+  RelatedWeakness_nature:
+    name: RelatedWeakness_nature
+    definition_uri: https://w3id.org/lmodel/cwe/nature
+    description: Nature of the relationship.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - skos:related
+    is_a: nature
+    domain: RelatedWeakness
+    slot_uri: skos:related
+    alias: nature
+    owner: RelatedWeakness
+    domain_of:
+    - RelatedWeakness
+    is_usage_slot: true
+    usage_slot_name: nature
+    range: WeaknessRelationNature
+    required: true
+  RelatedWeakness_cwe_id:
+    name: RelatedWeakness_cwe_id
+    definition_uri: https://w3id.org/lmodel/cwe/cwe_id
+    description: Numeric ID of the target CWE entry.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: cwe_id
+    domain: RelatedWeakness
+    slot_uri: cwe:cwe_id
+    alias: cwe_id
+    owner: RelatedWeakness
+    domain_of:
+    - RelatedWeakness
+    is_usage_slot: true
+    usage_slot_name: cwe_id
+    range: integer
+    required: true
+  RelatedWeakness_view_id:
+    name: RelatedWeakness_view_id
+    definition_uri: https://w3id.org/lmodel/cwe/view_id
+    description: View within which this relationship is relevant.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: view_id
+    domain: RelatedWeakness
+    slot_uri: cwe:view_id
+    alias: view_id
+    owner: RelatedWeakness
+    domain_of:
+    - RelatedWeakness
+    is_usage_slot: true
+    usage_slot_name: view_id
+    range: integer
+    required: true
+  RelatedWeakness_chain_id:
+    name: RelatedWeakness_chain_id
+    definition_uri: https://w3id.org/lmodel/cwe/chain_id
+    description: ID of a named chain for CanFollow/CanPrecede relationships.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: chain_id
+    domain: RelatedWeakness
+    slot_uri: cwe:chain_id
+    alias: chain_id
+    owner: RelatedWeakness
+    domain_of:
+    - RelatedWeakness
+    is_usage_slot: true
+    usage_slot_name: chain_id
+    range: integer
+  RelatedWeakness_ordinal:
+    name: RelatedWeakness_ordinal
+    definition_uri: https://w3id.org/lmodel/cwe/ordinal
+    description: Set to "Primary" for the primary ChildOf relationship in the given
+      view.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: ordinal
+    domain: RelatedWeakness
+    slot_uri: cwe:ordinal
+    alias: ordinal
+    owner: RelatedWeakness
+    domain_of:
+    - RelatedWeakness
+    is_usage_slot: true
+    usage_slot_name: ordinal
+    range: OrdinalQualifier
+  WeaknessOrdinality_ordinality:
+    name: WeaknessOrdinality_ordinality
+    definition_uri: https://w3id.org/lmodel/cwe/ordinality
+    description: Ordinality level (Primary, Resultant, or Indirect).
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: ordinality
+    domain: WeaknessOrdinality
+    slot_uri: cwe:ordinality
+    alias: ordinality
+    owner: WeaknessOrdinality
+    domain_of:
+    - WeaknessOrdinality
+    is_usage_slot: true
+    usage_slot_name: ordinality
+    range: WeaknessOrdinalityLevel
+    required: true
+  WeaknessOrdinality_description:
+    name: WeaknessOrdinality_description
+    definition_uri: https://w3id.org/lmodel/cwe/description
+    description: Context in which this ordering relationship exists.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:description
+    exact_mappings:
+    - schema:description
+    is_a: description
+    domain: WeaknessOrdinality
+    slot_uri: dct:description
+    alias: description
+    owner: WeaknessOrdinality
+    domain_of:
+    - WeaknessOrdinality
+    is_usage_slot: true
+    usage_slot_name: description
+    range: string
+  LanguagePlatform_name:
+    name: LanguagePlatform_name
+    definition_uri: https://w3id.org/lmodel/cwe/name
+    description: Name of the programming language.
+    from_schema: https://w3id.org/lmodel/cwe
+    aliases:
+    - label
+    mappings:
+    - rdfs:label
+    is_a: name
+    domain: LanguagePlatform
+    slot_uri: rdfs:label
+    alias: name
+    owner: LanguagePlatform
+    domain_of:
+    - LanguagePlatform
+    is_usage_slot: true
+    usage_slot_name: name
+    range: ProgrammingLanguage
+  LanguagePlatform_class_:
+    name: LanguagePlatform_class_
+    definition_uri: https://w3id.org/lmodel/cwe/class_
+    description: Class of the programming language.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: class_
+    domain: LanguagePlatform
+    slot_uri: cwe:class_
+    alias: class_
+    owner: LanguagePlatform
+    domain_of:
+    - LanguagePlatform
+    is_usage_slot: true
+    usage_slot_name: class_
+    range: LanguageClass
+  LanguagePlatform_prevalence:
+    name: LanguagePlatform_prevalence
+    definition_uri: https://w3id.org/lmodel/cwe/prevalence
+    description: Regularity with which this weakness applies to this language.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: prevalence
+    domain: LanguagePlatform
+    slot_uri: cwe:prevalence
+    alias: prevalence
+    owner: LanguagePlatform
+    domain_of:
+    - LanguagePlatform
+    is_usage_slot: true
+    usage_slot_name: prevalence
+    range: PlatformPrevalence
+    required: true
+  OSPlatform_name:
+    name: OSPlatform_name
+    definition_uri: https://w3id.org/lmodel/cwe/name
+    description: Name of the operating system.
+    from_schema: https://w3id.org/lmodel/cwe
+    aliases:
+    - label
+    mappings:
+    - rdfs:label
+    is_a: name
+    domain: OSPlatform
+    slot_uri: rdfs:label
+    alias: name
+    owner: OSPlatform
+    domain_of:
+    - OSPlatform
+    is_usage_slot: true
+    usage_slot_name: name
+    range: OperatingSystemName
+  OSPlatform_class_:
+    name: OSPlatform_class_
+    definition_uri: https://w3id.org/lmodel/cwe/class_
+    description: Class of the operating system.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: class_
+    domain: OSPlatform
+    slot_uri: cwe:class_
+    alias: class_
+    owner: OSPlatform
+    domain_of:
+    - OSPlatform
+    is_usage_slot: true
+    usage_slot_name: class_
+    range: OperatingSystemClass
+  OSPlatform_version:
+    name: OSPlatform_version
+    definition_uri: https://w3id.org/lmodel/cwe/version
+    description: Version of the operating system.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - schema:version
+    is_a: version
+    domain: OSPlatform
+    slot_uri: schema:version
+    alias: version
+    owner: OSPlatform
+    domain_of:
+    - OSPlatform
+    is_usage_slot: true
+    usage_slot_name: version
+    range: string
+  OSPlatform_cpe_id:
+    name: OSPlatform_cpe_id
+    definition_uri: https://w3id.org/lmodel/cwe/cpe_id
+    description: CPE identifier for this operating system.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: cpe_id
+    domain: OSPlatform
+    slot_uri: cwe:cpe_id
+    alias: cpe_id
+    owner: OSPlatform
+    domain_of:
+    - OSPlatform
+    is_usage_slot: true
+    usage_slot_name: cpe_id
+    range: string
+  OSPlatform_prevalence:
+    name: OSPlatform_prevalence
+    definition_uri: https://w3id.org/lmodel/cwe/prevalence
+    description: Regularity with which this weakness applies to this OS.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: prevalence
+    domain: OSPlatform
+    slot_uri: cwe:prevalence
+    alias: prevalence
+    owner: OSPlatform
+    domain_of:
+    - OSPlatform
+    is_usage_slot: true
+    usage_slot_name: prevalence
+    range: PlatformPrevalence
+    required: true
+  ArchitecturePlatform_name:
+    name: ArchitecturePlatform_name
+    definition_uri: https://w3id.org/lmodel/cwe/name
+    description: Name of the processor architecture.
+    from_schema: https://w3id.org/lmodel/cwe
+    aliases:
+    - label
+    mappings:
+    - rdfs:label
+    is_a: name
+    domain: ArchitecturePlatform
+    slot_uri: rdfs:label
+    alias: name
+    owner: ArchitecturePlatform
+    domain_of:
+    - ArchitecturePlatform
+    is_usage_slot: true
+    usage_slot_name: name
+    range: ArchitectureName
+  ArchitecturePlatform_class_:
+    name: ArchitecturePlatform_class_
+    definition_uri: https://w3id.org/lmodel/cwe/class_
+    description: Class of the processor architecture.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: class_
+    domain: ArchitecturePlatform
+    slot_uri: cwe:class_
+    alias: class_
+    owner: ArchitecturePlatform
+    domain_of:
+    - ArchitecturePlatform
+    is_usage_slot: true
+    usage_slot_name: class_
+    range: ArchitectureClass
+  ArchitecturePlatform_prevalence:
+    name: ArchitecturePlatform_prevalence
+    definition_uri: https://w3id.org/lmodel/cwe/prevalence
+    description: Regularity with which this weakness applies to this architecture.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: prevalence
+    domain: ArchitecturePlatform
+    slot_uri: cwe:prevalence
+    alias: prevalence
+    owner: ArchitecturePlatform
+    domain_of:
+    - ArchitecturePlatform
+    is_usage_slot: true
+    usage_slot_name: prevalence
+    range: PlatformPrevalence
+    required: true
+  TechnologyPlatform_name:
+    name: TechnologyPlatform_name
+    definition_uri: https://w3id.org/lmodel/cwe/name
+    description: Name of the technology.
+    from_schema: https://w3id.org/lmodel/cwe
+    aliases:
+    - label
+    mappings:
+    - rdfs:label
+    is_a: name
+    domain: TechnologyPlatform
+    slot_uri: rdfs:label
+    alias: name
+    owner: TechnologyPlatform
+    domain_of:
+    - TechnologyPlatform
+    is_usage_slot: true
+    usage_slot_name: name
+    range: TechnologyName
+  TechnologyPlatform_class_:
+    name: TechnologyPlatform_class_
+    definition_uri: https://w3id.org/lmodel/cwe/class_
+    description: Class of the technology.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: class_
+    domain: TechnologyPlatform
+    slot_uri: cwe:class_
+    alias: class_
+    owner: TechnologyPlatform
+    domain_of:
+    - TechnologyPlatform
+    is_usage_slot: true
+    usage_slot_name: class_
+    range: TechnologyClass
+  TechnologyPlatform_prevalence:
+    name: TechnologyPlatform_prevalence
+    definition_uri: https://w3id.org/lmodel/cwe/prevalence
+    description: Regularity with which this weakness applies to this technology.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: prevalence
+    domain: TechnologyPlatform
+    slot_uri: cwe:prevalence
+    alias: prevalence
+    owner: TechnologyPlatform
+    domain_of:
+    - TechnologyPlatform
+    is_usage_slot: true
+    usage_slot_name: prevalence
+    range: PlatformPrevalence
+    required: true
+  AlternateTerm_term:
+    name: AlternateTerm_term
+    definition_uri: https://w3id.org/lmodel/cwe/term
+    description: An alternate term by which this weakness may be known.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: term
+    domain: AlternateTerm
+    slot_uri: cwe:term
+    alias: term
+    owner: AlternateTerm
+    domain_of:
+    - AlternateTerm
+    is_usage_slot: true
+    usage_slot_name: term
+    range: string
+    required: true
+  ModeOfIntroduction_phase:
+    name: ModeOfIntroduction_phase
+    definition_uri: https://w3id.org/lmodel/cwe/phase
+    description: Lifecycle phase for introduction or mitigation.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: phase
+    domain: ModeOfIntroduction
+    slot_uri: cwe:phase
+    alias: phase
+    owner: ModeOfIntroduction
+    domain_of:
+    - ModeOfIntroduction
+    is_usage_slot: true
+    usage_slot_name: phase
+    range: LifecyclePhase
+    required: true
+  CommonConsequence_scopes:
+    name: CommonConsequence_scopes
+    definition_uri: https://w3id.org/lmodel/cwe/scopes
+    description: Security properties violated by this consequence.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: scopes
+    domain: CommonConsequence
+    slot_uri: cwe:scopes
+    alias: scopes
+    owner: CommonConsequence
+    domain_of:
+    - CommonConsequence
+    is_usage_slot: true
+    usage_slot_name: scopes
+    range: SecurityScope
+    required: true
+    multivalued: true
+  CommonConsequence_impacts:
+    name: CommonConsequence_impacts
+    definition_uri: https://w3id.org/lmodel/cwe/impacts
+    description: Technical impacts that arise if the weakness is exploited.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: impacts
+    domain: CommonConsequence
+    slot_uri: cwe:impacts
+    alias: impacts
+    owner: CommonConsequence
+    domain_of:
+    - CommonConsequence
+    is_usage_slot: true
+    usage_slot_name: impacts
+    range: TechnicalImpact
+    required: true
+    multivalued: true
+  DetectionMethod_method:
+    name: DetectionMethod_method
+    definition_uri: https://w3id.org/lmodel/cwe/method
+    description: Detection method (range narrowed per class via slot_usage).
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: method
+    domain: DetectionMethod
+    slot_uri: cwe:method
+    alias: method
+    owner: DetectionMethod
+    domain_of:
+    - DetectionMethod
+    is_usage_slot: true
+    usage_slot_name: method
+    range: DetectionMethodType
+    required: true
+  DetectionMethod_description:
+    name: DetectionMethod_description
+    definition_uri: https://w3id.org/lmodel/cwe/description
+    description: Narrative description of the entity.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:description
+    exact_mappings:
+    - schema:description
+    is_a: description
+    domain: DetectionMethod
+    slot_uri: dct:description
+    alias: description
+    owner: DetectionMethod
+    domain_of:
+    - DetectionMethod
+    is_usage_slot: true
+    usage_slot_name: description
+    range: string
+    required: true
+  DetectionMethod_effectiveness:
+    name: DetectionMethod_effectiveness
+    definition_uri: https://w3id.org/lmodel/cwe/effectiveness
+    description: Effectiveness level (range narrowed to DetectionEffectiveness or
+      MitigationEffectiveness per class via slot_usage).
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: effectiveness
+    domain: DetectionMethod
+    slot_uri: cwe:effectiveness
+    alias: effectiveness
+    owner: DetectionMethod
+    domain_of:
+    - DetectionMethod
+    is_usage_slot: true
+    usage_slot_name: effectiveness
+    range: DetectionEffectiveness
+  PotentialMitigation_description:
+    name: PotentialMitigation_description
+    definition_uri: https://w3id.org/lmodel/cwe/description
+    description: Narrative description of the entity.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:description
+    exact_mappings:
+    - schema:description
+    is_a: description
+    domain: PotentialMitigation
+    slot_uri: dct:description
+    alias: description
+    owner: PotentialMitigation
+    domain_of:
+    - PotentialMitigation
+    is_usage_slot: true
+    usage_slot_name: description
+    range: string
+    required: true
+  PotentialMitigation_effectiveness:
+    name: PotentialMitigation_effectiveness
+    definition_uri: https://w3id.org/lmodel/cwe/effectiveness
+    description: Effectiveness level (range narrowed to DetectionEffectiveness or
+      MitigationEffectiveness per class via slot_usage).
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: effectiveness
+    domain: PotentialMitigation
+    slot_uri: cwe:effectiveness
+    alias: effectiveness
+    owner: PotentialMitigation
+    domain_of:
+    - PotentialMitigation
+    is_usage_slot: true
+    usage_slot_name: effectiveness
+    range: MitigationEffectiveness
+  DemonstrativeExample_intro_text:
+    name: DemonstrativeExample_intro_text
+    definition_uri: https://w3id.org/lmodel/cwe/intro_text
+    description: Context and setting for the demonstrative example.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: intro_text
+    domain: DemonstrativeExample
+    slot_uri: cwe:intro_text
+    alias: intro_text
+    owner: DemonstrativeExample
+    domain_of:
+    - DemonstrativeExample
+    is_usage_slot: true
+    usage_slot_name: intro_text
+    range: string
+    required: true
+  ExampleCode_nature:
+    name: ExampleCode_nature
+    definition_uri: https://w3id.org/lmodel/cwe/nature
+    description: Nature of the code (Bad, Good, Attack, Mitigation, etc.).
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - skos:related
+    is_a: nature
+    domain: ExampleCode
+    slot_uri: skos:related
+    alias: nature
+    owner: ExampleCode
+    domain_of:
+    - ExampleCode
+    is_usage_slot: true
+    usage_slot_name: nature
+    range: CodeNature
+    required: true
+  ExampleCode_language:
+    name: ExampleCode_language
+    definition_uri: https://w3id.org/lmodel/cwe/language
+    description: Programming language used in this code example.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: language
+    domain: ExampleCode
+    slot_uri: cwe:language
+    alias: language
+    owner: ExampleCode
+    domain_of:
+    - ExampleCode
+    is_usage_slot: true
+    usage_slot_name: language
+    range: ProgrammingLanguage
+  ExampleCode_content:
+    name: ExampleCode_content
+    definition_uri: https://w3id.org/lmodel/cwe/content
+    description: Text content of the code snippet.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: content
+    domain: ExampleCode
+    slot_uri: cwe:content
+    alias: content
+    owner: ExampleCode
+    domain_of:
+    - ExampleCode
+    is_usage_slot: true
+    usage_slot_name: content
+    range: string
+  ObservedExample_reference:
+    name: ObservedExample_reference
+    definition_uri: https://w3id.org/lmodel/cwe/reference
+    description: Identifier for a real-world example (e.g. CVE-2005-1951).
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: reference
+    domain: ObservedExample
+    slot_uri: cwe:reference
+    alias: reference
+    owner: ObservedExample
+    domain_of:
+    - ObservedExample
+    is_usage_slot: true
+    usage_slot_name: reference
+    range: string
+    required: true
+  ObservedExample_description:
+    name: ObservedExample_description
+    definition_uri: https://w3id.org/lmodel/cwe/description
+    description: Narrative description of the entity.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:description
+    exact_mappings:
+    - schema:description
+    is_a: description
+    domain: ObservedExample
+    slot_uri: dct:description
+    alias: description
+    owner: ObservedExample
+    domain_of:
+    - ObservedExample
+    is_usage_slot: true
+    usage_slot_name: description
+    range: string
+    required: true
+  ObservedExample_link:
+    name: ObservedExample_link
+    definition_uri: https://w3id.org/lmodel/cwe/link
+    description: URL providing more information about the observed example.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: link
+    domain: ObservedExample
+    slot_uri: cwe:link
+    alias: link
+    owner: ObservedExample
+    domain_of:
+    - ObservedExample
+    is_usage_slot: true
+    usage_slot_name: link
+    range: uri
+    required: true
+  TaxonomyMapping_taxonomy_name:
+    name: TaxonomyMapping_taxonomy_name
+    definition_uri: https://w3id.org/lmodel/cwe/taxonomy_name
+    description: Name of the external taxonomy to which the mapping is made.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: taxonomy_name
+    domain: TaxonomyMapping
+    slot_uri: cwe:taxonomy_name
+    alias: taxonomy_name
+    owner: TaxonomyMapping
+    domain_of:
+    - TaxonomyMapping
+    is_usage_slot: true
+    usage_slot_name: taxonomy_name
+    range: TaxonomyName
+    required: true
+  CatalogMember_cwe_id:
+    name: CatalogMember_cwe_id
+    definition_uri: https://w3id.org/lmodel/cwe/cwe_id
+    description: Numeric CWE ID (foreign key in relationships and members).
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: cwe_id
+    domain: CatalogMember
+    slot_uri: cwe:cwe_id
+    alias: cwe_id
+    owner: CatalogMember
+    domain_of:
+    - CatalogMember
+    is_usage_slot: true
+    usage_slot_name: cwe_id
+    range: integer
+    required: true
+  CatalogMember_view_id:
+    name: CatalogMember_view_id
+    definition_uri: https://w3id.org/lmodel/cwe/view_id
+    description: View ID within which a relationship or membership is relevant.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: view_id
+    domain: CatalogMember
+    slot_uri: cwe:view_id
+    alias: view_id
+    owner: CatalogMember
+    domain_of:
+    - CatalogMember
+    is_usage_slot: true
+    usage_slot_name: view_id
+    range: integer
+    required: true
+  Audience_type:
+    name: Audience_type
+    definition_uri: https://w3id.org/lmodel/cwe/type
+    description: Type of stakeholder in the CWE community.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: type
+    domain: Audience
+    slot_uri: cwe:type
+    alias: type
+    owner: Audience
+    domain_of:
+    - Audience
+    is_usage_slot: true
+    usage_slot_name: type
+    range: StakeholderType
+    required: true
+  MappingNotes_usage:
+    name: MappingNotes_usage
+    definition_uri: https://w3id.org/lmodel/cwe/usage
+    description: Whether this CWE entry is supported for mapping.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: usage
+    domain: MappingNotes
+    slot_uri: cwe:usage
+    alias: usage
+    owner: MappingNotes
+    domain_of:
+    - MappingNotes
+    is_usage_slot: true
+    usage_slot_name: usage
+    range: MappingUsage
+    required: true
+  MappingNotes_rationale:
+    name: MappingNotes_rationale
+    definition_uri: https://w3id.org/lmodel/cwe/rationale
+    description: Context for the mapping usage designation.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: rationale
+    domain: MappingNotes
+    slot_uri: cwe:rationale
+    alias: rationale
+    owner: MappingNotes
+    domain_of:
+    - MappingNotes
+    is_usage_slot: true
+    usage_slot_name: rationale
+    range: string
+    required: true
+  MappingNotes_comments:
+    name: MappingNotes_comments
+    definition_uri: https://w3id.org/lmodel/cwe/comments
+    description: Further clarification for the mapping notes reader.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: comments
+    domain: MappingNotes
+    slot_uri: cwe:comments
+    alias: comments
+    owner: MappingNotes
+    domain_of:
+    - MappingNotes
+    is_usage_slot: true
+    usage_slot_name: comments
+    range: string
+    required: true
+  MappingNotes_reasons:
+    name: MappingNotes_reasons
+    definition_uri: https://w3id.org/lmodel/cwe/reasons
+    description: Vocabulary summary of the mapping usage recommendation.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: reasons
+    domain: MappingNotes
+    slot_uri: cwe:reasons
+    alias: reasons
+    owner: MappingNotes
+    domain_of:
+    - MappingNotes
+    is_usage_slot: true
+    usage_slot_name: reasons
+    range: MappingReason
+    required: true
+    multivalued: true
+  MappingSuggestion_cwe_id:
+    name: MappingSuggestion_cwe_id
+    definition_uri: https://w3id.org/lmodel/cwe/cwe_id
+    description: Numeric CWE ID (foreign key in relationships and members).
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: cwe_id
+    domain: MappingSuggestion
+    slot_uri: cwe:cwe_id
+    alias: cwe_id
+    owner: MappingSuggestion
+    domain_of:
+    - MappingSuggestion
+    is_usage_slot: true
+    usage_slot_name: cwe_id
+    range: integer
+    required: true
+  MappingSuggestion_comment:
+    name: MappingSuggestion_comment
+    definition_uri: https://w3id.org/lmodel/cwe/comment
+    description: Explanatory comment (e.g. on a mapping suggestion).
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: comment
+    domain: MappingSuggestion
+    slot_uri: cwe:comment
+    alias: comment
+    owner: MappingSuggestion
+    domain_of:
+    - MappingSuggestion
+    is_usage_slot: true
+    usage_slot_name: comment
+    range: string
+    required: true
+  Note_type:
+    name: Note_type
+    definition_uri: https://w3id.org/lmodel/cwe/type
+    description: Type of note (Maintenance, Terminology, Research Gap, etc.).
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: type
+    domain: Note
+    slot_uri: cwe:type
+    alias: type
+    owner: Note
+    domain_of:
+    - Note
+    is_usage_slot: true
+    usage_slot_name: type
+    range: NoteType
+    required: true
+  ContentHistory_submission:
+    name: ContentHistory_submission
+    definition_uri: https://w3id.org/lmodel/cwe/submission
+    description: Initial submission information for this entry.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: submission
+    domain: ContentHistory
+    slot_uri: cwe:submission
+    alias: submission
+    owner: ContentHistory
+    domain_of:
+    - ContentHistory
+    is_usage_slot: true
+    usage_slot_name: submission
+    range: Submission
+    required: true
+    inlined: true
+    inlined_as_list: true
+  Submission_submission_date:
+    name: Submission_submission_date
+    definition_uri: https://w3id.org/lmodel/cwe/submission_date
+    description: Date on which this entry was submitted.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: submission_date
+    domain: Submission
+    slot_uri: cwe:submission_date
+    alias: submission_date
+    owner: Submission
+    domain_of:
+    - Submission
+    is_usage_slot: true
+    usage_slot_name: submission_date
+    range: date
+    required: true
+  Submission_submission_version:
+    name: Submission_submission_version
+    definition_uri: https://w3id.org/lmodel/cwe/submission_version
+    description: CWE version in which this entry was first added.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: submission_version
+    domain: Submission
+    slot_uri: cwe:submission_version
+    alias: submission_version
+    owner: Submission
+    domain_of:
+    - Submission
+    is_usage_slot: true
+    usage_slot_name: submission_version
+    range: string
+    required: true
+  Submission_submission_release_date:
+    name: Submission_submission_release_date
+    definition_uri: https://w3id.org/lmodel/cwe/submission_release_date
+    description: Release date of the CWE version that added this entry.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: submission_release_date
+    domain: Submission
+    slot_uri: cwe:submission_release_date
+    alias: submission_release_date
+    owner: Submission
+    domain_of:
+    - Submission
+    is_usage_slot: true
+    usage_slot_name: submission_release_date
+    range: date
+    required: true
+  Modification_modification_date:
+    name: Modification_modification_date
+    definition_uri: https://w3id.org/lmodel/cwe/modification_date
+    description: Date on which the modification was made.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: modification_date
+    domain: Modification
+    slot_uri: cwe:modification_date
+    alias: modification_date
+    owner: Modification
+    domain_of:
+    - Modification
+    is_usage_slot: true
+    usage_slot_name: modification_date
+    range: date
+    required: true
+  Contribution_contribution_date:
+    name: Contribution_contribution_date
+    definition_uri: https://w3id.org/lmodel/cwe/contribution_date
+    description: Date of the contribution.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: contribution_date
+    domain: Contribution
+    slot_uri: cwe:contribution_date
+    alias: contribution_date
+    owner: Contribution
+    domain_of:
+    - Contribution
+    is_usage_slot: true
+    usage_slot_name: contribution_date
+    range: date
+    required: true
+  Contribution_type:
+    name: Contribution_type
+    definition_uri: https://w3id.org/lmodel/cwe/type
+    description: Whether the contribution was Content or Feedback.
+    from_schema: https://w3id.org/lmodel/cwe
+    is_a: type
+    domain: Contribution
+    slot_uri: cwe:type
+    alias: type
+    owner: Contribution
+    domain_of:
+    - Contribution
+    is_usage_slot: true
+    usage_slot_name: type
+    range: ContributionType
+    required: true
+  PreviousEntryName_name:
+    name: PreviousEntryName_name
+    definition_uri: https://w3id.org/lmodel/cwe/name
+    description: The previous name of this CWE entry.
+    from_schema: https://w3id.org/lmodel/cwe
+    aliases:
+    - label
+    mappings:
+    - rdfs:label
+    is_a: name
+    domain: PreviousEntryName
+    slot_uri: rdfs:label
+    alias: name
+    owner: PreviousEntryName
+    domain_of:
+    - PreviousEntryName
+    is_usage_slot: true
+    usage_slot_name: name
+    range: string
+    required: true
+  PreviousEntryName_date:
+    name: PreviousEntryName_date
+    definition_uri: https://w3id.org/lmodel/cwe/date
+    description: Date on which this name was last used.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:date
+    is_a: date
+    domain: PreviousEntryName
+    slot_uri: dct:date
+    alias: date
+    owner: PreviousEntryName
+    domain_of:
+    - PreviousEntryName
+    is_usage_slot: true
+    usage_slot_name: date
+    range: date
+    required: true
+  PreviousEntryName_version:
+    name: PreviousEntryName_version
+    definition_uri: https://w3id.org/lmodel/cwe/version
+    description: CWE version in which the name change occurred.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - schema:version
+    is_a: version
+    domain: PreviousEntryName
+    slot_uri: schema:version
+    alias: version
+    owner: PreviousEntryName
+    domain_of:
+    - PreviousEntryName
+    is_usage_slot: true
+    usage_slot_name: version
+    range: string
+  NVDWeaknessObservation_observation_id:
+    name: NVDWeaknessObservation_observation_id
+    definition_uri: https://w3id.org/lmodel/cwe/observation_id
+    description: Identifier for an NVD weakness observation row.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:identifier
+    is_a: observation_id
+    domain: NVDWeaknessObservation
+    slot_uri: dct:identifier
+    identifier: true
+    alias: observation_id
+    owner: NVDWeaknessObservation
+    domain_of:
+    - NVDWeaknessObservation
+    is_usage_slot: true
+    usage_slot_name: observation_id
+    range: string
+    required: true
+  NVDWeaknessObservation_observed_in_cve:
+    name: NVDWeaknessObservation_observed_in_cve
+    definition_uri: https://w3id.org/lmodel/cwe/observed_in_cve
+    description: CVE identifier where this weakness observation appears.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:references
+    is_a: observed_in_cve
+    domain: NVDWeaknessObservation
+    slot_uri: dct:references
+    alias: observed_in_cve
+    owner: NVDWeaknessObservation
+    domain_of:
+    - NVDWeaknessObservation
+    is_usage_slot: true
+    usage_slot_name: observed_in_cve
+    range: CveId
+    required: true
+  NVDWeaknessObservation_weakness:
+    name: NVDWeaknessObservation_weakness
+    definition_uri: https://w3id.org/lmodel/cwe/weakness
+    description: Referenced CWE entry for this observation.
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - schema:about
+    is_a: weakness
+    domain: NVDWeaknessObservation
+    slot_uri: schema:about
+    alias: weakness
+    owner: NVDWeaknessObservation
+    domain_of:
+    - NVDWeaknessObservation
+    is_usage_slot: true
+    usage_slot_name: weakness
+    range: Weakness
+    required: true
+  NVDWeaknessObservation_reported_by:
+    name: NVDWeaknessObservation_reported_by
+    definition_uri: https://w3id.org/lmodel/cwe/reported_by
+    description: Source label for the weakness row (e.g. NIST, ASSIGNER).
+    from_schema: https://w3id.org/lmodel/cwe
+    mappings:
+    - dct:source
+    is_a: reported_by
+    domain: NVDWeaknessObservation
+    slot_uri: dct:source
+    alias: reported_by
+    owner: NVDWeaknessObservation
+    domain_of:
+    - NVDWeaknessObservation
+    is_usage_slot: true
+    usage_slot_name: reported_by
+    range: WeaknessSource
+    required: true
+classes:
+  WeaknessCatalog:
+    name: WeaknessCatalog
+    definition_uri: https://w3id.org/lmodel/cwe/WeaknessCatalog
+    description: Top-level container for a CWE catalog snapshot (Weakness_Catalog
+      in XSD). Holds weakness entries, categories, views, external references, and
+      NVD weakness observations.
+    in_subset:
+    - cwe_dictionary
+    from_schema: https://w3id.org/lmodel/cwe
+    see_also:
+    - https://cwe.mitre.org/data/downloads.html
+    slots:
+    - WeaknessCatalog_name
+    - WeaknessCatalog_version
+    - WeaknessCatalog_date
+    - weaknesses
+    - categories
+    - views
+    - external_references
+    - observations
+    slot_usage:
+      name:
+        name: name
+        identifier: true
+        required: true
+      version:
+        name: version
+        required: true
+      date:
+        name: date
+        required: true
+    class_uri: cwe:WeaknessCatalog
+    tree_root: true
+  Weakness:
+    name: Weakness
+    definition_uri: https://w3id.org/lmodel/cwe/Weakness
+    description: Canonical CWE weakness record (WeaknessType in XSD). Describes a
+      specific type of weakness and the full set of associated information.
+    in_subset:
+    - cwe_dictionary
+    from_schema: https://w3id.org/lmodel/cwe
+    see_also:
+    - https://cwe.mitre.org/data/index.html
+    exact_mappings:
+    - WIKIDATA:Q429785
+    close_mappings:
+    - schema:DefinedTerm
+    slots:
+    - Weakness_id
+    - Weakness_name
+    - Weakness_description
+    - extended_description
+    - Weakness_abstraction
+    - Weakness_structure
+    - Weakness_status
+    - diagram
+    - weakness_ordinalities
+    - applicable_platforms
+    - background_details
+    - alternate_terms
+    - modes_of_introduction
+    - exploitation_factors
+    - likelihood_of_exploit
+    - common_consequences
+    - detection_methods
+    - potential_mitigations
+    - demonstrative_examples
+    - observed_examples
+    - functional_areas
+    - affected_resources
+    - taxonomy_mappings
+    - related_attack_patterns
+    - related_weaknesses
+    - references
+    - Weakness_mapping_notes
+    - notes
+    - Weakness_content_history
+    - tags
+    - source
+    slot_usage:
+      id:
+        name: id
+        identifier: true
+        required: true
+      name:
+        name: name
+        required: true
+      description:
+        name: description
+        required: true
+      abstraction:
+        name: abstraction
+        required: true
+      structure:
+        name: structure
+        required: true
+      status:
+        name: status
+        required: true
+      mapping_notes:
+        name: mapping_notes
+        required: true
+      content_history:
+        name: content_history
+        required: true
+    class_uri: cwe:Weakness
+  Category:
+    name: Category
+    definition_uri: https://w3id.org/lmodel/cwe/Category
+    description: A collection of weaknesses grouped by a shared characteristic (CategoryType
+      in XSD). Organizational mechanism only; not for mapping.
+    in_subset:
+    - cwe_dictionary
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - Category_id
+    - Category_name
+    - Category_status
+    - Category_summary
+    - relationships
+    - taxonomy_mappings
+    - references
+    - Category_mapping_notes
+    - notes
+    - Category_content_history
+    slot_usage:
+      id:
+        name: id
+        identifier: true
+        required: true
+      name:
+        name: name
+        required: true
+      status:
+        name: status
+        required: true
+      summary:
+        name: summary
+        required: true
+      mapping_notes:
+        name: mapping_notes
+        required: true
+      content_history:
+        name: content_history
+        required: true
+    class_uri: cwe:Category
+  View:
+    name: View
+    definition_uri: https://w3id.org/lmodel/cwe/View
+    description: 'A perspective from which to look at weaknesses in the catalog (ViewType
+      in XSD). Types: Graph, Explicit slice, Implicit slice.'
+    in_subset:
+    - cwe_dictionary
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - View_id
+    - View_name
+    - View_type
+    - View_status
+    - View_objective
+    - audience
+    - members
+    - filter
+    - references
+    - View_mapping_notes
+    - notes
+    - View_content_history
+    slot_usage:
+      id:
+        name: id
+        identifier: true
+        required: true
+      name:
+        name: name
+        required: true
+      status:
+        name: status
+        required: true
+      objective:
+        name: objective
+        required: true
+      mapping_notes:
+        name: mapping_notes
+        required: true
+      content_history:
+        name: content_history
+        required: true
+      type:
+        name: type
+        description: Type of view (Graph, Explicit, or Implicit).
+        range: CWEViewType
+        required: true
+    class_uri: cwe:View
+  ExternalReference:
+    name: ExternalReference
+    definition_uri: https://w3id.org/lmodel/cwe/ExternalReference
+    description: Pointer to external reading material shared across CWE entries (ExternalReferenceType
+      in XSD). Identified by Reference_ID (e.g. REF-1).
+    in_subset:
+    - cwe_dictionary
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - ExternalReference_reference_id
+    - ExternalReference_title
+    - authors
+    - edition
+    - publication
+    - publication_year
+    - publication_month
+    - publication_day
+    - publisher
+    - url
+    - url_date
+    slot_usage:
+      reference_id:
+        name: reference_id
+        identifier: true
+        required: true
+      title:
+        name: title
+        required: true
+    class_uri: cwe:ExternalReference
+  CWEReference:
+    name: CWEReference
+    definition_uri: https://w3id.org/lmodel/cwe/CWEReference
+    description: Link from a CWE entry to an ExternalReference in the catalog (ReferencesType/Reference
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - CWEReference_external_reference_id
+    - section
+    slot_usage:
+      external_reference_id:
+        name: external_reference_id
+        required: true
+    class_uri: cwe:CWEReference
+  RelatedWeakness:
+    name: RelatedWeakness
+    definition_uri: https://w3id.org/lmodel/cwe/RelatedWeakness
+    description: Typed directional relationship from one CWE entry to another (RelatedWeaknessesType/Related_Weakness
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - RelatedWeakness_nature
+    - RelatedWeakness_cwe_id
+    - RelatedWeakness_view_id
+    - RelatedWeakness_chain_id
+    - RelatedWeakness_ordinal
+    slot_usage:
+      nature:
+        name: nature
+        description: Nature of the relationship.
+        range: WeaknessRelationNature
+        required: true
+      cwe_id:
+        name: cwe_id
+        description: Numeric ID of the target CWE entry.
+        required: true
+      view_id:
+        name: view_id
+        description: View within which this relationship is relevant.
+        required: true
+      chain_id:
+        name: chain_id
+        description: ID of a named chain for CanFollow/CanPrecede relationships.
+      ordinal:
+        name: ordinal
+        description: Set to "Primary" for the primary ChildOf relationship in the
+          given view.
+    class_uri: cwe:RelatedWeakness
+  WeaknessOrdinality:
+    name: WeaknessOrdinality
+    definition_uri: https://w3id.org/lmodel/cwe/WeaknessOrdinality
+    description: Potential ordering relationship with other weaknesses (WeaknessOrdinalitiesType/Weakness_Ordinality
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - WeaknessOrdinality_ordinality
+    - WeaknessOrdinality_description
+    slot_usage:
+      ordinality:
+        name: ordinality
+        description: Ordinality level (Primary, Resultant, or Indirect).
+        required: true
+      description:
+        name: description
+        description: Context in which this ordering relationship exists.
+    class_uri: cwe:WeaknessOrdinality
+  ApplicablePlatforms:
+    name: ApplicablePlatforms
+    definition_uri: https://w3id.org/lmodel/cwe/ApplicablePlatforms
+    description: Languages, operating systems, architectures, and technologies where
+      a weakness could appear (ApplicablePlatformsType in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - languages
+    - operating_systems
+    - architectures
+    - technologies
+    class_uri: cwe:ApplicablePlatforms
+  LanguagePlatform:
+    name: LanguagePlatform
+    definition_uri: https://w3id.org/lmodel/cwe/LanguagePlatform
+    description: A programming language or language class applicable to a weakness
+      with associated prevalence (Language element in ApplicablePlatformsType).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - LanguagePlatform_name
+    - LanguagePlatform_class_
+    - LanguagePlatform_prevalence
+    slot_usage:
+      name:
+        name: name
+        description: Name of the programming language.
+        range: ProgrammingLanguage
+      class_:
+        name: class_
+        description: Class of the programming language.
+        range: LanguageClass
+      prevalence:
+        name: prevalence
+        description: Regularity with which this weakness applies to this language.
+        required: true
+    class_uri: cwe:LanguagePlatform
+  OSPlatform:
+    name: OSPlatform
+    definition_uri: https://w3id.org/lmodel/cwe/OSPlatform
+    description: An operating system or OS class applicable to a weakness (Operating_System
+      element in ApplicablePlatformsType).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - OSPlatform_name
+    - OSPlatform_class_
+    - OSPlatform_version
+    - OSPlatform_cpe_id
+    - OSPlatform_prevalence
+    slot_usage:
+      name:
+        name: name
+        description: Name of the operating system.
+        range: OperatingSystemName
+      class_:
+        name: class_
+        description: Class of the operating system.
+        range: OperatingSystemClass
+      version:
+        name: version
+        description: Version of the operating system.
+      cpe_id:
+        name: cpe_id
+        description: CPE identifier for this operating system.
+      prevalence:
+        name: prevalence
+        description: Regularity with which this weakness applies to this OS.
+        required: true
+    class_uri: cwe:OSPlatform
+  ArchitecturePlatform:
+    name: ArchitecturePlatform
+    definition_uri: https://w3id.org/lmodel/cwe/ArchitecturePlatform
+    description: A processor architecture or class applicable to a weakness (Architecture
+      element in ApplicablePlatformsType).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - ArchitecturePlatform_name
+    - ArchitecturePlatform_class_
+    - ArchitecturePlatform_prevalence
+    slot_usage:
+      name:
+        name: name
+        description: Name of the processor architecture.
+        range: ArchitectureName
+      class_:
+        name: class_
+        description: Class of the processor architecture.
+        range: ArchitectureClass
+      prevalence:
+        name: prevalence
+        description: Regularity with which this weakness applies to this architecture.
+        required: true
+    class_uri: cwe:ArchitecturePlatform
+  TechnologyPlatform:
+    name: TechnologyPlatform
+    definition_uri: https://w3id.org/lmodel/cwe/TechnologyPlatform
+    description: A technology or technology class applicable to a weakness (Technology
+      element in ApplicablePlatformsType).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - TechnologyPlatform_name
+    - TechnologyPlatform_class_
+    - TechnologyPlatform_prevalence
+    slot_usage:
+      name:
+        name: name
+        description: Name of the technology.
+        range: TechnologyName
+      class_:
+        name: class_
+        description: Class of the technology.
+        range: TechnologyClass
+      prevalence:
+        name: prevalence
+        description: Regularity with which this weakness applies to this technology.
+        required: true
+    class_uri: cwe:TechnologyPlatform
+  AlternateTerm:
+    name: AlternateTerm
+    definition_uri: https://w3id.org/lmodel/cwe/AlternateTerm
+    description: Another name by which this weakness may be known (AlternateTermsType/Alternate_Term
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - AlternateTerm_term
+    - description
+    slot_usage:
+      term:
+        name: term
+        required: true
+    class_uri: cwe:AlternateTerm
+  ModeOfIntroduction:
+    name: ModeOfIntroduction
+    definition_uri: https://w3id.org/lmodel/cwe/ModeOfIntroduction
+    description: Information about how and when a weakness may be introduced (ModesOfIntroductionType/Introduction
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - ModeOfIntroduction_phase
+    - note
+    slot_usage:
+      phase:
+        name: phase
+        required: true
+    class_uri: cwe:ModeOfIntroduction
+  CommonConsequence:
+    name: CommonConsequence
+    definition_uri: https://w3id.org/lmodel/cwe/CommonConsequence
+    description: Individual consequence associated with a weakness (CommonConsequencesType/Consequence
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - consequence_id
+    - CommonConsequence_scopes
+    - CommonConsequence_impacts
+    - likelihood
+    - note
+    slot_usage:
+      scopes:
+        name: scopes
+        required: true
+      impacts:
+        name: impacts
+        required: true
+    class_uri: cwe:CommonConsequence
+  DetectionMethod:
+    name: DetectionMethod
+    definition_uri: https://w3id.org/lmodel/cwe/DetectionMethod
+    description: A method that may be employed to detect a weakness, with effectiveness
+      (DetectionMethodsType/Detection_Method in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - detection_method_id
+    - DetectionMethod_method
+    - DetectionMethod_description
+    - DetectionMethod_effectiveness
+    - effectiveness_notes
+    slot_usage:
+      method:
+        name: method
+        range: DetectionMethodType
+        required: true
+      description:
+        name: description
+        required: true
+      effectiveness:
+        name: effectiveness
+        range: DetectionEffectiveness
+    class_uri: cwe:DetectionMethod
+  PotentialMitigation:
+    name: PotentialMitigation
+    definition_uri: https://w3id.org/lmodel/cwe/PotentialMitigation
+    description: A potential mitigation for a weakness (PotentialMitigationsType/Mitigation
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - mitigation_id
+    - phases
+    - strategy
+    - PotentialMitigation_description
+    - PotentialMitigation_effectiveness
+    - effectiveness_notes
+    slot_usage:
+      description:
+        name: description
+        required: true
+      effectiveness:
+        name: effectiveness
+        range: MitigationEffectiveness
+    class_uri: cwe:PotentialMitigation
+  DemonstrativeExample:
+    name: DemonstrativeExample
+    definition_uri: https://w3id.org/lmodel/cwe/DemonstrativeExample
+    description: A code example illustrating how a weakness may appear (DemonstrativeExamplesType/Demonstrative_Example
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - demonstrative_example_id
+    - title_text
+    - DemonstrativeExample_intro_text
+    - body_texts
+    - example_codes
+    - references
+    slot_usage:
+      intro_text:
+        name: intro_text
+        required: true
+    class_uri: cwe:DemonstrativeExample
+  ExampleCode:
+    name: ExampleCode
+    definition_uri: https://w3id.org/lmodel/cwe/ExampleCode
+    description: A structured code snippet within a demonstrative example (StructuredCodeType
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - ExampleCode_nature
+    - ExampleCode_language
+    - ExampleCode_content
+    slot_usage:
+      nature:
+        name: nature
+        description: Nature of the code (Bad, Good, Attack, Mitigation, etc.).
+        range: CodeNature
+        required: true
+      language:
+        name: language
+        description: Programming language used in this code example.
+      content:
+        name: content
+        description: Text content of the code snippet.
+    class_uri: cwe:ExampleCode
+  ObservedExample:
+    name: ObservedExample
+    definition_uri: https://w3id.org/lmodel/cwe/ObservedExample
+    description: A reference to a real-world instance of a weakness, typically a CVE
+      (ObservedExampleType/Observed_Example in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - ObservedExample_reference
+    - ObservedExample_description
+    - ObservedExample_link
+    slot_usage:
+      reference:
+        name: reference
+        required: true
+      description:
+        name: description
+        required: true
+      link:
+        name: link
+        required: true
+    class_uri: cwe:ObservedExample
+  TaxonomyMapping:
+    name: TaxonomyMapping
+    definition_uri: https://w3id.org/lmodel/cwe/TaxonomyMapping
+    description: A mapping from a CWE entry to an equivalent entry in an external
+      taxonomy (TaxonomyMappingsType/Taxonomy_Mapping in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - TaxonomyMapping_taxonomy_name
+    - entry_id
+    - entry_name
+    - mapping_fit
+    slot_usage:
+      taxonomy_name:
+        name: taxonomy_name
+        required: true
+    class_uri: cwe:TaxonomyMapping
+  CatalogMember:
+    name: CatalogMember
+    definition_uri: https://w3id.org/lmodel/cwe/CatalogMember
+    description: A Has_Member or Member_Of entry specifying a CWE ID and the View
+      ID in which the membership holds (MemberType in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - CatalogMember_cwe_id
+    - CatalogMember_view_id
+    slot_usage:
+      cwe_id:
+        name: cwe_id
+        required: true
+      view_id:
+        name: view_id
+        required: true
+    class_uri: cwe:CatalogMember
+  Relationship:
+    name: Relationship
+    definition_uri: https://w3id.org/lmodel/cwe/Relationship
+    description: Container for category membership relationships (RelationshipsType
+      in XSD). Holds Has_Member and optionally Member_Of lists.
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - has_member
+    - member_of
+    class_uri: cwe:Relationship
+  Audience:
+    name: Audience
+    definition_uri: https://w3id.org/lmodel/cwe/Audience
+    description: A target stakeholder group for a CWE view or category (AudienceType/Stakeholder
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - Audience_type
+    - description
+    slot_usage:
+      type:
+        name: type
+        description: Type of stakeholder in the CWE community.
+        range: StakeholderType
+        required: true
+    class_uri: cwe:Audience
+  MappingNotes:
+    name: MappingNotes
+    definition_uri: https://w3id.org/lmodel/cwe/MappingNotes
+    description: Guidance for when and whether to map an issue to a CWE entry (MappingNotesType
+      in XSD). Required on every Weakness, Category, and View.
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - MappingNotes_usage
+    - MappingNotes_rationale
+    - MappingNotes_comments
+    - MappingNotes_reasons
+    - suggestions
+    slot_usage:
+      usage:
+        name: usage
+        required: true
+      rationale:
+        name: rationale
+        required: true
+      comments:
+        name: comments
+        required: true
+      reasons:
+        name: reasons
+        required: true
+    class_uri: cwe:MappingNotes
+  MappingSuggestion:
+    name: MappingSuggestion
+    definition_uri: https://w3id.org/lmodel/cwe/MappingSuggestion
+    description: A suggested alternative CWE entry for mapping purposes (SuggestionsType/Suggestion
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - MappingSuggestion_cwe_id
+    - MappingSuggestion_comment
+    slot_usage:
+      cwe_id:
+        name: cwe_id
+        required: true
+      comment:
+        name: comment
+        required: true
+    class_uri: cwe:MappingSuggestion
+  Note:
+    name: Note
+    definition_uri: https://w3id.org/lmodel/cwe/Note
+    description: Additional commentary about a CWE entry (NotesType/Note in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - Note_type
+    - content
+    slot_usage:
+      type:
+        name: type
+        description: Type of note (Maintenance, Terminology, Research Gap, etc.).
+        range: NoteType
+        required: true
+    class_uri: cwe:Note
+  ContentHistory:
+    name: ContentHistory
+    definition_uri: https://w3id.org/lmodel/cwe/ContentHistory
+    description: Tracks the original author and subsequent modifications (ContentHistoryType
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - ContentHistory_submission
+    - modifications
+    - contributions
+    - previous_entry_names
+    slot_usage:
+      submission:
+        name: submission
+        required: true
+    class_uri: cwe:ContentHistory
+  Submission:
+    name: Submission
+    definition_uri: https://w3id.org/lmodel/cwe/Submission
+    description: Initial submission record for a CWE entry (ContentHistoryType/Submission
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - submission_name
+    - submission_organization
+    - Submission_submission_date
+    - Submission_submission_version
+    - Submission_submission_release_date
+    - submission_comment
+    slot_usage:
+      submission_date:
+        name: submission_date
+        required: true
+      submission_version:
+        name: submission_version
+        required: true
+      submission_release_date:
+        name: submission_release_date
+        required: true
+    class_uri: cwe:Submission
+  Modification:
+    name: Modification
+    definition_uri: https://w3id.org/lmodel/cwe/Modification
+    description: A modification record documenting a change to a CWE entry (ContentHistoryType/Modification
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - modification_name
+    - modification_organization
+    - Modification_modification_date
+    - modification_version
+    - modification_release_date
+    - modification_importance
+    - modification_comment
+    slot_usage:
+      modification_date:
+        name: modification_date
+        required: true
+    class_uri: cwe:Modification
+  Contribution:
+    name: Contribution
+    definition_uri: https://w3id.org/lmodel/cwe/Contribution
+    description: A contribution record documenting donated content or feedback (ContentHistoryType/Contribution
+      in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - Contribution_type
+    - contribution_name
+    - contribution_organization
+    - Contribution_contribution_date
+    - contribution_version
+    - contribution_release_date
+    - contribution_comment
+    slot_usage:
+      contribution_date:
+        name: contribution_date
+        required: true
+      type:
+        name: type
+        description: Whether the contribution was Content or Feedback.
+        range: ContributionType
+        required: true
+    class_uri: cwe:Contribution
+  PreviousEntryName:
+    name: PreviousEntryName
+    definition_uri: https://w3id.org/lmodel/cwe/PreviousEntryName
+    description: A previous name used for a CWE entry before a substantive rename
+      (ContentHistoryType/Previous_Entry_Name in XSD).
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - PreviousEntryName_name
+    - PreviousEntryName_date
+    - PreviousEntryName_version
+    slot_usage:
+      name:
+        name: name
+        description: The previous name of this CWE entry.
+        required: true
+      date:
+        name: date
+        description: Date on which this name was last used.
+        required: true
+      version:
+        name: version
+        description: CWE version in which the name change occurred.
+    class_uri: cwe:PreviousEntryName
+  NVDWeaknessObservation:
+    name: NVDWeaknessObservation
+    definition_uri: https://w3id.org/lmodel/cwe/NVDWeaknessObservation
+    description: Weakness observation from an NVD vulnerability detail page.
+    comments:
+    - Mirrors the per-CVE weakness table rendered on NVD detail pages.
+    in_subset:
+    - nvd_weakness_observation
+    from_schema: https://w3id.org/lmodel/cwe
+    slots:
+    - NVDWeaknessObservation_observation_id
+    - NVDWeaknessObservation_observed_in_cve
+    - NVDWeaknessObservation_weakness
+    - NVDWeaknessObservation_reported_by
+    - source
+    slot_usage:
+      observation_id:
+        name: observation_id
+        identifier: true
+        required: true
+      observed_in_cve:
+        name: observed_in_cve
+        required: true
+      weakness:
+        name: weakness
+        required: true
+      reported_by:
+        name: reported_by
+        required: true
+    class_uri: cwe:NVDWeaknessObservation
+metamodel_version: 1.7.0
+source_file: cwe.yaml
+source_file_date: '2026-05-07T00:01:19'
+source_file_size: 53788
+generation_date: '2026-05-07T00:01:53'
+

@@ -1,131 +1,2017 @@
----
 id: https://w3id.org/lmodel/cwe
 name: cwe
 title: cwe
 description: |-
-  MITRE Common Vulnerabilities and Exposures (CVE) LinkML Schema
+  MITRE Common Weakness Enumeration (CWE) LinkML Schema.
+
+  Self-contained schema covering the full MITRE CWE XSD: weakness entries,
+  categories, views, external references, and NVD weakness observations (CWE-ID,
+  CWE Name, Source).
 license: Apache-2.0
 
-source: https://github.com/CVEProject/cve-schema/blob/main/schema/CVE_Record_Format.json
-version:   # vendor version if available
-annotations:  {}  # vendor metadata
+source: https://cwe.mitre.org/data/downloads.html
+version: 7.3
+annotations:
+  xsd_schema_version: "7.3"
+  xsd_namespace: http://cwe.mitre.org/cwe-7
+  source_columns: CWE-ID,CWE Name,Source
 
 see_also:
   - https://lmodel.github.io/cwe
+  - https://cwe.mitre.org/data/index.html
+  - https://nvd.nist.gov/
 
 prefixes:
-  nvd: https://w3id.org/lmodel/nist-nvd/
-  cve: https://w3id.org/lmodel/cwe/
-  kev: https://w3id.org/lmodel/kev-catalog/
-  core: https://w3id.org/lmodel/vulnerability-core/
+  capec: https://w3id.org/lmodel/capec/
+  cwe: https://w3id.org/lmodel/cwe/
+  linkml: https://w3id.org/linkml/
+  schema: http://schema.org/
+  dct: http://purl.org/dc/terms/
+  skos: http://www.w3.org/2004/02/skos/core#
+  rdfs: http://www.w3.org/2000/01/rdf-schema#
+  xsd: http://www.w3.org/2001/XMLSchema#
+  WIKIDATA: https://www.wikidata.org/wiki/
 
-default_prefix: cve
+default_prefix: cwe
 default_range: string
 
 imports:
-  - ./vulnerability_core
+  - linkml:types
 
 subsets:
-  cve_record:
-    description: Required CVE Record Format fields
+  cwe_dictionary:
+    description: Canonical MITRE CWE dictionary records.
+  nvd_weakness_observation:
+    description: Weakness rows observed in NVD vulnerability detail pages.
 
-  cna_metadata:
-    description: CNA and program governance metadata
+# =============================================================================
+# TYPES
+# =============================================================================
+
+types:
+
+  CveId:
+    uri: xsd:string
+    base: str
+    description: >-
+      A CVE identifier assigned by a CVE Numbering Authority (CNA).
+      Format: CVE-YYYY-NNNNN.
+    pattern: "^CVE-[0-9]{4}-[0-9]+$"
+
+# =============================================================================
+# ENUMERATIONS
+# =============================================================================
 
 enums:
-  CVEState:
-    permissible_values:
-      PUBLIC:
-      RESERVED:
-      REJECT:
-      DISPUTED:
-      DUPLICATE:
 
-  CNATag:
+  WeaknessSource:
+    description: Source attribution for weakness data in NVD/CVE contexts.
     permissible_values:
-      unsupported-when-assigned:
-      exclusively-hosted-service:
-      disputed:
-      duplicate:
+      MITRE:
+        description: Data sourced from MITRE CWE content.
+      NIST:
+        description: Data produced by NIST/NVD analysis.
+      ASSIGNER:
+        description: Data provided by the CVE assigner/CNA.
+      CNA:
+        description: Data provided by a CVE Numbering Authority.
+      OTHER:
+        description: Other or unspecified source.
+
+  WeaknessAbstraction:
+    description: CWE abstraction layer (AbstractionEnumeration in XSD).
+    permissible_values:
+      PILLAR:
+        description: Most abstract type; a theme for all class/base/variant weaknesses.
+      CLASS:
+        description: Abstract, independent of any specific language or technology.
+      BASE:
+        description: Mostly independent of resource or technology; supports detection/prevention.
+      VARIANT:
+        description: Linked to a specific language or technology.
+      COMPOUND:
+        description: Meaningful aggregation — Chain or Composite.
+
+  WeaknessStatus:
+    description: Lifecycle status of a CWE entry, category, or view (StatusEnumeration in XSD).
+    permissible_values:
+      DEPRECATED:
+        description: Removed from CWE; likely a duplicate or created in error.
+      DRAFT:
+        description: All important elements filled; may still have problems or gaps.
+      INCOMPLETE:
+        description: Not all important elements filled; quality not guaranteed.
+      OBSOLETE:
+        description: Still valid but no longer relevant; likely superseded.
+      STABLE:
+        description: All important elements verified; unlikely to change significantly.
+      USABLE:
+        description: Has received close extensive review; critical elements verified.
+
+  WeaknessStructure:
+    description: Structural nature of a weakness (StructureEnumeration in XSD).
+    permissible_values:
+      SIMPLE:
+        description: Single weakness whose exploitation is not dependent on another weakness.
+      CHAIN:
+        description: Set of weaknesses reachable consecutively to produce a vulnerability.
+      COMPOSITE:
+        description: Set of weaknesses that must all be present simultaneously.
+
+  LikelihoodLevel:
+    description: Likelihood of exploitation or occurrence (LikelihoodEnumeration in XSD).
+    permissible_values:
+      HIGH:
+      MEDIUM:
+      LOW:
+      UNKNOWN:
+        description: Actual likelihood is not known.
+
+  WeaknessRelationNature:
+    description: >-
+      Nature of a directional relationship between two CWE entries
+      (RelatedNatureEnumeration in XSD).
+    permissible_values:
+      CHILD_OF:
+        description: Related weakness at a higher level of abstraction.
+      PARENT_OF:
+        description: Related weakness at a lower level of abstraction.
+      STARTS_WITH:
+        description: Chaining; this weakness starts the chain.
+      CAN_FOLLOW:
+        description: Chaining; this weakness can follow the target.
+      CAN_PRECEDE:
+        description: Chaining; this weakness can precede the target.
+      REQUIRED_BY:
+        description: Composite; this weakness is required by the target.
+      REQUIRES:
+        description: Composite; this weakness requires the target.
+      CAN_ALSO_BE:
+        description: In proper context can also be perceived as the target weakness.
+      PEER_OF:
+        description: Shows similarity with the target; no precise fit elsewhere.
+
+  WeaknessOrdinalityLevel:
+    description: >-
+      Potential ordering relationship of a weakness relative to others
+      (OrdinalityEnumeration in XSD).
+    permissible_values:
+      PRIMARY:
+        description: Weakness exists independent of other weaknesses.
+      RESULTANT:
+        description: Weakness exists only in the presence of other weaknesses.
+      INDIRECT:
+        description: Does not directly lead to security weaknesses but may facilitate them.
+
+  OrdinalQualifier:
+    description: >-
+      Marks a related-weakness relationship as the primary one for a given
+      <Nature, CWE_ID, View_ID> triple (OrdinalEnumeration in XSD).
+    permissible_values:
+      PRIMARY:
+        description: Primary ChildOf relationship for this weakness in the given view.
+
+  SecurityScope:
+    description: >-
+      Security property area that can be violated by exploiting a weakness
+      (ScopeEnumeration in XSD).
+    permissible_values:
+      CONFIDENTIALITY:
+      INTEGRITY:
+      AVAILABILITY:
+      ACCESS_CONTROL:
+      ACCOUNTABILITY:
+      AUTHENTICATION:
+      AUTHORIZATION:
+      NON_REPUDIATION:
+      OTHER:
+
+  TechnicalImpact:
+    description: >-
+      Technical impact of successfully exploiting a weakness
+      (TechnicalImpactEnumeration in XSD).
+    permissible_values:
+      MODIFY_MEMORY:
+      READ_MEMORY:
+      MODIFY_FILES_OR_DIRECTORIES:
+      READ_FILES_OR_DIRECTORIES:
+      MODIFY_APPLICATION_DATA:
+      READ_APPLICATION_DATA:
+      DOS_CRASH_EXIT_OR_RESTART:
+        description: "DoS: Crash, Exit, or Restart"
+      DOS_AMPLIFICATION:
+        description: "DoS: Amplification"
+      DOS_INSTABILITY:
+        description: "DoS: Instability"
+      DOS_RESOURCE_CONSUMPTION_CPU:
+        description: "DoS: Resource Consumption (CPU)"
+      DOS_RESOURCE_CONSUMPTION_MEMORY:
+        description: "DoS: Resource Consumption (Memory)"
+      DOS_RESOURCE_CONSUMPTION_OTHER:
+        description: "DoS: Resource Consumption (Other)"
+      EXECUTE_UNAUTHORIZED_CODE_OR_COMMANDS:
+      GAIN_PRIVILEGES_OR_ASSUME_IDENTITY:
+      BYPASS_PROTECTION_MECHANISM:
+      HIDE_ACTIVITIES:
+      ALTER_EXECUTION_LOGIC:
+      QUALITY_DEGRADATION:
+      UNEXPECTED_STATE:
+      VARIES_BY_CONTEXT:
+      INCREASE_ANALYTICAL_COMPLEXITY:
+        description: Makes vulnerability harder to find and fix.
+      REDUCE_MAINTAINABILITY:
+      REDUCE_PERFORMANCE:
+      REDUCE_RELIABILITY:
+      OTHER:
+
+  LifecyclePhase:
+    description: >-
+      Phase in the product lifecycle where a weakness may be introduced
+      or a mitigation applied (PhaseEnumeration in XSD).
+    permissible_values:
+      POLICY:
+      REQUIREMENTS:
+      ARCHITECTURE_AND_DESIGN:
+      IMPLEMENTATION:
+      BUILD_AND_COMPILATION:
+      TESTING:
+      DOCUMENTATION:
+      BUNDLING:
+      DISTRIBUTION:
+      INSTALLATION:
+      SYSTEM_CONFIGURATION:
+      OPERATION:
+      PATCHING_AND_MAINTENANCE:
+      PORTING:
+      INTEGRATION:
+      MANUFACTURING:
+      DECOMMISSIONING_AND_END_OF_LIFE:
+
+  MitigationStrategy:
+    description: General strategy for protecting a system (MitigationStrategyEnumeration in XSD).
+    permissible_values:
+      ATTACK_SURFACE_REDUCTION:
+      COMPILATION_OR_BUILD_HARDENING:
+      ENFORCEMENT_BY_CONVERSION:
+      ENVIRONMENT_HARDENING:
+      FIREWALL:
+      INPUT_VALIDATION:
+      LANGUAGE_SELECTION:
+      LIBRARIES_OR_FRAMEWORKS:
+      RESOURCE_LIMITATION:
+      OUTPUT_ENCODING:
+      PARAMETERIZATION:
+      REFACTORING:
+      SANDBOX_OR_JAIL:
+      SEPARATION_OF_PRIVILEGE:
+
+  DetectionMethodType:
+    description: Method that may be employed to detect a weakness (DetectionMethodEnumeration in XSD).
+    permissible_values:
+      AUTOMATED_ANALYSIS:
+      AUTOMATED_DYNAMIC_ANALYSIS:
+      AUTOMATED_STATIC_ANALYSIS:
+      AUTOMATED_STATIC_ANALYSIS_SOURCE_CODE:
+        description: Automated Static Analysis - Source Code
+      AUTOMATED_STATIC_ANALYSIS_BINARY_OR_BYTECODE:
+        description: Automated Static Analysis - Binary or Bytecode
+      FUZZING:
+      MANUAL_ANALYSIS:
+      MANUAL_DYNAMIC_ANALYSIS:
+      MANUAL_STATIC_ANALYSIS:
+      MANUAL_STATIC_ANALYSIS_SOURCE_CODE:
+        description: Manual Static Analysis - Source Code
+      MANUAL_STATIC_ANALYSIS_BINARY_OR_BYTECODE:
+        description: Manual Static Analysis - Binary or Bytecode
+      WHITE_BOX:
+      BLACK_BOX:
+      ARCHITECTURE_OR_DESIGN_REVIEW:
+      DYNAMIC_ANALYSIS_WITH_MANUAL_RESULTS_INTERPRETATION:
+      DYNAMIC_ANALYSIS_WITH_AUTOMATED_RESULTS_INTERPRETATION:
+      FORMAL_VERIFICATION:
+      SIMULATION_EMULATION:
+      OTHER:
+
+  DetectionEffectiveness:
+    description: Effectiveness of a detection method (DetectionEffectivenessEnumeration in XSD).
+    permissible_values:
+      HIGH:
+        description: Succeeds frequently; few false reports.
+      MODERATE:
+        description: Applicable broadly but may lack complete coverage.
+      SOAR_PARTIAL:
+        description: Cost-effective for partial coverage per IATAC SOAR report.
+      OPPORTUNISTIC:
+        description: May succeed by chance rather than reliably.
+      LIMITED:
+        description: Useful in limited circumstances.
+      NONE:
+        description: Highly unlikely to work.
+
+  MitigationEffectiveness:
+    description: Effectiveness of a potential mitigation (EffectivenessEnumeration in XSD).
+    permissible_values:
+      HIGH:
+        description: Frequently eliminates the weakness entirely.
+      MODERATE:
+        description: Prevents multiple forms but lacks complete coverage.
+      LIMITED:
+        description: Useful in limited circumstances.
+      INCIDENTAL:
+        description: Generally not effective; only protects by chance.
+      DEFENSE_IN_DEPTH:
+        description: Minimizes impact rather than preventing the weakness.
+      DISCOURAGED_COMMON_PRACTICE:
+        description: Commonly attempted but known to be ineffective or risky.
+      NONE:
+
+  NoteType:
+    description: Type of note on a CWE entry (NoteTypeEnumeration in XSD).
+    permissible_values:
+      APPLICABLE_PLATFORM:
+      MAINTENANCE:
+      RELATIONSHIP:
+      RESEARCH_GAP:
+      TERMINOLOGY:
+      THEORETICAL:
+      OTHER:
+
+  CWEViewType:
+    description: Type of CWE view (ViewTypeEnumeration in XSD).
+    permissible_values:
+      GRAPH:
+        description: Hierarchical representation from a specific vantage point.
+      EXPLICIT:
+        description: Flat list related through an external factor (e.g. Top-N list).
+      IMPLICIT:
+        description: Subset identified by an XSL filter expression.
+
+  FunctionalArea:
+    description: Functional area where a weakness is most likely to occur (FunctionalAreaEnumeration in XSD).
+    permissible_values:
+      AUTHENTICATION:
+      AUTHORIZATION:
+      CODE_LIBRARIES:
+      COUNTERS:
+      CRYPTOGRAPHY:
+      ERROR_HANDLING:
+      INTERPROCESS_COMMUNICATION:
+      FILE_PROCESSING:
+      LOGGING:
+      MEMORY_MANAGEMENT:
+      NETWORKING:
+      NUMBER_PROCESSING:
+      PROGRAM_INVOCATION:
+      PROTECTION_MECHANISM:
+      SESSION_MANAGEMENT:
+      SIGNALS:
+      STRING_PROCESSING:
+      NOT_FUNCTIONAL_AREA_SPECIFIC:
+      POWER:
+      CLOCK:
+
+  AffectedResource:
+    description: System resource that can be affected by exploiting a weakness (ResourceEnumeration in XSD).
+    permissible_values:
+      CPU:
+      FILE_OR_DIRECTORY:
+      MEMORY:
+      SYSTEM_PROCESS:
+      OTHER:
+
+  PlatformPrevalence:
+    description: Regularity with which a weakness applies to a given platform (PrevalenceEnumeration in XSD).
+    permissible_values:
+      OFTEN:
+      SOMETIMES:
+      RARELY:
+      UNDETERMINED:
+
+  ProgrammingLanguage:
+    description: Source code language or data format (LanguageNameEnumeration in XSD).
+    permissible_values:
+      ADA:
+      ARM_ASSEMBLY:
+      ASP:
+      ASP_DOT_NET:
+      BASIC:
+      C:
+      C_PLUS_PLUS:
+      C_SHARP:
+      COBOL:
+      FORTRAN:
+      FSHARP:
+      GO:
+      HTML:
+      JAVA:
+      JAVASCRIPT:
+      JSON:
+      JSP:
+      OBJECTIVE_C:
+      PASCAL:
+      PERL:
+      PHP:
+      PSEUDOCODE:
+      PYTHON:
+      RUBY:
+      RUST:
+      SHELL:
+      SQL:
+      SWIFT:
+      VB_DOT_NET:
+      VERILOG:
+      VHDL:
+      XML:
+      X86_ASSEMBLY:
+      OTHER:
+
+  LanguageClass:
+    description: Class of programming language (LanguageClassEnumeration in XSD).
+    permissible_values:
+      ASSEMBLY:
+      COMPILED:
+      HARDWARE_DESCRIPTION_LANGUAGE:
+      INTERPRETED:
+      OBJECT_ORIENTED:
+      MEMORY_UNSAFE:
+      NOT_LANGUAGE_SPECIFIC:
+
+  ArchitectureName:
+    description: Processor architecture (ArchitectureNameEnumeration in XSD).
+    permissible_values:
+      ALPHA:
+      ARM:
+      ITANIUM:
+      POWER_ARCHITECTURE:
+      SPARC:
+      X86:
+      OTHER:
+
+  ArchitectureClass:
+    description: Class of processor architecture (ArchitectureClassEnumeration in XSD).
+    permissible_values:
+      EMBEDDED:
+      MICROCOMPUTER:
+      WORKSTATION:
+      NOT_ARCHITECTURE_SPECIFIC:
+
+  OperatingSystemName:
+    description: Operating system (OperatingSystemNameEnumeration in XSD).
+    permissible_values:
+      AIX:
+      ANDROID:
+      BLACKBERRY_OS:
+      CHROME_OS:
+      DARWIN:
+      FREEBSD:
+      IOS:
+      MACOS:
+      NETBSD:
+      OPENBSD:
+      RED_HAT:
+      SOLARIS:
+      SUSE:
+      TVOS:
+      UBUNTU:
+      WATCHOS:
+      WINDOWS_9X:
+      WINDOWS_EMBEDDED:
+      WINDOWS_NT:
+
+  OperatingSystemClass:
+    description: Class of operating system (OperatingSystemClassEnumeration in XSD).
+    permissible_values:
+      LINUX:
+      MACOS:
+      UNIX:
+      WINDOWS:
+      NOT_OS_SPECIFIC:
+
+  TechnologyName:
+    description: Specific technology applicable to a weakness (TechnologyNameEnumeration in XSD).
+    permissible_values:
+      AI_ML:
+      WEB_SERVER:
+      DATABASE_SERVER:
+      ACCELERATOR_HARDWARE:
+      ANALOG_AND_MIXED_SIGNAL_HARDWARE:
+      AUDIO_VIDEO_HARDWARE:
+      BUS_INTERFACE_HARDWARE:
+      CLOCK_COUNTER_HARDWARE:
+      COMMUNICATION_HARDWARE:
+      CONTROLLER_HARDWARE:
+      MEMORY_HARDWARE:
+      MICROCONTROLLER_HARDWARE:
+      NETWORK_ON_CHIP_HARDWARE:
+      POWER_MANAGEMENT_HARDWARE:
+      PROCESSOR_HARDWARE:
+      SECURITY_HARDWARE:
+      SENSOR_HARDWARE:
+      STORAGE_HARDWARE:
+      TEST_DEBUG_HARDWARE:
+      OTHER:
+
+  TechnologyClass:
+    description: Class of technology (TechnologyClassEnumeration in XSD).
+    permissible_values:
+      CLIENT_SERVER:
+      CLOUD_COMPUTING:
+      ICS_OT:
+      MAINFRAME:
+      MOBILE:
+      N_TIER:
+      SOA:
+      SYSTEM_ON_CHIP:
+      WEB_BASED:
+      NOT_TECHNOLOGY_SPECIFIC:
+
+  TaxonomyMappingFit:
+    description: Closeness of a mapping to an external taxonomy (TaxonomyMappingFitEnumeration in XSD).
+    permissible_values:
+      EXACT:
+      CWE_MORE_ABSTRACT:
+      CWE_MORE_SPECIFIC:
+      IMPRECISE:
+      PERSPECTIVE:
+
+  TaxonomyName:
+    description: Known taxonomy that can be mapped to CWE (TaxonomyNameEnumeration in XSD).
+    permissible_values:
+      SEVEN_PERNICIOUS_KINGDOMS:
+      NINETEEN_DEADLY_SINS:
+      ASLAM:
+      BISHOP:
+      CERT_C_SECURE_CODING:
+      CERT_CPP_SECURE_CODING:
+      THE_CERT_ORACLE_SECURE_CODING_STANDARD_FOR_JAVA_2011:
+      CLASP:
+      ISA_IEC_62443:
+      LANDWEHR:
+      OMG_ASCSM:
+      OMG_ASCRM:
+      OMG_ASCMM:
+      OMG_ASCPEM:
+      OWASP_TOP_TEN_2004:
+      OWASP_TOP_TEN_2007:
+      OWASP_TOP_TEN:
+      PLOVER:
+      PROTECTION_ANALYSIS:
+      RISOS:
+      SEI_CERT_C_CODING_STANDARD:
+      SEI_CERT_CPP_CODING_STANDARD:
+      SEI_CERT_ORACLE_CODING_STANDARD_FOR_JAVA:
+      SEI_CERT_PERL_CODING_STANDARD:
+      SOFTWARE_FAULT_PATTERNS:
+      WEBER_KARGER_PARADKAR:
+      WASC:
+
+  MappingUsage:
+    description: Whether a CWE entry should be used for mapping (UsageEnumeration in XSD).
+    permissible_values:
+      ALLOWED:
+        description: May be used to map to real-world vulnerabilities.
+      ALLOWED_WITH_REVIEW:
+        description: May be used in limited situations requiring careful review.
+      DISCOURAGED:
+        description: Should not be used for mapping.
+      PROHIBITED:
+        description: Must not be used for mapping.
+
+  MappingReason:
+    description: Reason why a CWE entry should not be used for mapping (ReasonEnumeration in XSD).
+    permissible_values:
+      ABSTRACTION:
+      CATEGORY:
+      VIEW:
+      DEPRECATED:
+      POTENTIAL_DEPRECATION:
+      FREQUENT_MISUSE:
+      FREQUENT_MISINTERPRETATION:
+      MULTIPLE_USE:
+      CWE_OVERLAP:
+      ACCEPTABLE_USE:
+      POTENTIAL_MAJOR_CHANGES:
+      OTHER:
+
+  StakeholderType:
+    description: Type of stakeholder in the CWE community (StakeholderEnumeration in XSD).
+    permissible_values:
+      ACADEMIC_RESEARCHERS:
+      APPLIED_RESEARCHERS:
+      ASSESSMENT_TEAMS:
+      ASSESSMENT_TOOL_VENDORS:
+      CWE_TEAM:
+      EDUCATORS:
+      HARDWARE_DESIGNERS:
+      INFORMATION_PROVIDERS:
+      PRODUCT_CUSTOMERS:
+      PRODUCT_VENDORS:
+      SOFTWARE_DEVELOPERS:
+      VULNERABILITY_ANALYSTS:
+      OTHER:
+
+  CodeNature:
+    description: Nature of a code snippet in a demonstrative example (StructuredCodeNatureEnumeration in XSD).
+    permissible_values:
+      ATTACK:
+      BAD:
+      GOOD:
+      INFORMATIVE:
+      MITIGATION:
+      RESULT:
+
+  ContentImportance:
+    description: Importance level of a content modification (ImportanceEnumeration in XSD).
+    permissible_values:
+      NORMAL:
+      CRITICAL:
+        description: Changes the meaning or interpretation of the entry.
+
+  ContributionType:
+    description: Whether a contribution was donated content or general feedback.
+    permissible_values:
+      CONTENT:
+        description: Content donated to the CWE entry.
+      FEEDBACK:
+        description: General feedback given about the CWE entry.
+
+# =============================================================================
+# CLASSES
+# =============================================================================
 
 classes:
-  CVERecord:
-    is_a: Vulnerability
-    description: Official CVE Record corresponding to a CVE ID.
+
+  # ---- Top-level catalog ----
+
+  WeaknessCatalog:
+    tree_root: true
+    description: >-
+      Top-level container for a CWE catalog snapshot (Weakness_Catalog in XSD).
+      Holds weakness entries, categories, views, external references, and NVD
+      weakness observations.
+    see_also:
+      - https://cwe.mitre.org/data/downloads.html
     slots:
-      - assigner_org_id
-      - assigner_short_name
-      - assign_date
-      - publication_date
-      - affected
-      - tags
-      - problem_types
-      - fixes
-      - references
-      - state
-      - disputed
+      - name
+      - version
+      - date
+      - weaknesses
+      - categories
+      - views
+      - external_references
+      - observations
     slot_usage:
-      assigner_org_id:
+      name:
         required: true
-      references:
+        identifier: true
+      version:
+        required: true
+      date:
+        required: true
+    in_subset:
+      - cwe_dictionary
+
+  # ---- Weakness (canonical CWE entry) ----
+
+  Weakness:
+    description: >-
+      Canonical CWE weakness record (WeaknessType in XSD). Describes a specific
+      type of weakness and the full set of associated information.
+    exact_mappings:
+      - WIKIDATA:Q429785
+    close_mappings:
+      - schema:DefinedTerm
+    see_also:
+      - https://cwe.mitre.org/data/index.html
+    slots:
+      - id
+      - name
+      - description
+      - extended_description
+      - abstraction
+      - structure
+      - status
+      - diagram
+      - weakness_ordinalities
+      - applicable_platforms
+      - background_details
+      - alternate_terms
+      - modes_of_introduction
+      - exploitation_factors
+      - likelihood_of_exploit
+      - common_consequences
+      - detection_methods
+      - potential_mitigations
+      - demonstrative_examples
+      - observed_examples
+      - functional_areas
+      - affected_resources
+      - taxonomy_mappings
+      - related_attack_patterns
+      - related_weaknesses
+      - references
+      - mapping_notes
+      - notes
+      - content_history
+      - tags
+      - source
+    slot_usage:
+      id:
+        required: true
+        identifier: true
+      name:
+        required: true
+      description:
+        required: true
+      abstraction:
+        required: true
+      structure:
+        required: true
+      status:
+        required: true
+      mapping_notes:
+        required: true
+      content_history:
+        required: true
+    in_subset:
+      - cwe_dictionary
+
+  # ---- Category ----
+
+  Category:
+    description: >-
+      A collection of weaknesses grouped by a shared characteristic
+      (CategoryType in XSD). Organizational mechanism only; not for mapping.
+    slots:
+      - id
+      - name
+      - status
+      - summary
+      - relationships
+      - taxonomy_mappings
+      - references
+      - mapping_notes
+      - notes
+      - content_history
+    slot_usage:
+      id:
+        required: true
+        identifier: true
+      name:
+        required: true
+      status:
+        required: true
+      summary:
+        required: true
+      mapping_notes:
+        required: true
+      content_history:
+        required: true
+    in_subset:
+      - cwe_dictionary
+
+  # ---- View ----
+
+  View:
+    description: >-
+      A perspective from which to look at weaknesses in the catalog
+      (ViewType in XSD). Types: Graph, Explicit slice, Implicit slice.
+    slots:
+      - id
+      - name
+      - type
+      - status
+      - objective
+      - audience
+      - members
+      - filter
+      - references
+      - mapping_notes
+      - notes
+      - content_history
+    slot_usage:
+      id:
+        required: true
+        identifier: true
+      name:
+        required: true
+      status:
+        required: true
+      objective:
+        required: true
+      mapping_notes:
+        required: true
+      content_history:
+        required: true
+      type:
+        range: CWEViewType
+        required: true
+        description: Type of view (Graph, Explicit, or Implicit).
+    in_subset:
+      - cwe_dictionary
+
+  # ---- External reference ----
+
+  ExternalReference:
+    description: >-
+      Pointer to external reading material shared across CWE entries
+      (ExternalReferenceType in XSD). Identified by Reference_ID (e.g. REF-1).
+    slots:
+      - reference_id
+      - title
+      - authors
+      - edition
+      - publication
+      - publication_year
+      - publication_month
+      - publication_day
+      - publisher
+      - url
+      - url_date
+    slot_usage:
+      reference_id:
+        required: true
+        identifier: true
+      title:
+        required: true
+    in_subset:
+      - cwe_dictionary
+
+  # ---- CWE reference link ----
+
+  CWEReference:
+    description: >-
+      Link from a CWE entry to an ExternalReference in the catalog
+      (ReferencesType/Reference in XSD).
+    slots:
+      - external_reference_id
+      - section
+    slot_usage:
+      external_reference_id:
         required: true
 
-  AssigningCNA:
-    description: CNA entity assigning the CVE.
-    slots:
-      - org_id
-      - short_name
-      - contact_url
+  # ---- Related weakness ----
 
-  FixInformation:
-    description: Version and remediation details.
+  RelatedWeakness:
+    description: >-
+      Typed directional relationship from one CWE entry to another
+      (RelatedWeaknessesType/Related_Weakness in XSD).
     slots:
-      - fixed_version
-      - remediation
-      - advisory_url
+      - nature
+      - cwe_id
+      - view_id
+      - chain_id
+      - ordinal
+    slot_usage:
+      nature:
+        range: WeaknessRelationNature
+        required: true
+        description: Nature of the relationship.
+      cwe_id:
+        required: true
+        description: Numeric ID of the target CWE entry.
+      view_id:
+        required: true
+        description: View within which this relationship is relevant.
+      chain_id:
+        description: ID of a named chain for CanFollow/CanPrecede relationships.
+      ordinal:
+        description: Set to "Primary" for the primary ChildOf relationship in the given view.
+
+  # ---- Weakness ordinality ----
+
+  WeaknessOrdinality:
+    description: >-
+      Potential ordering relationship with other weaknesses
+      (WeaknessOrdinalitiesType/Weakness_Ordinality in XSD).
+    slots:
+      - ordinality
+      - description
+    slot_usage:
+      ordinality:
+        required: true
+        description: Ordinality level (Primary, Resultant, or Indirect).
+      description:
+        description: Context in which this ordering relationship exists.
+
+  # ---- Applicable platforms ----
+
+  ApplicablePlatforms:
+    description: >-
+      Languages, operating systems, architectures, and technologies where
+      a weakness could appear (ApplicablePlatformsType in XSD).
+    slots:
+      - languages
+      - operating_systems
+      - architectures
+      - technologies
+
+  LanguagePlatform:
+    description: >-
+      A programming language or language class applicable to a weakness
+      with associated prevalence (Language element in ApplicablePlatformsType).
+    slots:
+      - name
+      - class_
+      - prevalence
+    slot_usage:
+      name:
+        range: ProgrammingLanguage
+        description: Name of the programming language.
+      class_:
+        range: LanguageClass
+        description: Class of the programming language.
+      prevalence:
+        required: true
+        description: Regularity with which this weakness applies to this language.
+
+  OSPlatform:
+    description: >-
+      An operating system or OS class applicable to a weakness
+      (Operating_System element in ApplicablePlatformsType).
+    slots:
+      - name
+      - class_
+      - version
+      - cpe_id
+      - prevalence
+    slot_usage:
+      name:
+        range: OperatingSystemName
+        description: Name of the operating system.
+      class_:
+        range: OperatingSystemClass
+        description: Class of the operating system.
+      version:
+        description: Version of the operating system.
+      cpe_id:
+        description: CPE identifier for this operating system.
+      prevalence:
+        required: true
+        description: Regularity with which this weakness applies to this OS.
+
+  ArchitecturePlatform:
+    description: >-
+      A processor architecture or class applicable to a weakness
+      (Architecture element in ApplicablePlatformsType).
+    slots:
+      - name
+      - class_
+      - prevalence
+    slot_usage:
+      name:
+        range: ArchitectureName
+        description: Name of the processor architecture.
+      class_:
+        range: ArchitectureClass
+        description: Class of the processor architecture.
+      prevalence:
+        required: true
+        description: Regularity with which this weakness applies to this architecture.
+
+  TechnologyPlatform:
+    description: >-
+      A technology or technology class applicable to a weakness
+      (Technology element in ApplicablePlatformsType).
+    slots:
+      - name
+      - class_
+      - prevalence
+    slot_usage:
+      name:
+        range: TechnologyName
+        description: Name of the technology.
+      class_:
+        range: TechnologyClass
+        description: Class of the technology.
+      prevalence:
+        required: true
+        description: Regularity with which this weakness applies to this technology.
+
+  # ---- Alternate terms ----
+
+  AlternateTerm:
+    description: >-
+      Another name by which this weakness may be known
+      (AlternateTermsType/Alternate_Term in XSD).
+    slots:
+      - term
+      - description
+    slot_usage:
+      term:
+        required: true
+
+  # ---- Mode of introduction ----
+
+  ModeOfIntroduction:
+    description: >-
+      Information about how and when a weakness may be introduced
+      (ModesOfIntroductionType/Introduction in XSD).
+    slots:
+      - phase
+      - note
+    slot_usage:
+      phase:
+        required: true
+
+  # ---- Common consequence ----
+
+  CommonConsequence:
+    description: >-
+      Individual consequence associated with a weakness
+      (CommonConsequencesType/Consequence in XSD).
+    slots:
+      - consequence_id
+      - scopes
+      - impacts
+      - likelihood
+      - note
+    slot_usage:
+      scopes:
+        required: true
+      impacts:
+        required: true
+
+  # ---- Detection method ----
+
+  DetectionMethod:
+    description: >-
+      A method that may be employed to detect a weakness, with effectiveness
+      (DetectionMethodsType/Detection_Method in XSD).
+    slots:
+      - detection_method_id
+      - method
+      - description
+      - effectiveness
+      - effectiveness_notes
+    slot_usage:
+      method:
+        range: DetectionMethodType
+        required: true
+      description:
+        required: true
+      effectiveness:
+        range: DetectionEffectiveness
+
+  # ---- Potential mitigation ----
+
+  PotentialMitigation:
+    description: >-
+      A potential mitigation for a weakness
+      (PotentialMitigationsType/Mitigation in XSD).
+    slots:
+      - mitigation_id
+      - phases
+      - strategy
+      - description
+      - effectiveness
+      - effectiveness_notes
+    slot_usage:
+      description:
+        required: true
+      effectiveness:
+        range: MitigationEffectiveness
+
+  # ---- Demonstrative example ----
+
+  DemonstrativeExample:
+    description: >-
+      A code example illustrating how a weakness may appear
+      (DemonstrativeExamplesType/Demonstrative_Example in XSD).
+    slots:
+      - demonstrative_example_id
+      - title_text
+      - intro_text
+      - body_texts
+      - example_codes
+      - references
+    slot_usage:
+      intro_text:
+        required: true
+
+  ExampleCode:
+    description: >-
+      A structured code snippet within a demonstrative example
+      (StructuredCodeType in XSD).
+    slots:
+      - nature
+      - language
+      - content
+    slot_usage:
+      nature:
+        range: CodeNature
+        required: true
+        description: Nature of the code (Bad, Good, Attack, Mitigation, etc.).
+      language:
+        description: Programming language used in this code example.
+      content:
+        description: Text content of the code snippet.
+
+  # ---- Observed example ----
+
+  ObservedExample:
+    description: >-
+      A reference to a real-world instance of a weakness, typically a CVE
+      (ObservedExampleType/Observed_Example in XSD).
+    slots:
+      - reference
+      - description
+      - link
+    slot_usage:
+      reference:
+        required: true
+      description:
+        required: true
+      link:
+        required: true
+
+  # ---- Taxonomy mapping ----
+
+  TaxonomyMapping:
+    description: >-
+      A mapping from a CWE entry to an equivalent entry in an external taxonomy
+      (TaxonomyMappingsType/Taxonomy_Mapping in XSD).
+    slots:
+      - taxonomy_name
+      - entry_id
+      - entry_name
+      - mapping_fit
+    slot_usage:
+      taxonomy_name:
+        required: true
+
+  # ---- Catalog member (for View.members and Category.relationships) ----
+
+  CatalogMember:
+    description: >-
+      A Has_Member or Member_Of entry specifying a CWE ID and the View ID
+      in which the membership holds (MemberType in XSD).
+    slots:
+      - cwe_id
+      - view_id
+    slot_usage:
+      cwe_id:
+        required: true
+      view_id:
+        required: true
+
+  # ---- Relationships (Category) ----
+
+  Relationship:
+    description: >-
+      Container for category membership relationships (RelationshipsType in XSD).
+      Holds Has_Member and optionally Member_Of lists.
+    slots:
+      - has_member
+      - member_of
+
+  # ---- Audience (View and Category) ----
+
+  Audience:
+    description: >-
+      A target stakeholder group for a CWE view or category
+      (AudienceType/Stakeholder in XSD).
+    slots:
+      - type
+      - description
+    slot_usage:
+      type:
+        range: StakeholderType
+        required: true
+        description: Type of stakeholder in the CWE community.
+
+  # ---- Mapping notes ----
+
+  MappingNotes:
+    description: >-
+      Guidance for when and whether to map an issue to a CWE entry
+      (MappingNotesType in XSD). Required on every Weakness, Category, and View.
+    slots:
+      - usage
+      - rationale
+      - comments
+      - reasons
+      - suggestions
+    slot_usage:
+      usage:
+        required: true
+      rationale:
+        required: true
+      comments:
+        required: true
+      reasons:
+        required: true
+
+  MappingSuggestion:
+    description: >-
+      A suggested alternative CWE entry for mapping purposes
+      (SuggestionsType/Suggestion in XSD).
+    slots:
+      - cwe_id
+      - comment
+    slot_usage:
+      cwe_id:
+        required: true
+      comment:
+        required: true
+
+  # ---- Notes ----
+
+  Note:
+    description: >-
+      Additional commentary about a CWE entry (NotesType/Note in XSD).
+    slots:
+      - type
+      - content
+    slot_usage:
+      type:
+        range: NoteType
+        required: true
+        description: Type of note (Maintenance, Terminology, Research Gap, etc.).
+
+  # ---- Content history ----
+
+  ContentHistory:
+    description: >-
+      Tracks the original author and subsequent modifications
+      (ContentHistoryType in XSD).
+    slots:
+      - submission
+      - modifications
+      - contributions
+      - previous_entry_names
+    slot_usage:
+      submission:
+        required: true
+
+  Submission:
+    description: >-
+      Initial submission record for a CWE entry
+      (ContentHistoryType/Submission in XSD).
+    slots:
+      - submission_name
+      - submission_organization
+      - submission_date
+      - submission_version
+      - submission_release_date
+      - submission_comment
+    slot_usage:
+      submission_date:
+        required: true
+      submission_version:
+        required: true
+      submission_release_date:
+        required: true
+
+  Modification:
+    description: >-
+      A modification record documenting a change to a CWE entry
+      (ContentHistoryType/Modification in XSD).
+    slots:
+      - modification_name
+      - modification_organization
+      - modification_date
+      - modification_version
+      - modification_release_date
+      - modification_importance
+      - modification_comment
+    slot_usage:
+      modification_date:
+        required: true
+
+  Contribution:
+    description: >-
+      A contribution record documenting donated content or feedback
+      (ContentHistoryType/Contribution in XSD).
+    slots:
+      - type
+      - contribution_name
+      - contribution_organization
+      - contribution_date
+      - contribution_version
+      - contribution_release_date
+      - contribution_comment
+    slot_usage:
+      contribution_date:
+        required: true
+      type:
+        range: ContributionType
+        required: true
+        description: Whether the contribution was Content or Feedback.
+
+  PreviousEntryName:
+    description: >-
+      A previous name used for a CWE entry before a substantive rename
+      (ContentHistoryType/Previous_Entry_Name in XSD).
+    slots:
+      - name
+      - date
+      - version
+    slot_usage:
+      name:
+        required: true
+        description: The previous name of this CWE entry.
+      date:
+        required: true
+        description: Date on which this name was last used.
+      version:
+        description: CWE version in which the name change occurred.
+
+  # ---- NVD weakness observation ----
+
+  NVDWeaknessObservation:
+    description: Weakness observation from an NVD vulnerability detail page.
+    comments:
+      - Mirrors the per-CVE weakness table rendered on NVD detail pages.
+    slots:
+      - observation_id
+      - observed_in_cve
+      - weakness
+      - reported_by
+      - source
+    slot_usage:
+      observation_id:
+        required: true
+        identifier: true
+      observed_in_cve:
+        required: true
+      weakness:
+        required: true
+      reported_by:
+        required: true
+    in_subset:
+      - nvd_weakness_observation
+
+# =============================================================================
+# SLOTS
+# =============================================================================
 
 slots:
-  assigner_org_id:
-  
-  assigner_short_name:
-  
-  assign_date:
-    range: datetime
-  
-  publication_date:
-    range: datetime
-  
-  affected:
-    range: Product
-    multivalued: true
-  
+
+  # ---- Common identifiers and metadata ----
+
+  id:
+    range: integer
+    identifier: true
+    required: true
+    description: Unique numeric identifier for the CWE entry, category, or view.
+    slot_uri: dct:identifier
+
+  name:
+    range: string
+    description: Short human-readable name or title for this entity.
+    slot_uri: rdfs:label
+    aliases:
+      - label
+
+  title:
+    range: string
+    description: Descriptive title for a reference or catalog element.
+    slot_uri: dct:title
+
+  description:
+    range: string
+    description: Narrative description of the entity.
+    slot_uri: dct:description
+    exact_mappings:
+      - schema:description
+
+  version:
+    range: string
+    description: Version string of the catalog, entry, or submission.
+    slot_uri: schema:version
+
+  date:
+    range: date
+    description: Date associated with a catalog snapshot or a name-change event.
+    slot_uri: dct:date
+
+  source:
+    range: string
+    description: Source or origin of the data.
+    slot_uri: dct:source
+
+  url:
+    range: uri
+    description: URL pointing to the reference resource.
+    slot_uri: schema:url
+
+  url_date:
+    range: date
+    description: Date when the URL was last validated to exist.
+
+  summary:
+    range: string
+    description: Key points that define a category.
+
+  objective:
+    range: string
+    description: Perspective from which a view has been constructed.
+
+  filter:
+    range: string
+    description: XSL query identifying members of an implicit slice view.
+
+  comment:
+    range: string
+    description: Explanatory comment (e.g. on a mapping suggestion).
+
+  # ---- Weakness fields ----
+
+  abstraction:
+    range: WeaknessAbstraction
+    description: CWE abstraction tier (e.g. Base or Variant).
+    slot_uri: skos:broader
+
+  structure:
+    range: WeaknessStructure
+    description: Structural nature of the weakness (Simple, Chain, or Composite).
+
+  status:
+    range: WeaknessStatus
+    description: Lifecycle status of the CWE entry, category, or view.
+
+  diagram:
+    range: string
+    description: Optional diagram filename or reference associated with the entry.
+
+  extended_description:
+    range: string
+    description: Extended description providing additional details beyond the core concept.
+
+  likelihood_of_exploit:
+    range: LikelihoodLevel
+    description: Qualitative likelihood that the weakness can be exploited.
+
   tags:
-    range: CNATag
+    range: string
     multivalued: true
-  
-  problem_types:
+    description: Free-form tags for grouping and downstream filtering.
+
+  # ---- Shared typed primitives ----
+
+  type:
+    range: string
+    description: Type discriminator (narrowed per class via slot_usage).
+
+  phase:
+    range: LifecyclePhase
+    description: Lifecycle phase for introduction or mitigation.
+
+  phases:
+    range: LifecyclePhase
+    multivalued: true
+    description: Lifecycle phases during which a mitigation may be applied.
+
+  strategy:
+    range: MitigationStrategy
+    description: General protection strategy to which a mitigation contributes.
+
+  effectiveness:
+    range: string
+    description: >-
+      Effectiveness level (range narrowed to DetectionEffectiveness or
+      MitigationEffectiveness per class via slot_usage).
+
+  effectiveness_notes:
+    range: string
+    description: Strengths and shortcomings of this detection or mitigation.
+
+  method:
+    range: string
+    description: Detection method (range narrowed per class via slot_usage).
+
+  usage:
+    range: MappingUsage
+    description: Whether this CWE entry is supported for mapping.
+
+  rationale:
+    range: string
+    description: Context for the mapping usage designation.
+
+  comments:
+    range: string
+    description: Further clarification for the mapping notes reader.
+
+  reasons:
+    range: MappingReason
+    multivalued: true
+    description: Vocabulary summary of the mapping usage recommendation.
+
+  ordinality:
+    range: WeaknessOrdinalityLevel
+    description: Ordinality level (Primary, Resultant, or Indirect).
+
+  nature:
+    range: string
+    description: Nature or kind qualifier for this entity (narrowed per class via slot_usage).
+    slot_uri: skos:related
+
+  class_:
+    range: string
+    description: Class or category of a platform (narrowed per class via slot_usage).
+
+  prevalence:
+    range: PlatformPrevalence
+    description: Regularity with which a weakness applies to this platform.
+
+  language:
+    range: ProgrammingLanguage
+    description: Programming language for a code example or platform context.
+
+  cpe_id:
+    range: string
+    description: CPE identifier for a platform.
+
+  cwe_id:
+    range: integer
+    description: Numeric CWE ID (foreign key in relationships and members).
+
+  view_id:
+    range: integer
+    description: View ID within which a relationship or membership is relevant.
+
+  chain_id:
+    range: integer
+    description: ID of a named chain for CanFollow/CanPrecede relationships.
+
+  ordinal:
+    range: OrdinalQualifier
+    description: Set to "Primary" for the primary ChildOf relationship in the given view.
+
+  scopes:
+    range: SecurityScope
+    multivalued: true
+    description: Security properties violated by this consequence.
+
+  impacts:
+    range: TechnicalImpact
+    multivalued: true
+    description: Technical impacts that arise if the weakness is exploited.
+
+  likelihood:
+    range: LikelihoodLevel
+    description: Likelihood of this specific consequence.
+
+  note:
+    range: string
+    description: Additional contextual note.
+
+  content:
+    range: string
+    description: Textual content of a note.
+
+  term:
+    range: string
+    description: An alternate term by which this weakness may be known.
+
+  # ---- Detection ----
+
+  detection_method_id:
+    range: string
+    description: Unique identifier for a detection method entry (e.g. DM-1).
+
+  # ---- Mitigation ----
+
+  mitigation_id:
+    range: string
+    description: Unique identifier for a potential mitigation (e.g. MIT-1).
+
+  # ---- Demonstrative examples ----
+
+  demonstrative_example_id:
+    range: string
+    description: Unique identifier for a demonstrative example (e.g. DX-1).
+
+  title_text:
+    range: string
+    description: Optional title for a demonstrative example.
+
+  intro_text:
+    range: string
+    description: Context and setting for the demonstrative example.
+
+  body_texts:
+    range: string
+    multivalued: true
+    description: Interleaved body text paragraphs for a demonstrative example.
+
+  # ---- Observed examples ----
+
+  reference:
+    range: string
+    description: Identifier for a real-world example (e.g. CVE-2005-1951).
+
+  link:
+    range: uri
+    description: URL providing more information about the observed example.
+
+  # ---- Taxonomy mappings ----
+
+  taxonomy_name:
+    range: TaxonomyName
+    description: Name of the external taxonomy to which the mapping is made.
+
+  entry_id:
+    range: string
+    description: ID of the entry in the external taxonomy.
+
+  entry_name:
+    range: string
+    description: Name of the entry in the external taxonomy.
+
+  mapping_fit:
+    range: TaxonomyMappingFit
+    description: How close the CWE entry is to the mapped taxonomy entry.
+
+  # ---- Related attack patterns ----
+
+  related_attack_patterns:
+    range: integer
+    multivalued: true
+    description: CAPEC identifiers of attack patterns associated with this weakness.
+    slot_uri: skos:related
+
+  # ---- Functional areas / resources ----
+
+  functional_areas:
+    range: FunctionalArea
+    multivalued: true
+    description: Functional areas in which this weakness is most likely to occur.
+
+  affected_resources:
+    range: AffectedResource
+    multivalued: true
+    description: System resources that can be affected by exploiting this weakness.
+
+  background_details:
+    range: string
+    multivalued: true
+    description: Background information relevant but not describing the weakness itself.
+
+  exploitation_factors:
+    range: string
+    multivalued: true
+    description: Conditions that could increase the likelihood of exploit.
+
+  # ---- References ----
+
+  reference_id:
+    range: string
+    identifier: true
+    required: true
+    description: Globally unique identifier for an external reference (e.g. REF-1).
+    slot_uri: dct:identifier
+
+  authors:
+    range: string
+    multivalued: true
+    description: Authors of the referenced material.
+
+  edition:
+    range: string
+    description: Edition of the material being referenced.
+
+  publication:
+    range: string
+    description: Name of the magazine or journal.
+
+  publication_year:
+    range: string
+    description: Year of publication in YYYY format.
+
+  publication_month:
+    range: string
+    description: Month of publication in --MM format.
+
+  publication_day:
+    range: string
+    description: Day of publication in ---DD format.
+
+  publisher:
+    range: string
+    description: Publisher of the referenced material.
+
+  external_reference_id:
+    range: string
+    description: Identifier of the ExternalReference being linked to (e.g. REF-1).
+
+  section:
+    range: string
+    description: Section title or page number specific to this use of the reference.
+
+  # ---- Consequence ----
+
+  consequence_id:
+    range: string
+    description: Unique identifier for a common consequence (e.g. CC-1).
+
+  # ---- Content history ----
+
+  submission_name:
+    range: string
+    description: Name of the person who submitted this entry.
+
+  submission_organization:
+    range: string
+    description: Organization of the submitter.
+
+  submission_date:
+    range: date
+    description: Date on which this entry was submitted.
+
+  submission_version:
+    range: string
+    description: CWE version in which this entry was first added.
+
+  submission_release_date:
+    range: date
+    description: Release date of the CWE version that added this entry.
+
+  submission_comment:
+    range: string
+    description: Optional comment related to the submission.
+
+  modification_name:
+    range: string
+    description: Name of the person who made the modification.
+
+  modification_organization:
+    range: string
+    description: Organization of the modifier.
+
+  modification_date:
+    range: date
+    description: Date on which the modification was made.
+
+  modification_version:
+    range: string
+    description: CWE version in which the modification first appeared.
+
+  modification_release_date:
+    range: date
+    description: Release date of the CWE version containing the modification.
+
+  modification_importance:
+    range: ContentImportance
+    description: Importance level of this modification.
+
+  modification_comment:
+    range: string
+    description: Comment describing what was changed.
+
+  contribution_name:
+    range: string
+    description: Name of the contributor.
+
+  contribution_organization:
+    range: string
+    description: Organization of the contributor.
+
+  contribution_date:
+    range: date
+    description: Date of the contribution.
+
+  contribution_version:
+    range: string
+    description: CWE version in which the contribution first appeared.
+
+  contribution_release_date:
+    range: date
+    description: Release date of the CWE version containing the contribution.
+
+  contribution_comment:
+    range: string
+    description: Comment related to the contribution.
+
+  # ---- NVDWeaknessObservation ----
+
+  observation_id:
+    identifier: true
+    required: true
+    range: string
+    description: Identifier for an NVD weakness observation row.
+    slot_uri: dct:identifier
+
+  observed_in_cve:
+    range: CveId
+    description: CVE identifier where this weakness observation appears.
+    slot_uri: dct:references
+
+  weakness:
+    range: Weakness
+    description: Referenced CWE entry for this observation.
+    slot_uri: schema:about
+
+  reported_by:
+    range: WeaknessSource
+    description: Source label for the weakness row (e.g. NIST, ASSIGNER).
+    slot_uri: dct:source
+
+  # ---- Container slots ----
+
+  weaknesses:
     range: Weakness
     multivalued: true
-  
-  fixes:
-    range: FixInformation
+    inlined_as_list: true
+    description: Canonical CWE weakness entries in this catalog snapshot.
+
+  categories:
+    range: Category
     multivalued: true
-  
-  state:
-    range: CVEState
-  
-  disputed:
-    range: boolean
-  
-  org_id:
-  
-  short_name:
-  
-  contact_url:
-  
-  fixed_version:
-  
-  remediation:
-  
-  advisory_url:
-    range: uri
+    inlined_as_list: true
+    description: CWE categories grouping weaknesses by a common characteristic.
+
+  views:
+    range: View
+    multivalued: true
+    inlined_as_list: true
+    description: CWE views providing different perspectives on the catalog.
+
+  external_references:
+    range: ExternalReference
+    multivalued: true
+    inlined_as_list: true
+    description: External references shared across CWE entries in this catalog.
+
+  observations:
+    range: NVDWeaknessObservation
+    multivalued: true
+    inlined_as_list: true
+    description: Weakness observations from NVD vulnerability detail pages.
+
+  weakness_ordinalities:
+    range: WeaknessOrdinality
+    multivalued: true
+    inlined_as_list: true
+    description: Potential ordering relationships of this weakness with others.
+
+  applicable_platforms:
+    range: ApplicablePlatforms
+    inlined: true
+    description: Languages, OS, architectures, and technologies where this weakness can appear.
+
+  languages:
+    range: LanguagePlatform
+    multivalued: true
+    inlined_as_list: true
+    description: Programming languages applicable to this weakness.
+
+  operating_systems:
+    range: OSPlatform
+    multivalued: true
+    inlined_as_list: true
+    description: Operating systems applicable to this weakness.
+
+  architectures:
+    range: ArchitecturePlatform
+    multivalued: true
+    inlined_as_list: true
+    description: Processor architectures applicable to this weakness.
+
+  technologies:
+    range: TechnologyPlatform
+    multivalued: true
+    inlined_as_list: true
+    description: Technologies applicable to this weakness.
+
+  alternate_terms:
+    range: AlternateTerm
+    multivalued: true
+    inlined_as_list: true
+    description: Other names by which this weakness is known.
+
+  modes_of_introduction:
+    range: ModeOfIntroduction
+    multivalued: true
+    inlined_as_list: true
+    description: Information about how and when this weakness may be introduced.
+
+  common_consequences:
+    range: CommonConsequence
+    multivalued: true
+    inlined_as_list: true
+    description: Individual consequences associated with this weakness.
+
+  detection_methods:
+    range: DetectionMethod
+    multivalued: true
+    inlined_as_list: true
+    description: Methods that may be employed to detect this weakness.
+
+  potential_mitigations:
+    range: PotentialMitigation
+    multivalued: true
+    inlined_as_list: true
+    description: Potential mitigations associated with this weakness.
+
+  demonstrative_examples:
+    range: DemonstrativeExample
+    multivalued: true
+    inlined_as_list: true
+    description: Code examples illustrating how this weakness may appear.
+
+  example_codes:
+    range: ExampleCode
+    multivalued: true
+    inlined_as_list: true
+    description: Structured code snippets within a demonstrative example.
+
+  observed_examples:
+    range: ObservedExample
+    multivalued: true
+    inlined_as_list: true
+    description: Real-world instances of this weakness.
+
+  taxonomy_mappings:
+    range: TaxonomyMapping
+    multivalued: true
+    inlined_as_list: true
+    description: Mappings to equivalent entries in external taxonomies.
+
+  related_weaknesses:
+    range: RelatedWeakness
+    multivalued: true
+    inlined_as_list: true
+    description: Typed relationships to other CWE entries.
+
+  references:
+    range: CWEReference
+    multivalued: true
+    inlined_as_list: true
+    description: Links to external references defined in the catalog.
+
+  mapping_notes:
+    range: MappingNotes
+    inlined: true
+    description: Guidance for when and whether to map an issue to this entry.
+
+  suggestions:
+    range: MappingSuggestion
+    multivalued: true
+    inlined_as_list: true
+    description: Suggested alternative CWE entries for mapping.
+
+  notes:
+    range: Note
+    multivalued: true
+    inlined_as_list: true
+    description: Additional comments about this entry.
+    slot_uri: skos:note
+
+  content_history:
+    range: ContentHistory
+    inlined: true
+    description: Tracks the original author and subsequent modifications.
+
+  submission:
+    range: Submission
+    inlined: true
+    description: Initial submission information for this entry.
+
+  modifications:
+    range: Modification
+    multivalued: true
+    inlined_as_list: true
+    description: Ordered list of modifications made to this entry.
+
+  contributions:
+    range: Contribution
+    multivalued: true
+    inlined_as_list: true
+    description: Contribution records for this entry.
+
+  previous_entry_names:
+    range: PreviousEntryName
+    multivalued: true
+    inlined_as_list: true
+    description: Previous names used for this entry before a substantive rename.
+
+  members:
+    range: CatalogMember
+    multivalued: true
+    inlined_as_list: true
+    description: Member entries for a CWE view.
+
+  has_member:
+    range: CatalogMember
+    multivalued: true
+    inlined_as_list: true
+    description: CWE entries that belong to this category or view.
+
+  member_of:
+    range: CatalogMember
+    multivalued: true
+    inlined_as_list: true
+    description: Views or categories that this entry belongs to.
+
+  relationships:
+    range: Relationship
+    inlined: true
+    description: Membership relationships for a CWE category.
+
+  audience:
+    range: Audience
+    multivalued: true
+    inlined_as_list: true
+    description: Target stakeholder groups for this view or category.
