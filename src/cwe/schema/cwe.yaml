@@ -23,6 +23,7 @@ see_also:
 
 prefixes:
   capec: https://w3id.org/lmodel/capec/
+  cve: https://w3id.org/lmodel/cve/
   cwe: https://w3id.org/lmodel/cwe/
   linkml: https://w3id.org/linkml/
   schema: http://schema.org/
@@ -681,6 +682,11 @@ classes:
       - WIKIDATA:Q429785
     close_mappings:
       - schema:DefinedTerm
+      - cve:ProblemType
+      - cve:ProblemTypeDescription
+      - cve:problem_description
+    related_mappings:
+      - cve:cwe_id
     see_also:
       - https://cwe.mitre.org/data/index.html
     slots:
@@ -816,6 +822,8 @@ classes:
     description: >-
       Pointer to external reading material shared across CWE entries
       (ExternalReferenceType in XSD). Identified by Reference_ID (e.g. REF-1).
+    related_mappings:
+      - cve:CveReference
     slots:
       - reference_id
       - title
@@ -1131,6 +1139,8 @@ classes:
     description: >-
       A mapping from a CWE entry to an equivalent entry in an external taxonomy
       (TaxonomyMappingsType/Taxonomy_Mapping in XSD).
+    exact_mappings:
+      - cve:TaxonomyMapping
     slots:
       - taxonomy_name
       - entry_id
@@ -1161,6 +1171,8 @@ classes:
     description: >-
       Container for category membership relationships (RelationshipsType in XSD).
       Holds Has_Member and optionally Member_Of lists.
+    close_mappings:
+      - cve:TaxonomyRelation
     slots:
       - has_member
       - member_of

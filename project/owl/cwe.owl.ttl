@@ -1,4 +1,5 @@
 @prefix WIKIDATA: <https://www.wikidata.org/wiki/> .
+@prefix cve: <https://w3id.org/lmodel/cve/> .
 @prefix cwe: <https://w3id.org/lmodel/cwe/> .
 @prefix dct: <http://purl.org/dc/terms/> .
 @prefix linkml: <https://w3id.org/linkml/> .
@@ -33,34 +34,31 @@ cwe:WeaknessCatalog a owl:Class ;
     rdfs:seeAlso <https://cwe.mitre.org/data/downloads.html> ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cwe:weaknesses ],
+            owl:onProperty cwe:observations ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:external_references ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:name ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:date ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:allValuesFrom cwe:Category ;
             owl:onProperty cwe:categories ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:name ],
+            owl:onProperty cwe:version ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:date ],
+            owl:onProperty cwe:name ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:date ;
             owl:onProperty cwe:date ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cwe:version ],
+            owl:onProperty cwe:date ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:version ],
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:weaknesses ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:ExternalReference ;
+            owl:onProperty cwe:external_references ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:external_references ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:View ;
             owl:onProperty cwe:views ],
@@ -68,26 +66,29 @@ cwe:WeaknessCatalog a owl:Class ;
             owl:allValuesFrom cwe:NVDWeaknessObservation ;
             owl:onProperty cwe:observations ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:observations ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:Category ;
-            owl:onProperty cwe:categories ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:ExternalReference ;
-            owl:onProperty cwe:external_references ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:Weakness ;
-            owl:onProperty cwe:weaknesses ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:views ],
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:name ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cwe:name ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:version ] ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:Weakness ;
+            owl:onProperty cwe:weaknesses ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:date ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:views ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:version ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:categories ] ;
     skos:definition "Top-level container for a CWE catalog snapshot (Weakness_Catalog in XSD). Holds weakness entries, categories, views, external references, and NVD weakness observations." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
@@ -122,26 +123,29 @@ cwe:AlternateTerm a owl:Class ;
             owl:minCardinality 1 ;
             owl:onProperty cwe:term ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:description ],
+        [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:description ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:description ],
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:term ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:term ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:description ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:term ] ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:description ] ;
     skos:definition "Another name by which this weakness may be known (AlternateTermsType/Alternate_Term in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
 cwe:ApplicablePlatforms a owl:Class ;
     rdfs:label "ApplicablePlatforms" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom cwe:LanguagePlatform ;
+            owl:onProperty cwe:languages ],
+        [ a owl:Restriction ;
             owl:allValuesFrom cwe:TechnologyPlatform ;
             owl:onProperty cwe:technologies ],
         [ a owl:Restriction ;
@@ -149,22 +153,19 @@ cwe:ApplicablePlatforms a owl:Class ;
             owl:onProperty cwe:architectures ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
+            owl:onProperty cwe:operating_systems ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
             owl:onProperty cwe:technologies ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:OSPlatform ;
+            owl:onProperty cwe:operating_systems ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:ArchitecturePlatform ;
             owl:onProperty cwe:architectures ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cwe:LanguagePlatform ;
-            owl:onProperty cwe:languages ],
-        [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cwe:operating_systems ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:languages ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:OSPlatform ;
-            owl:onProperty cwe:operating_systems ] ;
+            owl:onProperty cwe:languages ] ;
     skos:definition "Languages, operating systems, architectures, and technologies where a weakness could appear (ApplicablePlatformsType in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
@@ -215,39 +216,39 @@ cwe:ApplicablePlatforms a owl:Class ;
 cwe:ArchitecturePlatform a owl:Class ;
     rdfs:label "ArchitecturePlatform" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:prevalence ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:ArchitectureClass ;
+            owl:onProperty cwe:class_ ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
             owl:onProperty cwe:class_ ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty cwe:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:ArchitectureName ;
             owl:onProperty cwe:name ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:PlatformPrevalence ;
             owl:onProperty cwe:prevalence ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cwe:class_ ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:ArchitectureClass ;
-            owl:onProperty cwe:class_ ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:prevalence ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
             owl:onProperty cwe:name ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:prevalence ],
+            owl:onProperty cwe:class_ ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cwe:ArchitectureName ;
-            owl:onProperty cwe:name ] ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:prevalence ] ;
     skos:definition "A processor architecture or class applicable to a weakness (Architecture element in ApplicablePlatformsType)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
 cwe:Audience a owl:Class ;
     rdfs:label "Audience" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:description ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:StakeholderType ;
@@ -257,10 +258,10 @@ cwe:Audience a owl:Class ;
             owl:onProperty cwe:type ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:type ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:type ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:description ] ;
@@ -286,85 +287,85 @@ cwe:Category a owl:Class ;
     rdfs:label "Category" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cwe:mapping_notes ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:mapping_notes ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:status ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:id ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:WeaknessStatus ;
-            owl:onProperty cwe:status ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:TaxonomyMapping ;
-            owl:onProperty cwe:taxonomy_mappings ],
+            owl:onProperty cwe:name ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:Note ;
             owl:onProperty cwe:notes ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cwe:MappingNotes ;
-            owl:onProperty cwe:mapping_notes ],
+            owl:allValuesFrom cwe:WeaknessStatus ;
+            owl:onProperty cwe:status ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:allValuesFrom cwe:CWEReference ;
             owl:onProperty cwe:references ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cwe:id ],
+            owl:onProperty cwe:mapping_notes ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:integer ;
-            owl:onProperty cwe:id ],
+            owl:allValuesFrom cwe:MappingNotes ;
+            owl:onProperty cwe:mapping_notes ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:name ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cwe:content_history ],
+            owl:onProperty cwe:summary ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:summary ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:status ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:notes ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:status ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:summary ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:summary ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:ContentHistory ;
-            owl:onProperty cwe:content_history ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:taxonomy_mappings ],
+            owl:onProperty cwe:relationships ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:Relationship ;
             owl:onProperty cwe:relationships ],
         [ a owl:Restriction ;
+            owl:allValuesFrom cwe:ContentHistory ;
+            owl:onProperty cwe:content_history ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:integer ;
+            owl:onProperty cwe:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:TaxonomyMapping ;
+            owl:onProperty cwe:taxonomy_mappings ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:taxonomy_mappings ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:relationships ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:mapping_notes ],
+        [ a owl:Restriction ;
             owl:minCardinality 1 ;
+            owl:onProperty cwe:status ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty cwe:summary ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:content_history ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cwe:content_history ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:relationships ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:CWEReference ;
-            owl:onProperty cwe:references ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:name ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:name ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:name ],
-        [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cwe:relationships ] ;
+            owl:onProperty cwe:references ] ;
     skos:definition "A collection of weaknesses grouped by a shared characteristic (CategoryType in XSD). Organizational mechanism only; not for mapping." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
@@ -395,43 +396,43 @@ cwe:Category a owl:Class ;
 cwe:CommonConsequence a owl:Class ;
     rdfs:label "CommonConsequence" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom cwe:LikelihoodLevel ;
+            owl:minCardinality 0 ;
             owl:onProperty cwe:likelihood ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:consequence_id ],
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:scopes ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:TechnicalImpact ;
             owl:onProperty cwe:impacts ],
         [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:impacts ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:note ],
+        [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:note ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cwe:likelihood ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:scopes ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:note ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:likelihood ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
             owl:onProperty cwe:consequence_id ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:maxCardinality 1 ;
             owl:onProperty cwe:note ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:LikelihoodLevel ;
+            owl:onProperty cwe:likelihood ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:likelihood ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:consequence_id ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:SecurityScope ;
             owl:onProperty cwe:scopes ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:impacts ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:consequence_id ] ;
     skos:definition "Individual consequence associated with a weakness (CommonConsequencesType/Consequence in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
@@ -449,67 +450,67 @@ cwe:Contribution a owl:Class ;
     rdfs:label "Contribution" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:contribution_comment ],
+            owl:onProperty cwe:contribution_release_date ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:date ;
+            owl:onProperty cwe:contribution_release_date ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:type ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cwe:contribution_version ],
+            owl:onProperty cwe:contribution_release_date ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cwe:type ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:contribution_version ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:contribution_name ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:contribution_organization ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:contribution_release_date ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:date ;
-            owl:onProperty cwe:contribution_release_date ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:contribution_comment ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:contribution_comment ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:contribution_organization ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cwe:contribution_date ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:contribution_release_date ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:type ],
+            owl:onProperty cwe:contribution_organization ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:contribution_name ],
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:contribution_comment ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cwe:contribution_version ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:contribution_name ],
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:contribution_date ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:date ;
             owl:onProperty cwe:contribution_date ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:contribution_name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:contribution_comment ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:contribution_version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:contribution_version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:contribution_organization ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:contribution_name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:contribution_comment ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:contribution_name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
             owl:onProperty cwe:contribution_organization ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:ContributionType ;
-            owl:onProperty cwe:type ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:contribution_date ] ;
+            owl:onProperty cwe:type ] ;
     skos:definition "A contribution record documenting donated content or feedback (ContentHistoryType/Contribution in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
@@ -526,50 +527,50 @@ cwe:Contribution a owl:Class ;
 cwe:DemonstrativeExample a owl:Class ;
     rdfs:label "DemonstrativeExample" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:example_codes ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:title_text ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:intro_text ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:CWEReference ;
-            owl:onProperty cwe:references ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:title_text ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:title_text ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:body_texts ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:demonstrative_example_id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:demonstrative_example_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:references ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:intro_text ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:ExampleCode ;
             owl:onProperty cwe:example_codes ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:intro_text ],
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:title_text ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:title_text ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:demonstrative_example_id ],
         [ a owl:Restriction ;
+            owl:allValuesFrom cwe:CWEReference ;
+            owl:onProperty cwe:references ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:title_text ],
+        [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:body_texts ] ;
+            owl:onProperty cwe:body_texts ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:body_texts ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:example_codes ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:demonstrative_example_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:references ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:intro_text ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:demonstrative_example_id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:intro_text ] ;
     skos:definition "A code example illustrating how a weakness may appear (DemonstrativeExamplesType/Demonstrative_Example in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
@@ -607,48 +608,48 @@ cwe:DetectionMethod a owl:Class ;
     rdfs:label "DetectionMethod" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:method ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:effectiveness_notes ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:description ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty cwe:effectiveness ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:detection_method_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:effectiveness ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:detection_method_id ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:description ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:description ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:method ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:detection_method_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:effectiveness_notes ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:DetectionMethodType ;
             owl:onProperty cwe:method ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:effectiveness_notes ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:detection_method_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:detection_method_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:method ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:effectiveness_notes ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:description ],
+        [ a owl:Restriction ;
             owl:allValuesFrom cwe:DetectionEffectiveness ;
             owl:onProperty cwe:effectiveness ],
         [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:detection_method_id ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty cwe:method ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:effectiveness ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
             owl:onProperty cwe:effectiveness_notes ] ;
     skos:definition "A method that may be employed to detect a weakness, with effectiveness (DetectionMethodsType/Detection_Method in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
@@ -736,135 +737,136 @@ cwe:DetectionMethod a owl:Class ;
 cwe:ExampleCode a owl:Class ;
     rdfs:label "ExampleCode" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
+            owl:allValuesFrom cwe:ProgrammingLanguage ;
+            owl:onProperty cwe:language ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty cwe:nature ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:language ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cwe:content ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:language ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:language ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:content ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:CodeNature ;
             owl:onProperty cwe:nature ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:nature ],
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:content ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cwe:ProgrammingLanguage ;
+            owl:maxCardinality 1 ;
             owl:onProperty cwe:language ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:content ] ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:nature ] ;
     skos:definition "A structured code snippet within a demonstrative example (StructuredCodeType in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
 cwe:ExternalReference a owl:Class ;
     rdfs:label "ExternalReference" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom xsd:date ;
-            owl:onProperty cwe:url_date ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:reference_id ],
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:edition ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:publication_year ],
         [ a owl:Restriction ;
+            owl:allValuesFrom xsd:date ;
+            owl:onProperty cwe:url_date ],
+        [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:authors ],
+            owl:onProperty cwe:publication_month ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty cwe:reference_id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:publication ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:title ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:title ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:publication_year ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:authors ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:url ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:url_date ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:publication_day ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:publisher ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:edition ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cwe:publication_day ],
+            owl:onProperty cwe:publication ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:publication_year ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:title ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:url ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:publisher ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:authors ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:publication_month ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:maxCardinality 1 ;
             owl:onProperty cwe:publication ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:anyURI ;
             owl:onProperty cwe:url ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:publication_day ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:publication_day ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:publication_year ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:publication_month ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:publication_year ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
             owl:onProperty cwe:url_date ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:url ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:publisher ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:reference_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:authors ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:title ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:publisher ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:edition ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:title ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:url ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:title ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:publication ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:reference_id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:publisher ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cwe:publication_month ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:publication_day ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:reference_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:publication_day ],
+        [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:reference_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:publisher ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
             owl:onProperty cwe:edition ] ;
     skos:definition "Pointer to external reading material shared across CWE entries (ExternalReferenceType in XSD). Identified by Reference_ID (e.g. REF-1)." ;
-    skos:inScheme <https://w3id.org/lmodel/cwe> .
+    skos:inScheme <https://w3id.org/lmodel/cwe> ;
+    skos:relatedMatch cve:CveReference .
 
 <https://w3id.org/lmodel/cwe/FunctionalArea#AUTHENTICATION> a owl:Class ;
     rdfs:label "AUTHENTICATION" ;
@@ -983,26 +985,26 @@ cwe:LanguagePlatform a owl:Class ;
             owl:minCardinality 1 ;
             owl:onProperty cwe:prevalence ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:class_ ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom cwe:PlatformPrevalence ;
             owl:onProperty cwe:prevalence ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:LanguageClass ;
             owl:onProperty cwe:class_ ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cwe:name ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
             owl:onProperty cwe:class_ ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cwe:name ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cwe:PlatformPrevalence ;
-            owl:onProperty cwe:prevalence ] ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:prevalence ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:class_ ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:name ] ;
     skos:definition "A programming language or language class applicable to a weakness with associated prevalence (Language element in ApplicablePlatformsType)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
@@ -1145,12 +1147,6 @@ cwe:MappingSuggestion a owl:Class ;
             owl:maxCardinality 1 ;
             owl:onProperty cwe:comment ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:cwe_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:comment ],
-        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cwe:cwe_id ],
         [ a owl:Restriction ;
@@ -1158,7 +1154,13 @@ cwe:MappingSuggestion a owl:Class ;
             owl:onProperty cwe:comment ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:integer ;
-            owl:onProperty cwe:cwe_id ] ;
+            owl:onProperty cwe:cwe_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:cwe_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:comment ] ;
     skos:definition "A suggested alternative CWE entry for mapping purposes (SuggestionsType/Suggestion in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
@@ -1275,12 +1277,6 @@ cwe:MappingSuggestion a owl:Class ;
 cwe:ModeOfIntroduction a owl:Class ;
     rdfs:label "ModeOfIntroduction" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:phase ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:note ],
-        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:note ],
         [ a owl:Restriction ;
@@ -1288,6 +1284,12 @@ cwe:ModeOfIntroduction a owl:Class ;
             owl:onProperty cwe:phase ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty cwe:phase ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:note ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:note ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
@@ -1299,67 +1301,67 @@ cwe:Modification a owl:Class ;
     rdfs:label "Modification" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:modification_organization ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:date ;
-            owl:onProperty cwe:modification_release_date ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:modification_comment ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:modification_importance ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:modification_importance ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:modification_name ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:modification_organization ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:modification_comment ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:modification_name ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:modification_version ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:modification_organization ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:modification_name ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:ContentImportance ;
-            owl:onProperty cwe:modification_importance ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:modification_comment ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:modification_version ],
+            owl:onProperty cwe:modification_date ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cwe:modification_date ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:modification_date ],
+            owl:onProperty cwe:modification_organization ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:modification_comment ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:modification_release_date ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:modification_name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:modification_name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:modification_comment ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:modification_organization ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:modification_name ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:modification_version ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:date ;
-            owl:onProperty cwe:modification_date ],
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:modification_importance ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:modification_version ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:modification_comment ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:modification_release_date ],
         [ a owl:Restriction ;
+            owl:allValuesFrom xsd:date ;
+            owl:onProperty cwe:modification_date ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:date ;
+            owl:onProperty cwe:modification_release_date ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:modification_version ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:ContentImportance ;
+            owl:onProperty cwe:modification_importance ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:modification_release_date ] ;
+            owl:onProperty cwe:modification_importance ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:modification_organization ] ;
     skos:definition "A modification record documenting a change to a CWE entry (ContentHistoryType/Modification in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
@@ -1367,49 +1369,49 @@ cwe:NVDWeaknessObservation a owl:Class ;
     rdfs:label "NVDWeaknessObservation" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:reported_by ],
+            owl:onProperty cwe:observed_in_cve ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:source ],
+            owl:onProperty cwe:observed_in_cve ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:reported_by ],
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:source ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:Weakness ;
             owl:onProperty cwe:weakness ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:observed_in_cve ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:observation_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:weakness ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:observation_id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:weakness ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:observation_id ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:observed_in_cve ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:source ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
+            owl:onProperty cwe:observation_id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:source ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
             owl:onProperty cwe:observed_in_cve ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cwe:WeaknessSource ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:weakness ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:weakness ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:observation_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty cwe:reported_by ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:source ] ;
+            owl:onProperty cwe:observation_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:reported_by ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:WeaknessSource ;
+            owl:onProperty cwe:reported_by ] ;
     skos:definition "Weakness observation from an NVD vulnerability detail page." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> ;
     skos:note "Mirrors the per-CVE weakness table rendered on NVD detail pages." .
@@ -1445,82 +1447,82 @@ cwe:NVDWeaknessObservation a owl:Class ;
 cwe:OSPlatform a owl:Class ;
     rdfs:label "OSPlatform" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:cpe_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:prevalence ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:class_ ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:version ],
         [ a owl:Restriction ;
+            owl:allValuesFrom cwe:OperatingSystemName ;
+            owl:onProperty cwe:name ],
+        [ a owl:Restriction ;
             owl:allValuesFrom cwe:PlatformPrevalence ;
             owl:onProperty cwe:prevalence ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:version ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:prevalence ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:class_ ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:OperatingSystemClass ;
             owl:onProperty cwe:class_ ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:cpe_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:cpe_id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:prevalence ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:name ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:prevalence ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:OperatingSystemName ;
-            owl:onProperty cwe:name ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:class_ ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:version ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:version ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:minCardinality 0 ;
             owl:onProperty cwe:name ],
         [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:cpe_id ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:class_ ] ;
+            owl:onProperty cwe:cpe_id ] ;
     skos:definition "An operating system or OS class applicable to a weakness (Operating_System element in ApplicablePlatformsType)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
 cwe:ObservedExample a owl:Class ;
     rdfs:label "ObservedExample" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:description ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:reference ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cwe:reference ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:link ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cwe:link ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:description ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:reference ],
-        [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:description ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:reference ],
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:description ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:anyURI ;
             owl:onProperty cwe:link ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cwe:link ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:description ] ;
+            owl:onProperty cwe:reference ] ;
     skos:definition "A reference to a real-world instance of a weakness, typically a CVE (ObservedExampleType/Observed_Example in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
@@ -1639,55 +1641,55 @@ cwe:ObservedExample a owl:Class ;
 cwe:PotentialMitigation a owl:Class ;
     rdfs:label "PotentialMitigation" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:description ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:phases ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:effectiveness_notes ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:effectiveness_notes ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:description ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
             owl:onProperty cwe:strategy ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:MitigationEffectiveness ;
-            owl:onProperty cwe:effectiveness ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:description ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:effectiveness_notes ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:effectiveness ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:LifecyclePhase ;
             owl:onProperty cwe:phases ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:effectiveness ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:MitigationEffectiveness ;
+            owl:onProperty cwe:effectiveness ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:mitigation_id ],
+        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:effectiveness ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty cwe:effectiveness_notes ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:effectiveness_notes ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:phases ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:description ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:MitigationStrategy ;
             owl:onProperty cwe:strategy ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cwe:mitigation_id ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:MitigationStrategy ;
             owl:onProperty cwe:strategy ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cwe:mitigation_id ],
         [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:effectiveness_notes ],
+        [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
             owl:onProperty cwe:mitigation_id ] ;
     skos:definition "A potential mitigation for a weakness (PotentialMitigationsType/Mitigation in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
@@ -1701,25 +1703,25 @@ cwe:PreviousEntryName a owl:Class ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:name ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
+            owl:allValuesFrom xsd:date ;
             owl:onProperty cwe:date ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:version ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:date ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:version ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cwe:name ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:version ],
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:date ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:version ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:date ;
-            owl:onProperty cwe:date ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:date ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
             owl:onProperty cwe:version ] ;
     skos:definition "A previous name used for a CWE entry before a substantive rename (ContentHistoryType/Previous_Entry_Name in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
@@ -1863,50 +1865,50 @@ cwe:PreviousEntryName a owl:Class ;
 cwe:RelatedWeakness a owl:Class ;
     rdfs:label "RelatedWeakness" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:chain_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:nature ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:cwe_id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:integer ;
+            owl:onProperty cwe:cwe_id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:OrdinalQualifier ;
+            owl:onProperty cwe:ordinal ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:ordinal ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:nature ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:cwe_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:ordinal ],
+        [ a owl:Restriction ;
             owl:allValuesFrom xsd:integer ;
             owl:onProperty cwe:chain_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:view_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:view_id ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:WeaknessRelationNature ;
             owl:onProperty cwe:nature ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cwe:ordinal ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:view_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
             owl:onProperty cwe:chain_id ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:integer ;
-            owl:onProperty cwe:view_id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:chain_id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:nature ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:OrdinalQualifier ;
-            owl:onProperty cwe:ordinal ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:nature ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:integer ;
-            owl:onProperty cwe:cwe_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:cwe_id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:ordinal ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:view_id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:cwe_id ] ;
+            owl:onProperty cwe:view_id ] ;
     skos:definition "Typed directional relationship from one CWE entry to another (RelatedWeaknessesType/Related_Weakness in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
@@ -1914,16 +1916,17 @@ cwe:Relationship a owl:Class ;
     rdfs:label "Relationship" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cwe:has_member ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
             owl:onProperty cwe:member_of ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:CatalogMember ;
+            owl:onProperty cwe:member_of ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
             owl:onProperty cwe:has_member ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:CatalogMember ;
-            owl:onProperty cwe:member_of ] ;
+            owl:onProperty cwe:has_member ] ;
+    skos:closeMatch cve:TaxonomyRelation ;
     skos:definition "Container for category membership relationships (RelationshipsType in XSD). Holds Has_Member and optionally Member_Of lists." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
@@ -2018,59 +2021,59 @@ cwe:Relationship a owl:Class ;
 cwe:Submission a owl:Class ;
     rdfs:label "Submission" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:submission_organization ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:submission_comment ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:submission_organization ],
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:submission_version ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:submission_comment ],
+            owl:onProperty cwe:submission_organization ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
+            owl:onProperty cwe:submission_version ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:submission_organization ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
             owl:onProperty cwe:submission_release_date ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:submission_comment ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cwe:submission_name ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:submission_date ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:submission_release_date ],
-        [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:submission_version ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:submission_organization ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:submission_comment ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:submission_version ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
             owl:onProperty cwe:submission_version ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:date ;
             owl:onProperty cwe:submission_date ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:submission_date ],
+        [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:submission_name ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cwe:submission_date ],
         [ a owl:Restriction ;
+            owl:allValuesFrom xsd:date ;
+            owl:onProperty cwe:submission_release_date ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:submission_release_date ],
+        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:submission_name ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:date ;
-            owl:onProperty cwe:submission_release_date ] ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:submission_comment ] ;
     skos:definition "Initial submission record for a CWE entry (ContentHistoryType/Submission in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
@@ -2432,14 +2435,20 @@ cwe:Submission a owl:Class ;
 cwe:TechnologyPlatform a owl:Class ;
     rdfs:label "TechnologyPlatform" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:name ],
-        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cwe:prevalence ],
         [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:class_ ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cwe:class_ ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:name ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:PlatformPrevalence ;
             owl:onProperty cwe:prevalence ],
@@ -2447,49 +2456,76 @@ cwe:TechnologyPlatform a owl:Class ;
             owl:allValuesFrom cwe:TechnologyName ;
             owl:onProperty cwe:name ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:prevalence ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:name ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:allValuesFrom cwe:TechnologyClass ;
             owl:onProperty cwe:class_ ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cwe:TechnologyClass ;
-            owl:onProperty cwe:class_ ] ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:prevalence ] ;
     skos:definition "A technology or technology class applicable to a weakness (Technology element in ApplicablePlatformsType)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
 cwe:View a owl:Class ;
     rdfs:label "View" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:allValuesFrom cwe:Note ;
-            owl:onProperty cwe:notes ],
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:filter ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:name ],
         [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:mapping_notes ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:status ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:members ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:objective ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:Note ;
+            owl:onProperty cwe:notes ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:filter ],
+        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:references ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:filter ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
+            owl:allValuesFrom cwe:CWEViewType ;
             owl:onProperty cwe:type ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:notes ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:WeaknessStatus ;
             owl:onProperty cwe:status ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:Audience ;
             owl:onProperty cwe:audience ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:filter ],
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:status ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:content_history ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cwe:id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:objective ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cwe:id ],
@@ -2497,68 +2533,35 @@ cwe:View a owl:Class ;
             owl:allValuesFrom cwe:CWEReference ;
             owl:onProperty cwe:references ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:mapping_notes ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:WeaknessStatus ;
-            owl:onProperty cwe:status ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:CWEViewType ;
-            owl:onProperty cwe:type ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:type ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:objective ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:objective ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:CatalogMember ;
-            owl:onProperty cwe:members ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:integer ;
-            owl:onProperty cwe:id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:name ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:name ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:status ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:filter ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:objective ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:content_history ],
-        [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cwe:notes ],
+            owl:onProperty cwe:audience ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:MappingNotes ;
             owl:onProperty cwe:mapping_notes ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:members ],
-        [ a owl:Restriction ;
             owl:allValuesFrom cwe:ContentHistory ;
             owl:onProperty cwe:content_history ],
         [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:content_history ],
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:filter ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:CatalogMember ;
+            owl:onProperty cwe:members ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cwe:mapping_notes ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:audience ] ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:content_history ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:type ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:objective ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:integer ;
+            owl:onProperty cwe:id ] ;
     skos:definition "A perspective from which to look at weaknesses in the catalog (ViewType in XSD). Types: Graph, Explicit slice, Implicit slice." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
@@ -2590,23 +2593,23 @@ cwe:View a owl:Class ;
 cwe:WeaknessOrdinality a owl:Class ;
     rdfs:label "WeaknessOrdinality" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:description ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom cwe:WeaknessOrdinalityLevel ;
             owl:onProperty cwe:ordinality ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:description ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:maxCardinality 1 ;
             owl:onProperty cwe:description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:ordinality ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cwe:ordinality ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cwe:WeaknessOrdinalityLevel ;
-            owl:onProperty cwe:ordinality ] ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:description ] ;
     skos:definition "Potential ordering relationship with other weaknesses (WeaknessOrdinalitiesType/Weakness_Ordinality in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
@@ -2991,42 +2994,43 @@ cwe:OrdinalQualifier a owl:Class ;
 cwe:TaxonomyMapping a owl:Class ;
     rdfs:label "TaxonomyMapping" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:mapping_fit ],
+        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:entry_name ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:entry_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
             owl:onProperty cwe:taxonomy_name ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:TaxonomyName ;
             owl:onProperty cwe:taxonomy_name ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:entry_id ],
-        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:entry_name ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty cwe:entry_name ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
             owl:onProperty cwe:taxonomy_name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:TaxonomyMappingFit ;
+            owl:onProperty cwe:mapping_fit ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:entry_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:mapping_fit ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:entry_id ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:entry_name ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cwe:entry_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:mapping_fit ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:mapping_fit ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:TaxonomyMappingFit ;
-            owl:onProperty cwe:mapping_fit ] ;
+            owl:onProperty cwe:entry_id ] ;
     skos:definition "A mapping from a CWE entry to an equivalent entry in an external taxonomy (TaxonomyMappingsType/Taxonomy_Mapping in XSD)." ;
+    skos:exactMatch cve:TaxonomyMapping ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
 cwe:abstraction a owl:ObjectProperty ;
@@ -3473,31 +3477,31 @@ cwe:CWEViewType a owl:Class ;
 cwe:ContentHistory a owl:Class ;
     rdfs:label "ContentHistory" ;
     rdfs:subClassOf [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:submission ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:submission ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
+            owl:allValuesFrom cwe:PreviousEntryName ;
             owl:onProperty cwe:previous_entry_names ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:Modification ;
             owl:onProperty cwe:modifications ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:modifications ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:Contribution ;
-            owl:onProperty cwe:contributions ],
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:submission ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:Submission ;
             owl:onProperty cwe:submission ],
         [ a owl:Restriction ;
+            owl:allValuesFrom cwe:Contribution ;
+            owl:onProperty cwe:contributions ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:submission ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:modifications ],
+        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:contributions ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cwe:PreviousEntryName ;
+            owl:minCardinality 0 ;
             owl:onProperty cwe:previous_entry_names ] ;
     skos:definition "Tracks the original author and subsequent modifications (ContentHistoryType in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
@@ -3514,34 +3518,13 @@ cwe:MappingNotes a owl:Class ;
     rdfs:label "MappingNotes" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:comments ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:MappingUsage ;
-            owl:onProperty cwe:usage ],
+            owl:onProperty cwe:rationale ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:rationale ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:rationale ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:reasons ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:suggestions ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:rationale ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:usage ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:usage ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:comments ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:usage ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:MappingSuggestion ;
             owl:onProperty cwe:suggestions ],
@@ -3549,31 +3532,52 @@ cwe:MappingNotes a owl:Class ;
             owl:allValuesFrom cwe:MappingReason ;
             owl:onProperty cwe:reasons ],
         [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:rationale ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:MappingUsage ;
+            owl:onProperty cwe:usage ],
+        [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cwe:comments ] ;
+            owl:onProperty cwe:rationale ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:comments ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:usage ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:comments ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:reasons ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:suggestions ] ;
     skos:definition "Guidance for when and whether to map an issue to a CWE entry (MappingNotesType in XSD). Required on every Weakness, Category, and View." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
 cwe:Note a owl:Class ;
     rdfs:label "Note" ;
     rdfs:subClassOf [ a owl:Restriction ;
+            owl:allValuesFrom cwe:NoteType ;
+            owl:onProperty cwe:type ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:content ],
+        [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cwe:type ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:content ],
         [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:content ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:content ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cwe:type ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cwe:NoteType ;
-            owl:onProperty cwe:type ] ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:content ] ;
     skos:definition "Additional commentary about a CWE entry (NotesType/Note in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .
 
@@ -3582,199 +3586,25 @@ cwe:Weakness a owl:Class ;
     rdfs:seeAlso <https://cwe.mitre.org/data/index.html> ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:minCardinality 1 ;
-            owl:onProperty cwe:status ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:likelihood_of_exploit ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:extended_description ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:extended_description ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:PotentialMitigation ;
-            owl:onProperty cwe:potential_mitigations ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:background_details ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:status ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:integer ;
-            owl:onProperty cwe:related_attack_patterns ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:description ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:diagram ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:potential_mitigations ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:extended_description ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:source ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:source ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:structure ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:modes_of_introduction ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:description ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:AffectedResource ;
-            owl:onProperty cwe:affected_resources ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:exploitation_factors ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:affected_resources ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
             owl:onProperty cwe:id ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:ApplicablePlatforms ;
-            owl:onProperty cwe:applicable_platforms ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:weakness_ordinalities ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:likelihood_of_exploit ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:applicable_platforms ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:notes ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:ContentHistory ;
-            owl:onProperty cwe:content_history ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:demonstrative_examples ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:related_weaknesses ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:diagram ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:observed_examples ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:source ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:content_history ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:common_consequences ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:Note ;
-            owl:onProperty cwe:notes ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:DemonstrativeExample ;
-            owl:onProperty cwe:demonstrative_examples ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:DetectionMethod ;
-            owl:onProperty cwe:detection_methods ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:structure ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:WeaknessStatus ;
             owl:onProperty cwe:status ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:name ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:applicable_platforms ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:ObservedExample ;
-            owl:onProperty cwe:observed_examples ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:background_details ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:name ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:WeaknessOrdinality ;
-            owl:onProperty cwe:weakness_ordinalities ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:references ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:description ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:related_attack_patterns ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:exploitation_factors ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:TaxonomyMapping ;
-            owl:onProperty cwe:taxonomy_mappings ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:integer ;
-            owl:onProperty cwe:id ],
-        [ a owl:Restriction ;
             owl:maxCardinality 1 ;
             owl:onProperty cwe:mapping_notes ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:affected_resources ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:WeaknessAbstraction ;
             owl:onProperty cwe:abstraction ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cwe:FunctionalArea ;
-            owl:onProperty cwe:functional_areas ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:abstraction ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:id ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:diagram ],
+            owl:allValuesFrom cwe:DemonstrativeExample ;
+            owl:onProperty cwe:demonstrative_examples ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cwe:abstraction ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:ModeOfIntroduction ;
-            owl:onProperty cwe:modes_of_introduction ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:name ],
-        [ a owl:Restriction ;
-            owl:minCardinality 0 ;
-            owl:onProperty cwe:taxonomy_mappings ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:mapping_notes ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:CWEReference ;
-            owl:onProperty cwe:references ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:MappingNotes ;
-            owl:onProperty cwe:mapping_notes ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom cwe:AlternateTerm ;
-            owl:onProperty cwe:alternate_terms ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:LikelihoodLevel ;
             owl:onProperty cwe:likelihood_of_exploit ],
@@ -3782,33 +3612,211 @@ cwe:Weakness a owl:Class ;
             owl:allValuesFrom cwe:WeaknessStructure ;
             owl:onProperty cwe:structure ],
         [ a owl:Restriction ;
+            owl:allValuesFrom cwe:ApplicablePlatforms ;
+            owl:onProperty cwe:applicable_platforms ],
+        [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:alternate_terms ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:content_history ],
-        [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cwe:functional_areas ],
+            owl:onProperty cwe:taxonomy_mappings ],
         [ a owl:Restriction ;
             owl:allValuesFrom xsd:string ;
-            owl:onProperty cwe:tags ],
+            owl:onProperty cwe:background_details ],
         [ a owl:Restriction ;
-            owl:allValuesFrom cwe:RelatedWeakness ;
-            owl:onProperty cwe:related_weaknesses ],
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:modes_of_introduction ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:potential_mitigations ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:exploitation_factors ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:background_details ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:mapping_notes ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:diagram ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:observed_examples ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:TaxonomyMapping ;
+            owl:onProperty cwe:taxonomy_mappings ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:source ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:integer ;
+            owl:onProperty cwe:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:WeaknessOrdinality ;
+            owl:onProperty cwe:weakness_ordinalities ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:status ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:exploitation_factors ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:extended_description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:weakness_ordinalities ],
         [ a owl:Restriction ;
             owl:allValuesFrom cwe:CommonConsequence ;
             owl:onProperty cwe:common_consequences ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:Note ;
+            owl:onProperty cwe:notes ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:references ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:abstraction ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:description ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:DetectionMethod ;
+            owl:onProperty cwe:detection_methods ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:notes ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:MappingNotes ;
+            owl:onProperty cwe:mapping_notes ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:AlternateTerm ;
+            owl:onProperty cwe:alternate_terms ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:structure ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:ObservedExample ;
+            owl:onProperty cwe:observed_examples ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:tags ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:related_weaknesses ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:status ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:diagram ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:applicable_platforms ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:applicable_platforms ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:extended_description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:source ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:description ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:name ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:ContentHistory ;
+            owl:onProperty cwe:content_history ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:common_consequences ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:source ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:detection_methods ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
-            owl:onProperty cwe:tags ] ;
-    skos:closeMatch schema1:DefinedTerm ;
+            owl:onProperty cwe:demonstrative_examples ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:structure ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:FunctionalArea ;
+            owl:onProperty cwe:functional_areas ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:ModeOfIntroduction ;
+            owl:onProperty cwe:modes_of_introduction ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:related_attack_patterns ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:name ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:PotentialMitigation ;
+            owl:onProperty cwe:potential_mitigations ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:integer ;
+            owl:onProperty cwe:related_attack_patterns ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:RelatedWeakness ;
+            owl:onProperty cwe:related_weaknesses ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:content_history ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:likelihood_of_exploit ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:functional_areas ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:diagram ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:string ;
+            owl:onProperty cwe:tags ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:AffectedResource ;
+            owl:onProperty cwe:affected_resources ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:likelihood_of_exploit ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:content_history ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom cwe:CWEReference ;
+            owl:onProperty cwe:references ],
+        [ a owl:Restriction ;
+            owl:minCardinality 0 ;
+            owl:onProperty cwe:extended_description ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:description ] ;
+    skos:closeMatch schema1:DefinedTerm,
+        cve:ProblemType,
+        cve:ProblemTypeDescription,
+        cve:problem_description ;
     skos:definition "Canonical CWE weakness record (WeaknessType in XSD). Describes a specific type of weakness and the full set of associated information." ;
     skos:exactMatch WIKIDATA:Q429785 ;
-    skos:inScheme <https://w3id.org/lmodel/cwe> .
+    skos:inScheme <https://w3id.org/lmodel/cwe> ;
+    skos:relatedMatch cve:cwe_id .
 
 cwe:taxonomy_mappings a owl:ObjectProperty ;
     rdfs:label "taxonomy_mappings" ;
@@ -3832,17 +3840,17 @@ cwe:CWEReference a owl:Class ;
             owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:section ],
         [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
-            owl:onProperty cwe:section ],
-        [ a owl:Restriction ;
-            owl:maxCardinality 1 ;
+            owl:allValuesFrom xsd:string ;
             owl:onProperty cwe:external_reference_id ],
         [ a owl:Restriction ;
             owl:minCardinality 1 ;
             owl:onProperty cwe:external_reference_id ],
         [ a owl:Restriction ;
-            owl:allValuesFrom xsd:string ;
+            owl:maxCardinality 1 ;
             owl:onProperty cwe:external_reference_id ],
+        [ a owl:Restriction ;
+            owl:maxCardinality 1 ;
+            owl:onProperty cwe:section ],
         [ a owl:Restriction ;
             owl:minCardinality 0 ;
             owl:onProperty cwe:section ] ;
@@ -3871,21 +3879,21 @@ cwe:CatalogMember a owl:Class ;
     rdfs:label "CatalogMember" ;
     rdfs:subClassOf [ a owl:Restriction ;
             owl:maxCardinality 1 ;
+            owl:onProperty cwe:cwe_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:cwe_id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:integer ;
             owl:onProperty cwe:view_id ],
+        [ a owl:Restriction ;
+            owl:minCardinality 1 ;
+            owl:onProperty cwe:view_id ],
+        [ a owl:Restriction ;
+            owl:allValuesFrom xsd:integer ;
+            owl:onProperty cwe:cwe_id ],
         [ a owl:Restriction ;
             owl:maxCardinality 1 ;
-            owl:onProperty cwe:cwe_id ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:integer ;
-            owl:onProperty cwe:view_id ],
-        [ a owl:Restriction ;
-            owl:allValuesFrom xsd:integer ;
-            owl:onProperty cwe:cwe_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
-            owl:onProperty cwe:cwe_id ],
-        [ a owl:Restriction ;
-            owl:minCardinality 1 ;
             owl:onProperty cwe:view_id ] ;
     skos:definition "A Has_Member or Member_Of entry specifying a CWE ID and the View ID in which the membership holds (MemberType in XSD)." ;
     skos:inScheme <https://w3id.org/lmodel/cwe> .

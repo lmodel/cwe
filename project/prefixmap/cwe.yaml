@@ -1,6 +1,7 @@
 {
    "WIKIDATA": "https://www.wikidata.org/wiki/",
    "capec": "https://w3id.org/lmodel/capec/",
+   "cve": "https://w3id.org/lmodel/cve/",
    "cwe": "https://w3id.org/lmodel/cwe/",
    "dct": "http://purl.org/dc/terms/",
    "linkml": "https://w3id.org/linkml/",

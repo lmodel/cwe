@@ -1,0 +1,25 @@
+# curie_map:
+#   cve: https://w3id.org/lmodel/cve/
+#   cwe: https://w3id.org/lmodel/cwe/
+#   skos: http://www.w3.org/2004/02/skos/core#
+#   semapv: https://w3id.org/semapv/vocab/
+# license: https://creativecommons.org/publicdomain/zero/1.0/
+# mapping_set_id: https://w3id.org/lmodel/cve/mappings/cve-to-cwe
+# mapping_set_title: CVE to CWE LinkML schema mappings
+# mapping_set_description: |
+#   Element-level mappings between the lmodel CVE schema (https://w3id.org/lmodel/cve)
+#   and the lmodel CWE schema (https://w3id.org/lmodel/cwe). Captures the points
+#   where CVE classes/slots reference, classify, or enrich MITRE Common Weakness
+#   Enumeration (CWE) concepts.
+# subject_source: https://w3id.org/lmodel/cve
+# object_source: https://w3id.org/lmodel/cwe
+# mapping_provider: https://lmodel.github.io/cve
+# mapping_date: 2026-05-07
+subject_id	subject_label	predicate_id	object_id	object_label	mapping_justification	comment
+cve:ProblemType	ProblemType	skos:closeMatch	cwe:Weakness	Weakness	semapv:ManualMappingCuration	A CVE ProblemType identifies a CWE weakness type via the embedded cwe_id; CWE Weakness is the canonical record for that classification.
+cve:ProblemTypeDescription	ProblemTypeDescription	skos:closeMatch	cwe:Weakness	Weakness	semapv:ManualMappingCuration	Per-language description of a CWE classification attached to a CVE.
+cve:TaxonomyMapping	TaxonomyMapping	skos:exactMatch	cwe:TaxonomyMapping	TaxonomyMapping	semapv:ManualMappingCuration	Identical class name and intent in both schemas - external taxonomy linkage by name and version.
+cve:TaxonomyRelation	TaxonomyRelation	skos:closeMatch	cwe:Relationship	Relationship	semapv:ManualMappingCuration	CVE TaxonomyRelation expresses a relation across taxonomies; CWE Relationship models the same kind of cross-entry linkage.
+cve:CveReference	CveReference	skos:relatedMatch	cwe:ExternalReference	ExternalReference	semapv:ManualMappingCuration	Both model an external URL/document reference attached to a vulnerability or weakness record.
+cve:cwe_id	cwe_id	skos:relatedMatch	cwe:Weakness	Weakness	semapv:ManualMappingCuration	Slot value is a CWE identifier; resolves to a Weakness record on the CWE side.
+cve:problem_description	problem_description	skos:closeMatch	cwe:Weakness	Weakness	semapv:ManualMappingCuration	Free-text problem description sourced from CWE Name/title.

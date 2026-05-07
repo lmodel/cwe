@@ -32,6 +32,9 @@ prefixes:
   capec:
     prefix_prefix: capec
     prefix_reference: https://w3id.org/lmodel/capec/
+  cve:
+    prefix_prefix: cve
+    prefix_reference: https://w3id.org/lmodel/cve/
   cwe:
     prefix_prefix: cwe
     prefix_reference: https://w3id.org/lmodel/cwe/
@@ -4465,6 +4468,11 @@ classes:
     - WIKIDATA:Q429785
     close_mappings:
     - schema:DefinedTerm
+    - cve:ProblemType
+    - cve:ProblemTypeDescription
+    - cve:problem_description
+    related_mappings:
+    - cve:cwe_id
     slots:
     - Weakness_id
     - Weakness_name
@@ -4619,6 +4627,8 @@ classes:
     in_subset:
     - cwe_dictionary
     from_schema: https://w3id.org/lmodel/cwe
+    related_mappings:
+    - cve:CveReference
     slots:
     - ExternalReference_reference_id
     - ExternalReference_title
@@ -4983,6 +4993,8 @@ classes:
     description: A mapping from a CWE entry to an equivalent entry in an external
       taxonomy (TaxonomyMappingsType/Taxonomy_Mapping in XSD).
     from_schema: https://w3id.org/lmodel/cwe
+    exact_mappings:
+    - cve:TaxonomyMapping
     slots:
     - TaxonomyMapping_taxonomy_name
     - entry_id
@@ -5016,6 +5028,8 @@ classes:
     description: Container for category membership relationships (RelationshipsType
       in XSD). Holds Has_Member and optionally Member_Of lists.
     from_schema: https://w3id.org/lmodel/cwe
+    close_mappings:
+    - cve:TaxonomyRelation
     slots:
     - has_member
     - member_of
@@ -5232,7 +5246,7 @@ classes:
     class_uri: cwe:NVDWeaknessObservation
 metamodel_version: 1.7.0
 source_file: cwe.yaml
-source_file_date: '2026-05-07T00:01:19'
-source_file_size: 53788
-generation_date: '2026-05-07T00:01:53'
+source_file_date: '2026-05-07T15:05:52'
+source_file_size: 54100
+generation_date: '2026-05-07T15:07:20'
 

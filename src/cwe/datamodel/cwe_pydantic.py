@@ -89,6 +89,8 @@ linkml_meta = LinkMLMeta({'annotations': {'source_columns': {'tag': 'source_colu
                                'prefix_reference': 'https://www.wikidata.org/wiki/'},
                   'capec': {'prefix_prefix': 'capec',
                             'prefix_reference': 'https://w3id.org/lmodel/capec/'},
+                  'cve': {'prefix_prefix': 'cve',
+                          'prefix_reference': 'https://w3id.org/lmodel/cve/'},
                   'cwe': {'prefix_prefix': 'cwe',
                           'prefix_reference': 'https://w3id.org/lmodel/cwe/'},
                   'dct': {'prefix_prefix': 'dct',
@@ -929,10 +931,14 @@ class Weakness(ConfiguredBaseModel):
     """
     Canonical CWE weakness record (WeaknessType in XSD). Describes a specific type of weakness and the full set of associated information.
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'close_mappings': ['schema:DefinedTerm'],
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'close_mappings': ['schema:DefinedTerm',
+                            'cve:ProblemType',
+                            'cve:ProblemTypeDescription',
+                            'cve:problem_description'],
          'exact_mappings': ['WIKIDATA:Q429785'],
          'from_schema': 'https://w3id.org/lmodel/cwe',
          'in_subset': ['cwe_dictionary'],
+         'related_mappings': ['cve:cwe_id'],
          'see_also': ['https://cwe.mitre.org/data/index.html'],
          'slot_usage': {'abstraction': {'name': 'abstraction', 'required': True},
                         'content_history': {'name': 'content_history',
@@ -1080,6 +1086,7 @@ class ExternalReference(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/lmodel/cwe',
          'in_subset': ['cwe_dictionary'],
+         'related_mappings': ['cve:CveReference'],
          'slot_usage': {'reference_id': {'identifier': True,
                                          'name': 'reference_id',
                                          'required': True},
@@ -1498,7 +1505,8 @@ class TaxonomyMapping(ConfiguredBaseModel):
     """
     A mapping from a CWE entry to an equivalent entry in an external taxonomy (TaxonomyMappingsType/Taxonomy_Mapping in XSD).
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/lmodel/cwe',
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'exact_mappings': ['cve:TaxonomyMapping'],
+         'from_schema': 'https://w3id.org/lmodel/cwe',
          'slot_usage': {'taxonomy_name': {'name': 'taxonomy_name', 'required': True}}})
 
     taxonomy_name: TaxonomyName = Field(default=..., description="""Name of the external taxonomy to which the mapping is made.""", json_schema_extra = { "linkml_meta": {'domain_of': ['TaxonomyMapping']} })
@@ -1523,7 +1531,8 @@ class Relationship(ConfiguredBaseModel):
     """
     Container for category membership relationships (RelationshipsType in XSD). Holds Has_Member and optionally Member_Of lists.
     """
-    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'from_schema': 'https://w3id.org/lmodel/cwe'})
+    linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'close_mappings': ['cve:TaxonomyRelation'],
+         'from_schema': 'https://w3id.org/lmodel/cwe'})
 
     has_member: Optional[list[CatalogMember]] = Field(default=None, description="""CWE entries that belong to this category or view.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Relationship']} })
     member_of: Optional[list[CatalogMember]] = Field(default=None, description="""Views or categories that this entry belongs to.""", json_schema_extra = { "linkml_meta": {'domain_of': ['Relationship']} })

@@ -1,5 +1,5 @@
 # Auto generated from cwe.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-05-07T00:01:39
+# Generation date: 2026-05-07T15:07:42
 # Schema: cwe
 #
 # id: https://w3id.org/lmodel/cwe
@@ -69,6 +69,7 @@ version = "7.3"
 # Namespaces
 WIKIDATA = CurieNamespace('WIKIDATA', 'https://www.wikidata.org/wiki/')
 CAPEC = CurieNamespace('capec', 'https://w3id.org/lmodel/capec/')
+CVE = CurieNamespace('cve', 'https://w3id.org/lmodel/cve/')
 CWE = CurieNamespace('cwe', 'https://w3id.org/lmodel/cwe/')
 DCT = CurieNamespace('dct', 'http://purl.org/dc/terms/')
 LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
@@ -256,7 +257,9 @@ class Weakness(YAMLRoot):
         if self.diagram is not None and not isinstance(self.diagram, str):
             self.diagram = str(self.diagram)
 
-        self._normalize_inlined_as_list(slot_name="weakness_ordinalities", slot_type=WeaknessOrdinality, key_name="ordinality", keyed=False)
+        if not isinstance(self.weakness_ordinalities, list):
+            self.weakness_ordinalities = [self.weakness_ordinalities] if self.weakness_ordinalities is not None else []
+        self.weakness_ordinalities = [v if isinstance(v, WeaknessOrdinality) else WeaknessOrdinality(**as_dict(v)) for v in self.weakness_ordinalities]
 
         if self.applicable_platforms is not None and not isinstance(self.applicable_platforms, ApplicablePlatforms):
             self.applicable_platforms = ApplicablePlatforms(**as_dict(self.applicable_platforms))
@@ -265,9 +268,13 @@ class Weakness(YAMLRoot):
             self.background_details = [self.background_details] if self.background_details is not None else []
         self.background_details = [v if isinstance(v, str) else str(v) for v in self.background_details]
 
-        self._normalize_inlined_as_list(slot_name="alternate_terms", slot_type=AlternateTerm, key_name="term", keyed=False)
+        if not isinstance(self.alternate_terms, list):
+            self.alternate_terms = [self.alternate_terms] if self.alternate_terms is not None else []
+        self.alternate_terms = [v if isinstance(v, AlternateTerm) else AlternateTerm(**as_dict(v)) for v in self.alternate_terms]
 
-        self._normalize_inlined_as_list(slot_name="modes_of_introduction", slot_type=ModeOfIntroduction, key_name="phase", keyed=False)
+        if not isinstance(self.modes_of_introduction, list):
+            self.modes_of_introduction = [self.modes_of_introduction] if self.modes_of_introduction is not None else []
+        self.modes_of_introduction = [v if isinstance(v, ModeOfIntroduction) else ModeOfIntroduction(**as_dict(v)) for v in self.modes_of_introduction]
 
         if not isinstance(self.exploitation_factors, list):
             self.exploitation_factors = [self.exploitation_factors] if self.exploitation_factors is not None else []
@@ -276,15 +283,25 @@ class Weakness(YAMLRoot):
         if self.likelihood_of_exploit is not None and not isinstance(self.likelihood_of_exploit, LikelihoodLevel):
             self.likelihood_of_exploit = LikelihoodLevel(self.likelihood_of_exploit)
 
-        self._normalize_inlined_as_list(slot_name="common_consequences", slot_type=CommonConsequence, key_name="scopes", keyed=False)
+        if not isinstance(self.common_consequences, list):
+            self.common_consequences = [self.common_consequences] if self.common_consequences is not None else []
+        self.common_consequences = [v if isinstance(v, CommonConsequence) else CommonConsequence(**as_dict(v)) for v in self.common_consequences]
 
-        self._normalize_inlined_as_list(slot_name="detection_methods", slot_type=DetectionMethod, key_name="method", keyed=False)
+        if not isinstance(self.detection_methods, list):
+            self.detection_methods = [self.detection_methods] if self.detection_methods is not None else []
+        self.detection_methods = [v if isinstance(v, DetectionMethod) else DetectionMethod(**as_dict(v)) for v in self.detection_methods]
 
-        self._normalize_inlined_as_list(slot_name="potential_mitigations", slot_type=PotentialMitigation, key_name="description", keyed=False)
+        if not isinstance(self.potential_mitigations, list):
+            self.potential_mitigations = [self.potential_mitigations] if self.potential_mitigations is not None else []
+        self.potential_mitigations = [v if isinstance(v, PotentialMitigation) else PotentialMitigation(**as_dict(v)) for v in self.potential_mitigations]
 
-        self._normalize_inlined_as_list(slot_name="demonstrative_examples", slot_type=DemonstrativeExample, key_name="intro_text", keyed=False)
+        if not isinstance(self.demonstrative_examples, list):
+            self.demonstrative_examples = [self.demonstrative_examples] if self.demonstrative_examples is not None else []
+        self.demonstrative_examples = [v if isinstance(v, DemonstrativeExample) else DemonstrativeExample(**as_dict(v)) for v in self.demonstrative_examples]
 
-        self._normalize_inlined_as_list(slot_name="observed_examples", slot_type=ObservedExample, key_name="reference", keyed=False)
+        if not isinstance(self.observed_examples, list):
+            self.observed_examples = [self.observed_examples] if self.observed_examples is not None else []
+        self.observed_examples = [v if isinstance(v, ObservedExample) else ObservedExample(**as_dict(v)) for v in self.observed_examples]
 
         if not isinstance(self.functional_areas, list):
             self.functional_areas = [self.functional_areas] if self.functional_areas is not None else []
@@ -294,17 +311,25 @@ class Weakness(YAMLRoot):
             self.affected_resources = [self.affected_resources] if self.affected_resources is not None else []
         self.affected_resources = [v if isinstance(v, AffectedResource) else AffectedResource(v) for v in self.affected_resources]
 
-        self._normalize_inlined_as_list(slot_name="taxonomy_mappings", slot_type=TaxonomyMapping, key_name="taxonomy_name", keyed=False)
+        if not isinstance(self.taxonomy_mappings, list):
+            self.taxonomy_mappings = [self.taxonomy_mappings] if self.taxonomy_mappings is not None else []
+        self.taxonomy_mappings = [v if isinstance(v, TaxonomyMapping) else TaxonomyMapping(**as_dict(v)) for v in self.taxonomy_mappings]
 
         if not isinstance(self.related_attack_patterns, list):
             self.related_attack_patterns = [self.related_attack_patterns] if self.related_attack_patterns is not None else []
         self.related_attack_patterns = [v if isinstance(v, int) else int(v) for v in self.related_attack_patterns]
 
-        self._normalize_inlined_as_list(slot_name="related_weaknesses", slot_type=RelatedWeakness, key_name="nature", keyed=False)
+        if not isinstance(self.related_weaknesses, list):
+            self.related_weaknesses = [self.related_weaknesses] if self.related_weaknesses is not None else []
+        self.related_weaknesses = [v if isinstance(v, RelatedWeakness) else RelatedWeakness(**as_dict(v)) for v in self.related_weaknesses]
 
-        self._normalize_inlined_as_list(slot_name="references", slot_type=CWEReference, key_name="external_reference_id", keyed=False)
+        if not isinstance(self.references, list):
+            self.references = [self.references] if self.references is not None else []
+        self.references = [v if isinstance(v, CWEReference) else CWEReference(**as_dict(v)) for v in self.references]
 
-        self._normalize_inlined_as_list(slot_name="notes", slot_type=Note, key_name="type", keyed=False)
+        if not isinstance(self.notes, list):
+            self.notes = [self.notes] if self.notes is not None else []
+        self.notes = [v if isinstance(v, Note) else Note(**as_dict(v)) for v in self.notes]
 
         if not isinstance(self.tags, list):
             self.tags = [self.tags] if self.tags is not None else []
@@ -374,11 +399,17 @@ class Category(YAMLRoot):
         if self.relationships is not None and not isinstance(self.relationships, Relationship):
             self.relationships = Relationship(**as_dict(self.relationships))
 
-        self._normalize_inlined_as_list(slot_name="taxonomy_mappings", slot_type=TaxonomyMapping, key_name="taxonomy_name", keyed=False)
+        if not isinstance(self.taxonomy_mappings, list):
+            self.taxonomy_mappings = [self.taxonomy_mappings] if self.taxonomy_mappings is not None else []
+        self.taxonomy_mappings = [v if isinstance(v, TaxonomyMapping) else TaxonomyMapping(**as_dict(v)) for v in self.taxonomy_mappings]
 
-        self._normalize_inlined_as_list(slot_name="references", slot_type=CWEReference, key_name="external_reference_id", keyed=False)
+        if not isinstance(self.references, list):
+            self.references = [self.references] if self.references is not None else []
+        self.references = [v if isinstance(v, CWEReference) else CWEReference(**as_dict(v)) for v in self.references]
 
-        self._normalize_inlined_as_list(slot_name="notes", slot_type=Note, key_name="type", keyed=False)
+        if not isinstance(self.notes, list):
+            self.notes = [self.notes] if self.notes is not None else []
+        self.notes = [v if isinstance(v, Note) else Note(**as_dict(v)) for v in self.notes]
 
         super().__post_init__(**kwargs)
 
@@ -445,16 +476,24 @@ class View(YAMLRoot):
         if not isinstance(self.content_history, ContentHistory):
             self.content_history = ContentHistory(**as_dict(self.content_history))
 
-        self._normalize_inlined_as_list(slot_name="audience", slot_type=Audience, key_name="type", keyed=False)
+        if not isinstance(self.audience, list):
+            self.audience = [self.audience] if self.audience is not None else []
+        self.audience = [v if isinstance(v, Audience) else Audience(**as_dict(v)) for v in self.audience]
 
-        self._normalize_inlined_as_list(slot_name="members", slot_type=CatalogMember, key_name="cwe_id", keyed=False)
+        if not isinstance(self.members, list):
+            self.members = [self.members] if self.members is not None else []
+        self.members = [v if isinstance(v, CatalogMember) else CatalogMember(**as_dict(v)) for v in self.members]
 
         if self.filter is not None and not isinstance(self.filter, str):
             self.filter = str(self.filter)
 
-        self._normalize_inlined_as_list(slot_name="references", slot_type=CWEReference, key_name="external_reference_id", keyed=False)
+        if not isinstance(self.references, list):
+            self.references = [self.references] if self.references is not None else []
+        self.references = [v if isinstance(v, CWEReference) else CWEReference(**as_dict(v)) for v in self.references]
 
-        self._normalize_inlined_as_list(slot_name="notes", slot_type=Note, key_name="type", keyed=False)
+        if not isinstance(self.notes, list):
+            self.notes = [self.notes] if self.notes is not None else []
+        self.notes = [v if isinstance(v, Note) else Note(**as_dict(v)) for v in self.notes]
 
         super().__post_init__(**kwargs)
 
@@ -642,13 +681,21 @@ class ApplicablePlatforms(YAMLRoot):
     technologies: Optional[Union[Union[dict, "TechnologyPlatform"], list[Union[dict, "TechnologyPlatform"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        self._normalize_inlined_as_list(slot_name="languages", slot_type=LanguagePlatform, key_name="prevalence", keyed=False)
+        if not isinstance(self.languages, list):
+            self.languages = [self.languages] if self.languages is not None else []
+        self.languages = [v if isinstance(v, LanguagePlatform) else LanguagePlatform(**as_dict(v)) for v in self.languages]
 
-        self._normalize_inlined_as_list(slot_name="operating_systems", slot_type=OSPlatform, key_name="prevalence", keyed=False)
+        if not isinstance(self.operating_systems, list):
+            self.operating_systems = [self.operating_systems] if self.operating_systems is not None else []
+        self.operating_systems = [v if isinstance(v, OSPlatform) else OSPlatform(**as_dict(v)) for v in self.operating_systems]
 
-        self._normalize_inlined_as_list(slot_name="architectures", slot_type=ArchitecturePlatform, key_name="prevalence", keyed=False)
+        if not isinstance(self.architectures, list):
+            self.architectures = [self.architectures] if self.architectures is not None else []
+        self.architectures = [v if isinstance(v, ArchitecturePlatform) else ArchitecturePlatform(**as_dict(v)) for v in self.architectures]
 
-        self._normalize_inlined_as_list(slot_name="technologies", slot_type=TechnologyPlatform, key_name="prevalence", keyed=False)
+        if not isinstance(self.technologies, list):
+            self.technologies = [self.technologies] if self.technologies is not None else []
+        self.technologies = [v if isinstance(v, TechnologyPlatform) else TechnologyPlatform(**as_dict(v)) for v in self.technologies]
 
         super().__post_init__(**kwargs)
 
@@ -1004,9 +1051,13 @@ class DemonstrativeExample(YAMLRoot):
             self.body_texts = [self.body_texts] if self.body_texts is not None else []
         self.body_texts = [v if isinstance(v, str) else str(v) for v in self.body_texts]
 
-        self._normalize_inlined_as_list(slot_name="example_codes", slot_type=ExampleCode, key_name="nature", keyed=False)
+        if not isinstance(self.example_codes, list):
+            self.example_codes = [self.example_codes] if self.example_codes is not None else []
+        self.example_codes = [v if isinstance(v, ExampleCode) else ExampleCode(**as_dict(v)) for v in self.example_codes]
 
-        self._normalize_inlined_as_list(slot_name="references", slot_type=CWEReference, key_name="external_reference_id", keyed=False)
+        if not isinstance(self.references, list):
+            self.references = [self.references] if self.references is not None else []
+        self.references = [v if isinstance(v, CWEReference) else CWEReference(**as_dict(v)) for v in self.references]
 
         super().__post_init__(**kwargs)
 
@@ -1160,9 +1211,13 @@ class Relationship(YAMLRoot):
     member_of: Optional[Union[Union[dict, CatalogMember], list[Union[dict, CatalogMember]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        self._normalize_inlined_as_list(slot_name="has_member", slot_type=CatalogMember, key_name="cwe_id", keyed=False)
+        if not isinstance(self.has_member, list):
+            self.has_member = [self.has_member] if self.has_member is not None else []
+        self.has_member = [v if isinstance(v, CatalogMember) else CatalogMember(**as_dict(v)) for v in self.has_member]
 
-        self._normalize_inlined_as_list(slot_name="member_of", slot_type=CatalogMember, key_name="cwe_id", keyed=False)
+        if not isinstance(self.member_of, list):
+            self.member_of = [self.member_of] if self.member_of is not None else []
+        self.member_of = [v if isinstance(v, CatalogMember) else CatalogMember(**as_dict(v)) for v in self.member_of]
 
         super().__post_init__(**kwargs)
 
@@ -1235,7 +1290,9 @@ class MappingNotes(YAMLRoot):
             self.reasons = [self.reasons] if self.reasons is not None else []
         self.reasons = [v if isinstance(v, MappingReason) else MappingReason(v) for v in self.reasons]
 
-        self._normalize_inlined_as_list(slot_name="suggestions", slot_type=MappingSuggestion, key_name="cwe_id", keyed=False)
+        if not isinstance(self.suggestions, list):
+            self.suggestions = [self.suggestions] if self.suggestions is not None else []
+        self.suggestions = [v if isinstance(v, MappingSuggestion) else MappingSuggestion(**as_dict(v)) for v in self.suggestions]
 
         super().__post_init__(**kwargs)
 
@@ -1319,11 +1376,15 @@ class ContentHistory(YAMLRoot):
         if not isinstance(self.submission, Submission):
             self.submission = Submission(**as_dict(self.submission))
 
-        self._normalize_inlined_as_list(slot_name="modifications", slot_type=Modification, key_name="modification_date", keyed=False)
+        if not isinstance(self.modifications, list):
+            self.modifications = [self.modifications] if self.modifications is not None else []
+        self.modifications = [v if isinstance(v, Modification) else Modification(**as_dict(v)) for v in self.modifications]
 
         self._normalize_inlined_as_list(slot_name="contributions", slot_type=Contribution, key_name="type", keyed=False)
 
-        self._normalize_inlined_as_list(slot_name="previous_entry_names", slot_type=PreviousEntryName, key_name="name", keyed=False)
+        if not isinstance(self.previous_entry_names, list):
+            self.previous_entry_names = [self.previous_entry_names] if self.previous_entry_names is not None else []
+        self.previous_entry_names = [v if isinstance(v, PreviousEntryName) else PreviousEntryName(**as_dict(v)) for v in self.previous_entry_names]
 
         super().__post_init__(**kwargs)
 
