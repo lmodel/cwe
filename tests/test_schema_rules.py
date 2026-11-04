@@ -442,7 +442,7 @@ def test_the_pen_refuses_a_status_key_on_create():
     """KTL v0.61.0's pen compares a key with its reserved names without regard to
     case, so a concept of a kind of entry, which this schema requires to hold
     `Status`, cannot be created through it. Only CweExternalReference can. This test
-    fails when a KTL sync brings a pen that compares exact case: then the bundle's
+    fails when a KTL sync changes that comparison: then the bundle's
     example can move to a CweWeakness, and the README's note can go."""
     pen = (ROOT / ".lokf" / "scripts" / "knowledge-apply.py").read_text(
         encoding="utf-8"
