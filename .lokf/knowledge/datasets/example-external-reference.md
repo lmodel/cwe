@@ -26,11 +26,11 @@ Alt_URL_Date: "2026-10-23"
 Access_Restrictions: Proprietary-Subscription
 generated:
   by: process:ktl-librarian
-  at: "2026-11-04T02:42:50Z"
+  at: "2026-11-04T02:44:47Z"
 status: draft
 ---
 
-# A Catalog of Security Architecture Weaknesses.
+# A Catalog of Security Architecture Weaknesses
 
 This concept shows how a host writes a source in its bundle: REF-9 of CWE 5.0, in the adapt copy's keys. Its type is `CweExternalReference`, and `lokf validate` checks it against `.lokf/cwe.yaml`.[^readme.md]
 

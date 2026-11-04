@@ -2,6 +2,7 @@
 
 ## 2026-11-04
 
+* **Changed**: A Catalog of Security Architecture Weaknesses. The heading loses the full stop that the Markdown lint refuses, and the title keeps the source's own.
 * **Removal**: the sidecar's first example service.
 * **Removal**: the sidecar's second example service.
 * **Added**: Documentation site.
