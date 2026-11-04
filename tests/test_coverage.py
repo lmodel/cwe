@@ -228,9 +228,9 @@ def test_the_custom_phase_rules_list_the_two_enums():
     in a rule's condition, so they are held equal here."""
     rules = view().get_class("CweCustomPhase").rules
     by_domain = {
-        rule.preconditions.slot_conditions["Domain"]
-        .equals_string: rule.postconditions.slot_conditions["Value"]
-        .equals_string_in
+        rule.preconditions.slot_conditions[
+            "Domain"
+        ].equals_string: rule.postconditions.slot_conditions["Value"].equals_string_in
         for rule in rules
     }
     assert by_domain["AI"] == list(view().get_enum("CweAiPhase").permissible_values)

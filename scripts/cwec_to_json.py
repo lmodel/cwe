@@ -73,6 +73,7 @@ ENTRIES_KEY = "Entries"
 # The one type whose repeating choice keeps its order in ENTRIES_KEY.
 ORDERED_CHOICE = "DemonstrativeExamplesType/Demonstrative_Example"
 
+
 @dataclass(frozen=True)
 class Child:
     """One child element an XSD type declares."""

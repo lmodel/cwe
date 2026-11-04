@@ -72,8 +72,9 @@ skip = [
   "website/package-lock.json",
 ]
 
-# Reminder: words have to be lowercased for the ignore-words-list.
-ignore-words-list = "linke"
+# Reminder: words have to be lowercased for the ignore-words-list. OT is
+# operational technology, in the XSD's value ICS/OT.
+ignore-words-list = "linke,ot"
 quiet-level = 3
 
 # Ref.: https://github.com/crate-ci/typos (spell checker)

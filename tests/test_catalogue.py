@@ -134,7 +134,8 @@ def test_the_entries_keep_their_order():
     """A worked example's prose and code stay in the order the XML gives them."""
     namespace = "{http://cwe.mitre.org/cwe-8}"
     weakness = next(
-        w for w in conversion.xml_root().iter(namespace + "Weakness")
+        w
+        for w in conversion.xml_root().iter(namespace + "Weakness")
         if w.get("ID") == "79"
     )
     element = weakness.find(f"{namespace}Demonstrative_Examples").find(
@@ -172,7 +173,13 @@ def test_the_converter_writes_what_it_is_asked_to(tmp_path):
     """The command line takes the ZIP and writes the same document as the function."""
     output = tmp_path / "deeper" / "catalogue.json"
     code = conversion.CONVERTER.main(
-        [str(conversion.CATALOGUE_FILE), "--xsd", str(conversion.XSD_FILE), "-o", str(output)]
+        [
+            str(conversion.CATALOGUE_FILE),
+            "--xsd",
+            str(conversion.XSD_FILE),
+            "-o",
+            str(output),
+        ]
     )
     assert code == 0
     assert json.loads(output.read_text(encoding="utf-8")) == document()
@@ -296,11 +303,15 @@ def test_the_known_oddities_of_cwe_5_0():
     """One source has the bare number 1300 for an identifier, and one has the word
     Original for an address. A correction upstream fails this test on purpose."""
     sources = document()["External_References"]
-    assert [s["Reference_ID"] for s in sources if not s["Reference_ID"].startswith("REF-")] == [
-        "1300"
+    assert [
+        s["Reference_ID"] for s in sources if not s["Reference_ID"].startswith("REF-")
+    ] == ["1300"]
+    assert [s["Reference_ID"] for s in sources if s.get("URL") == "Original"] == [
+        "REF-1068"
     ]
-    assert [s["Reference_ID"] for s in sources if s.get("URL") == "Original"] == ["REF-1068"]
-    assert [s["Reference_ID"] for s in sources if "" in s.get("Author", [])] == EMPTY_AUTHOR
+    assert [
+        s["Reference_ID"] for s in sources if "" in s.get("Author", [])
+    ] == EMPTY_AUTHOR
     assert [
         weakness["ID"]
         for weakness in document()["Weaknesses"]

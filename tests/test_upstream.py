@@ -49,7 +49,9 @@ def test_each_copy_is_the_pinned_blob(name):
 
 
 def test_the_xml_in_the_zip_is_the_pinned_one():
-    attributes, data = PINS.read_catalogue((UPSTREAM / "cwec_v5.0.xml.zip").read_bytes())
+    attributes, data = PINS.read_catalogue(
+        (UPSTREAM / "cwec_v5.0.xml.zip").read_bytes()
+    )
     assert PINS.blob(data) == PINS.PINNED_XML_BLOB
     assert attributes["Version"] == PINS.PINNED_EDITION
     assert attributes["Date"] == PINS.PINNED_DATE

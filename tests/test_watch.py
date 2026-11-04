@@ -45,7 +45,6 @@ def _not_found(url):
     return urllib.error.HTTPError(url, 404, "Not Found", None, None)
 
 
-
 def _answers(watch):
     """The answers of an unchanged upstream, with the parts a test changes."""
     return {
