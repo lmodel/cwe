@@ -4,14 +4,14 @@ build-backend = "hatchling.build"
 
 [project]
 name = "cwe"
-description = "Mitre CWE - LinkML Schema"
+description = "Common Weakness Enumeration (CWE) List 5.0 and Schema 8.0 (LinkML)"
 authors = [
   {name = "Noel McLoughlin", email = "noel.mcloughlin@gmail.com"},
 ]
 license = "Apache-2.0"
 license-files = ["LICENSE"]
 readme = "README.md"
-requires-python = ">=3.9,<4.0"
+requires-python = ">=3.10"
 dynamic = ["version"]
 
 dependencies = [
@@ -44,6 +44,14 @@ fallback-version = "0.0.0"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 
+# https://docs.astral.sh/ruff/configuration/
+[tool.ruff]
+exclude = [
+    "src/cwe/_version.py",
+]
+# Set oldest supported Python version
+target-version = "py310"
+
 # Ref.: https://github.com/codespell-project/codespell
 [tool.codespell]
 skip = [
@@ -62,6 +70,7 @@ quiet-level = 3
 # Ref.: https://github.com/crate-ci/typos (spell checker)
 [tool.typos.default.extend-words]
 linke = "linke"
+
 [tool.typos.files]
 extend-exclude = [
   "LICENSE",

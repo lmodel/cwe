@@ -8,7 +8,7 @@
 # - just works fine with quoted variables of dot-env files like this one
 LINKML_SCHEMA_NAME="cwe"
 LINKML_SCHEMA_AUTHOR="Noel McLoughlin <noel.mcloughlin@gmail.com>"
-LINKML_SCHEMA_DESCRIPTION="Mitre CWE - LinkML Schema"
+LINKML_SCHEMA_DESCRIPTION="Common Weakness Enumeration (CWE) List 5.0 and Schema 8.0 (LinkML)"
 LINKML_SCHEMA_SOURCE_DIR="src/cwe/schema"
 
 ###### linkml generator variables, used by justfile
