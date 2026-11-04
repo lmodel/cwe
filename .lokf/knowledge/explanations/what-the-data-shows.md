@@ -13,7 +13,7 @@ sources:
     title: the second group of tests
 generated:
   by: process:ktl-librarian
-  at: "2026-11-04T02:42:50Z"
+  at: "2026-11-04T02:48:39Z"
 status: draft
 ---
 
@@ -25,6 +25,6 @@ These hold in CWE 5.0, and a later edition may break them, so a test records eac
 - Every grouping and every view has the usage `Prohibited`.[^test_catalogue.py]
 - The list writes `ChildOf`, `CanPrecede` and `Requires`, and never their inverses.[^test_catalogue.py]
 - The CWE Program calls `PeerOf` and `Overlaps` symmetric, but 14 of 103 `PeerOf` links, and none of 3 `Overlaps` links, have their reverse.[^test_catalogue.py]
-- One graph view and one explicit view name no members.[^test_catalogue.py]
+- Two deprecated views, an explicit slice and a graph, name no members.[^test_catalogue.py]
 
 [^test_catalogue.py]: tests/test_catalogue.py, the second group of tests

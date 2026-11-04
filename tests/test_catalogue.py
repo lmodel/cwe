@@ -272,7 +272,8 @@ def test_only_weaknesses_and_groupings_are_members():
 
 def test_a_view_of_each_kind_holds_what_its_type_says():
     """An implicit view has a filter and no members. All but two of the rest name
-    their members: one graph and one explicit slice have none."""
+    their members: CWE-630, an explicit slice, and CWE-631, a graph, have none, and
+    both are deprecated."""
     kinds = Counter(
         (v["Type"], "Members" in v, "Filter" in v) for v in document()["Views"]
     )
