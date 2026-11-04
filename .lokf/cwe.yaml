@@ -768,9 +768,6 @@ classes:
         description: The setting in which the weakness takes this position.
   CweApplicablePlatforms:
     description: The kinds of platform where a weakness can appear.
-    comments:
-    - The four platform classes each require at least one of Name and Class, which the XSD leaves optional.
-      A platform with neither would say nothing, and CWE 5.0 has none.
     close_mappings:
     - sepses_cwe:ApplicablePlatform
     annotations:
@@ -804,13 +801,6 @@ classes:
     description: A language where a weakness can appear, named or by its family.
     annotations:
       xsd_type: ApplicablePlatformsType/Language
-    any_of:
-    - slot_conditions:
-        Name:
-          required: true
-    - slot_conditions:
-        Class:
-          required: true
     attributes:
       Name:
         description: The name of the language.
@@ -829,13 +819,6 @@ classes:
     description: An operating system where a weakness can appear, named or by its family.
     annotations:
       xsd_type: ApplicablePlatformsType/Operating_System
-    any_of:
-    - slot_conditions:
-        Name:
-          required: true
-    - slot_conditions:
-        Class:
-          required: true
     attributes:
       Name:
         description: The name of the operating system.
@@ -858,13 +841,6 @@ classes:
     description: A hardware architecture where a weakness can appear, named or by its family.
     annotations:
       xsd_type: ApplicablePlatformsType/Architecture
-    any_of:
-    - slot_conditions:
-        Name:
-          required: true
-    - slot_conditions:
-        Class:
-          required: true
     attributes:
       Name:
         description: The name of the architecture.
@@ -881,18 +857,8 @@ classes:
         range: cwe_structured_text
   CweTechnologyPlatform:
     description: A technology where a weakness can appear, named or by its family.
-    comments:
-    - Exactly one of Name and Class would hold everywhere in CWE 5.0 but on one Technology, in CWE-1259,
-      which gives both. So the rule is at least one.
     annotations:
       xsd_type: ApplicablePlatformsType/Technology
-    any_of:
-    - slot_conditions:
-        Name:
-          required: true
-    - slot_conditions:
-        Class:
-          required: true
     attributes:
       Name:
         description: The name of the technology.

@@ -289,15 +289,19 @@ def test_a_view_of_each_kind_holds_what_its_type_says():
 
 
 def test_name_or_class_gives_a_platform_with_one_exception():
-    """Exactly one of the two holds on every platform but one Technology in CWE-1259."""
-    both = []
+    """The XSD leaves both optional, so the schema does too. In CWE 5.0 exactly one of
+    the two holds on every platform but one Technology in CWE-1259, which gives both."""
+    both, neither = [], []
     for weakness in document()["Weaknesses"]:
         platforms = weakness.get("Applicable_Platforms", {})
         for kind, items in platforms.items():
             for item in items:
                 if "Name" in item and "Class" in item:
                     both.append((weakness["ID"], kind))
+                elif "Name" not in item and "Class" not in item:
+                    neither.append((weakness["ID"], kind))
     assert both == [("1259", "Technology")]
+    assert not neither
 
 
 def test_the_known_oddities_of_cwe_5_0():

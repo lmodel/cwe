@@ -153,24 +153,6 @@
         },
         "CweArchitecturePlatform": {
             "additionalProperties": false,
-            "anyOf": [
-                {
-                    "properties": {
-                        "Name": {}
-                    },
-                    "required": [
-                        "Name"
-                    ]
-                },
-                {
-                    "properties": {
-                        "Class": {}
-                    },
-                    "required": [
-                        "Class"
-                    ]
-                }
-            ],
             "description": "A hardware architecture where a weakness can appear, named or by its family.",
             "properties": {
                 "Class": {
@@ -1199,24 +1181,6 @@
         },
         "CweLanguagePlatform": {
             "additionalProperties": false,
-            "anyOf": [
-                {
-                    "properties": {
-                        "Name": {}
-                    },
-                    "required": [
-                        "Name"
-                    ]
-                },
-                {
-                    "properties": {
-                        "Class": {}
-                    },
-                    "required": [
-                        "Class"
-                    ]
-                }
-            ],
             "description": "A language where a weakness can appear, named or by its family.",
             "properties": {
                 "Class": {
@@ -1684,24 +1648,6 @@
         },
         "CweOperatingSystemPlatform": {
             "additionalProperties": false,
-            "anyOf": [
-                {
-                    "properties": {
-                        "Name": {}
-                    },
-                    "required": [
-                        "Name"
-                    ]
-                },
-                {
-                    "properties": {
-                        "Class": {}
-                    },
-                    "required": [
-                        "Class"
-                    ]
-                }
-            ],
             "description": "An operating system where a weakness can appear, named or by its family.",
             "properties": {
                 "CPE_ID": {
@@ -2385,24 +2331,6 @@
         },
         "CweTechnologyPlatform": {
             "additionalProperties": false,
-            "anyOf": [
-                {
-                    "properties": {
-                        "Name": {}
-                    },
-                    "required": [
-                        "Name"
-                    ]
-                },
-                {
-                    "properties": {
-                        "Class": {}
-                    },
-                    "required": [
-                        "Class"
-                    ]
-                }
-            ],
             "description": "A technology where a weakness can appear, named or by its family.",
             "properties": {
                 "Class": {

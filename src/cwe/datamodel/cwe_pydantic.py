@@ -1658,9 +1658,6 @@ class CweApplicablePlatforms(ConfiguredBaseModel):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'annotations': {'xsd_type': {'tag': 'xsd_type',
                                       'value': 'ApplicablePlatformsType'}},
          'close_mappings': ['sepses_cwe:ApplicablePlatform'],
-         'comments': ['The four platform classes each require at least one of Name and '
-                      'Class, which the XSD leaves optional. A platform with neither '
-                      'would say nothing, and CWE 5.0 has none.'],
          'from_schema': 'https://w3id.org/lmodel/cwe/cwe_entries'})
 
     Language: Optional[list[CweLanguagePlatform]] = Field(default=None, description="""A programming language, or a family of them.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CweApplicablePlatforms', 'CweExampleCode']} })
@@ -1675,9 +1672,6 @@ class CweLanguagePlatform(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'annotations': {'xsd_type': {'tag': 'xsd_type',
                                       'value': 'ApplicablePlatformsType/Language'}},
-         'any_of': [{'slot_conditions': {'Name': {'name': 'Name', 'required': True}}},
-                    {'slot_conditions': {'Class': {'name': 'Class',
-                                                   'required': True}}}],
          'from_schema': 'https://w3id.org/lmodel/cwe/cwe_entries'})
 
     Name: Optional[CweLanguageName] = Field(default=None, description="""The name of the language.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CweEntry',
@@ -1708,9 +1702,6 @@ class CweOperatingSystemPlatform(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'annotations': {'xsd_type': {'tag': 'xsd_type',
                                       'value': 'ApplicablePlatformsType/Operating_System'}},
-         'any_of': [{'slot_conditions': {'Name': {'name': 'Name', 'required': True}}},
-                    {'slot_conditions': {'Class': {'name': 'Class',
-                                                   'required': True}}}],
          'from_schema': 'https://w3id.org/lmodel/cwe/cwe_entries'})
 
     Name: Optional[CweOperatingSystemName] = Field(default=None, description="""The name of the operating system.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CweEntry',
@@ -1746,9 +1737,6 @@ class CweArchitecturePlatform(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'annotations': {'xsd_type': {'tag': 'xsd_type',
                                       'value': 'ApplicablePlatformsType/Architecture'}},
-         'any_of': [{'slot_conditions': {'Name': {'name': 'Name', 'required': True}}},
-                    {'slot_conditions': {'Class': {'name': 'Class',
-                                                   'required': True}}}],
          'from_schema': 'https://w3id.org/lmodel/cwe/cwe_entries'})
 
     Name: Optional[CweArchitectureName] = Field(default=None, description="""The name of the architecture.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CweEntry',
@@ -1779,12 +1767,6 @@ class CweTechnologyPlatform(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'annotations': {'xsd_type': {'tag': 'xsd_type',
                                       'value': 'ApplicablePlatformsType/Technology'}},
-         'any_of': [{'slot_conditions': {'Name': {'name': 'Name', 'required': True}}},
-                    {'slot_conditions': {'Class': {'name': 'Class',
-                                                   'required': True}}}],
-         'comments': ['Exactly one of Name and Class would hold everywhere in CWE 5.0 '
-                      'but on one Technology, in CWE-1259, which gives both. So the '
-                      'rule is at least one.'],
          'from_schema': 'https://w3id.org/lmodel/cwe/cwe_entries'})
 
     Name: Optional[CweTechnologyName] = Field(default=None, description="""The name of the technology.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CweEntry',

@@ -7141,9 +7141,6 @@
         }
       ],
       "description": "The kinds of platform where a weakness can appear.",
-      "comments": [
-        "The four platform classes each require at least one of Name and Class, which the XSD leaves optional. A platform with neither would say nothing, and CWE 5.0 has none."
-      ],
       "from_schema": "https://w3id.org/lmodel/cwe/cwe_entries",
       "close_mappings": [
         "sepses_cwe:ApplicablePlatform"
@@ -7243,28 +7240,6 @@
         }
       ],
       "class_uri": "https://w3id.org/lmodel/cwe/CweLanguagePlatform",
-      "any_of": [
-        {
-          "slot_conditions": [
-            {
-              "name": "Name",
-              "required": true,
-              "@type": "SlotDefinition"
-            }
-          ],
-          "@type": "AnonymousClassExpression"
-        },
-        {
-          "slot_conditions": [
-            {
-              "name": "Class",
-              "required": true,
-              "@type": "SlotDefinition"
-            }
-          ],
-          "@type": "AnonymousClassExpression"
-        }
-      ],
       "@type": "ClassDefinition"
     },
     {
@@ -7326,28 +7301,6 @@
         }
       ],
       "class_uri": "https://w3id.org/lmodel/cwe/CweOperatingSystemPlatform",
-      "any_of": [
-        {
-          "slot_conditions": [
-            {
-              "name": "Name",
-              "required": true,
-              "@type": "SlotDefinition"
-            }
-          ],
-          "@type": "AnonymousClassExpression"
-        },
-        {
-          "slot_conditions": [
-            {
-              "name": "Class",
-              "required": true,
-              "@type": "SlotDefinition"
-            }
-          ],
-          "@type": "AnonymousClassExpression"
-        }
-      ],
       "@type": "ClassDefinition"
     },
     {
@@ -7397,28 +7350,6 @@
         }
       ],
       "class_uri": "https://w3id.org/lmodel/cwe/CweArchitecturePlatform",
-      "any_of": [
-        {
-          "slot_conditions": [
-            {
-              "name": "Name",
-              "required": true,
-              "@type": "SlotDefinition"
-            }
-          ],
-          "@type": "AnonymousClassExpression"
-        },
-        {
-          "slot_conditions": [
-            {
-              "name": "Class",
-              "required": true,
-              "@type": "SlotDefinition"
-            }
-          ],
-          "@type": "AnonymousClassExpression"
-        }
-      ],
       "@type": "ClassDefinition"
     },
     {
@@ -7432,9 +7363,6 @@
         }
       ],
       "description": "A technology where a weakness can appear, named or by its family.",
-      "comments": [
-        "Exactly one of Name and Class would hold everywhere in CWE 5.0 but on one Technology, in CWE-1259, which gives both. So the rule is at least one."
-      ],
       "from_schema": "https://w3id.org/lmodel/cwe/cwe_entries",
       "slots": [
         "cweTechnologyPlatform__Name",
@@ -7471,28 +7399,6 @@
         }
       ],
       "class_uri": "https://w3id.org/lmodel/cwe/CweTechnologyPlatform",
-      "any_of": [
-        {
-          "slot_conditions": [
-            {
-              "name": "Name",
-              "required": true,
-              "@type": "SlotDefinition"
-            }
-          ],
-          "@type": "AnonymousClassExpression"
-        },
-        {
-          "slot_conditions": [
-            {
-              "name": "Class",
-              "required": true,
-              "@type": "SlotDefinition"
-            }
-          ],
-          "@type": "AnonymousClassExpression"
-        }
-      ],
       "@type": "ClassDefinition"
     },
     {
