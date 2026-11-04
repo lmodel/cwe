@@ -42,9 +42,8 @@ NEIGHBOURS = {
     "kev-catalog.yaml": "76bdff7d02cc34ac6a14314692e316b005649a34f442eaf54c2846b1dac5396c",
     # lmodel/nist-nvd v0.1.0, schema-v0.1.0-nist-nvd.yaml
     "nist-nvd.yaml": "69dc8a9b34cc6646cf44515c121c8924c4e07232a9699e31065fb8930ed8be40",
-    # lmodel/capec, .lokf/capec.yaml on feat/first-release, since capec has no release
-    # yet. Move this to schema-v0.1.0-capec.yaml once it has one.
-    "capec.yaml": "3f99bbb793ceac4240e016c62756052afb4bd4ddcd815d6b077763d3feba14a2",
+    # lmodel/capec v0.1.0, schema-v0.1.0-capec.yaml
+    "capec.yaml": "613164c0520384919de7d353ff87debb4e82938cec861158d151b41edd506d46",
 }
 NEIGHBOUR_DIR = ROOT / "tests" / "neighbours"
 ELEMENT_KINDS = ("classes", "enums", "types", "subsets")

@@ -729,11 +729,15 @@ classes:
     - description
   CapecAttackPatternCatalog:
     description: One release of the whole catalogue, with its entries and the references they share.
+    comments:
+    - Wikidata's item is the catalogue in general and this class is one release of it, so the item is
+      related.
     annotations:
       xsd_type: Attack_Pattern_Catalog
     close_mappings:
     - schema:DefinedTermSet
     - skos:ConceptScheme
+    related_mappings:
     - wd:Q2986817
     attributes:
       Name:
@@ -1018,8 +1022,14 @@ types:
     typeof: string
     description: Text that may hold XHTML markup such as paragraphs and lists, with no namespace prefix.
   capec_uri:
-    typeof: uri
-    description: A web address, as the XSD's xs:anyURI holds it.
+    typeof: string
+    base: str
+    uri: xsd:anyURI
+    description: An address, as XML Schema's anyURI admits it.
+    comments:
+    - LinkML's own uri type asks for an RFC 3986 URI, which the validator enforces, and anyURI also admits
+      a relative reference. CAPEC 3.9 writes none, but lmodel/cwe's catalogue does, and both schemas keep
+      the XSD's looseness.
   capec_year:
     typeof: string
     pattern: ^-?([1-9][0-9]{3,}|0[0-9]{3})(Z|[+-]((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?$
