@@ -1,0 +1,7 @@
+# Fails at: /
+# From the CWE List 5.0, CWE-712. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Has_Member:
+  - CWE_ID: '79'
+    View_ID: '629'
+Not_A_Key: x

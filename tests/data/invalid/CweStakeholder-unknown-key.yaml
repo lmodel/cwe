@@ -1,0 +1,5 @@
+# Fails at: /
+# From the CWE List 5.0, CWE-888. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Type: Product Vendors
+Not_A_Key: x

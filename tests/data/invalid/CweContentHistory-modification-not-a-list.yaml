@@ -1,0 +1,11 @@
+# Fails at: /Modification
+# From the CWE List 5.0, CWE-1462. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Submission:
+  - Submission_Name:
+      - CWE Content Team
+    Submission_Organization: MITRE
+    Submission_Date: '2026-10-22'
+    Submission_Version: '5.0'
+    Submission_ReleaseDate: '2026-10-28'
+Modification: x

@@ -1,0 +1,9 @@
+# From the CWE List 5.0, 1300. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Reference_ID: '1300'
+Author:
+  - Microsoft
+Title: The Developer's Guide to Azure
+Publication_Year: '2021'
+URL: https://azure.microsoft.com/en-us/resources/research/developer-guide-to-azure/
+URL_Date: '2025-08-04'

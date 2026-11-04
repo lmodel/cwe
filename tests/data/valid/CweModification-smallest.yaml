@@ -1,0 +1,7 @@
+# From the CWE List 5.0, CWE-121. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Modification_Name: KDM Analytics
+Modification_Date: '2009-07-17'
+Modification_Version: '1.5'
+Modification_ReleaseDate: '2009-07-27'
+Modification_Comment: Improved the White_Box_Definition

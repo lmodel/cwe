@@ -1,0 +1,6 @@
+# References
+
+* [CWE List](cwe-list.md) - The Common Weakness Enumeration list of software and hardware weakness types, which The MITRE Corporation publishes for the CWE Program. The schema renders version 5.0 of 28 October 2026, which holds 984 weaknesses, 431 groupings, 62 views and 1081 external references.
+* [CWE Schema](cwe-schema.md) - The XML Schema of the CWE List, version 8.0 of 28 October 2026, namespace `http://cwe.mitre.org/cwe-8`, at `https://cwe.mitre.org/data/xsd/cwe_schema_v8.0.xsd`. The schema renders this file, a copy of which `upstream/` holds.
+* [CWE Terms of Use](cwe-terms-of-use.md) - MITRE's terms for using the CWE: a non-exclusive, royalty-free licence for research, development and commercial purposes, on condition that a copy reproduces MITRE's copyright designation and the licence. `upstream/TERMS.txt` holds the text, and the watch compares it.
+* [CWE REST API](cwe-rest-api.md) - The CWE-CAPEC REST API working group's JSON form of the CWE, at `cwe-api.mitre.org`, with schemas in the `CWE-CAPEC/REST-API-wg` repository. It is not the source of this schema, because its schemas date from 2024 and its keys are not consistent. `Value` and `Entries` take its names.

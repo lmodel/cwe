@@ -1,0 +1,5 @@
+# Fails at: /Example_Code
+# From the CWE List 5.0, CWE-433. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Body_Text: login.php
+Example_Code: x

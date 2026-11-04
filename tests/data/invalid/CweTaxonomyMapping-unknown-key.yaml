@@ -1,0 +1,6 @@
+# Fails at: /
+# From the CWE List 5.0, CWE-385. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Taxonomy_Name: Landwehr
+Entry_Name: Timing
+Not_A_Key: x

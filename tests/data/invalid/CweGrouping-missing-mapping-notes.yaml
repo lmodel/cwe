@@ -1,0 +1,23 @@
+# Fails at: /
+# From the CWE List 5.0, CWE-1459. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+ID: '1459'
+Name: OpenSSF Secure Coding Guide for Python (2026) - 09 Cryptography
+Status: Stable
+Summary: Weaknesses in this category are related to the rules and recommendations in section
+  "09 Cryptography" of the OpenSSF Secure Coding Guide for Python.
+Relationships:
+  Has_Member:
+    - CWE_ID: '330'
+      View_ID: '1449'
+References:
+  - External_Reference_ID: REF-1541
+    Section: 09 Cryptography
+Content_History:
+  Submission:
+    - Submission_Name:
+        - CWE Content Team
+      Submission_Organization: MITRE
+      Submission_Date: '2026-10-06'
+      Submission_Version: '5.0'
+      Submission_ReleaseDate: '2026-10-28'

@@ -1,0 +1,15 @@
+# linkml-lint reads this file from the directory `just lint` runs in.
+# The recommended rules apply, with the naming rule fitted to the upstream's
+# keys and values, so that the catalogue validates with both unchanged. The
+# slots keep the names of the CWE XSD's elements and attributes, which start
+# with a capital and use underscores (Related_Weaknesses, CWE_ID). Permissible
+# values keep the XSD's text, which holds spaces and punctuation (C++,
+# Automated Static Analysis - Source Code). Class, enum and type names keep the
+# rule's usual form.
+extends: recommended
+rules:
+  standard_naming:
+    level: error
+    slot_pattern: "^[A-Z][A-Za-z0-9]*(_[A-Z]?[A-Za-z0-9]*)*$"
+    exclude_type:
+      - permissible_value

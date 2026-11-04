@@ -1,0 +1,56 @@
+# From the CWE List 5.0, CWE-1305. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+ID: '1305'
+Name: CISQ Quality Measures (2020)
+Type: Graph
+Status: Incomplete
+Objective: This view outlines the most important software quality issues as identified by
+  the Consortium for Information &amp; Software Quality (CISQ) Automated Quality Characteristic
+  Measures, released in 2020. These measures are derived from Object Management Group (OMG)
+  standards.
+Audience:
+  - Type: Software Developers
+    Description: This view provides a good starting point for anyone involved in software
+      development (including architects, designers, coders, and testers) to ensure that code
+      quality issues are considered during the development process.
+  - Type: Product Vendors
+    Description: This view can help product vendors understand code quality issues and convey
+      an overall status of their software.
+  - Type: Assessment Tool Vendors
+    Description: This view provides a good starting point for assessment tool vendors (e.g.,
+      vendors selling static analysis tools) who wish to understand what constitutes software
+      with good code quality, and which quality issues may be of concern.
+Members:
+  Has_Member:
+    - CWE_ID: '1306'
+      View_ID: '1305'
+    - CWE_ID: '1307'
+      View_ID: '1305'
+    - CWE_ID: '1308'
+      View_ID: '1305'
+    - CWE_ID: '1309'
+      View_ID: '1305'
+References:
+  - External_Reference_ID: REF-1133
+Mapping_Notes:
+  Usage: Prohibited
+  Rationale: This entry is a View. Views are not weaknesses and therefore inappropriate to
+    describe the root causes of vulnerabilities.
+  Comments: Use this View or other Views to search and navigate for the appropriate weakness.
+  Reasons:
+    - Type: View
+Content_History:
+  Submission:
+    - Submission_Name:
+        - CWE Content Team
+      Submission_Organization: MITRE
+      Submission_Date: '2020-08-18'
+      Submission_Version: '4.2'
+      Submission_ReleaseDate: '2020-08-20'
+  Modification:
+    - Modification_Name: CWE Content Team
+      Modification_Organization: MITRE
+      Modification_Date: '2023-06-29'
+      Modification_Version: '4.12'
+      Modification_ReleaseDate: '2023-06-29'
+      Modification_Comment: updated Mapping_Notes

@@ -4,21 +4,27 @@
 # name in this file is not possible until a known issue in just is fixed,
 # https://github.com/casey/just/issues/2540
 
-# Derive schema-compliant test data from the CWE XML catalog
-[group('model development')]
-gen-cwe-data xml_input="tests/data/cwe/cwec_v4.19.1.xml" yaml_output="tests/data/valid/WeaknessCatalog-001.yaml":
-  uv run python tests/data/cwe/derive_test_data.py {{xml_input}} {{yaml_output}}
+# ============ Knowledge bundle: the adapted domain schema ============
 
-# Fix Python reserved keyword 'class' generated as an attribute name due to alias.
-# This is needed because gen-python emits 'class:' and 'self.class' verbatim
-# when the slot alias is 'class', which is a Python keyword.
-# Also patches _normalize_inlined_as_list calls for slots whose key field is an
-# enum type, which triggers a linkml_runtime comparison bug (enum != TypedNode).
-fix-python-keywords:
-        sed -i \
-                -e 's/\bclass: Optional\b/class_: Optional/g' \
-                -e 's/self\.class\b/self.class_/g' \
-                -e 's/cwe\.class\b/cwe["class"]/g' \
-                -e 's/MITRE_CWE\.class\b/MITRE_CWE["class"]/g' \
-                {{pymodel}}/{{schema_name}}.py
-        uv run python scripts/fix_gen_python.py {{pymodel}}/{{schema_name}}.py
+# `.lokf/cwe.yaml` is the copy `lokf adapt` writes from the schema so that it can
+# sit beside `.lokf/lokf.yaml` (`lokf adapt --help` lists the moves). The roots are
+# the two classes that carry the schema's identifiers: CweEntry, the abstract base
+# of a weakness, a grouping and a view, and CweExternalReference. A concept names
+# CweWeakness, CweGrouping, CweView or CweExternalReference as its `type`, and LOKF's
+# `id` stands for the number, which adapt drops. The folds put what the XSD calls
+# Name, Title, Description, Summary and Objective into the concept's own `title` and
+# `description`. The recipes run the `lokf` the sidecar's floor pins (0.9.0 or
+# later); LOKF_CMD runs another, such as a checkout:
+# LOKF_CMD="uv run --project ../lokf lokf" just lokf-adapt
+lokf_cmd := env_var_or_default("LOKF_CMD", "uv run --project .lokf lokf")
+lokf_adapt_roots := "--root CweEntry --root CweExternalReference --prefix cwe --fold CweEntry.Name=title --fold CweExternalReference.Title=title --fold CweWeakness.Description=description --fold CweGrouping.Summary=description --fold CweView.Objective=description"
+
+# Rewrite .lokf/cwe.yaml from the schema (run after every schema change)
+[group('knowledge bundle')]
+lokf-adapt:
+  {{lokf_cmd}} adapt {{source_schema_path}} {{lokf_adapt_roots}} --lokf .lokf/lokf.yaml -o .lokf/cwe.yaml
+
+# Fail when .lokf/cwe.yaml is stale against the schema or .lokf/lokf.yaml
+[group('knowledge bundle')]
+lokf-adapt-check:
+  {{lokf_cmd}} adapt {{source_schema_path}} {{lokf_adapt_roots}} --lokf .lokf/lokf.yaml -o .lokf/cwe.yaml --check

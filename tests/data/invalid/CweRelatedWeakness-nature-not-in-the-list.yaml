@@ -1,0 +1,6 @@
+# Fails at: /Nature
+# From the CWE List 5.0, CWE-1289. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Nature: Not a value
+CWE_ID: '41'
+View_ID: '1000'

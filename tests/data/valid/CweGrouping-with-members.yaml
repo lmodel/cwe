@@ -1,0 +1,74 @@
+# From the CWE List 5.0, CWE-411. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+ID: '411'
+Name: Resource Locking Problems
+Status: Draft
+Summary: Weaknesses in this category are related to improper handling of locks that are used
+  to control access to resources.
+Relationships:
+  Has_Member:
+    - CWE_ID: '412'
+      View_ID: '699'
+    - CWE_ID: '413'
+      View_ID: '699'
+    - CWE_ID: '414'
+      View_ID: '699'
+    - CWE_ID: '609'
+      View_ID: '699'
+    - CWE_ID: '764'
+      View_ID: '699'
+    - CWE_ID: '765'
+      View_ID: '699'
+    - CWE_ID: '832'
+      View_ID: '699'
+    - CWE_ID: '833'
+      View_ID: '699'
+Taxonomy_Mappings:
+  - Taxonomy_Name: PLOVER
+    Entry_Name: Resource Locking problems
+Mapping_Notes:
+  Usage: Prohibited
+  Rationale: This entry is a Grouping. Using groupings for mapping has been discouraged since
+    2019. They are informal organizational groupings of weaknesses that can help CWE users
+    with data aggregation, navigation, and browsing. However, they are not weaknesses in themselves.
+  Comments: See member weaknesses of this category.
+  Reasons:
+    - Type: Grouping
+Content_History:
+  Submission:
+    - Submission_Name:
+        - PLOVER
+      Submission_Date: '2006-07-19'
+      Submission_Version: Draft 3
+      Submission_ReleaseDate: '2006-07-19'
+  Modification:
+    - Modification_Name: CWE Content Team
+      Modification_Organization: MITRE
+      Modification_Date: '2008-09-08'
+      Modification_Version: '1.0'
+      Modification_ReleaseDate: '2008-09-09'
+      Modification_Comment: updated Relationships, Taxonomy_Mappings
+    - Modification_Name: CWE Content Team
+      Modification_Organization: MITRE
+      Modification_Date: '2020-02-24'
+      Modification_Version: '4.0'
+      Modification_ReleaseDate: '2020-02-24'
+      Modification_Comment: updated Relationships
+    - Modification_Name: CWE Content Team
+      Modification_Organization: MITRE
+      Modification_Date: '2023-04-27'
+      Modification_Version: '4.11'
+      Modification_ReleaseDate: '2023-04-27'
+      Modification_Comment: updated Mapping_Notes
+    - Modification_Name: CWE Content Team
+      Modification_Organization: MITRE
+      Modification_Date: '2023-06-29'
+      Modification_Version: '4.12'
+      Modification_ReleaseDate: '2023-06-29'
+      Modification_Comment: updated Mapping_Notes
+    - Modification_Name: CWE Content Team
+      Modification_Organization: MITRE
+      Modification_Date: '2026-10-28'
+      Modification_Version: '5.0'
+      Modification_ReleaseDate: '2026-10-28'
+      Modification_Comment: updated Mapping_Notes, Type

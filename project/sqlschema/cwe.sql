@@ -1,787 +1,938 @@
--- # Class: WeaknessCatalog Description: Top-level container for a CWE catalog snapshot (Weakness_Catalog in XSD). Holds weakness entries, categories, views, external references, and NVD weakness observations.
---     * Slot: name Description: Short human-readable name or title for this entity.
---     * Slot: version Description: Version string of the catalog, entry, or submission.
---     * Slot: date Description: Date associated with a catalog snapshot or a name-change event.
--- # Class: Weakness Description: Canonical CWE weakness record (WeaknessType in XSD). Describes a specific type of weakness and the full set of associated information.
---     * Slot: id Description: Unique numeric identifier for the CWE entry, category, or view.
---     * Slot: name Description: Short human-readable name or title for this entity.
---     * Slot: description Description: Narrative description of the entity.
---     * Slot: extended_description Description: Extended description providing additional details beyond the core concept.
---     * Slot: abstraction Description: CWE abstraction tier (e.g. Base or Variant).
---     * Slot: structure Description: Structural nature of the weakness (Simple, Chain, or Composite).
---     * Slot: status Description: Lifecycle status of the CWE entry, category, or view.
---     * Slot: diagram Description: Optional diagram filename or reference associated with the entry.
---     * Slot: likelihood_of_exploit Description: Qualitative likelihood that the weakness can be exploited.
---     * Slot: source Description: Source or origin of the data.
---     * Slot: WeaknessCatalog_name Description: Autocreated FK slot
---     * Slot: applicable_platforms_id Description: Languages, OS, architectures, and technologies where this weakness can appear.
---     * Slot: mapping_notes_id Description: Guidance for when and whether to map an issue to this entry.
---     * Slot: content_history_id Description: Tracks the original author and subsequent modifications.
--- # Class: Category Description: A collection of weaknesses grouped by a shared characteristic (CategoryType in XSD). Organizational mechanism only; not for mapping.
---     * Slot: id Description: Unique numeric identifier for the CWE entry, category, or view.
---     * Slot: name Description: Short human-readable name or title for this entity.
---     * Slot: status Description: Lifecycle status of the CWE entry, category, or view.
---     * Slot: summary Description: Key points that define a category.
---     * Slot: WeaknessCatalog_name Description: Autocreated FK slot
---     * Slot: relationships_id Description: Membership relationships for a CWE category.
---     * Slot: mapping_notes_id Description: Guidance for when and whether to map an issue to this entry.
---     * Slot: content_history_id Description: Tracks the original author and subsequent modifications.
--- # Class: View Description: A perspective from which to look at weaknesses in the catalog (ViewType in XSD). Types: Graph, Explicit slice, Implicit slice.
---     * Slot: id Description: Unique numeric identifier for the CWE entry, category, or view.
---     * Slot: name Description: Short human-readable name or title for this entity.
---     * Slot: type Description: Type of view (Graph, Explicit, or Implicit).
---     * Slot: status Description: Lifecycle status of the CWE entry, category, or view.
---     * Slot: objective Description: Perspective from which a view has been constructed.
---     * Slot: filter Description: XSL query identifying members of an implicit slice view.
---     * Slot: WeaknessCatalog_name Description: Autocreated FK slot
---     * Slot: mapping_notes_id Description: Guidance for when and whether to map an issue to this entry.
---     * Slot: content_history_id Description: Tracks the original author and subsequent modifications.
--- # Class: ExternalReference Description: Pointer to external reading material shared across CWE entries (ExternalReferenceType in XSD). Identified by Reference_ID (e.g. REF-1).
---     * Slot: reference_id Description: Globally unique identifier for an external reference (e.g. REF-1).
---     * Slot: title Description: Descriptive title for a reference or catalog element.
---     * Slot: edition Description: Edition of the material being referenced.
---     * Slot: publication Description: Name of the magazine or journal.
---     * Slot: publication_year Description: Year of publication in YYYY format.
---     * Slot: publication_month Description: Month of publication in --MM format.
---     * Slot: publication_day Description: Day of publication in ---DD format.
---     * Slot: publisher Description: Publisher of the referenced material.
---     * Slot: url Description: URL pointing to the reference resource.
---     * Slot: url_date Description: Date when the URL was last validated to exist.
---     * Slot: WeaknessCatalog_name Description: Autocreated FK slot
--- # Class: CWEReference Description: Link from a CWE entry to an ExternalReference in the catalog (ReferencesType/Reference in XSD).
+-- # Class: CweWeaknessCatalog Description: One release of the CWE List, with all its entries and the sources they cite.
 --     * Slot: id
---     * Slot: external_reference_id Description: Identifier of the ExternalReference being linked to (e.g. REF-1).
---     * Slot: section Description: Section title or page number specific to this use of the reference.
---     * Slot: Weakness_id Description: Autocreated FK slot
---     * Slot: Category_id Description: Autocreated FK slot
---     * Slot: View_id Description: Autocreated FK slot
---     * Slot: DemonstrativeExample_id Description: Autocreated FK slot
--- # Class: RelatedWeakness Description: Typed directional relationship from one CWE entry to another (RelatedWeaknessesType/Related_Weakness in XSD).
+--     * Slot: Name Description: The name of the catalogue, which is CWE.
+--     * Slot: Version Description: The version of this release.
+--     * Slot: Date Description: The date of this release.
+-- # Class: CweExternalReference Description: A source that entries of the catalogue cite, such as a paper, a book or a web page.
+--     * Slot: Reference_ID Description: The identifier entries use to cite this source.
+--     * Slot: Title Description: The title of the source.
+--     * Slot: Edition Description: The edition of the source.
+--     * Slot: Publication Description: The journal, conference or other publication that holds the source.
+--     * Slot: Publication_Year Description: The year the source came out.
+--     * Slot: Publication_Month Description: The month the source came out.
+--     * Slot: Publication_Day Description: The day of the month the source came out.
+--     * Slot: Publisher Description: Who published the source.
+--     * Slot: URL Description: An address where the source can be read.
+--     * Slot: URL_Date Description: The date on which the address was last seen to work.
+--     * Slot: Alt_URL Description: Another address of the source, usually one with fewer restrictions.
+--     * Slot: Alt_URL_Date Description: The date on which the other address was last seen to work.
+--     * Slot: Access_Restrictions Description: What stands between a reader and the source.
+--     * Slot: CweWeaknessCatalog_id Description: Autocreated FK slot
+-- # Class: CweReference Description: A citation of an external reference from an entry or from one of its parts.
 --     * Slot: id
---     * Slot: nature Description: Nature of the relationship.
---     * Slot: cwe_id Description: Numeric ID of the target CWE entry.
---     * Slot: view_id Description: View within which this relationship is relevant.
---     * Slot: chain_id Description: ID of a named chain for CanFollow/CanPrecede relationships.
---     * Slot: ordinal Description: Set to "Primary" for the primary ChildOf relationship in the given view.
---     * Slot: Weakness_id Description: Autocreated FK slot
--- # Class: WeaknessOrdinality Description: Potential ordering relationship with other weaknesses (WeaknessOrdinalitiesType/Weakness_Ordinality in XSD).
+--     * Slot: External_Reference_ID Description: The external reference being cited.
+--     * Slot: Section Description: The section or page of the source that this citation means.
+--     * Slot: CweEntry_ID Description: Autocreated FK slot
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+--     * Slot: CweGrouping_ID Description: Autocreated FK slot
+--     * Slot: CweView_ID Description: Autocreated FK slot
+-- # Class: CweDimension Description: One aspect of a weakness, or of how two weaknesses differ, named in a word or two.
 --     * Slot: id
---     * Slot: ordinality Description: Ordinality level (Primary, Resultant, or Indirect).
---     * Slot: description Description: Context in which this ordering relationship exists.
---     * Slot: Weakness_id Description: Autocreated FK slot
--- # Class: ApplicablePlatforms Description: Languages, operating systems, architectures, and technologies where a weakness could appear (ApplicablePlatformsType in XSD).
+--     * Slot: Type Description: The kind of aspect, such as a behaviour or a resource.
+--     * Slot: Value Description: The aspect itself, such as Generation or Page.
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+--     * Slot: CweRelatedWeakness_id Description: Autocreated FK slot
+--     * Slot: CweMember_id Description: Autocreated FK slot
+-- # Class: CweCustomPhase Description: A life cycle stage from a field whose stages differ from those of software.
 --     * Slot: id
--- # Class: LanguagePlatform Description: A programming language or language class applicable to a weakness with associated prevalence (Language element in ApplicablePlatformsType).
+--     * Slot: Domain Description: The field whose life cycle the stage belongs to.
+--     * Slot: Value Description: The stage.
+--     * Slot: CweIntroduction_id Description: Autocreated FK slot
+--     * Slot: CweDetectionMethod_id Description: Autocreated FK slot
+--     * Slot: CweMitigation_id Description: Autocreated FK slot
+-- # Class: CweNote Description: A remark on an entry that fits nowhere else.
 --     * Slot: id
---     * Slot: name Description: Name of the programming language.
---     * Slot: class_ Description: Class of the programming language.
---     * Slot: prevalence Description: Regularity with which this weakness applies to this language.
---     * Slot: ApplicablePlatforms_id Description: Autocreated FK slot
--- # Class: OSPlatform Description: An operating system or OS class applicable to a weakness (Operating_System element in ApplicablePlatformsType).
+--     * Slot: Type Description: What the note is about.
+--     * Slot: Version Description: The CWE version the note belongs to.
+--     * Slot: ReleaseDate Description: The release date of that version.
+--     * Slot: Value Description: The text of the note.
+--     * Slot: CweEntry_ID Description: Autocreated FK slot
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+--     * Slot: CweGrouping_ID Description: Autocreated FK slot
+--     * Slot: CweView_ID Description: Autocreated FK slot
+-- # Class: CweTaxonomyMapping Description: A link from an entry to an entry of another taxonomy.
 --     * Slot: id
---     * Slot: name Description: Name of the operating system.
---     * Slot: class_ Description: Class of the operating system.
---     * Slot: version Description: Version of the operating system.
---     * Slot: cpe_id Description: CPE identifier for this operating system.
---     * Slot: prevalence Description: Regularity with which this weakness applies to this OS.
---     * Slot: ApplicablePlatforms_id Description: Autocreated FK slot
--- # Class: ArchitecturePlatform Description: A processor architecture or class applicable to a weakness (Architecture element in ApplicablePlatformsType).
+--     * Slot: Taxonomy_Name Description: The other taxonomy.
+--     * Slot: Entry_ID Description: The identifier of the entry in the other taxonomy.
+--     * Slot: Entry_Name Description: The name of the entry in the other taxonomy.
+--     * Slot: Mapping_Fit Description: How closely the two entries match.
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+--     * Slot: CweGrouping_ID Description: Autocreated FK slot
+-- # Class: CweContentHistory Description: The record of who wrote an entry and how it has changed since.
 --     * Slot: id
---     * Slot: name Description: Name of the processor architecture.
---     * Slot: class_ Description: Class of the processor architecture.
---     * Slot: prevalence Description: Regularity with which this weakness applies to this architecture.
---     * Slot: ApplicablePlatforms_id Description: Autocreated FK slot
--- # Class: TechnologyPlatform Description: A technology or technology class applicable to a weakness (Technology element in ApplicablePlatformsType).
+-- # Class: CweSubmission Description: Who first submitted an entry, and when it joined the list.
 --     * Slot: id
---     * Slot: name Description: Name of the technology.
---     * Slot: class_ Description: Class of the technology.
---     * Slot: prevalence Description: Regularity with which this weakness applies to this technology.
---     * Slot: ApplicablePlatforms_id Description: Autocreated FK slot
--- # Class: AlternateTerm Description: Another name by which this weakness may be known (AlternateTermsType/Alternate_Term in XSD).
+--     * Slot: Submission_Organization Description: The organization the submitter belongs to.
+--     * Slot: Submission_Date Description: The date of the submission.
+--     * Slot: Submission_Version Description: The first CWE version that held the submission.
+--     * Slot: Submission_ReleaseDate Description: The release date of that version.
+--     * Slot: Submission_Comment Description: A remark on the submission.
+--     * Slot: CweContentHistory_id Description: Autocreated FK slot
+-- # Class: CweModification Description: One change made to an entry.
 --     * Slot: id
---     * Slot: term Description: An alternate term by which this weakness may be known.
---     * Slot: description Description: Narrative description of the entity.
---     * Slot: Weakness_id Description: Autocreated FK slot
--- # Class: ModeOfIntroduction Description: Information about how and when a weakness may be introduced (ModesOfIntroductionType/Introduction in XSD).
+--     * Slot: Modification_Name Description: The person who made or suggested the change.
+--     * Slot: Modification_Organization Description: The organization that person belongs to.
+--     * Slot: Modification_Date Description: The date of the change.
+--     * Slot: Modification_Version Description: The first CWE version that held the change.
+--     * Slot: Modification_ReleaseDate Description: The release date of that version.
+--     * Slot: Modification_Importance Description: How much the change matters to people who rely on the entry.
+--     * Slot: Modification_Comment Description: What changed.
+--     * Slot: CweContentHistory_id Description: Autocreated FK slot
+-- # Class: CweContribution Description: Feedback or content that someone gave to an entry.
 --     * Slot: id
---     * Slot: phase Description: Lifecycle phase for introduction or mitigation.
---     * Slot: note Description: Additional contextual note.
---     * Slot: Weakness_id Description: Autocreated FK slot
--- # Class: CommonConsequence Description: Individual consequence associated with a weakness (CommonConsequencesType/Consequence in XSD).
+--     * Slot: Type Description: Whether the contribution was feedback or content.
+--     * Slot: Contribution_Organization Description: The organization the contributor belongs to.
+--     * Slot: Contribution_Date Description: The date of the contribution.
+--     * Slot: Contribution_Version Description: The first CWE version that held the contribution.
+--     * Slot: Contribution_ReleaseDate Description: The release date of that version.
+--     * Slot: Contribution_Comment Description: A remark on the contribution.
+--     * Slot: CweContentHistory_id Description: Autocreated FK slot
+-- # Class: CwePreviousEntryName Description: A name an entry had before.
 --     * Slot: id
---     * Slot: consequence_id Description: Unique identifier for a common consequence (e.g. CC-1).
---     * Slot: likelihood Description: Likelihood of this specific consequence.
---     * Slot: note Description: Additional contextual note.
---     * Slot: Weakness_id Description: Autocreated FK slot
--- # Class: DetectionMethod Description: A method that may be employed to detect a weakness, with effectiveness (DetectionMethodsType/Detection_Method in XSD).
+--     * Slot: Date Description: The date the name stopped being used.
+--     * Slot: Version Description: The CWE version in which the name changed.
+--     * Slot: Value Description: The earlier name.
+--     * Slot: CweContentHistory_id Description: Autocreated FK slot
+-- # Abstract Class: CweEntry Description: Any item of the CWE List that has an identifier of its own: a weakness, a grouping or a view.
+--     * Slot: ID Description: The number that identifies the entry across the whole list.
+--     * Slot: Name Description: The name of the entry.
+--     * Slot: Status Description: How far the entry has come and how much it can be trusted.
+--     * Slot: Mapping_Notes_id Description: Guidance on whether to map a real vulnerability to this entry.
+--     * Slot: Content_History_id Description: Who wrote the entry and how it has changed since.
+-- # Class: CweWeakness Description: A type of mistake or condition in software, firmware, hardware or a service that can leave a product open to attack.
+--     * Slot: Abstraction Description: How far the weakness is described in general terms or tied to a specific product.
+--     * Slot: Structure Description: Whether the weakness stands alone or is made up of others.
+--     * Slot: Diagram Description: The path on MITRE's site of a diagram of the weakness.
+--     * Slot: Description Description: A sentence or two that define the weakness.
+--     * Slot: Extended_Description Description: More about the weakness than its short description gives.
+--     * Slot: Technical_Nuance Description: Finer technical detail that helps tell this weakness from close relatives.
+--     * Slot: Likelihood_Of_Exploit Description: How likely it is that the weakness gets exploited.
+--     * Slot: ID Description: The number that identifies the entry across the whole list.
+--     * Slot: Name Description: The name of the entry.
+--     * Slot: Status Description: How far the entry has come and how much it can be trusted.
+--     * Slot: CweWeaknessCatalog_id Description: Autocreated FK slot
+--     * Slot: Applicable_Platforms_id Description: The languages, systems, architectures and technologies where the weakness can appear.
+--     * Slot: Mapping_Notes_id Description: Guidance on whether to map a real vulnerability to this entry.
+--     * Slot: Content_History_id Description: Who wrote the entry and how it has changed since.
+-- # Class: CweGrouping Description: A set of weaknesses gathered by something they share, for browsing and not for mapping real vulnerabilities to. Schema versions before 8.0 called it a category.
+--     * Slot: Summary Description: What the grouped weaknesses have in common.
+--     * Slot: ID Description: The number that identifies the entry across the whole list.
+--     * Slot: Name Description: The name of the entry.
+--     * Slot: Status Description: How far the entry has come and how much it can be trusted.
+--     * Slot: CweWeaknessCatalog_id Description: Autocreated FK slot
+--     * Slot: Relationships_id Description: The entries this grouping holds.
+--     * Slot: Mapping_Notes_id Description: Guidance on whether to map a real vulnerability to this entry.
+--     * Slot: Content_History_id Description: Who wrote the entry and how it has changed since.
+-- # Class: CweView Description: A way of looking at the catalogue, as a subset of its entries seen from one standpoint.
+--     * Slot: Type Description: How the view selects and arranges its entries.
+--     * Slot: Objective Description: What the view is for.
+--     * Slot: Filter Description: The XPath expression that selects the entries of an implicit slice.
+--     * Slot: ID Description: The number that identifies the entry across the whole list.
+--     * Slot: Name Description: The name of the entry.
+--     * Slot: Status Description: How far the entry has come and how much it can be trusted.
+--     * Slot: CweWeaknessCatalog_id Description: Autocreated FK slot
+--     * Slot: Members_id Description: The entries a view names one by one, when it is not selected by a filter.
+--     * Slot: Mapping_Notes_id Description: Guidance on whether to map a real vulnerability to this entry.
+--     * Slot: Content_History_id Description: Who wrote the entry and how it has changed since.
+-- # Class: CweRelatedWeakness Description: A link from a weakness to another weakness, in one view.
 --     * Slot: id
---     * Slot: detection_method_id Description: Unique identifier for a detection method entry (e.g. DM-1).
---     * Slot: method Description: Detection method (range narrowed per class via slot_usage).
---     * Slot: description Description: Narrative description of the entity.
---     * Slot: effectiveness Description: Effectiveness level (range narrowed to DetectionEffectiveness or MitigationEffectiveness per class via slot_usage).
---     * Slot: effectiveness_notes Description: Strengths and shortcomings of this detection or mitigation.
---     * Slot: Weakness_id Description: Autocreated FK slot
--- # Class: PotentialMitigation Description: A potential mitigation for a weakness (PotentialMitigationsType/Mitigation in XSD).
+--     * Slot: Nature Description: How the two weaknesses relate.
+--     * Slot: CWE_ID Description: The weakness at the other end of the link.
+--     * Slot: View_ID Description: The view in which the link holds.
+--     * Slot: Chain_ID Description: The named chain that the link belongs to.
+--     * Slot: Ordinal Description: Marks this as the link to prefer in the view.
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+-- # Class: CweWeaknessOrdinality Description: Whether a weakness tends to be a first cause or the result of another.
 --     * Slot: id
---     * Slot: mitigation_id Description: Unique identifier for a potential mitigation (e.g. MIT-1).
---     * Slot: strategy Description: General protection strategy to which a mitigation contributes.
---     * Slot: description Description: Narrative description of the entity.
---     * Slot: effectiveness Description: Effectiveness level (range narrowed to DetectionEffectiveness or MitigationEffectiveness per class via slot_usage).
---     * Slot: effectiveness_notes Description: Strengths and shortcomings of this detection or mitigation.
---     * Slot: Weakness_id Description: Autocreated FK slot
--- # Class: DemonstrativeExample Description: A code example illustrating how a weakness may appear (DemonstrativeExamplesType/Demonstrative_Example in XSD).
+--     * Slot: Ordinality Description: The position in the sequence of causes.
+--     * Slot: Description Description: The setting in which the weakness takes this position.
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+-- # Class: CweApplicablePlatforms Description: The kinds of platform where a weakness can appear.
 --     * Slot: id
---     * Slot: demonstrative_example_id Description: Unique identifier for a demonstrative example (e.g. DX-1).
---     * Slot: title_text Description: Optional title for a demonstrative example.
---     * Slot: intro_text Description: Context and setting for the demonstrative example.
---     * Slot: Weakness_id Description: Autocreated FK slot
--- # Class: ExampleCode Description: A structured code snippet within a demonstrative example (StructuredCodeType in XSD).
+-- # Class: CweLanguagePlatform Description: A language where a weakness can appear, named or by its family.
 --     * Slot: id
---     * Slot: nature Description: Nature of the code (Bad, Good, Attack, Mitigation, etc.).
---     * Slot: language Description: Programming language used in this code example.
---     * Slot: content Description: Text content of the code snippet.
---     * Slot: DemonstrativeExample_id Description: Autocreated FK slot
--- # Class: ObservedExample Description: A reference to a real-world instance of a weakness, typically a CVE (ObservedExampleType/Observed_Example in XSD).
+--     * Slot: Name Description: The name of the language.
+--     * Slot: Class Description: The family of languages.
+--     * Slot: Prevalence Description: How regularly the weakness applies here.
+--     * Slot: Note Description: A remark on this platform.
+--     * Slot: CweApplicablePlatforms_id Description: Autocreated FK slot
+-- # Class: CweOperatingSystemPlatform Description: An operating system where a weakness can appear, named or by its family.
 --     * Slot: id
---     * Slot: reference Description: Identifier for a real-world example (e.g. CVE-2005-1951).
---     * Slot: description Description: Narrative description of the entity.
---     * Slot: link Description: URL providing more information about the observed example.
---     * Slot: Weakness_id Description: Autocreated FK slot
--- # Class: TaxonomyMapping Description: A mapping from a CWE entry to an equivalent entry in an external taxonomy (TaxonomyMappingsType/Taxonomy_Mapping in XSD).
+--     * Slot: Name Description: The name of the operating system.
+--     * Slot: Version Description: The version of the operating system.
+--     * Slot: CPE_ID Description: The Common Platform Enumeration name of the operating system.
+--     * Slot: Class Description: The family of operating systems.
+--     * Slot: Prevalence Description: How regularly the weakness applies here.
+--     * Slot: Note Description: A remark on this platform.
+--     * Slot: CweApplicablePlatforms_id Description: Autocreated FK slot
+-- # Class: CweArchitecturePlatform Description: A hardware architecture where a weakness can appear, named or by its family.
 --     * Slot: id
---     * Slot: taxonomy_name Description: Name of the external taxonomy to which the mapping is made.
---     * Slot: entry_id Description: ID of the entry in the external taxonomy.
---     * Slot: entry_name Description: Name of the entry in the external taxonomy.
---     * Slot: mapping_fit Description: How close the CWE entry is to the mapped taxonomy entry.
---     * Slot: Weakness_id Description: Autocreated FK slot
---     * Slot: Category_id Description: Autocreated FK slot
--- # Class: CatalogMember Description: A Has_Member or Member_Of entry specifying a CWE ID and the View ID in which the membership holds (MemberType in XSD).
+--     * Slot: Name Description: The name of the architecture.
+--     * Slot: Class Description: The family of architectures.
+--     * Slot: Prevalence Description: How regularly the weakness applies here.
+--     * Slot: Note Description: A remark on this platform.
+--     * Slot: CweApplicablePlatforms_id Description: Autocreated FK slot
+-- # Class: CweTechnologyPlatform Description: A technology where a weakness can appear, named or by its family.
 --     * Slot: id
---     * Slot: cwe_id Description: Numeric CWE ID (foreign key in relationships and members).
---     * Slot: view_id Description: View ID within which a relationship or membership is relevant.
---     * Slot: View_id Description: Autocreated FK slot
---     * Slot: Relationship_id Description: Autocreated FK slot
--- # Class: Relationship Description: Container for category membership relationships (RelationshipsType in XSD). Holds Has_Member and optionally Member_Of lists.
+--     * Slot: Name Description: The name of the technology.
+--     * Slot: Class Description: The family of technologies.
+--     * Slot: Prevalence Description: How regularly the weakness applies here.
+--     * Slot: Note Description: A remark on this platform.
+--     * Slot: CweApplicablePlatforms_id Description: Autocreated FK slot
+-- # Class: CweAlternateTerm Description: Another name people use for a weakness.
 --     * Slot: id
--- # Class: Audience Description: A target stakeholder group for a CWE view or category (AudienceType/Stakeholder in XSD).
+--     * Slot: Term Description: The name.
+--     * Slot: Description Description: When and how the name is used.
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+-- # Class: CweIntroduction Description: One way a weakness can get into a product.
 --     * Slot: id
---     * Slot: type Description: Type of stakeholder in the CWE community.
---     * Slot: description Description: Narrative description of the entity.
---     * Slot: View_id Description: Autocreated FK slot
--- # Class: MappingNotes Description: Guidance for when and whether to map an issue to a CWE entry (MappingNotesType in XSD). Required on every Weakness, Category, and View.
+--     * Slot: Note Description: The usual way this happens.
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+-- # Class: CweConsequence Description: One thing that can follow when a weakness is exploited.
 --     * Slot: id
---     * Slot: usage Description: Whether this CWE entry is supported for mapping.
---     * Slot: rationale Description: Context for the mapping usage designation.
---     * Slot: comments Description: Further clarification for the mapping notes reader.
--- # Class: MappingSuggestion Description: A suggested alternative CWE entry for mapping purposes (SuggestionsType/Suggestion in XSD).
+--     * Slot: Consequence_ID Description: An identifier for this consequence.
+--     * Slot: Likelihood Description: How likely this consequence is beside the others.
+--     * Slot: Note Description: A remark on the consequence.
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+-- # Class: CweDetectionMethod Description: One way of finding a weakness.
 --     * Slot: id
---     * Slot: cwe_id Description: Numeric CWE ID (foreign key in relationships and members).
---     * Slot: comment Description: Explanatory comment (e.g. on a mapping suggestion).
---     * Slot: MappingNotes_id Description: Autocreated FK slot
--- # Class: Note Description: Additional commentary about a CWE entry (NotesType/Note in XSD).
+--     * Slot: Detection_Method_ID Description: An identifier that lets entries share this text, such as DM-14.
+--     * Slot: Method Description: The way of finding the weakness.
+--     * Slot: Description Description: How the method applies to this weakness.
+--     * Slot: Effectiveness Description: How well the method finds the weakness.
+--     * Slot: Effectiveness_Notes Description: The strengths and limits of the method here.
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+-- # Class: CweMitigation Description: One way of preventing a weakness or reducing what it can do.
 --     * Slot: id
---     * Slot: type Description: Type of note (Maintenance, Terminology, Research Gap, etc.).
---     * Slot: content Description: Textual content of a note.
---     * Slot: Weakness_id Description: Autocreated FK slot
---     * Slot: Category_id Description: Autocreated FK slot
---     * Slot: View_id Description: Autocreated FK slot
--- # Class: ContentHistory Description: Tracks the original author and subsequent modifications (ContentHistoryType in XSD).
+--     * Slot: Mitigation_ID Description: An identifier that lets entries share this text, such as MIT-5.
+--     * Slot: Strategy Description: The general approach the mitigation follows.
+--     * Slot: Description Description: What to do, with its strengths and limits.
+--     * Slot: Effectiveness Description: How well the mitigation prevents the weakness.
+--     * Slot: Effectiveness_Notes Description: The strengths and limits of the mitigation here.
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+-- # Class: CweDemonstrativeExample Description: A worked example of how a weakness looks in code.
 --     * Slot: id
---     * Slot: submission_id Description: Initial submission information for this entry.
--- # Class: Submission Description: Initial submission record for a CWE entry (ContentHistoryType/Submission in XSD).
+--     * Slot: Demonstrative_Example_ID Description: An identifier that lets entries share this example, such as DX-221.
+--     * Slot: Title_Text Description: A title for the example.
+--     * Slot: Intro_Text Description: The setting of the code, and what it is trying to do.
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+-- # Class: CweExampleEntry Description: One step of a worked example, either some prose or some code.
 --     * Slot: id
---     * Slot: submission_name Description: Name of the person who submitted this entry.
---     * Slot: submission_organization Description: Organization of the submitter.
---     * Slot: submission_date Description: Date on which this entry was submitted.
---     * Slot: submission_version Description: CWE version in which this entry was first added.
---     * Slot: submission_release_date Description: Release date of the CWE version that added this entry.
---     * Slot: submission_comment Description: Optional comment related to the submission.
--- # Class: Modification Description: A modification record documenting a change to a CWE entry (ContentHistoryType/Modification in XSD).
+--     * Slot: Body_Text Description: Prose that explains the code around it.
+--     * Slot: CweDemonstrativeExample_id Description: Autocreated FK slot
+--     * Slot: Example_Code_id Description: A block of code.
+-- # Class: CweExampleCode Description: A block of code in a worked example.
 --     * Slot: id
---     * Slot: modification_name Description: Name of the person who made the modification.
---     * Slot: modification_organization Description: Organization of the modifier.
---     * Slot: modification_date Description: Date on which the modification was made.
---     * Slot: modification_version Description: CWE version in which the modification first appeared.
---     * Slot: modification_release_date Description: Release date of the CWE version containing the modification.
---     * Slot: modification_importance Description: Importance level of this modification.
---     * Slot: modification_comment Description: Comment describing what was changed.
---     * Slot: ContentHistory_id Description: Autocreated FK slot
--- # Class: Contribution Description: A contribution record documenting donated content or feedback (ContentHistoryType/Contribution in XSD).
+--     * Slot: Nature Description: What the code shows.
+--     * Slot: Language Description: The language of the code.
+--     * Slot: Value Description: The code, as an XHTML fragment with its special characters escaped.
+-- # Class: CweObservedExample Description: A real case of a weakness, usually a CVE record.
 --     * Slot: id
---     * Slot: type Description: Whether the contribution was Content or Feedback.
---     * Slot: contribution_name Description: Name of the contributor.
---     * Slot: contribution_organization Description: Organization of the contributor.
---     * Slot: contribution_date Description: Date of the contribution.
---     * Slot: contribution_version Description: CWE version in which the contribution first appeared.
---     * Slot: contribution_release_date Description: Release date of the CWE version containing the contribution.
---     * Slot: contribution_comment Description: Comment related to the contribution.
---     * Slot: ContentHistory_id Description: Autocreated FK slot
--- # Class: PreviousEntryName Description: A previous name used for a CWE entry before a substantive rename (ContentHistoryType/Previous_Entry_Name in XSD).
+--     * Slot: Reference Description: The identifier of the case, such as a CVE identifier.
+--     * Slot: Description Description: What went wrong in that case, as it bears on the weakness.
+--     * Slot: Link Description: An address with more about the case.
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+-- # Class: CweRelatedAttackPattern Description: A pointer from a weakness to an attack pattern in the CAPEC list.
 --     * Slot: id
---     * Slot: name Description: The previous name of this CWE entry.
---     * Slot: date Description: Date on which this name was last used.
---     * Slot: version Description: CWE version in which the name change occurred.
---     * Slot: ContentHistory_id Description: Autocreated FK slot
--- # Class: NVDWeaknessObservation Description: Weakness observation from an NVD vulnerability detail page.
---     * Slot: observation_id Description: Identifier for an NVD weakness observation row.
---     * Slot: observed_in_cve Description: CVE identifier where this weakness observation appears.
---     * Slot: weakness Description: Referenced CWE entry for this observation.
---     * Slot: reported_by Description: Source label for the weakness row (e.g. NIST, ASSIGNER).
---     * Slot: source Description: Source or origin of the data.
---     * Slot: WeaknessCatalog_name Description: Autocreated FK slot
--- # Class: Weakness_background_details
---     * Slot: Weakness_id Description: Autocreated FK slot
---     * Slot: background_details Description: Background information relevant but not describing the weakness itself.
--- # Class: Weakness_exploitation_factors
---     * Slot: Weakness_id Description: Autocreated FK slot
---     * Slot: exploitation_factors Description: Conditions that could increase the likelihood of exploit.
--- # Class: Weakness_functional_areas
---     * Slot: Weakness_id Description: Autocreated FK slot
---     * Slot: functional_areas Description: Functional areas in which this weakness is most likely to occur.
--- # Class: Weakness_affected_resources
---     * Slot: Weakness_id Description: Autocreated FK slot
---     * Slot: affected_resources Description: System resources that can be affected by exploiting this weakness.
--- # Class: Weakness_related_attack_patterns
---     * Slot: Weakness_id Description: Autocreated FK slot
---     * Slot: related_attack_patterns Description: CAPEC identifiers of attack patterns associated with this weakness.
--- # Class: Weakness_tags
---     * Slot: Weakness_id Description: Autocreated FK slot
---     * Slot: tags Description: Free-form tags for grouping and downstream filtering.
--- # Class: ExternalReference_authors
---     * Slot: ExternalReference_reference_id Description: Autocreated FK slot
---     * Slot: authors Description: Authors of the referenced material.
--- # Class: CommonConsequence_scopes
---     * Slot: CommonConsequence_id Description: Autocreated FK slot
---     * Slot: scopes Description: Security properties violated by this consequence.
--- # Class: CommonConsequence_impacts
---     * Slot: CommonConsequence_id Description: Autocreated FK slot
---     * Slot: impacts Description: Technical impacts that arise if the weakness is exploited.
--- # Class: PotentialMitigation_phases
---     * Slot: PotentialMitigation_id Description: Autocreated FK slot
---     * Slot: phases Description: Lifecycle phases during which a mitigation may be applied.
--- # Class: DemonstrativeExample_body_texts
---     * Slot: DemonstrativeExample_id Description: Autocreated FK slot
---     * Slot: body_texts Description: Interleaved body text paragraphs for a demonstrative example.
--- # Class: MappingNotes_reasons
---     * Slot: MappingNotes_id Description: Autocreated FK slot
---     * Slot: reasons Description: Vocabulary summary of the mapping usage recommendation.
+--     * Slot: CAPEC_ID Description: The number of the attack pattern in the CAPEC list.
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+-- # Class: CweStakeholder Description: A group of people who may find a view useful.
+--     * Slot: id
+--     * Slot: Type Description: The group.
+--     * Slot: Description Description: What in the view this group may find useful.
+--     * Slot: CweView_ID Description: Autocreated FK slot
+-- # Class: CweMember Description: A link from a grouping or a view to an entry it holds or belongs to, in one view.
+--     * Slot: id
+--     * Slot: CWE_ID Description: The entry at the other end of the link.
+--     * Slot: View_ID Description: The view in which the link holds.
+--     * Slot: CweRelationships_id Description: Autocreated FK slot
+-- # Class: CweRelationships Description: The entries that a grouping or a view holds or belongs to.
+--     * Slot: id
+-- # Class: CweMappingNotes Description: Guidance on whether to map a real vulnerability to an entry, and on what to use instead.
+--     * Slot: id
+--     * Slot: Usage Description: Whether the entry may be used for mapping.
+--     * Slot: Rationale Description: Why the entry has that usage.
+--     * Slot: Comments Description: More advice for someone mapping to the entry.
+-- # Class: CweMappingReason Description: One short label that sums up the usage of an entry.
+--     * Slot: id
+--     * Slot: Type Description: The label.
+--     * Slot: CweMappingNotes_id Description: Autocreated FK slot
+-- # Class: CweMappingSuggestion Description: A weakness that may suit a mapping better than this entry.
+--     * Slot: id
+--     * Slot: CWE_ID Description: The suggested weakness.
+--     * Slot: Comment Description: When the suggestion applies.
+--     * Slot: CweMappingNotes_id Description: Autocreated FK slot
+-- # Class: CweExternalReference_Author
+--     * Slot: CweExternalReference_Reference_ID Description: Autocreated FK slot
+--     * Slot: Author Description: A person or group who wrote the source.
+-- # Class: CweExternalReference_Media_Type
+--     * Slot: CweExternalReference_Reference_ID Description: Autocreated FK slot
+--     * Slot: Media_Type Description: A form the source takes.
+-- # Class: CweExternalReference_Rationale
+--     * Slot: CweExternalReference_Reference_ID Description: Autocreated FK slot
+--     * Slot: Rationale Description: A hint at why the source was cited.
+-- # Class: CweSubmission_Submission_Name
+--     * Slot: CweSubmission_id Description: Autocreated FK slot
+--     * Slot: Submission_Name Description: A person or group who submitted the entry.
+-- # Class: CweContribution_Contribution_Name
+--     * Slot: CweContribution_id Description: Autocreated FK slot
+--     * Slot: Contribution_Name Description: A person or group who contributed.
+-- # Class: CweWeakness_Background_Details
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+--     * Slot: Background_Details Description: Background that helps a reader but does not describe the weakness itself.
+-- # Class: CweWeakness_Exploitation_Factors
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+--     * Slot: Exploitation_Factors Description: Conditions that make exploiting the weakness more likely.
+-- # Class: CweWeakness_Functional_Areas
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+--     * Slot: Functional_Areas Description: The parts of a product where the weakness tends to appear.
+-- # Class: CweWeakness_Affected_Resources
+--     * Slot: CweWeakness_ID Description: Autocreated FK slot
+--     * Slot: Affected_Resources Description: The system resources that exploiting the weakness can affect.
+-- # Class: CweAlternateTerm_Role
+--     * Slot: CweAlternateTerm_id Description: Autocreated FK slot
+--     * Slot: Role Description: The part the name plays when people talk about the weakness.
+-- # Class: CweIntroduction_Phase
+--     * Slot: CweIntroduction_id Description: Autocreated FK slot
+--     * Slot: Phase Description: A life cycle stage where the weakness can get in.
+-- # Class: CweConsequence_Scope
+--     * Slot: CweConsequence_id Description: Autocreated FK slot
+--     * Slot: Scope Description: A security property the consequence violates.
+-- # Class: CweConsequence_Impact
+--     * Slot: CweConsequence_id Description: Autocreated FK slot
+--     * Slot: Impact Description: What an attacker can achieve.
+-- # Class: CweDetectionMethod_Phase
+--     * Slot: CweDetectionMethod_id Description: Autocreated FK slot
+--     * Slot: Phase Description: A life cycle stage where the method applies.
+-- # Class: CweMitigation_Phase
+--     * Slot: CweMitigation_id Description: Autocreated FK slot
+--     * Slot: Phase Description: A life cycle stage where the mitigation applies.
+-- # Class: CweObservedExample_Rationale
+--     * Slot: CweObservedExample_id Description: Autocreated FK slot
+--     * Slot: Rationale Description: A hint at why this case was chosen.
 
-CREATE TABLE "WeaknessCatalog" (
-	name TEXT NOT NULL,
-	version TEXT NOT NULL,
-	date DATE NOT NULL,
-	PRIMARY KEY (name)
+CREATE TABLE "CweWeaknessCatalog" (
+	id INTEGER NOT NULL,
+	"Name" TEXT NOT NULL,
+	"Version" TEXT NOT NULL,
+	"Date" DATE NOT NULL,
+	PRIMARY KEY (id)
 );
-CREATE INDEX "ix_WeaknessCatalog_name" ON "WeaknessCatalog" (name);
+CREATE INDEX "ix_CweWeaknessCatalog_id" ON "CweWeaknessCatalog" (id);
 
-CREATE TABLE "ApplicablePlatforms" (
+CREATE TABLE "CweContentHistory" (
 	id INTEGER NOT NULL,
 	PRIMARY KEY (id)
 );
-CREATE INDEX "ix_ApplicablePlatforms_id" ON "ApplicablePlatforms" (id);
+CREATE INDEX "ix_CweContentHistory_id" ON "CweContentHistory" (id);
 
-CREATE TABLE "Relationship" (
+CREATE TABLE "CweApplicablePlatforms" (
 	id INTEGER NOT NULL,
 	PRIMARY KEY (id)
 );
-CREATE INDEX "ix_Relationship_id" ON "Relationship" (id);
+CREATE INDEX "ix_CweApplicablePlatforms_id" ON "CweApplicablePlatforms" (id);
 
-CREATE TABLE "MappingNotes" (
+CREATE TABLE "CweExampleCode" (
 	id INTEGER NOT NULL,
-	usage VARCHAR(19) NOT NULL,
-	rationale TEXT NOT NULL,
-	comments TEXT NOT NULL,
+	"Nature" VARCHAR(11) NOT NULL,
+	"Language" VARCHAR(13),
+	"Value" TEXT,
 	PRIMARY KEY (id)
 );
-CREATE INDEX "ix_MappingNotes_id" ON "MappingNotes" (id);
+CREATE INDEX "ix_CweExampleCode_id" ON "CweExampleCode" (id);
 
-CREATE TABLE "Submission" (
+CREATE TABLE "CweRelationships" (
 	id INTEGER NOT NULL,
-	submission_name TEXT,
-	submission_organization TEXT,
-	submission_date DATE NOT NULL,
-	submission_version TEXT NOT NULL,
-	submission_release_date DATE NOT NULL,
-	submission_comment TEXT,
 	PRIMARY KEY (id)
 );
-CREATE INDEX "ix_Submission_id" ON "Submission" (id);
+CREATE INDEX "ix_CweRelationships_id" ON "CweRelationships" (id);
 
-CREATE TABLE "ExternalReference" (
-	reference_id TEXT NOT NULL,
-	title TEXT NOT NULL,
-	edition TEXT,
-	publication TEXT,
-	publication_year TEXT,
-	publication_month TEXT,
-	publication_day TEXT,
-	publisher TEXT,
-	url TEXT,
-	url_date DATE,
-	"WeaknessCatalog_name" TEXT,
-	PRIMARY KEY (reference_id),
-	FOREIGN KEY("WeaknessCatalog_name") REFERENCES "WeaknessCatalog" (name)
-);
-CREATE INDEX "ix_ExternalReference_reference_id" ON "ExternalReference" (reference_id);
-
-CREATE TABLE "LanguagePlatform" (
+CREATE TABLE "CweMappingNotes" (
 	id INTEGER NOT NULL,
-	name VARCHAR(12),
-	class_ VARCHAR(29),
-	prevalence VARCHAR(12) NOT NULL,
-	"ApplicablePlatforms_id" INTEGER,
-	PRIMARY KEY (id),
-	FOREIGN KEY("ApplicablePlatforms_id") REFERENCES "ApplicablePlatforms" (id)
+	"Usage" VARCHAR(19) NOT NULL,
+	"Rationale" TEXT NOT NULL,
+	"Comments" TEXT NOT NULL,
+	PRIMARY KEY (id)
 );
-CREATE INDEX "ix_LanguagePlatform_id" ON "LanguagePlatform" (id);
+CREATE INDEX "ix_CweMappingNotes_id" ON "CweMappingNotes" (id);
 
-CREATE TABLE "OSPlatform" (
+CREATE TABLE "CweExternalReference" (
+	"Reference_ID" TEXT NOT NULL,
+	"Title" TEXT NOT NULL,
+	"Edition" TEXT,
+	"Publication" TEXT,
+	"Publication_Year" TEXT,
+	"Publication_Month" TEXT,
+	"Publication_Day" TEXT,
+	"Publisher" TEXT,
+	"URL" TEXT,
+	"URL_Date" DATE,
+	"Alt_URL" TEXT,
+	"Alt_URL_Date" DATE,
+	"Access_Restrictions" VARCHAR(24),
+	"CweWeaknessCatalog_id" INTEGER,
+	PRIMARY KEY ("Reference_ID"),
+	FOREIGN KEY("CweWeaknessCatalog_id") REFERENCES "CweWeaknessCatalog" (id)
+);
+CREATE INDEX "ix_CweExternalReference_Reference_ID" ON "CweExternalReference" ("Reference_ID");
+
+CREATE TABLE "CweSubmission" (
 	id INTEGER NOT NULL,
-	name VARCHAR(16),
-	class_ VARCHAR(15),
-	version TEXT,
-	cpe_id TEXT,
-	prevalence VARCHAR(12) NOT NULL,
-	"ApplicablePlatforms_id" INTEGER,
+	"Submission_Organization" TEXT,
+	"Submission_Date" DATE NOT NULL,
+	"Submission_Version" TEXT NOT NULL,
+	"Submission_ReleaseDate" DATE NOT NULL,
+	"Submission_Comment" TEXT,
+	"CweContentHistory_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("ApplicablePlatforms_id") REFERENCES "ApplicablePlatforms" (id)
+	FOREIGN KEY("CweContentHistory_id") REFERENCES "CweContentHistory" (id)
 );
-CREATE INDEX "ix_OSPlatform_id" ON "OSPlatform" (id);
+CREATE INDEX "ix_CweSubmission_id" ON "CweSubmission" (id);
 
-CREATE TABLE "ArchitecturePlatform" (
+CREATE TABLE "CweModification" (
 	id INTEGER NOT NULL,
-	name VARCHAR(18),
-	class_ VARCHAR(25),
-	prevalence VARCHAR(12) NOT NULL,
-	"ApplicablePlatforms_id" INTEGER,
+	"Modification_Name" TEXT,
+	"Modification_Organization" TEXT,
+	"Modification_Date" DATE NOT NULL,
+	"Modification_Version" TEXT NOT NULL,
+	"Modification_ReleaseDate" DATE NOT NULL,
+	"Modification_Importance" VARCHAR(8),
+	"Modification_Comment" TEXT NOT NULL,
+	"CweContentHistory_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("ApplicablePlatforms_id") REFERENCES "ApplicablePlatforms" (id)
+	FOREIGN KEY("CweContentHistory_id") REFERENCES "CweContentHistory" (id)
 );
-CREATE INDEX "ix_ArchitecturePlatform_id" ON "ArchitecturePlatform" (id);
+CREATE INDEX "ix_CweModification_id" ON "CweModification" (id);
 
-CREATE TABLE "TechnologyPlatform" (
+CREATE TABLE "CweContribution" (
 	id INTEGER NOT NULL,
-	name VARCHAR(32),
-	class_ VARCHAR(23),
-	prevalence VARCHAR(12) NOT NULL,
-	"ApplicablePlatforms_id" INTEGER,
+	"Type" VARCHAR(8) NOT NULL,
+	"Contribution_Organization" TEXT,
+	"Contribution_Date" DATE NOT NULL,
+	"Contribution_Version" TEXT NOT NULL,
+	"Contribution_ReleaseDate" DATE NOT NULL,
+	"Contribution_Comment" TEXT,
+	"CweContentHistory_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("ApplicablePlatforms_id") REFERENCES "ApplicablePlatforms" (id)
+	FOREIGN KEY("CweContentHistory_id") REFERENCES "CweContentHistory" (id)
 );
-CREATE INDEX "ix_TechnologyPlatform_id" ON "TechnologyPlatform" (id);
+CREATE INDEX "ix_CweContribution_id" ON "CweContribution" (id);
 
-CREATE TABLE "MappingSuggestion" (
+CREATE TABLE "CwePreviousEntryName" (
 	id INTEGER NOT NULL,
-	cwe_id INTEGER NOT NULL,
-	comment TEXT NOT NULL,
-	"MappingNotes_id" INTEGER,
+	"Date" DATE NOT NULL,
+	"Version" TEXT,
+	"Value" TEXT NOT NULL,
+	"CweContentHistory_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("MappingNotes_id") REFERENCES "MappingNotes" (id)
+	FOREIGN KEY("CweContentHistory_id") REFERENCES "CweContentHistory" (id)
 );
-CREATE INDEX "ix_MappingSuggestion_id" ON "MappingSuggestion" (id);
+CREATE INDEX "ix_CwePreviousEntryName_id" ON "CwePreviousEntryName" (id);
 
-CREATE TABLE "ContentHistory" (
+CREATE TABLE "CweEntry" (
+	"ID" TEXT NOT NULL,
+	"Name" TEXT NOT NULL,
+	"Status" VARCHAR(10) NOT NULL,
+	"Mapping_Notes_id" INTEGER NOT NULL,
+	"Content_History_id" INTEGER NOT NULL,
+	PRIMARY KEY ("ID"),
+	FOREIGN KEY("Mapping_Notes_id") REFERENCES "CweMappingNotes" (id),
+	FOREIGN KEY("Content_History_id") REFERENCES "CweContentHistory" (id)
+);
+CREATE INDEX "ix_CweEntry_ID" ON "CweEntry" ("ID");
+
+CREATE TABLE "CweWeakness" (
+	"Abstraction" VARCHAR(8) NOT NULL,
+	"Structure" VARCHAR(9) NOT NULL,
+	"Diagram" TEXT,
+	"Description" TEXT NOT NULL,
+	"Extended_Description" TEXT,
+	"Technical_Nuance" TEXT,
+	"Likelihood_Of_Exploit" VARCHAR(7),
+	"ID" TEXT NOT NULL,
+	"Name" TEXT NOT NULL,
+	"Status" VARCHAR(10) NOT NULL,
+	"CweWeaknessCatalog_id" INTEGER,
+	"Applicable_Platforms_id" INTEGER,
+	"Mapping_Notes_id" INTEGER NOT NULL,
+	"Content_History_id" INTEGER NOT NULL,
+	PRIMARY KEY ("ID"),
+	FOREIGN KEY("CweWeaknessCatalog_id") REFERENCES "CweWeaknessCatalog" (id),
+	FOREIGN KEY("Applicable_Platforms_id") REFERENCES "CweApplicablePlatforms" (id),
+	FOREIGN KEY("Mapping_Notes_id") REFERENCES "CweMappingNotes" (id),
+	FOREIGN KEY("Content_History_id") REFERENCES "CweContentHistory" (id)
+);
+CREATE INDEX "ix_CweWeakness_ID" ON "CweWeakness" ("ID");
+
+CREATE TABLE "CweGrouping" (
+	"Summary" TEXT NOT NULL,
+	"ID" TEXT NOT NULL,
+	"Name" TEXT NOT NULL,
+	"Status" VARCHAR(10) NOT NULL,
+	"CweWeaknessCatalog_id" INTEGER,
+	"Relationships_id" INTEGER,
+	"Mapping_Notes_id" INTEGER NOT NULL,
+	"Content_History_id" INTEGER NOT NULL,
+	PRIMARY KEY ("ID"),
+	FOREIGN KEY("CweWeaknessCatalog_id") REFERENCES "CweWeaknessCatalog" (id),
+	FOREIGN KEY("Relationships_id") REFERENCES "CweRelationships" (id),
+	FOREIGN KEY("Mapping_Notes_id") REFERENCES "CweMappingNotes" (id),
+	FOREIGN KEY("Content_History_id") REFERENCES "CweContentHistory" (id)
+);
+CREATE INDEX "ix_CweGrouping_ID" ON "CweGrouping" ("ID");
+
+CREATE TABLE "CweView" (
+	"Type" VARCHAR(8) NOT NULL,
+	"Objective" TEXT NOT NULL,
+	"Filter" TEXT,
+	"ID" TEXT NOT NULL,
+	"Name" TEXT NOT NULL,
+	"Status" VARCHAR(10) NOT NULL,
+	"CweWeaknessCatalog_id" INTEGER,
+	"Members_id" INTEGER,
+	"Mapping_Notes_id" INTEGER NOT NULL,
+	"Content_History_id" INTEGER NOT NULL,
+	PRIMARY KEY ("ID"),
+	FOREIGN KEY("CweWeaknessCatalog_id") REFERENCES "CweWeaknessCatalog" (id),
+	FOREIGN KEY("Members_id") REFERENCES "CweRelationships" (id),
+	FOREIGN KEY("Mapping_Notes_id") REFERENCES "CweMappingNotes" (id),
+	FOREIGN KEY("Content_History_id") REFERENCES "CweContentHistory" (id)
+);
+CREATE INDEX "ix_CweView_ID" ON "CweView" ("ID");
+
+CREATE TABLE "CweLanguagePlatform" (
 	id INTEGER NOT NULL,
-	submission_id INTEGER NOT NULL,
+	"Name" VARCHAR(13),
+	"Class" VARCHAR(29),
+	"Prevalence" VARCHAR(12) NOT NULL,
+	"Note" TEXT,
+	"CweApplicablePlatforms_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY(submission_id) REFERENCES "Submission" (id)
+	FOREIGN KEY("CweApplicablePlatforms_id") REFERENCES "CweApplicablePlatforms" (id)
 );
-CREATE INDEX "ix_ContentHistory_id" ON "ContentHistory" (id);
+CREATE INDEX "ix_CweLanguagePlatform_id" ON "CweLanguagePlatform" (id);
 
-CREATE TABLE "MappingNotes_reasons" (
-	"MappingNotes_id" INTEGER,
-	reasons VARCHAR(26) NOT NULL,
-	PRIMARY KEY ("MappingNotes_id", reasons),
-	FOREIGN KEY("MappingNotes_id") REFERENCES "MappingNotes" (id)
-);
-CREATE INDEX "ix_MappingNotes_reasons_reasons" ON "MappingNotes_reasons" (reasons);
-CREATE INDEX "ix_MappingNotes_reasons_MappingNotes_id" ON "MappingNotes_reasons" ("MappingNotes_id");
-
-CREATE TABLE "Weakness" (
+CREATE TABLE "CweOperatingSystemPlatform" (
 	id INTEGER NOT NULL,
-	name TEXT NOT NULL,
-	description TEXT NOT NULL,
-	extended_description TEXT,
-	abstraction VARCHAR(8) NOT NULL,
-	structure VARCHAR(9) NOT NULL,
-	status VARCHAR(10) NOT NULL,
-	diagram TEXT,
-	likelihood_of_exploit VARCHAR(7),
-	source TEXT,
-	"WeaknessCatalog_name" TEXT,
-	applicable_platforms_id INTEGER,
-	mapping_notes_id INTEGER NOT NULL,
-	content_history_id INTEGER NOT NULL,
+	"Name" VARCHAR(16),
+	"Version" TEXT,
+	"CPE_ID" TEXT,
+	"Class" VARCHAR(15),
+	"Prevalence" VARCHAR(12) NOT NULL,
+	"Note" TEXT,
+	"CweApplicablePlatforms_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("WeaknessCatalog_name") REFERENCES "WeaknessCatalog" (name),
-	FOREIGN KEY(applicable_platforms_id) REFERENCES "ApplicablePlatforms" (id),
-	FOREIGN KEY(mapping_notes_id) REFERENCES "MappingNotes" (id),
-	FOREIGN KEY(content_history_id) REFERENCES "ContentHistory" (id)
+	FOREIGN KEY("CweApplicablePlatforms_id") REFERENCES "CweApplicablePlatforms" (id)
 );
-CREATE INDEX "ix_Weakness_id" ON "Weakness" (id);
+CREATE INDEX "ix_CweOperatingSystemPlatform_id" ON "CweOperatingSystemPlatform" (id);
 
-CREATE TABLE "Category" (
+CREATE TABLE "CweArchitecturePlatform" (
 	id INTEGER NOT NULL,
-	name TEXT NOT NULL,
-	status VARCHAR(10) NOT NULL,
-	summary TEXT NOT NULL,
-	"WeaknessCatalog_name" TEXT,
-	relationships_id INTEGER,
-	mapping_notes_id INTEGER NOT NULL,
-	content_history_id INTEGER NOT NULL,
+	"Name" VARCHAR(18),
+	"Class" VARCHAR(25),
+	"Prevalence" VARCHAR(12) NOT NULL,
+	"Note" TEXT,
+	"CweApplicablePlatforms_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("WeaknessCatalog_name") REFERENCES "WeaknessCatalog" (name),
-	FOREIGN KEY(relationships_id) REFERENCES "Relationship" (id),
-	FOREIGN KEY(mapping_notes_id) REFERENCES "MappingNotes" (id),
-	FOREIGN KEY(content_history_id) REFERENCES "ContentHistory" (id)
+	FOREIGN KEY("CweApplicablePlatforms_id") REFERENCES "CweApplicablePlatforms" (id)
 );
-CREATE INDEX "ix_Category_id" ON "Category" (id);
+CREATE INDEX "ix_CweArchitecturePlatform_id" ON "CweArchitecturePlatform" (id);
 
-CREATE TABLE "View" (
+CREATE TABLE "CweTechnologyPlatform" (
 	id INTEGER NOT NULL,
-	name TEXT NOT NULL,
-	type VARCHAR(8) NOT NULL,
-	status VARCHAR(10) NOT NULL,
-	objective TEXT NOT NULL,
-	filter TEXT,
-	"WeaknessCatalog_name" TEXT,
-	mapping_notes_id INTEGER NOT NULL,
-	content_history_id INTEGER NOT NULL,
+	"Name" VARCHAR(32),
+	"Class" VARCHAR(23),
+	"Prevalence" VARCHAR(12) NOT NULL,
+	"Note" TEXT,
+	"CweApplicablePlatforms_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("WeaknessCatalog_name") REFERENCES "WeaknessCatalog" (name),
-	FOREIGN KEY(mapping_notes_id) REFERENCES "MappingNotes" (id),
-	FOREIGN KEY(content_history_id) REFERENCES "ContentHistory" (id)
+	FOREIGN KEY("CweApplicablePlatforms_id") REFERENCES "CweApplicablePlatforms" (id)
 );
-CREATE INDEX "ix_View_id" ON "View" (id);
+CREATE INDEX "ix_CweTechnologyPlatform_id" ON "CweTechnologyPlatform" (id);
 
-CREATE TABLE "Modification" (
+CREATE TABLE "CweMappingReason" (
 	id INTEGER NOT NULL,
-	modification_name TEXT,
-	modification_organization TEXT,
-	modification_date DATE NOT NULL,
-	modification_version TEXT,
-	modification_release_date DATE,
-	modification_importance VARCHAR(8),
-	modification_comment TEXT,
-	"ContentHistory_id" INTEGER,
+	"Type" VARCHAR(26) NOT NULL,
+	"CweMappingNotes_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("ContentHistory_id") REFERENCES "ContentHistory" (id)
+	FOREIGN KEY("CweMappingNotes_id") REFERENCES "CweMappingNotes" (id)
 );
-CREATE INDEX "ix_Modification_id" ON "Modification" (id);
+CREATE INDEX "ix_CweMappingReason_id" ON "CweMappingReason" (id);
 
-CREATE TABLE "Contribution" (
+CREATE TABLE "CweReference" (
 	id INTEGER NOT NULL,
-	type VARCHAR(8) NOT NULL,
-	contribution_name TEXT,
-	contribution_organization TEXT,
-	contribution_date DATE NOT NULL,
-	contribution_version TEXT,
-	contribution_release_date DATE,
-	contribution_comment TEXT,
-	"ContentHistory_id" INTEGER,
+	"External_Reference_ID" TEXT NOT NULL,
+	"Section" TEXT,
+	"CweEntry_ID" TEXT,
+	"CweWeakness_ID" TEXT,
+	"CweGrouping_ID" TEXT,
+	"CweView_ID" TEXT,
 	PRIMARY KEY (id),
-	FOREIGN KEY("ContentHistory_id") REFERENCES "ContentHistory" (id)
+	FOREIGN KEY("External_Reference_ID") REFERENCES "CweExternalReference" ("Reference_ID"),
+	FOREIGN KEY("CweEntry_ID") REFERENCES "CweEntry" ("ID"),
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID"),
+	FOREIGN KEY("CweGrouping_ID") REFERENCES "CweGrouping" ("ID"),
+	FOREIGN KEY("CweView_ID") REFERENCES "CweView" ("ID")
 );
-CREATE INDEX "ix_Contribution_id" ON "Contribution" (id);
+CREATE INDEX "ix_CweReference_id" ON "CweReference" (id);
 
-CREATE TABLE "PreviousEntryName" (
+CREATE TABLE "CweNote" (
 	id INTEGER NOT NULL,
-	name TEXT NOT NULL,
-	date DATE NOT NULL,
-	version TEXT,
-	"ContentHistory_id" INTEGER,
+	"Type" VARCHAR(19) NOT NULL,
+	"Version" TEXT,
+	"ReleaseDate" DATE,
+	"Value" TEXT,
+	"CweEntry_ID" TEXT,
+	"CweWeakness_ID" TEXT,
+	"CweGrouping_ID" TEXT,
+	"CweView_ID" TEXT,
 	PRIMARY KEY (id),
-	FOREIGN KEY("ContentHistory_id") REFERENCES "ContentHistory" (id)
+	FOREIGN KEY("CweEntry_ID") REFERENCES "CweEntry" ("ID"),
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID"),
+	FOREIGN KEY("CweGrouping_ID") REFERENCES "CweGrouping" ("ID"),
+	FOREIGN KEY("CweView_ID") REFERENCES "CweView" ("ID")
 );
-CREATE INDEX "ix_PreviousEntryName_id" ON "PreviousEntryName" (id);
+CREATE INDEX "ix_CweNote_id" ON "CweNote" (id);
 
-CREATE TABLE "ExternalReference_authors" (
-	"ExternalReference_reference_id" TEXT,
-	authors TEXT,
-	PRIMARY KEY ("ExternalReference_reference_id", authors),
-	FOREIGN KEY("ExternalReference_reference_id") REFERENCES "ExternalReference" (reference_id)
-);
-CREATE INDEX "ix_ExternalReference_authors_ExternalReference_reference_id" ON "ExternalReference_authors" ("ExternalReference_reference_id");
-CREATE INDEX "ix_ExternalReference_authors_authors" ON "ExternalReference_authors" (authors);
-
-CREATE TABLE "RelatedWeakness" (
+CREATE TABLE "CweTaxonomyMapping" (
 	id INTEGER NOT NULL,
-	nature VARCHAR(11) NOT NULL,
-	cwe_id INTEGER NOT NULL,
-	view_id INTEGER NOT NULL,
-	chain_id INTEGER,
-	ordinal VARCHAR(7),
-	"Weakness_id" INTEGER,
+	"Taxonomy_Name" VARCHAR(54) NOT NULL,
+	"Entry_ID" TEXT,
+	"Entry_Name" TEXT,
+	"Mapping_Fit" VARCHAR(17),
+	"CweWeakness_ID" TEXT,
+	"CweGrouping_ID" TEXT,
 	PRIMARY KEY (id),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id)
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID"),
+	FOREIGN KEY("CweGrouping_ID") REFERENCES "CweGrouping" ("ID")
 );
-CREATE INDEX "ix_RelatedWeakness_id" ON "RelatedWeakness" (id);
+CREATE INDEX "ix_CweTaxonomyMapping_id" ON "CweTaxonomyMapping" (id);
 
-CREATE TABLE "WeaknessOrdinality" (
+CREATE TABLE "CweRelatedWeakness" (
 	id INTEGER NOT NULL,
-	ordinality VARCHAR(9) NOT NULL,
-	description TEXT,
-	"Weakness_id" INTEGER,
+	"Nature" VARCHAR(10) NOT NULL,
+	"CWE_ID" TEXT NOT NULL,
+	"View_ID" TEXT NOT NULL,
+	"Chain_ID" TEXT,
+	"Ordinal" VARCHAR(7),
+	"CweWeakness_ID" TEXT,
 	PRIMARY KEY (id),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id)
+	FOREIGN KEY("CWE_ID") REFERENCES "CweWeakness" ("ID"),
+	FOREIGN KEY("View_ID") REFERENCES "CweView" ("ID"),
+	FOREIGN KEY("Chain_ID") REFERENCES "CweWeakness" ("ID"),
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID")
 );
-CREATE INDEX "ix_WeaknessOrdinality_id" ON "WeaknessOrdinality" (id);
+CREATE INDEX "ix_CweRelatedWeakness_id" ON "CweRelatedWeakness" (id);
 
-CREATE TABLE "AlternateTerm" (
+CREATE TABLE "CweWeaknessOrdinality" (
 	id INTEGER NOT NULL,
-	term TEXT NOT NULL,
-	description TEXT,
-	"Weakness_id" INTEGER,
+	"Ordinality" VARCHAR(9) NOT NULL,
+	"Description" TEXT,
+	"CweWeakness_ID" TEXT,
 	PRIMARY KEY (id),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id)
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID")
 );
-CREATE INDEX "ix_AlternateTerm_id" ON "AlternateTerm" (id);
+CREATE INDEX "ix_CweWeaknessOrdinality_id" ON "CweWeaknessOrdinality" (id);
 
-CREATE TABLE "ModeOfIntroduction" (
+CREATE TABLE "CweAlternateTerm" (
 	id INTEGER NOT NULL,
-	phase VARCHAR(31) NOT NULL,
-	note TEXT,
-	"Weakness_id" INTEGER,
+	"Term" TEXT NOT NULL,
+	"Description" TEXT,
+	"CweWeakness_ID" TEXT,
 	PRIMARY KEY (id),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id)
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID")
 );
-CREATE INDEX "ix_ModeOfIntroduction_id" ON "ModeOfIntroduction" (id);
+CREATE INDEX "ix_CweAlternateTerm_id" ON "CweAlternateTerm" (id);
 
-CREATE TABLE "CommonConsequence" (
+CREATE TABLE "CweIntroduction" (
 	id INTEGER NOT NULL,
-	consequence_id TEXT,
-	likelihood VARCHAR(7),
-	note TEXT,
-	"Weakness_id" INTEGER,
+	"Note" TEXT,
+	"CweWeakness_ID" TEXT,
 	PRIMARY KEY (id),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id)
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID")
 );
-CREATE INDEX "ix_CommonConsequence_id" ON "CommonConsequence" (id);
+CREATE INDEX "ix_CweIntroduction_id" ON "CweIntroduction" (id);
 
-CREATE TABLE "DetectionMethod" (
+CREATE TABLE "CweConsequence" (
 	id INTEGER NOT NULL,
-	detection_method_id TEXT,
-	method VARCHAR(54) NOT NULL,
-	description TEXT NOT NULL,
-	effectiveness VARCHAR(13),
-	effectiveness_notes TEXT,
-	"Weakness_id" INTEGER,
+	"Consequence_ID" TEXT,
+	"Likelihood" VARCHAR(7),
+	"Note" TEXT,
+	"CweWeakness_ID" TEXT,
 	PRIMARY KEY (id),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id)
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID")
 );
-CREATE INDEX "ix_DetectionMethod_id" ON "DetectionMethod" (id);
+CREATE INDEX "ix_CweConsequence_id" ON "CweConsequence" (id);
 
-CREATE TABLE "PotentialMitigation" (
+CREATE TABLE "CweDetectionMethod" (
 	id INTEGER NOT NULL,
-	mitigation_id TEXT,
-	strategy VARCHAR(30),
-	description TEXT NOT NULL,
-	effectiveness VARCHAR(27),
-	effectiveness_notes TEXT,
-	"Weakness_id" INTEGER,
+	"Detection_Method_ID" TEXT,
+	"Method" VARCHAR(54) NOT NULL,
+	"Description" TEXT NOT NULL,
+	"Effectiveness" VARCHAR(13),
+	"Effectiveness_Notes" TEXT,
+	"CweWeakness_ID" TEXT,
 	PRIMARY KEY (id),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id)
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID")
 );
-CREATE INDEX "ix_PotentialMitigation_id" ON "PotentialMitigation" (id);
+CREATE INDEX "ix_CweDetectionMethod_id" ON "CweDetectionMethod" (id);
 
-CREATE TABLE "DemonstrativeExample" (
+CREATE TABLE "CweMitigation" (
 	id INTEGER NOT NULL,
-	demonstrative_example_id TEXT,
-	title_text TEXT,
-	intro_text TEXT NOT NULL,
-	"Weakness_id" INTEGER,
+	"Mitigation_ID" TEXT,
+	"Strategy" VARCHAR(30),
+	"Description" TEXT NOT NULL,
+	"Effectiveness" VARCHAR(27),
+	"Effectiveness_Notes" TEXT,
+	"CweWeakness_ID" TEXT,
 	PRIMARY KEY (id),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id)
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID")
 );
-CREATE INDEX "ix_DemonstrativeExample_id" ON "DemonstrativeExample" (id);
+CREATE INDEX "ix_CweMitigation_id" ON "CweMitigation" (id);
 
-CREATE TABLE "ObservedExample" (
+CREATE TABLE "CweDemonstrativeExample" (
 	id INTEGER NOT NULL,
-	reference TEXT NOT NULL,
-	description TEXT NOT NULL,
-	link TEXT NOT NULL,
-	"Weakness_id" INTEGER,
+	"Demonstrative_Example_ID" TEXT,
+	"Title_Text" TEXT,
+	"Intro_Text" TEXT NOT NULL,
+	"CweWeakness_ID" TEXT,
 	PRIMARY KEY (id),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id)
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID")
 );
-CREATE INDEX "ix_ObservedExample_id" ON "ObservedExample" (id);
+CREATE INDEX "ix_CweDemonstrativeExample_id" ON "CweDemonstrativeExample" (id);
 
-CREATE TABLE "TaxonomyMapping" (
+CREATE TABLE "CweObservedExample" (
 	id INTEGER NOT NULL,
-	taxonomy_name VARCHAR(52) NOT NULL,
-	entry_id TEXT,
-	entry_name TEXT,
-	mapping_fit VARCHAR(17),
-	"Weakness_id" INTEGER,
-	"Category_id" INTEGER,
+	"Reference" TEXT NOT NULL,
+	"Description" TEXT NOT NULL,
+	"Link" TEXT NOT NULL,
+	"CweWeakness_ID" TEXT,
 	PRIMARY KEY (id),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id),
-	FOREIGN KEY("Category_id") REFERENCES "Category" (id)
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID")
 );
-CREATE INDEX "ix_TaxonomyMapping_id" ON "TaxonomyMapping" (id);
+CREATE INDEX "ix_CweObservedExample_id" ON "CweObservedExample" (id);
 
-CREATE TABLE "CatalogMember" (
+CREATE TABLE "CweRelatedAttackPattern" (
 	id INTEGER NOT NULL,
-	cwe_id INTEGER NOT NULL,
-	view_id INTEGER NOT NULL,
-	"View_id" INTEGER,
-	"Relationship_id" INTEGER,
+	"CAPEC_ID" TEXT NOT NULL,
+	"CweWeakness_ID" TEXT,
 	PRIMARY KEY (id),
-	FOREIGN KEY("View_id") REFERENCES "View" (id),
-	FOREIGN KEY("Relationship_id") REFERENCES "Relationship" (id)
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID")
 );
-CREATE INDEX "ix_CatalogMember_id" ON "CatalogMember" (id);
+CREATE INDEX "ix_CweRelatedAttackPattern_id" ON "CweRelatedAttackPattern" (id);
 
-CREATE TABLE "Audience" (
+CREATE TABLE "CweStakeholder" (
 	id INTEGER NOT NULL,
-	type VARCHAR(23) NOT NULL,
-	description TEXT,
-	"View_id" INTEGER,
+	"Type" VARCHAR(23) NOT NULL,
+	"Description" TEXT,
+	"CweView_ID" TEXT,
 	PRIMARY KEY (id),
-	FOREIGN KEY("View_id") REFERENCES "View" (id)
+	FOREIGN KEY("CweView_ID") REFERENCES "CweView" ("ID")
 );
-CREATE INDEX "ix_Audience_id" ON "Audience" (id);
+CREATE INDEX "ix_CweStakeholder_id" ON "CweStakeholder" (id);
 
-CREATE TABLE "Note" (
+CREATE TABLE "CweMember" (
 	id INTEGER NOT NULL,
-	type VARCHAR(19) NOT NULL,
-	content TEXT,
-	"Weakness_id" INTEGER,
-	"Category_id" INTEGER,
-	"View_id" INTEGER,
+	"CWE_ID" TEXT NOT NULL,
+	"View_ID" TEXT NOT NULL,
+	"CweRelationships_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id),
-	FOREIGN KEY("Category_id") REFERENCES "Category" (id),
-	FOREIGN KEY("View_id") REFERENCES "View" (id)
+	FOREIGN KEY("CWE_ID") REFERENCES "CweEntry" ("ID"),
+	FOREIGN KEY("View_ID") REFERENCES "CweView" ("ID"),
+	FOREIGN KEY("CweRelationships_id") REFERENCES "CweRelationships" (id)
 );
-CREATE INDEX "ix_Note_id" ON "Note" (id);
+CREATE INDEX "ix_CweMember_id" ON "CweMember" (id);
 
-CREATE TABLE "NVDWeaknessObservation" (
-	observation_id TEXT NOT NULL,
-	observed_in_cve TEXT NOT NULL,
-	weakness INTEGER NOT NULL,
-	reported_by VARCHAR(8) NOT NULL,
-	source TEXT,
-	"WeaknessCatalog_name" TEXT,
-	PRIMARY KEY (observation_id),
-	FOREIGN KEY(weakness) REFERENCES "Weakness" (id),
-	FOREIGN KEY("WeaknessCatalog_name") REFERENCES "WeaknessCatalog" (name)
-);
-CREATE INDEX "ix_NVDWeaknessObservation_observation_id" ON "NVDWeaknessObservation" (observation_id);
-
-CREATE TABLE "Weakness_background_details" (
-	"Weakness_id" INTEGER,
-	background_details TEXT,
-	PRIMARY KEY ("Weakness_id", background_details),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id)
-);
-CREATE INDEX "ix_Weakness_background_details_background_details" ON "Weakness_background_details" (background_details);
-CREATE INDEX "ix_Weakness_background_details_Weakness_id" ON "Weakness_background_details" ("Weakness_id");
-
-CREATE TABLE "Weakness_exploitation_factors" (
-	"Weakness_id" INTEGER,
-	exploitation_factors TEXT,
-	PRIMARY KEY ("Weakness_id", exploitation_factors),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id)
-);
-CREATE INDEX "ix_Weakness_exploitation_factors_Weakness_id" ON "Weakness_exploitation_factors" ("Weakness_id");
-CREATE INDEX "ix_Weakness_exploitation_factors_exploitation_factors" ON "Weakness_exploitation_factors" (exploitation_factors);
-
-CREATE TABLE "Weakness_functional_areas" (
-	"Weakness_id" INTEGER,
-	functional_areas VARCHAR(28),
-	PRIMARY KEY ("Weakness_id", functional_areas),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id)
-);
-CREATE INDEX "ix_Weakness_functional_areas_functional_areas" ON "Weakness_functional_areas" (functional_areas);
-CREATE INDEX "ix_Weakness_functional_areas_Weakness_id" ON "Weakness_functional_areas" ("Weakness_id");
-
-CREATE TABLE "Weakness_affected_resources" (
-	"Weakness_id" INTEGER,
-	affected_resources VARCHAR(17),
-	PRIMARY KEY ("Weakness_id", affected_resources),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id)
-);
-CREATE INDEX "ix_Weakness_affected_resources_affected_resources" ON "Weakness_affected_resources" (affected_resources);
-CREATE INDEX "ix_Weakness_affected_resources_Weakness_id" ON "Weakness_affected_resources" ("Weakness_id");
-
-CREATE TABLE "Weakness_related_attack_patterns" (
-	"Weakness_id" INTEGER,
-	related_attack_patterns INTEGER,
-	PRIMARY KEY ("Weakness_id", related_attack_patterns),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id)
-);
-CREATE INDEX "ix_Weakness_related_attack_patterns_related_attack_patterns" ON "Weakness_related_attack_patterns" (related_attack_patterns);
-CREATE INDEX "ix_Weakness_related_attack_patterns_Weakness_id" ON "Weakness_related_attack_patterns" ("Weakness_id");
-
-CREATE TABLE "Weakness_tags" (
-	"Weakness_id" INTEGER,
-	tags TEXT,
-	PRIMARY KEY ("Weakness_id", tags),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id)
-);
-CREATE INDEX "ix_Weakness_tags_Weakness_id" ON "Weakness_tags" ("Weakness_id");
-CREATE INDEX "ix_Weakness_tags_tags" ON "Weakness_tags" (tags);
-
-CREATE TABLE "CWEReference" (
+CREATE TABLE "CweMappingSuggestion" (
 	id INTEGER NOT NULL,
-	external_reference_id TEXT NOT NULL,
-	section TEXT,
-	"Weakness_id" INTEGER,
-	"Category_id" INTEGER,
-	"View_id" INTEGER,
-	"DemonstrativeExample_id" INTEGER,
+	"CWE_ID" TEXT NOT NULL,
+	"Comment" TEXT NOT NULL,
+	"CweMappingNotes_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("Weakness_id") REFERENCES "Weakness" (id),
-	FOREIGN KEY("Category_id") REFERENCES "Category" (id),
-	FOREIGN KEY("View_id") REFERENCES "View" (id),
-	FOREIGN KEY("DemonstrativeExample_id") REFERENCES "DemonstrativeExample" (id)
+	FOREIGN KEY("CWE_ID") REFERENCES "CweWeakness" ("ID"),
+	FOREIGN KEY("CweMappingNotes_id") REFERENCES "CweMappingNotes" (id)
 );
-CREATE INDEX "ix_CWEReference_id" ON "CWEReference" (id);
+CREATE INDEX "ix_CweMappingSuggestion_id" ON "CweMappingSuggestion" (id);
 
-CREATE TABLE "ExampleCode" (
+CREATE TABLE "CweExternalReference_Author" (
+	"CweExternalReference_Reference_ID" TEXT,
+	"Author" TEXT,
+	PRIMARY KEY ("CweExternalReference_Reference_ID", "Author"),
+	FOREIGN KEY("CweExternalReference_Reference_ID") REFERENCES "CweExternalReference" ("Reference_ID")
+);
+CREATE INDEX "ix_CweExternalReference_Author_Author" ON "CweExternalReference_Author" ("Author");
+CREATE INDEX "ix_CweExternalReference_Author_CweExternalReference_Reference_ID" ON "CweExternalReference_Author" ("CweExternalReference_Reference_ID");
+
+CREATE TABLE "CweExternalReference_Media_Type" (
+	"CweExternalReference_Reference_ID" TEXT,
+	"Media_Type" VARCHAR(23),
+	PRIMARY KEY ("CweExternalReference_Reference_ID", "Media_Type"),
+	FOREIGN KEY("CweExternalReference_Reference_ID") REFERENCES "CweExternalReference" ("Reference_ID")
+);
+CREATE INDEX "ix_CweExternalReference_Media_Type_CweExternalReference_Reference_ID" ON "CweExternalReference_Media_Type" ("CweExternalReference_Reference_ID");
+CREATE INDEX "ix_CweExternalReference_Media_Type_Media_Type" ON "CweExternalReference_Media_Type" ("Media_Type");
+
+CREATE TABLE "CweExternalReference_Rationale" (
+	"CweExternalReference_Reference_ID" TEXT,
+	"Rationale" VARCHAR(24),
+	PRIMARY KEY ("CweExternalReference_Reference_ID", "Rationale"),
+	FOREIGN KEY("CweExternalReference_Reference_ID") REFERENCES "CweExternalReference" ("Reference_ID")
+);
+CREATE INDEX "ix_CweExternalReference_Rationale_Rationale" ON "CweExternalReference_Rationale" ("Rationale");
+CREATE INDEX "ix_CweExternalReference_Rationale_CweExternalReference_Reference_ID" ON "CweExternalReference_Rationale" ("CweExternalReference_Reference_ID");
+
+CREATE TABLE "CweSubmission_Submission_Name" (
+	"CweSubmission_id" INTEGER,
+	"Submission_Name" TEXT,
+	PRIMARY KEY ("CweSubmission_id", "Submission_Name"),
+	FOREIGN KEY("CweSubmission_id") REFERENCES "CweSubmission" (id)
+);
+CREATE INDEX "ix_CweSubmission_Submission_Name_Submission_Name" ON "CweSubmission_Submission_Name" ("Submission_Name");
+CREATE INDEX "ix_CweSubmission_Submission_Name_CweSubmission_id" ON "CweSubmission_Submission_Name" ("CweSubmission_id");
+
+CREATE TABLE "CweContribution_Contribution_Name" (
+	"CweContribution_id" INTEGER,
+	"Contribution_Name" TEXT,
+	PRIMARY KEY ("CweContribution_id", "Contribution_Name"),
+	FOREIGN KEY("CweContribution_id") REFERENCES "CweContribution" (id)
+);
+CREATE INDEX "ix_CweContribution_Contribution_Name_CweContribution_id" ON "CweContribution_Contribution_Name" ("CweContribution_id");
+CREATE INDEX "ix_CweContribution_Contribution_Name_Contribution_Name" ON "CweContribution_Contribution_Name" ("Contribution_Name");
+
+CREATE TABLE "CweWeakness_Background_Details" (
+	"CweWeakness_ID" TEXT,
+	"Background_Details" TEXT,
+	PRIMARY KEY ("CweWeakness_ID", "Background_Details"),
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID")
+);
+CREATE INDEX "ix_CweWeakness_Background_Details_CweWeakness_ID" ON "CweWeakness_Background_Details" ("CweWeakness_ID");
+CREATE INDEX "ix_CweWeakness_Background_Details_Background_Details" ON "CweWeakness_Background_Details" ("Background_Details");
+
+CREATE TABLE "CweWeakness_Exploitation_Factors" (
+	"CweWeakness_ID" TEXT,
+	"Exploitation_Factors" TEXT,
+	PRIMARY KEY ("CweWeakness_ID", "Exploitation_Factors"),
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID")
+);
+CREATE INDEX "ix_CweWeakness_Exploitation_Factors_CweWeakness_ID" ON "CweWeakness_Exploitation_Factors" ("CweWeakness_ID");
+CREATE INDEX "ix_CweWeakness_Exploitation_Factors_Exploitation_Factors" ON "CweWeakness_Exploitation_Factors" ("Exploitation_Factors");
+
+CREATE TABLE "CweWeakness_Functional_Areas" (
+	"CweWeakness_ID" TEXT,
+	"Functional_Areas" VARCHAR(28),
+	PRIMARY KEY ("CweWeakness_ID", "Functional_Areas"),
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID")
+);
+CREATE INDEX "ix_CweWeakness_Functional_Areas_CweWeakness_ID" ON "CweWeakness_Functional_Areas" ("CweWeakness_ID");
+CREATE INDEX "ix_CweWeakness_Functional_Areas_Functional_Areas" ON "CweWeakness_Functional_Areas" ("Functional_Areas");
+
+CREATE TABLE "CweWeakness_Affected_Resources" (
+	"CweWeakness_ID" TEXT,
+	"Affected_Resources" VARCHAR(17),
+	PRIMARY KEY ("CweWeakness_ID", "Affected_Resources"),
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID")
+);
+CREATE INDEX "ix_CweWeakness_Affected_Resources_CweWeakness_ID" ON "CweWeakness_Affected_Resources" ("CweWeakness_ID");
+CREATE INDEX "ix_CweWeakness_Affected_Resources_Affected_Resources" ON "CweWeakness_Affected_Resources" ("Affected_Resources");
+
+CREATE TABLE "CweDimension" (
 	id INTEGER NOT NULL,
-	nature VARCHAR(11) NOT NULL,
-	language VARCHAR(12),
-	content TEXT,
-	"DemonstrativeExample_id" INTEGER,
+	"Type" VARCHAR(17) NOT NULL,
+	"Value" TEXT NOT NULL,
+	"CweWeakness_ID" TEXT,
+	"CweRelatedWeakness_id" INTEGER,
+	"CweMember_id" INTEGER,
 	PRIMARY KEY (id),
-	FOREIGN KEY("DemonstrativeExample_id") REFERENCES "DemonstrativeExample" (id)
+	FOREIGN KEY("CweWeakness_ID") REFERENCES "CweWeakness" ("ID"),
+	FOREIGN KEY("CweRelatedWeakness_id") REFERENCES "CweRelatedWeakness" (id),
+	FOREIGN KEY("CweMember_id") REFERENCES "CweMember" (id)
 );
-CREATE INDEX "ix_ExampleCode_id" ON "ExampleCode" (id);
+CREATE INDEX "ix_CweDimension_id" ON "CweDimension" (id);
 
-CREATE TABLE "CommonConsequence_scopes" (
-	"CommonConsequence_id" INTEGER,
-	scopes VARCHAR(15) NOT NULL,
-	PRIMARY KEY ("CommonConsequence_id", scopes),
-	FOREIGN KEY("CommonConsequence_id") REFERENCES "CommonConsequence" (id)
+CREATE TABLE "CweCustomPhase" (
+	id INTEGER NOT NULL,
+	"Domain" VARCHAR(8) NOT NULL,
+	"Value" TEXT NOT NULL,
+	"CweIntroduction_id" INTEGER,
+	"CweDetectionMethod_id" INTEGER,
+	"CweMitigation_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("CweIntroduction_id") REFERENCES "CweIntroduction" (id),
+	FOREIGN KEY("CweDetectionMethod_id") REFERENCES "CweDetectionMethod" (id),
+	FOREIGN KEY("CweMitigation_id") REFERENCES "CweMitigation" (id)
 );
-CREATE INDEX "ix_CommonConsequence_scopes_scopes" ON "CommonConsequence_scopes" (scopes);
-CREATE INDEX "ix_CommonConsequence_scopes_CommonConsequence_id" ON "CommonConsequence_scopes" ("CommonConsequence_id");
+CREATE INDEX "ix_CweCustomPhase_id" ON "CweCustomPhase" (id);
 
-CREATE TABLE "CommonConsequence_impacts" (
-	"CommonConsequence_id" INTEGER,
-	impacts VARCHAR(37) NOT NULL,
-	PRIMARY KEY ("CommonConsequence_id", impacts),
-	FOREIGN KEY("CommonConsequence_id") REFERENCES "CommonConsequence" (id)
+CREATE TABLE "CweExampleEntry" (
+	id INTEGER NOT NULL,
+	"Body_Text" TEXT,
+	"CweDemonstrativeExample_id" INTEGER,
+	"Example_Code_id" INTEGER,
+	PRIMARY KEY (id),
+	FOREIGN KEY("CweDemonstrativeExample_id") REFERENCES "CweDemonstrativeExample" (id),
+	FOREIGN KEY("Example_Code_id") REFERENCES "CweExampleCode" (id)
 );
-CREATE INDEX "ix_CommonConsequence_impacts_CommonConsequence_id" ON "CommonConsequence_impacts" ("CommonConsequence_id");
-CREATE INDEX "ix_CommonConsequence_impacts_impacts" ON "CommonConsequence_impacts" (impacts);
+CREATE INDEX "ix_CweExampleEntry_id" ON "CweExampleEntry" (id);
 
-CREATE TABLE "PotentialMitigation_phases" (
-	"PotentialMitigation_id" INTEGER,
-	phases VARCHAR(31),
-	PRIMARY KEY ("PotentialMitigation_id", phases),
-	FOREIGN KEY("PotentialMitigation_id") REFERENCES "PotentialMitigation" (id)
+CREATE TABLE "CweAlternateTerm_Role" (
+	"CweAlternateTerm_id" INTEGER,
+	"Role" VARCHAR(23),
+	PRIMARY KEY ("CweAlternateTerm_id", "Role"),
+	FOREIGN KEY("CweAlternateTerm_id") REFERENCES "CweAlternateTerm" (id)
 );
-CREATE INDEX "ix_PotentialMitigation_phases_PotentialMitigation_id" ON "PotentialMitigation_phases" ("PotentialMitigation_id");
-CREATE INDEX "ix_PotentialMitigation_phases_phases" ON "PotentialMitigation_phases" (phases);
+CREATE INDEX "ix_CweAlternateTerm_Role_Role" ON "CweAlternateTerm_Role" ("Role");
+CREATE INDEX "ix_CweAlternateTerm_Role_CweAlternateTerm_id" ON "CweAlternateTerm_Role" ("CweAlternateTerm_id");
 
-CREATE TABLE "DemonstrativeExample_body_texts" (
-	"DemonstrativeExample_id" INTEGER,
-	body_texts TEXT,
-	PRIMARY KEY ("DemonstrativeExample_id", body_texts),
-	FOREIGN KEY("DemonstrativeExample_id") REFERENCES "DemonstrativeExample" (id)
+CREATE TABLE "CweIntroduction_Phase" (
+	"CweIntroduction_id" INTEGER,
+	"Phase" VARCHAR(31),
+	PRIMARY KEY ("CweIntroduction_id", "Phase"),
+	FOREIGN KEY("CweIntroduction_id") REFERENCES "CweIntroduction" (id)
 );
-CREATE INDEX "ix_DemonstrativeExample_body_texts_body_texts" ON "DemonstrativeExample_body_texts" (body_texts);
-CREATE INDEX "ix_DemonstrativeExample_body_texts_DemonstrativeExample_id" ON "DemonstrativeExample_body_texts" ("DemonstrativeExample_id");
+CREATE INDEX "ix_CweIntroduction_Phase_Phase" ON "CweIntroduction_Phase" ("Phase");
+CREATE INDEX "ix_CweIntroduction_Phase_CweIntroduction_id" ON "CweIntroduction_Phase" ("CweIntroduction_id");
+
+CREATE TABLE "CweConsequence_Scope" (
+	"CweConsequence_id" INTEGER,
+	"Scope" VARCHAR(15) NOT NULL,
+	PRIMARY KEY ("CweConsequence_id", "Scope"),
+	FOREIGN KEY("CweConsequence_id") REFERENCES "CweConsequence" (id)
+);
+CREATE INDEX "ix_CweConsequence_Scope_Scope" ON "CweConsequence_Scope" ("Scope");
+CREATE INDEX "ix_CweConsequence_Scope_CweConsequence_id" ON "CweConsequence_Scope" ("CweConsequence_id");
+
+CREATE TABLE "CweConsequence_Impact" (
+	"CweConsequence_id" INTEGER,
+	"Impact" VARCHAR(37) NOT NULL,
+	PRIMARY KEY ("CweConsequence_id", "Impact"),
+	FOREIGN KEY("CweConsequence_id") REFERENCES "CweConsequence" (id)
+);
+CREATE INDEX "ix_CweConsequence_Impact_CweConsequence_id" ON "CweConsequence_Impact" ("CweConsequence_id");
+CREATE INDEX "ix_CweConsequence_Impact_Impact" ON "CweConsequence_Impact" ("Impact");
+
+CREATE TABLE "CweDetectionMethod_Phase" (
+	"CweDetectionMethod_id" INTEGER,
+	"Phase" VARCHAR(31),
+	PRIMARY KEY ("CweDetectionMethod_id", "Phase"),
+	FOREIGN KEY("CweDetectionMethod_id") REFERENCES "CweDetectionMethod" (id)
+);
+CREATE INDEX "ix_CweDetectionMethod_Phase_CweDetectionMethod_id" ON "CweDetectionMethod_Phase" ("CweDetectionMethod_id");
+CREATE INDEX "ix_CweDetectionMethod_Phase_Phase" ON "CweDetectionMethod_Phase" ("Phase");
+
+CREATE TABLE "CweMitigation_Phase" (
+	"CweMitigation_id" INTEGER,
+	"Phase" VARCHAR(31),
+	PRIMARY KEY ("CweMitigation_id", "Phase"),
+	FOREIGN KEY("CweMitigation_id") REFERENCES "CweMitigation" (id)
+);
+CREATE INDEX "ix_CweMitigation_Phase_Phase" ON "CweMitigation_Phase" ("Phase");
+CREATE INDEX "ix_CweMitigation_Phase_CweMitigation_id" ON "CweMitigation_Phase" ("CweMitigation_id");
+
+CREATE TABLE "CweObservedExample_Rationale" (
+	"CweObservedExample_id" INTEGER,
+	"Rationale" VARCHAR(22),
+	PRIMARY KEY ("CweObservedExample_id", "Rationale"),
+	FOREIGN KEY("CweObservedExample_id") REFERENCES "CweObservedExample" (id)
+);
+CREATE INDEX "ix_CweObservedExample_Rationale_CweObservedExample_id" ON "CweObservedExample_Rationale" ("CweObservedExample_id");
+CREATE INDEX "ix_CweObservedExample_Rationale_Rationale" ON "CweObservedExample_Rationale" ("Rationale");

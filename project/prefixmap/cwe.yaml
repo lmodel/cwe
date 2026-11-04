@@ -1,12 +1,15 @@
 {
-   "WIKIDATA": "https://www.wikidata.org/wiki/",
    "capec": "https://w3id.org/lmodel/capec/",
    "cve": "https://w3id.org/lmodel/cve/",
    "cwe": "https://w3id.org/lmodel/cwe/",
-   "dct": "http://purl.org/dc/terms/",
+   "dcterms": "http://purl.org/dc/terms/",
+   "kev_catalog": "https://w3id.org/lmodel/kev-catalog/",
    "linkml": "https://w3id.org/linkml/",
-   "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+   "nist_nvd": "https://w3id.org/lmodel/nist-nvd/",
    "schema": "http://schema.org/",
+   "sepses_cwe": "http://w3id.org/sepses/vocab/ref/cwe#",
    "skos": "http://www.w3.org/2004/02/skos/core#",
-   "xsd": "http://www.w3.org/2001/XMLSchema#"
+   "spdx_core": "https://spdx.org/rdf/3.0.1/terms/Core/",
+   "wd": "http://www.wikidata.org/entity/",
+   "wdt": "http://www.wikidata.org/prop/direct/"
 }

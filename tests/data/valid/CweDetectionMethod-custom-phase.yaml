@@ -1,0 +1,8 @@
+# From the CWE List 5.0, CWE-1427. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Method: Dynamic Analysis with Manual Results Interpretation
+Custom_Phase:
+  - Domain: AI
+    Value: Prompting
+Description: "<p>Use known techniques for prompt injection and other attacks, and\n\t\t\t\t\
+  adjust the attacks to be more specific to the model or system.</p>"

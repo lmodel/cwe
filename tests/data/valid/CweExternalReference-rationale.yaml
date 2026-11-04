@@ -1,0 +1,9 @@
+# From the CWE List 5.0, REF-502. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Reference_ID: REF-502
+Author:
+  - Shaun Clowes
+Title: A Study in Scarlet - section 5, "File Upload"
+Rationale:
+  - Early-Publication
+  - Influential/Newsworthy
