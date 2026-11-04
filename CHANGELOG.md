@@ -6,6 +6,8 @@ The `v0.0.0` tag is a baseline, not a release: it marks where versioning starts 
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-11-04
+
 ### Added
 
 - **A LinkML rendering of the Common Weakness Enumeration (CWE) List 5.0 and its XML Schema 8.0**, as an umbrella over `cwe_core` and `cwe_entries`. Keys and values are the XSD's own, every description is this project's, and the abstract `CweEntry` holds what a weakness, a grouping and a view share.
