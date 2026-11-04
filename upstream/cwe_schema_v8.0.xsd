@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema targetNamespace="http://cwe.mitre.org/cwe-7" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cwe="http://cwe.mitre.org/cwe-7" xmlns:xhtml="http://www.w3.org/1999/xhtml" elementFormDefault="qualified" attributeFormDefault="unqualified" version="7.2">
+<xs:schema targetNamespace="http://cwe.mitre.org/cwe-8" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:cwe="http://cwe.mitre.org/cwe-8" xmlns:xhtml="http://www.w3.org/1999/xhtml" elementFormDefault="qualified" attributeFormDefault="unqualified" version="8.0">
 	<xs:import namespace="http://www.w3.org/1999/xhtml" schemaLocation="http://www.w3.org/2002/08/xhtml/xhtml1-strict.xsd"/>
     <xs:annotation>
         <xs:documentation>The CWE Schema is maintained by The MITRE Corporation and developed in partnership with the public CWE Community. For more information, including how to get involved in the project and how to submit change requests, please visit the CWE website at https://cwe.mitre.org.</xs:documentation>
         <xs:appinfo>
             <schema>Core Definition</schema>
-            <version>7.3</version>
-            <date>December 11, 2025</date>
-            <terms_of_use>Copyright (c) 2006-2025, The MITRE Corporation. All rights reserved. The contents of this file are subject to the terms of the CWE License located at https://cwe.mitre.org/about/termsofuse.html. See the CWE License for the specific language governing permissions and limitations for use of this schema. When distributing copies of the CWE Schema, this license header must be included.</terms_of_use>
+            <version>8.0</version>
+            <date>October 28, 2026</date>
+            <terms_of_use>Copyright (c) 2006-2026, The MITRE Corporation. All rights reserved. The contents of this file are subject to the terms of the CWE License located at https://cwe.mitre.org/about/termsofuse.html. See the CWE License for the specific language governing permissions and limitations for use of this schema. When distributing copies of the CWE Schema, this license header must be included.</terms_of_use>
         </xs:appinfo>
     </xs:annotation>
     <!-- =============================================================================== -->
@@ -20,6 +20,12 @@
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element name="Weaknesses" minOccurs="0" maxOccurs="1">
+				  <xs:annotation>
+					<xs:documentation>
+					  When present, this element contains a list of
+					  one or more Weakness elements.
+					</xs:documentation>
+				  </xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
 				            <xs:element name="Weakness" type="cwe:WeaknessType" minOccurs="1" maxOccurs="unbounded"/>
@@ -27,13 +33,40 @@
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="Categories" minOccurs="0" maxOccurs="1">
+				  <xs:annotation>
+					<xs:documentation>
+					  When present, this element contains a list of
+					  one or more Category elements.
+					</xs:documentation>
+				  </xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
 				            <xs:element name="Category" type="cwe:CategoryType" minOccurs="1" maxOccurs="unbounded"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
+				<xs:element name="Groupings" minOccurs="0" maxOccurs="1">
+				  <xs:annotation>
+					<xs:documentation>When present, this element contains a list of
+					one or more Grouping elements.</xs:documentation>
+					<xs:documentation>A "Grouping" 
+					is a collection of weaknesses based on some common characteristic or attribute, but they do not necessrily share the same ancestor weakness. It is the same as a "Category" in schema version 7.x and earlier. The name was changed in Schema 8.0 (CWE 5.0) as an 					attempt to reduce the frequent community confusion
+					between "categories" and
+					"classes".</xs:documentation>
+				  </xs:annotation>
+					<xs:complexType>
+						<xs:sequence>
+				            <xs:element name="Grouping" type="cwe:GroupingType" minOccurs="1" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
 				<xs:element name="Views" minOccurs="0" maxOccurs="1">
+				  <xs:annotation>
+					<xs:documentation>
+					  When present, this element contains a list of
+					  one or more View elements.
+					</xs:documentation>
+				  </xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
 				            <xs:element name="View" type="cwe:ViewType" minOccurs="1" maxOccurs="unbounded"/>
@@ -41,6 +74,14 @@
 					</xs:complexType>
 				</xs:element>
 				<xs:element name="External_References" minOccurs="0" maxOccurs="1">
+				  <xs:annotation>
+					<xs:documentation>
+					  When present, this element contains a list of
+					  one or more External_Reference elements that
+					  identify reference(s) associated with one or
+					  more Weaknesses, Categories, and/or Views.
+					</xs:documentation>
+				  </xs:annotation>
 					<xs:complexType>
 					<xs:sequence>
 				            <xs:element name="External_Reference" type="cwe:ExternalReferenceType" minOccurs="1" maxOccurs="unbounded"/>
@@ -60,6 +101,10 @@
 	        <xs:selector xpath="./cwe:*/cwe:*"/>
 	        <xs:field xpath="@Name"/>
 	    </xs:unique>
+		<xs:unique name="uniqueGroupingID">
+			<xs:selector xpath="./cwe:Groupings/cwe:Grouping"/>
+			<xs:field xpath="@ID"/>
+		</xs:unique>
 		<xs:unique name="uniqueCategoryID">
 			<xs:selector xpath="./cwe:Categories/cwe:Category"/>
 			<xs:field xpath="@ID"/>
@@ -79,12 +124,38 @@
 	<xs:complexType name="WeaknessType">
 		<xs:annotation>
 			<xs:documentation>A weakness is a mistake or condition that, if left unaddressed, could under the proper conditions contribute to a cyber-enabled capability being vulnerable to attack, allowing an adversary to make items function in unintended ways. This complexType is used to describe a specific type of weakness and provide a variety of information related to it.</xs:documentation>
-			<xs:documentation>The required Description should be short and limited to the key points that define this weakness. The optional Extended_Description element provides a place for additional details important to this weakness, but that are not necessary to convey the fundamental concept behind the weakness. A number of other optional elements are available, each of which is described in more detail within the corresponding complexType that it references.</xs:documentation>
+			<xs:documentation>The required Description should be short and limited to the key points that define this weakness. The optional Extended_Description element provides a place for additional details important to this weakness, but that are not necessary to convey the fundamental concept behind the weakness.  A number of other optional elements are available, each of which is described in more detail within the corresponding complexType that it references.</xs:documentation>
 			<xs:documentation>The required ID attribute provides a unique identifier for the entry. It is considered static for the lifetime of the entry. If this entry becomes deprecated, the identifier will not be reused. The required Name attribute is a string that identifies the entry. The name should focus on the weakness being described and should avoid mentioning the attack that exploits the weakness or the consequences of exploiting the weakness. All words in the entry name should be capitalized except for articles and prepositions, unless they begin or end the name. Subsequent words in a hyphenated chain are also not capitalized. The required Abstraction attribute defines the abstraction level for this weakness. The required Structure attribute defines the structural nature of the weakness. The required Status attribute defines the maturity of the information for this weakness.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Description" type="xs:string" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Description" type="xs:string" minOccurs="1" maxOccurs="1">
+			  <xs:annotation>
+				<xs:documentation>
+				  A short description of the weakness, typically one or
+				  two sentences. The Description should be short and
+				  limited to the key points that define this weakness.
+				</xs:documentation>
+			  </xs:annotation>
+			</xs:element>
 			<xs:element name="Extended_Description" type="cwe:StructuredTextType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Technical_Nuance" type="cwe:StructuredTextType" minOccurs="0" maxOccurs="1">
+			  <xs:annotation>
+				<xs:documentation>
+				  Provides a mechanism for users to obtain more
+				  technical details or clarifications that provide
+				  important nuance to understanding the weakness.
+				</xs:documentation>
+			  </xs:annotation>
+			</xs:element>
+			<xs:element name="Dimensions" type="cwe:DimensionsType" minOccurs="0" maxOccurs="1">
+			  <xs:annotation>
+				<xs:documentation>
+				  Used to identify the dimensions around which this
+				  entry is based, such as behavior type, resource
+				  property, etc.
+				</xs:documentation>
+			  </xs:annotation>
+			</xs:element>
 			<xs:element name="Related_Weaknesses" type="cwe:RelatedWeaknessesType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="Weakness_Ordinalities" type="cwe:WeaknessOrdinalitiesType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="Applicable_Platforms" type="cwe:ApplicablePlatformsType" minOccurs="0" maxOccurs="1"/>
@@ -105,7 +176,12 @@
 			<xs:element name="References" type="cwe:ReferencesType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="Mapping_Notes" type="cwe:MappingNotesType" minOccurs="1" maxOccurs="1"/>
 			<xs:element name="Notes" type="cwe:NotesType" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="Content_History" type="cwe:ContentHistoryType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Content_History" type="cwe:ContentHistoryType" minOccurs="1" maxOccurs="1">
+			  <xs:annotation>
+				<xs:documentation>History of changes to this entry. For more details, see ContentHistoryType.
+				</xs:documentation>
+			  </xs:annotation>
+			</xs:element>
 		</xs:sequence>
 		<xs:attribute name="ID" type="xs:integer" use="required"/>
 		<xs:attribute name="Name" type="xs:string" use="required"/>
@@ -120,7 +196,7 @@
 	<xs:complexType name="CategoryType">
 		<xs:annotation>
 			<xs:documentation>A category is a collection of weaknesses based on some common characteristic or attribute. The shared attribute may be any number of things including, but not limited to, environment (J2EE, .NET), functional area (authentication, cryptography) and the relevant resource (credentials management, certificate issues). A Category is used primarily as an organizational mechanism for CWE and should not be mapped to by external sources.</xs:documentation>
-			<xs:documentation>The required Summary element contains the key points that define the category and helps the user understand what the category is attempting to be. The optional Relationships element is used to define relationships (Member_Of and Has_Member) with other weaknesses, categories, and views. The optional Taxonomy_Mappings element is used to relate this category to similar categories in taxomomies outside of CWE. The optional References element is used to provide further reading and insight into this category. This element should be used when the category is based on external sources or projects. The optional Notes element is used to provide additional comments or clarifications that cannot be captured using the other elements of the category. The optional Content_History element is used to keep track of the original author of the category and any subsequent modifications to the content. This provides a means of contacting the authors and modifiers for clarifying ambiguities, or in merging overlapping contributions.</xs:documentation>
+			<xs:documentation>The required Summary element contains the key points that define the category and helps the user understand what the category is attempting to be. The optional Relationships element is used to define relationships (Member_Of and Has_Member) with other weaknesses, categories, and views. The optional Taxonomy_Mappings element is used to relate this category to similar categories in taxonomies outside of CWE. The optional References element is used to provide further reading and insight into this category. This element should be used when the category is based on external sources or projects. The optional Notes element is used to provide additional comments or clarifications that cannot be captured using the other elements of the category. The optional Content_History element is used to keep track of the original author of the category and any subsequent modifications to the content. This provides a means of contacting the authors and modifiers for clarifying ambiguities, or in merging overlapping contributions.</xs:documentation>
 			<xs:documentation>The required ID attribute provides a unique identifier for the category. It is meant to be static for the lifetime of the category. If the category becomes deprecated, the ID should not be reused, and a placeholder for the deprecated category should be left in the catalog. The required Name attribute provides a descriptive title used to give the reader an idea of what characteristics this category represents. All words in the name should be capitalized except for articles and prepositions unless they begin or end the name. The required Status attribute defines the maturity of the information for this category. Please refer to the StatusEnumeration simple type for a list of valid values and their meanings.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
@@ -130,7 +206,44 @@
 			<xs:element name="References" type="cwe:ReferencesType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="Mapping_Notes" type="cwe:MappingNotesType" minOccurs="1" maxOccurs="1"/>
 			<xs:element name="Notes" type="cwe:NotesType" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="Content_History" type="cwe:ContentHistoryType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Content_History" type="cwe:ContentHistoryType" minOccurs="1" maxOccurs="1">
+			  <xs:annotation>
+				<xs:documentation>History of changes to this entry. For more details, see ContentHistoryType.
+				</xs:documentation>
+			  </xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="ID" type="xs:integer" use="required"/>
+		<xs:attribute name="Name" type="xs:string" use="required"/>
+		<xs:attribute name="Status" type="cwe:StatusEnumeration" use="required"/>
+	</xs:complexType>
+	<!-- =============================================================================== -->
+	<!-- =================================  GROUPING  ================================== -->
+	<!-- =============================================================================== -->
+	<xs:complexType name="GroupingType">
+		<xs:annotation>
+		  <xs:documentation>A "Grouping" in CWE schema 8.0 (and CWE
+		  5.0) is the same as a "Category" in all previous
+		  versions. The name was changed as a attempt to reduce the
+		  frequent community confusion between "categories" and
+		  "classes".</xs:documentation>
+			<xs:documentation>A grouping is a collection of weaknesses based on some common characteristic or attribute. The shared attribute may be any number of things including, but not limited to, environment (J2EE, .NET), functional area (authentication, cryptography) and the relevant resource (credentials management, certificate issues). A Grouping is used primarily as an organizational mechanism for CWE and should not be mapped to by external sources.</xs:documentation>
+			<xs:documentation>The required Summary element contains the key points that define the grouping and helps the user understand what the grouping is attempting to be. The optional Relationships element is used to define relationships (Member_Of and Has_Member) with other weaknesses, groupings, and views. The optional Taxonomy_Mappings element is used to relate this grouping to similar groupings in taxonomies outside of CWE. The optional References element is used to provide further reading and insight into this grouping. This element should be used when the grouping is based on external sources or projects. The optional Notes element is used to provide additional comments or clarifications that cannot be captured using the other elements of the grouping. The optional Content_History element is used to keep track of the original author of the grouping and any subsequent modifications to the content. This provides a means of contacting the authors and modifiers for clarifying ambiguities, or in merging overlapping contributions.</xs:documentation>
+			<xs:documentation>The required ID attribute provides a unique identifier for the grouping. It is meant to be static for the lifetime of the grouping. If the grouping becomes deprecated, the ID should not be reused, and a placeholder for the deprecated grouping should be left in the catalog. The required Name attribute provides a descriptive title used to give the reader an idea of what characteristics this grouping represents. All words in the name should be capitalized except for articles and prepositions unless they begin or end the name. The required Status attribute defines the maturity of the information for this grouping. Please refer to the StatusEnumeration simple type for a list of valid values and their meanings.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="Summary" type="cwe:StructuredTextType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Relationships" type="cwe:RelationshipsType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Taxonomy_Mappings" type="cwe:TaxonomyMappingsType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="References" type="cwe:ReferencesType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Mapping_Notes" type="cwe:MappingNotesType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Notes" type="cwe:NotesType" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Content_History" type="cwe:ContentHistoryType" minOccurs="1" maxOccurs="1">
+			  <xs:annotation>
+				<xs:documentation>History of changes to this entry. For more details, see ContentHistoryType.
+				</xs:documentation>
+			  </xs:annotation>
+			</xs:element>
 		</xs:sequence>
 		<xs:attribute name="ID" type="xs:integer" use="required"/>
 		<xs:attribute name="Name" type="xs:string" use="required"/>
@@ -153,7 +266,12 @@
 			<xs:element name="References" type="cwe:ReferencesType" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="Mapping_Notes" type="cwe:MappingNotesType" minOccurs="1" maxOccurs="1"/>
 			<xs:element name="Notes" type="cwe:NotesType" minOccurs="0" maxOccurs="1"/>
-			<xs:element name="Content_History" type="cwe:ContentHistoryType" minOccurs="1" maxOccurs="1"/>
+			<xs:element name="Content_History" type="cwe:ContentHistoryType" minOccurs="1" maxOccurs="1">
+			  <xs:annotation>
+				<xs:documentation>History of changes to this entry. For more details, see ContentHistoryType.
+				</xs:documentation>
+			  </xs:annotation>
+			</xs:element>
 		</xs:sequence>
 		<xs:attribute name="ID" type="xs:integer" use="required"/>
 		<xs:attribute name="Name" type="xs:string" use="required"/>
@@ -180,6 +298,11 @@
 			<xs:element name="Publisher" type="xs:string" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="URL" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
 			<xs:element name="URL_Date" type="xs:date" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Alt_URL" type="xs:anyURI" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Alt_URL_Date" type="xs:date" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Media_Type" type="cwe:ReferenceMediaTypeEnumeration" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Access_Restrictions" type="cwe:ReferenceAccessRestrictionsEnumeration" minOccurs="0" maxOccurs="1"/>
+			<xs:element name="Rationale" type="cwe:ReferenceRationaleEnumeration" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 		<xs:attribute name="Reference_ID" type="xs:string" use="required"/>
 	</xs:complexType>
@@ -203,6 +326,7 @@
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="Term" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="Role" type="cwe:AlternateTermRoleEnumeration" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element name="Description" type="cwe:StructuredTextType" minOccurs="0" maxOccurs="1"/>
 					</xs:sequence>
 				</xs:complexType>
@@ -211,27 +335,36 @@
 	</xs:complexType>
 	<xs:complexType name="ApplicablePlatformsType">
 		<xs:annotation>
-			<xs:documentation>The ApplicablePlatformsType complex type specifies the languages, operating systems, architectures, and technologies in which a given weakness could appear. A technology represents a generally accepted feature of a system and often refers to a high-level functional component within a system. The required Prevalence attribute identifies the regularity with which the weakness is applicable to that platform. When providing an operating system name, an optional Common Platform Enumeration (CPE) identifier can be used to a identify a specific OS.</xs:documentation>
+			<xs:documentation>The ApplicablePlatformsType complex type specifies the languages, operating systems, architectures, and technologies in which a given weakness could appear. A technology represents a generally accepted feature of a system and often refers to a high-level functional component within a system. The required Prevalence attribute identifies the regularity with which the weakness is applicable to that platform. When providing an operating system name, an optional Common Platform Enumeration (CPE) identifier can be used to identify a specific OS.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Language" minOccurs="0" maxOccurs="unbounded">
 				<xs:complexType>
-					<xs:attribute name="Name" type="cwe:LanguageNameEnumeration"/>
-					<xs:attribute name="Class" type="cwe:LanguageClassEnumeration"/>
-					<xs:attribute name="Prevalence" type="cwe:PrevalenceEnumeration" use="required"/>
+				  <xs:sequence>
+				    <xs:element name="Note" type="cwe:StructuredTextType" minOccurs="0" maxOccurs="1"/>
+				  </xs:sequence>
+				  <xs:attribute name="Name" type="cwe:LanguageNameEnumeration"/>
+				  <xs:attribute name="Class" type="cwe:LanguageClassEnumeration"/>
+				  <xs:attribute name="Prevalence" type="cwe:PrevalenceEnumeration" use="required"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Operating_System" minOccurs="0" maxOccurs="unbounded">
 				<xs:complexType>
-					<xs:attribute name="Name" type="cwe:OperatingSystemNameEnumeration"/>
-					<xs:attribute name="Version" type="xs:string"/>
-					<xs:attribute name="CPE_ID" type="xs:string"/>
-					<xs:attribute name="Class" type="cwe:OperatingSystemClassEnumeration"/>
-					<xs:attribute name="Prevalence" type="cwe:PrevalenceEnumeration" use="required"/>
+				  <xs:sequence>
+					<xs:element name="Note" type="cwe:StructuredTextType" minOccurs="0" maxOccurs="1"/>
+				  </xs:sequence>
+				  <xs:attribute name="Name" type="cwe:OperatingSystemNameEnumeration"/>
+				  <xs:attribute name="Version" type="xs:string"/>
+				  <xs:attribute name="CPE_ID" type="xs:string"/>
+				  <xs:attribute name="Class" type="cwe:OperatingSystemClassEnumeration"/>
+				  <xs:attribute name="Prevalence" type="cwe:PrevalenceEnumeration" use="required"/>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Architecture" minOccurs="0" maxOccurs="unbounded">
 				<xs:complexType>
+				  <xs:sequence>
+					<xs:element name="Note" type="cwe:StructuredTextType" minOccurs="0" maxOccurs="1"/>
+				  </xs:sequence>
 					<xs:attribute name="Name" type="cwe:ArchitectureNameEnumeration"/>
 					<xs:attribute name="Class" type="cwe:ArchitectureClassEnumeration"/>
 					<xs:attribute name="Prevalence" type="cwe:PrevalenceEnumeration" use="required"/>
@@ -239,6 +372,9 @@
 			</xs:element>
 			<xs:element name="Technology" minOccurs="0" maxOccurs="unbounded">
 				<xs:complexType>
+				  <xs:sequence>
+					<xs:element name="Note" type="cwe:StructuredTextType" minOccurs="0" maxOccurs="1"/>
+				  </xs:sequence>
 					<xs:attribute name="Name" type="cwe:TechnologyNameEnumeration"/>
 					<xs:attribute name="Class" type="cwe:TechnologyClassEnumeration"/>
 					<xs:attribute name="Prevalence" type="cwe:PrevalenceEnumeration" use="required"/>
@@ -290,47 +426,134 @@
 	</xs:complexType>
 	<xs:complexType name="ContentHistoryType">
 		<xs:annotation>
-			<xs:documentation>The ContentHistoryType complex type provides elements to keep track of the original author of an entry and any subsequent modifications to the content. The required Submission element is used to identify the submitter and/or their organization, the date on which the submission was made, the CWE version and release date in which the new CWE entry was added, and any optional comments related to an entry. The optional Modification element is used to identify a modifier's name, organization, the date on which the Modification was made or suggested, the CWE version and release date in which the modification first appeared, and any related comments. A new Modification element should exist for each change made to the content. Modifications that change the meaning of the entry, or how it might be interpreted, should be marked with an importance of critical to bring it to the attention of anyone previously dependent on the weakness.  The optional Contribution element is used to identify a contributor's name, organization, the date, the CWE version and release date in which the contribution first appeared, and any related comments. This element has a single Type attribute, which indicates whether the contribution was part of general feedback given or actual content that was donated. The optional Previous_Entry_Name element is used to describe a previous name that was used for the entry. This should be filled out whenever a substantive name change occurs. The required Date attribute lists the date on which this name was no longer used, typically the date of the first CWE release that changed the previous name.  A Previous_Entry_Name element should align with a corresponding Modification element.</xs:documentation>
+			<xs:documentation>The ContentHistoryType complex type
+			provides elements to track the original author of an
+			entry, along with any subsequent modifications or
+			contributions to the content.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Submission">
+		  <xs:element name="Submission" minOccurs="1" maxOccurs="unbounded">
+			<xs:annotation>
+              <xs:documentation>
+				Identifies the individual submitter of this entry
+				and/or their organization, the date on which the
+				submission was made, the CWE version and release date
+				in which the new CWE entry was added, and any optional
+				comments related to an entry.
+			  </xs:documentation>
+			</xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
 					    <xs:choice>
 					        <xs:sequence>
-					            <xs:element name="Submission_Name" type="xs:string" minOccurs="1"/>
-					            <xs:element name="Submission_Organization" type="xs:string" minOccurs="0"/>
+					          <xs:element name="Submission_Name" type="xs:string" minOccurs="1" maxOccurs="unbounded">
+								<xs:annotation>
+								  <xs:documentation>
+									The individual(s) or group(s) who
+									originally submitted details for
+									this entry.
+									</xs:documentation>
+								</xs:annotation>
+							  </xs:element>
+					          <xs:element name="Submission_Organization" type="xs:string" minOccurs="0">
+								<xs:annotation>
+                                  <xs:documentation>
+									The organization to which the
+									original submitter belongs.
+								  </xs:documentation>
+                                </xs:annotation>
+							  </xs:element>
 					        </xs:sequence>
-					        <xs:element name="Submission_Organization" type="xs:string" minOccurs="1"/>
+					        <xs:element name="Submission_Organization" type="xs:string" minOccurs="1">
+								<xs:annotation>
+                                  <xs:documentation>
+									The organization to which the
+									original submitter belongs.
+								  </xs:documentation>
+                                </xs:annotation>
+							</xs:element>
 					    </xs:choice>
-						<xs:element name="Submission_Date" type="xs:date"/>
-						<xs:element name="Submission_Version" type="xs:string"/>
-						<xs:element name="Submission_ReleaseDate" type="xs:date"/>
-						<xs:element name="Submission_Comment" type="xs:string" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="Submission_Date" type="xs:date">
+						  <xs:annotation>
+                            <xs:documentation>
+							  The original date on which the submission was made.
+							</xs:documentation>
+                          </xs:annotation>
+						</xs:element>
+						<xs:element name="Submission_Version" type="xs:string">
+						  <xs:annotation>
+                            <xs:documentation>
+							  The first CWE version to which this
+							  submission was added.
+							</xs:documentation>
+                          </xs:annotation>
+						</xs:element>
+						<xs:element name="Submission_ReleaseDate" type="xs:date">
+						  <xs:annotation>
+                            <xs:documentation>
+							  The release date of the first CWE
+							  version to which this submission was
+							  added.
+							  </xs:documentation>
+                          </xs:annotation>
+						</xs:element>
+						<xs:element name="Submission_Comment" type="xs:string" minOccurs="0" maxOccurs="1">
+						  <xs:annotation>
+                            <xs:documentation>
+							  Any additional comments or notes related
+							  to the original submission.
+							  </xs:documentation>
+                          </xs:annotation>
+						</xs:element>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Modification" minOccurs="0" maxOccurs="unbounded">
+			  <xs:annotation>
+				<xs:documentation>
+				  Identifies a modifier's name, organization, the date
+				  on which the Modification was made or suggested, the
+				  CWE version and release date in which the
+				  modification first appeared, and any related
+				  comments. A new Modification element should exist
+				  for each change made to the content. Modifications
+				  that change the meaning of the entry, or how it
+				  might be interpreted, should be marked with an
+				  importance of critical to bring it to the attention
+				  of anyone previously dependent on the weakness.
+				</xs:documentation>
+			  </xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="Modification_Name" type="xs:string" minOccurs="0" maxOccurs="1"/>
 						<xs:element name="Modification_Organization" type="xs:string" minOccurs="0" maxOccurs="1"/>
 						<xs:element name="Modification_Date" type="xs:date" minOccurs="1" maxOccurs="1"/>
-						<xs:element name="Modification_Version" type="xs:string" minOccurs="0" maxOccurs="1"/>
-						<xs:element name="Modification_ReleaseDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="Modification_Version" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="Modification_ReleaseDate" type="xs:date" minOccurs="1" maxOccurs="1"/>
 						<xs:element name="Modification_Importance" type="cwe:ImportanceEnumeration" minOccurs="0" maxOccurs="1"/>
-						<xs:element name="Modification_Comment" type="xs:string" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="Modification_Comment" type="xs:string" minOccurs="1" maxOccurs="1"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Contribution" minOccurs="0" maxOccurs="unbounded">
+			  <xs:annotation>
+				<xs:documentation>
+				  Identifies a contributor's name, organization, the
+				  date, the CWE version and release date in which the
+				  contribution first appeared, and any related
+				  comments. This element has a single Type attribute,
+				  which indicates whether the contribution was part of
+				  general feedback given or actual content that was
+				  donated.
+				</xs:documentation>
+			  </xs:annotation>
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="Contribution_Name" type="xs:string" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="Contribution_Name" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
 						<xs:element name="Contribution_Organization" type="xs:string" minOccurs="0" maxOccurs="1"/>
 						<xs:element name="Contribution_Date" type="xs:date" minOccurs="1" maxOccurs="1"/>
-						<xs:element name="Contribution_Version" type="xs:string" minOccurs="0" maxOccurs="1"/>
-						<xs:element name="Contribution_ReleaseDate" type="xs:date" minOccurs="0" maxOccurs="1"/>
+						<xs:element name="Contribution_Version" type="xs:string" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="Contribution_ReleaseDate" type="xs:date" minOccurs="1" maxOccurs="1"/>
 						<xs:element name="Contribution_Comment" type="xs:string" minOccurs="0" maxOccurs="1"/>
 					</xs:sequence>
 					<xs:attribute name="Type" use="required">
@@ -344,6 +567,18 @@
 				</xs:complexType>
 			</xs:element>
 			<xs:element name="Previous_Entry_Name" minOccurs="0" maxOccurs="unbounded">
+			  <xs:annotation>
+				<xs:documentation>
+				  Identifies one or more previous names that was used
+				  for the entry in earlier CWE versions. This should
+				  be filled out whenever a substantive name change
+				  occurs. The required Date attribute lists the date
+				  on which this name was no longer used, typically the
+				  date of the first CWE release that changed the
+				  previous name.  A Previous_Entry_Name element should
+				  align with a corresponding Modification element.
+				</xs:documentation>
+			  </xs:annotation>
 				<xs:complexType>
 					<xs:simpleContent>
 						<xs:extension base="xs:string">
@@ -370,7 +605,6 @@
 							<xs:element name="Body_Text" type="cwe:StructuredTextType"/>
 							<xs:element name="Example_Code" type="cwe:StructuredCodeType"/>
 						</xs:choice>
-						<xs:element name="References" type="cwe:ReferencesType" minOccurs="0" maxOccurs="1"/>
 					</xs:sequence>
 					<xs:attribute name="Demonstrative_Example_ID" type="xs:string"/>
 				</xs:complexType>
@@ -387,7 +621,11 @@
 				<xs:complexType>
 					<xs:sequence>
 						<xs:element name="Method" type="cwe:DetectionMethodEnumeration" minOccurs="1" maxOccurs="1"/>
-						<xs:element name="Description" type="cwe:StructuredTextType" minOccurs="1" maxOccurs="1"/>
+						<xs:choice minOccurs="0" maxOccurs="unbounded">
+						  <xs:element name="Phase" type="cwe:PhaseEnumeration" minOccurs="0" maxOccurs="unbounded"/>
+						  <xs:element name="Custom_Phase" type="cwe:CustomPhaseType" minOccurs="0" maxOccurs="unbounded"/>
+						</xs:choice>
+					<xs:element name="Description" type="cwe:StructuredTextType" minOccurs="1" maxOccurs="1"/>
 						<xs:element name="Effectiveness" type="cwe:DetectionEffectivenessEnumeration" minOccurs="0" maxOccurs="1"/>
 						<xs:element name="Effectiveness_Notes" type="cwe:StructuredTextType" minOccurs="0" maxOccurs="1"/>
 					</xs:sequence>
@@ -428,6 +666,16 @@
         <xs:annotation>
             <xs:documentation>The MemberType complex type may be used to establish a Has_Member or Member_Of type relationship within the designated View_ID. This type will establish a relationship between the container Category/View ID and the target CWE_ID.</xs:documentation>
         </xs:annotation>
+	<xs:sequence>
+	  <xs:element name="Dimensions" type="cwe:DimensionsType" minOccurs="0" maxOccurs="1">
+		<xs:annotation>
+		  <xs:documentation>
+			Specifies the dimensions that are different between this
+			CWE entry and the related CWE entry.
+		  </xs:documentation>
+		</xs:annotation>
+	  </xs:element>
+	</xs:sequence>
         <xs:attribute name="CWE_ID" type="xs:integer" use="required"/>
         <xs:attribute name="View_ID" type="xs:integer" use="required"/>
     </xs:complexType>
@@ -439,8 +687,11 @@
 			<xs:element name="Introduction" minOccurs="1" maxOccurs="unbounded">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="Phase" type="cwe:PhaseEnumeration" minOccurs="1" maxOccurs="1"/>
-						<xs:element name="Note" type="cwe:StructuredTextType" minOccurs="0" maxOccurs="1"/>
+					  <xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="Phase" type="cwe:PhaseEnumeration" minOccurs="0" maxOccurs="unbounded"/>
+						<xs:element name="Custom_Phase" type="cwe:CustomPhaseType" minOccurs="0" maxOccurs="unbounded"/>
+					  </xs:choice>
+					  <xs:element name="Note" type="cwe:StructuredTextType" minOccurs="0" maxOccurs="1"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -456,6 +707,8 @@
 					<xs:complexContent>
 						<xs:extension base="cwe:StructuredTextType">
 							<xs:attribute name="Type" type="cwe:NoteTypeEnumeration" use="required"/>
+							<xs:attribute name="Version" type="xs:string"/>
+							<xs:attribute name="ReleaseDate" type="xs:date"/>
 						</xs:extension>
 					</xs:complexContent>
 				</xs:complexType>
@@ -473,6 +726,7 @@
 						<xs:element name="Reference" type="xs:string" minOccurs="1" maxOccurs="1"/>
 						<xs:element name="Description" type="cwe:StructuredTextType" minOccurs="1" maxOccurs="1"/>
 						<xs:element name="Link" type="xs:anyURI" minOccurs="1" maxOccurs="1"/>
+						<xs:element name="Rationale" type="cwe:ObexRationaleEnumeration" minOccurs="0" maxOccurs="unbounded"/>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -487,7 +741,10 @@
 			<xs:element name="Mitigation" minOccurs="1" maxOccurs="unbounded">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="Phase" type="cwe:PhaseEnumeration" minOccurs="0" maxOccurs="unbounded"/>
+					  <xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="Phase" type="cwe:PhaseEnumeration"/>
+						<xs:element name="Custom_Phase" type="cwe:CustomPhaseType"/>
+					  </xs:choice>
 						<xs:element name="Strategy" type="cwe:MitigationStrategyEnumeration" minOccurs="0" maxOccurs="1"/>
 						<xs:element name="Description" type="cwe:StructuredTextType" minOccurs="1" maxOccurs="1"/>
 						<xs:element name="Effectiveness" type="cwe:EffectivenessEnumeration" minOccurs="0" maxOccurs="1"/>
@@ -500,7 +757,7 @@
 	</xs:complexType>
 	<xs:complexType name="ReasonsType">
 		<xs:annotation>
-			<xs:documentation>The ReasonsType complex type is used to identify the different reasons to why a CWE should not be considered.</xs:documentation>
+			<xs:documentation>The ReasonsType complex type is used to identify the different reasons why a CWE should not be considered.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Reason" minOccurs="1" maxOccurs="unbounded">
@@ -509,6 +766,75 @@
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
+	</xs:complexType>
+	<xs:simpleType name="CustomPhaseDomainEnumeration">
+	  <xs:restriction base="xs:string">
+	    <xs:enumeration value="AI"/>
+	    <xs:enumeration value="Hardware"/>
+	  </xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CustomPhaseEnumeration">
+	  <xs:union memberTypes="cwe:AIPhaseEnumeration cwe:HardwarePhaseEnumeration"/>
+	</xs:simpleType>
+	<!-- It would be good to allow different Custom_Phase elements
+	     whose enumeration varies depending on the Domain
+	     attribute, but this does not appear to be possible. As a
+	     result, a value from the hardware phase enumeration could
+	     be entered into an AI-specific Custom_Phase element
+	     without any XSD validation errors. An alternate fix could
+	     be to create new elements like "Custom_Phase_AI" and
+	     "Custom_Phase_Hardware" but that seems like overkill and
+	     could limit future flexibility if the number of domains
+	     increases significantly -->
+	<xs:complexType name="CustomPhaseType">
+	  <xs:annotation>
+	    <xs:documentation>The CustomPhaseType complex type is used to identify custom lifecycles for specific domains.</xs:documentation>
+	  </xs:annotation>
+	  <xs:simpleContent>
+	    <xs:extension base="cwe:CustomPhaseEnumeration">
+	      <xs:attribute name="Domain" type="cwe:CustomPhaseDomainEnumeration" use="required"/>
+	      </xs:extension>
+	  </xs:simpleContent>
+	</xs:complexType>
+	<xs:simpleType name="DimensionEnumeration">
+	  <xs:restriction base="xs:string">
+	    <xs:enumeration value="Behavior-Type"/>
+	    <xs:enumeration value="Behavior-Property"/>
+	    <xs:enumeration value="Resource-Type"/>
+	    <xs:enumeration value="Resource-Property"/>
+	    <xs:enumeration value="Input-Type"/>
+	    <xs:enumeration value="Input-Property"/>
+	    <xs:enumeration value="Info-Type"/>
+	    <xs:enumeration value="Info-Property"/>
+	    <xs:enumeration value="Code-Type"/>
+	    <xs:enumeration value="Code-Property"/>
+	    <xs:enumeration value="Technology"/>
+	    <xs:enumeration value="Language-Type"/>
+	    <xs:enumeration value="Language-Property"/>
+	    <xs:enumeration value="Framework"/>
+	    <xs:enumeration value="Common-Name"/>
+	    <xs:enumeration value="Attack"/>
+	    <xs:enumeration value="Acronym"/>
+	    <xs:enumeration value="Other"/>
+	  </xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="DimensionElementType">
+	  <xs:annotation>
+	    <xs:documentation>The DimensionElementType complex type is used to identify dimensions of CWE entries and/or relationships.</xs:documentation>
+	  </xs:annotation>
+	  <xs:simpleContent>
+	    <xs:extension base="xs:string">
+	      <xs:attribute name="Type" type="cwe:DimensionEnumeration" use="required"/>
+	      </xs:extension>
+	  </xs:simpleContent>
+	</xs:complexType>
+	<xs:complexType name="DimensionsType">
+	  <xs:annotation>
+	    <xs:documentation>The DimensionsType complex type is used to identify dimensions of CWE entries and/or relationships.</xs:documentation>
+	  </xs:annotation>
+	  <xs:sequence>
+	    <xs:element name="Dimension" type="cwe:DimensionElementType" minOccurs="1" maxOccurs="unbounded"/>
+	  </xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="ReferencesType">
 		<xs:annotation>
@@ -537,16 +863,70 @@
 	</xs:complexType>
 	<xs:complexType name="RelatedWeaknessesType">
 		<xs:annotation>
-			<xs:documentation>The RelatedWeaknessesType complex type is used to refer to other weaknesses that differ only in their level of abstraction. It contains one or more Related_Weakness elements, each of which is used to link to the CWE identifier of the other Weakness. The nature of the relation is captured by the Nature attribute. Please see the RelatedNatureEnumeration simple type definition for details about the valid value and meanings. The optional Chain_ID attribute specifies the unique ID of a named chain that a CanFollow or CanPrecede relationship pertains to. The optional Ordinal attribute is used to determine if this relationship is the primary ChildOf relationship for this weakness for a given View_ID. This attribute can only have the value "Primary" and should only be included for the primary parent/child relationship. For each unique triple of &lt;Nature, CWE_ID, View_ID&gt;, there should be only one relationship that is given a "Primary" ordinal.</xs:documentation>
+			<xs:documentation>The RelatedWeaknessesType complex type is used to refer to other weaknesses that differ only in their level of abstraction. It contains one or more Related_Weakness elements.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Related_Weakness" minOccurs="1" maxOccurs="unbounded">
+				<xs:annotation>
+				  <xs:documentation>
+					Used to link to the CWE identifier of another Weakness that is related.
+				  </xs:documentation>
+				</xs:annotation>
 				<xs:complexType>
-					<xs:attribute name="Nature" type="cwe:RelatedNatureEnumeration" use="required"/>
-					<xs:attribute name="CWE_ID" type="xs:integer" use="required"/>
-					<xs:attribute name="View_ID" type="xs:integer" use="required"/>
-					<xs:attribute name="Chain_ID" type="xs:integer"/>
-					<xs:attribute name="Ordinal" type="cwe:OrdinalEnumeration"/>
+				  <xs:sequence>
+					<xs:element name="Dimensions" type="cwe:DimensionsType" minOccurs="0" maxOccurs="1">
+					  <xs:annotation>
+						<xs:documentation>Used to specify the
+						dimensions that are different between this CWE
+						entry and the related CWE entry.
+						</xs:documentation>
+					  </xs:annotation>
+					</xs:element>
+				  </xs:sequence>
+					<xs:attribute name="Nature" type="cwe:RelatedNatureEnumeration" use="required">
+					  <xs:annotation>
+						<xs:documentation>
+						  The nature (type) of relationship being recorded.
+						</xs:documentation>
+					  </xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="CWE_ID" type="xs:integer" use="required">
+					  <xs:annotation>
+						<xs:documentation>
+						  The ID of the CWE entry that is related.
+						</xs:documentation>
+					  </xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="View_ID" type="xs:integer" use="required">
+					  <xs:annotation>
+						<xs:documentation>
+						  The ID of the View in which this relationship exists.
+						</xs:documentation>
+					  </xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="Chain_ID" type="xs:integer">
+					  <xs:annotation>
+						<xs:documentation>The unique ID of a named
+						chain that a CanFollow or CanPrecede
+						relationship pertains to.
+						</xs:documentation>
+					  </xs:annotation>
+					</xs:attribute>
+					<xs:attribute name="Ordinal" type="cwe:OrdinalEnumeration">
+					  <xs:annotation>
+						<xs:documentation>
+						  Used to record the primary relationship to
+						  use when there might be more than one
+						  related CWE entry for the given View ID,
+						  typically to indicate the primary ChildOf
+						  relationship for this weakness for a given
+						  View_ID. For each unique triple of
+						  &lt;Nature, CWE_ID, View_ID&gt;, there
+						  should be only one relationship that is
+						  given a "Primary" ordinal.
+						</xs:documentation>
+					  </xs:annotation>
+					</xs:attribute>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
@@ -578,31 +958,56 @@
 	</xs:complexType>
 	<xs:complexType name="TaxonomyMappingsType">
 		<xs:annotation>
-			<xs:documentation>The TaxonomyMappingsType complex type is used to provide a mapping from an entry (Weakness or Category) in CWE to an equivalent entry in a different taxonomy. The required Taxonomy_Name attribute identifies the taxonomy to which the mapping is being made. The Entry_ID and Entry_Name elements identify the ID and name of the entry which is being mapped. The Mapping_Fit element identifies how close the CWE is to the entry in the taxonomy.</xs:documentation>
+			<xs:documentation>The TaxonomyMappingsType complex type is used to provide a mapping from an entry (Weakness or Category) in CWE to an equivalent entry in a different taxonomy.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:element name="Taxonomy_Mapping" minOccurs="1" maxOccurs="unbounded">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="Entry_ID" type="xs:string" minOccurs="0" maxOccurs="1"/>
-						<xs:element name="Entry_Name" type="xs:string" minOccurs="0" maxOccurs="1"/>
-						<xs:element name="Mapping_Fit" type="cwe:TaxonomyMappingFitEnumeration" minOccurs="0" maxOccurs="1"/>
+					  <xs:element name="Entry_ID" type="xs:string" minOccurs="0" maxOccurs="1">
+					    <xs:annotation>
+					      <xs:documentation>The Entry_ID element identifies the ID of the entry which is being mapped.</xs:documentation>
+					    </xs:annotation>
+					  </xs:element>
+						<xs:element name="Entry_Name" type="xs:string" minOccurs="0" maxOccurs="1">
+					    <xs:annotation>
+					      <xs:documentation>The Entry_Name element identifies the name of the entry which is being mapped.</xs:documentation>
+					    </xs:annotation>
+					  </xs:element>
+						<xs:element name="Mapping_Fit" type="cwe:TaxonomyMappingFitEnumeration" minOccurs="0" maxOccurs="1">
+					    <xs:annotation>
+					      <xs:documentation>The Mapping_Fit element identifies how close the CWE is to the entry in the taxonomy.</xs:documentation>
+					    </xs:annotation>
+					  </xs:element>
 					</xs:sequence>
-					<xs:attribute name="Taxonomy_Name" type="cwe:TaxonomyNameEnumeration" use="required"/>
+					<xs:attribute name="Taxonomy_Name" type="cwe:TaxonomyNameEnumeration" use="required">
+					    <xs:annotation>
+					      <xs:documentation>The required Taxonomy_Name attribute identifies the taxonomy to which the mapping is being made.</xs:documentation>
+					    </xs:annotation>
+					</xs:attribute>
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="WeaknessOrdinalitiesType">
 		<xs:annotation>
-			<xs:documentation>The WeaknessOrdinalitiesType complex type indicates potential ordering relationships with other weaknesses. The required Ordinality element identifies whether the weakness has a primary, resultant, or indirect relationship. The optional Description contains the context in which the relationship exists. It is important to note that it is possible for the same entry to be primary in some instances and resultant in others.</xs:documentation>
+			<xs:documentation>The WeaknessOrdinalitiesType complex type indicates potential ordering relationships with other weaknesses.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
-			<xs:element name="Weakness_Ordinality" minOccurs="1" maxOccurs="unbounded">
+		  <xs:element name="Weakness_Ordinality" minOccurs="1" maxOccurs="unbounded">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="Ordinality" type="cwe:OrdinalityEnumeration" minOccurs="1" maxOccurs="1"/>
-						<xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1"/>
+					  <xs:element name="Ordinality" type="cwe:OrdinalityEnumeration" minOccurs="1" maxOccurs="1">
+					    <xs:annotation>
+					      <xs:documentation>The required Ordinality element identifies whether the weakness has a primary, resultant, or indirect relationship. 
+					      </xs:documentation>
+					    </xs:annotation>
+					  </xs:element>
+					  <xs:element name="Description" type="xs:string" minOccurs="0" maxOccurs="1">
+					    <xs:annotation>
+					      <xs:documentation>The optional Description contains the context in which the relationship exists. It is important to note that it is possible for the same entry to be primary in some instances and resultant in others.</xs:documentation>
+					    </xs:annotation>
+					    </xs:element>
 					</xs:sequence>
 				</xs:complexType>
 			</xs:element>
@@ -623,9 +1028,27 @@
 			<xs:enumeration value="Compound"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="AlternateTermRoleEnumeration">
+		<xs:annotation>
+			<xs:documentation>The AlternateTermRoleEnumeration simple type defines the roles that the specified alternate terms might play in understanding weaknesses or vulnerabilities.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Abbreviation"/>
+			<xs:enumeration value="Acronym"/>
+			<xs:enumeration value="Alternate-Spelling"/>
+			<xs:enumeration value="Attack-Focused"/>
+			<xs:enumeration value="Impact-Oriented"/>
+			<xs:enumeration value="Multi-Weakness"/>
+			<xs:enumeration value="Multiple-Interpretation"/>
+			<xs:enumeration value="Common-Name"/>
+			<xs:enumeration value="Discouraged"/>
+			<xs:enumeration value="Legacy"/>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="ArchitectureClassEnumeration">
 		<xs:annotation>
-			<xs:documentation>The ArchitectureClassEnumeration simple type contains a list of values corresponding to known classes of architectures. The value "Not Architecture-Specific" is used to indicate that the entry is not limited to a small set of architectures, i.e., it can appear in many different architectures.</xs:documentation>
+			<xs:documentation>The ArchitectureClassEnumeration simple type contains a list of values corresponding to known classes of architectures.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Embedded"/>
@@ -633,7 +1056,7 @@
 			<xs:enumeration value="Workstation"/>
 			<xs:enumeration value="Not Architecture-Specific">
 			  <xs:annotation>
-			    <xs:documentation>Used to indicate that the entry is not limited to a small set of architectures, i.e., it can appear in many different architectures</xs:documentation>
+			    <xs:documentation>Used to indicate that the entry is not limited to a small set of architectures, i.e., it can appear in many different architectures.</xs:documentation>
 			  </xs:annotation>
 			</xs:enumeration>
 		</xs:restriction>
@@ -711,7 +1134,7 @@
 	</xs:simpleType>
 	<xs:simpleType name="FunctionalAreaEnumeration">
 		<xs:annotation>
-			<xs:documentation>The FunctionalAreaEnumeration simple type defines the different functional areas in which the weakness may appear. The value "Functional-Area-Independent" is used to indicate that the entry is not limited to a small set of functional areas, i.e., it can appear in many different functional areas</xs:documentation>
+		  <xs:documentation>The FunctionalAreaEnumeration simple type defines the different functional areas in which the weakness may appear.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Authentication"/>
@@ -733,7 +1156,7 @@
 			<xs:enumeration value="String Processing"/>
 			<xs:enumeration value="Not Functional-Area-Specific">
 			  <xs:annotation>
-			    <xs:documentation>Used to indicate that the entry is not limited to a small set of functional areas, i.e., it can appear in many different functional areas</xs:documentation>
+			    <xs:documentation>Used to indicate that the entry is not limited to a small set of functional areas, i.e., it can appear in many different functional areas.</xs:documentation>
 			  </xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="Power"/>
@@ -751,7 +1174,7 @@
 	</xs:simpleType>
 	<xs:simpleType name="LanguageClassEnumeration">
 		<xs:annotation>
-			<xs:documentation>The LanguageClassEnumeration simple type contains a list of values corresponding to different classes of source code languages. The same language could belong to multiple language classes, such as 'Object-Oriented' and 'Memory-Unsafe'. The value "Not Language-Specific" is used to indicate that the entry is not limited to a small set of languages.</xs:documentation>
+			<xs:documentation>The LanguageClassEnumeration simple type contains a list of values corresponding to different classes of source code languages. The same language could belong to multiple language classes, such as 'Object-Oriented' and 'Memory-Unsafe'.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Assembly"/>
@@ -773,6 +1196,7 @@
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Ada"/>
+			<xs:enumeration value="Algorithm"/>
 			<xs:enumeration value="ARM Assembly"/>
 			<xs:enumeration value="ASP"/>
 			<xs:enumeration value="ASP.NET"/>
@@ -800,6 +1224,7 @@
 			<xs:enumeration value="Shell"/>
 			<xs:enumeration value="SQL"/>
 			<xs:enumeration value="Swift"/>
+			<xs:enumeration value="SystemVerilog"/>
 			<xs:enumeration value="VB.NET"/>
 			<xs:enumeration value="Verilog"/>
 			<xs:enumeration value="VHDL"/>
@@ -810,13 +1235,19 @@
 	</xs:simpleType>
 	<xs:simpleType name="LikelihoodEnumeration">
 		<xs:annotation>
-			<xs:documentation>The LikelihoodEnumeration simple type contains a list of values corresponding to different likelihoods. The value "Unknown" should be used when the actual likelihood of something occurring is not known.</xs:documentation>
+			<xs:documentation>The LikelihoodEnumeration simple type contains a list of values corresponding to different likelihoods.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="High"/>
 			<xs:enumeration value="Medium"/>
 			<xs:enumeration value="Low"/>
-			<xs:enumeration value="Unknown"/>
+			<xs:enumeration value="Unknown">
+			  <xs:annotation>
+			    <xs:documentation>
+			      The value "Unknown" should be used when the actual likelihood of something occurring is not known.
+			    </xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="MitigationStrategyEnumeration">
@@ -842,15 +1273,75 @@
 	</xs:simpleType>
 	<xs:simpleType name="NoteTypeEnumeration">
 		<xs:annotation>
-		    <xs:documentation>The NoteTypeEnumeration simple type defines the different types of notes that can be associated with a weakness. An "Applicable Platform" note provides additional information about the list of applicable platforms for a given weakness. A "Maintenance" note contains significant maintenance tasks within this entry that still need to be addressed, such as clarifying the concepts involved or improving relationships. A "Relationship" note provides clarifying details regarding the relationships between entities. A "Research Gap" note identifies potential opportunities for the vulnerability research community to conduct further exploration of issues related to this weakness. It is intended to highlight parts of CWE that have not received sufficient attention from researchers. A "Terminology" note contains a discussion of terminology issues related to this weakness, or clarifications when there is no established terminology, or if there are multiple uses of the same key term. It is different from the Alternate_Terms element, which is focused on specific terms that are commonly used. A "Theoretical" note describes the weakness using vulnerability theory concepts. It should be provided as needed, especially in cases where the application of vulnerability theory is not necessarily obvious for the weakness.</xs:documentation>
+		    <xs:documentation>The NoteTypeEnumeration simple type defines the different types of notes that can be associated with a weakness.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="Applicable Platform"/>
-			<xs:enumeration value="Maintenance"/>
-			<xs:enumeration value="Relationship"/>
-			<xs:enumeration value="Research Gap"/>
-			<xs:enumeration value="Terminology"/>
-			<xs:enumeration value="Theoretical"/>
+		  <xs:enumeration value="Applicable Platform">
+		    <xs:annotation>
+		      <xs:documentation>An "Applicable Platform" note provides additional information about the list of applicable platforms for a given weakness.</xs:documentation>
+		    </xs:annotation>
+		  </xs:enumeration>
+		  <xs:enumeration value="Maintenance">
+		    <xs:annotation>
+                      <xs:documentation>A "Maintenance" note contains significant maintenance tasks within this entry that still need to be addressed, such as clarifying the concepts involved or improving relationships.</xs:documentation>
+                    </xs:annotation>
+                  </xs:enumeration>
+		  <xs:enumeration value="Relationship">
+		    <xs:annotation>
+                      <xs:documentation>A "Relationship" note provides clarifying details regarding the relationships between entities. </xs:documentation>
+                    </xs:annotation>
+                  </xs:enumeration>
+		  <xs:enumeration value="Research Gap">
+		    <xs:annotation>
+                      <xs:documentation>A "Research Gap" note identifies potential opportunities for the vulnerability research community to conduct further exploration of issues related to this weakness. It is intended to highlight parts of CWE that have not received sufficient attention from researchers.</xs:documentation>
+                    </xs:annotation>
+                  </xs:enumeration>
+		  <xs:enumeration value="Terminology">
+		    <xs:annotation>
+                      <xs:documentation>A "Terminology" note contains a discussion of terminology issues related to this weakness, or clarifications when there is no established terminology, or if there are multiple uses of the same key term. It is different from the Alternate_Terms element, which is focused on specific terms that are commonly used.</xs:documentation>
+                    </xs:annotation>
+                  </xs:enumeration>
+		  <xs:enumeration value="Theoretical">
+		    <xs:annotation>
+                      <xs:documentation>A "Theoretical" note describes the weakness using vulnerability theory concepts. It should be provided as needed, especially in cases where the application of vulnerability theory is not necessarily obvious for the weakness.</xs:documentation>
+                    </xs:annotation>
+                  </xs:enumeration>
+		  <xs:enumeration value="Other">
+		    <xs:annotation>
+                      <xs:documentation>An "Other" note provides potentially useful information that can not be categorized as another type of note.</xs:documentation>
+                    </xs:annotation>
+                  </xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ObexRationaleEnumeration">
+		<xs:annotation>
+			<xs:documentation>The ObexRationaleEnumeration enumeration provides hints as to why an Observed Example (typically a CVE Record) was included in a CWE entry.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Chain"/>
+			<xs:enumeration value="Early-Publication">
+			  <xs:annotation>
+			    <xs:documentation>
+			      The Observed Example is one of the
+			      earliest examples that were recognized
+			      to be related to this weakness. The
+			      recognition could occur much later than
+			      the original publication.
+			    </xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Influential/Newsworthy">
+			  <xs:annotation>
+			    <xs:documentation>
+			      The Observed Example is an influential
+			      and/or newsworthy example of this
+			      weakness.
+			    </xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Language-Variety"/>
+			<xs:enumeration value="Product-Variety"/>
+			<xs:enumeration value="Attack-Surface"/>
 			<xs:enumeration value="Other"/>
 		</xs:restriction>
 	</xs:simpleType>
@@ -864,7 +1355,7 @@
 	</xs:simpleType>
 	<xs:simpleType name="OrdinalityEnumeration">
 		<xs:annotation>
-			<xs:documentation>The OrdinalityEnumeration simple type contains a list of values used to indicates potential ordering relationships with other weaknesses. A primary relationship means the weakness exists independent of other weaknesses, while a resultant relationship is when a weakness exists only in the presence of some other weaknesses. An indirect relationship means the weakness does not directly lead to security-relevant weaknesses but is a quality issue that might indirectly make it easier to introduce security-relevant weaknesses or make them more difficult to detect.</xs:documentation>
+			<xs:documentation>The OrdinalityEnumeration simple type contains a list of values used to indicate potential ordering relationships with other weaknesses. A primary relationship means the weakness exists independent of other weaknesses, while a resultant relationship is when a weakness exists only in the presence of some other weaknesses. An indirect relationship means the weakness does not directly lead to security-relevant weaknesses but is a quality issue that might indirectly make it easier to introduce security-relevant weaknesses or make them more difficult to detect.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Indirect"/>
@@ -874,7 +1365,7 @@
 	</xs:simpleType>
 	<xs:simpleType name="OperatingSystemClassEnumeration">
 		<xs:annotation>
-			<xs:documentation>The OperatingSystemClassEnumeration simple type contains a list of values corresponding to different classes of operating systems. The value "Not OS-Specific" is used to indicate that the entry is not limited to a small set of operating system classes, i.e., it can appear in many different operating system classes.</xs:documentation>
+			<xs:documentation>The OperatingSystemClassEnumeration simple type contains a list of values corresponding to different classes of operating systems.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Linux"/>
@@ -912,6 +1403,7 @@
 			<xs:enumeration value="Windows 9x"/>
 			<xs:enumeration value="Windows Embedded"/>
 			<xs:enumeration value="Windows NT"/>
+			<xs:enumeration value="Other"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="PhaseEnumeration">
@@ -938,6 +1430,194 @@
 			<xs:enumeration value="Decommissioning and End-of-Life"/>
 		</xs:restriction>
 	</xs:simpleType>
+	<xs:simpleType name="AIPhaseEnumeration">
+	    <xs:annotation>
+	        <xs:documentation>The AIPhaseEnumeration simple type lists different phases in the life cycle for AI-related products.</xs:documentation>
+	    </xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Data Collection"/>
+			<xs:enumeration value="Training"/>
+			<xs:enumeration value="Fine-tuning"/>
+			<xs:enumeration value="Testing"/>
+			<xs:enumeration value="Tokenization"/>
+			<xs:enumeration value="Prompting"/>
+			<xs:enumeration value="Output Processing"/>
+			<xs:enumeration value="Component Interaction"/>
+			<xs:enumeration value="Re-training / Feedback"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="HardwarePhaseEnumeration">
+	    <xs:annotation>
+	        <xs:documentation>The HardwarePhaseEnumeration simple
+	        type lists different phases in the life cycle for
+	        hardware-related products. The list was adapted from
+	        the SAE G-32 working group's "Proposed
+	        Microelectronics Hardware Lifecycle Phases and
+	        Definitions." This enumeration was then further
+	        developed and refined by members of the CWE Hardware
+	        Special Interest Group (HW-SIG) from August to
+	        October, 2026.</xs:documentation>
+	    </xs:annotation>
+	    <xs:restriction base="xs:string">
+	      <xs:enumeration value="Hardware Requirements">
+		<xs:annotation>
+		  <xs:documentation>
+		    Requirements, constraints, assumptions, security
+		    objectives, assurance objectives, updateability
+		    expectations, environmental assumptions, debug
+		    expectations, and trust expectations are defined
+		    and flowed down. Applies to both IP/SoC/Chip/SiP
+		    and board/device contexts.
+		  </xs:documentation>
+		</xs:annotation>
+	      </xs:enumeration>
+	      <xs:enumeration value="Hardware Architecture">
+		<xs:annotation>
+		  <xs:documentation>
+		    High-level structure, trust boundaries, security
+		    domains, major components or blocks, interfaces,
+		    debug strategy, lifecycle assumptions, HW/SW
+		    responsibilities, and major security mechanisms
+		    are defined. Applies to both IP/SoC/Chip/SiP and
+		    board/device contexts.
+		  </xs:documentation>
+		</xs:annotation>
+	      </xs:enumeration>
+	      <xs:enumeration value="Hardware Microarchitecture">
+		<xs:annotation>
+		  <xs:documentation>
+		    Detailed behavior is defined. This includes
+		    pipelines, caches, speculation, buses, fabrics,
+		    bridges, debug/test blocks, processors,
+		    memories. In addition IP (including security IP)
+		    and component choices whose properties affect
+		    security. Applies primarily to
+		    IP/SoC/Chip/SiP. Not generally a board/device
+		    phase unless the CWE entry depends on selected
+		    component behavior.
+		  </xs:documentation>
+		</xs:annotation>
+	      </xs:enumeration>
+	      <xs:enumeration value="Implementation &amp; Physical Design">
+		<xs:annotation>
+		  <xs:documentation>
+		    The design is realized through HDL, logic, state
+		    machines, registers, signals, modules, schematic
+		    capture, PCB layout, routing, connectors, physical
+		    interfaces, debug headers, test pads, buses,
+		    fabrics, tool constraints, control/data paths,
+		    security mechanisms, and pre-silicon IP/SoC
+		    integration. Applies to both IP/SoC/Chip/SiP and
+		    board/device contexts.
+		  </xs:documentation>
+		</xs:annotation>
+	      </xs:enumeration>
+	      <xs:enumeration value="Pre-Manufacturing Verification">
+		<xs:annotation>
+		  <xs:documentation>
+		    The design is reviewed, simulated, formally
+		    analyzed, inspected, or otherwise verified before
+		    fabrication, assembly, or manufacturing
+		    release. Applies to both IP/SoC/Chip/SiP and
+		    board/device contexts. Generally used only for
+		    Detection Methods.
+		  </xs:documentation>
+		</xs:annotation>
+	      </xs:enumeration>
+	      <xs:enumeration value="Hardware Manufacturing">
+		<xs:annotation>
+		  <xs:documentation>
+		    Hardware is fabricated, packaged, assembled,
+		    programmed, tested, labeled, handled, or
+		    transferred through production flows, supplier
+		    handling, provenance, traceability, and production
+		    supply-chain handling (any of which may be
+		    outsourced). Applies to both IP/SoC/Chip/SiP and
+		    board/device contexts.
+		  </xs:documentation>
+		</xs:annotation>
+	      </xs:enumeration>
+	      <xs:enumeration value="Post-Manufacturing Validation">
+		<xs:annotation>
+		  <xs:documentation>
+		    Realized hardware is evaluated after manufacturing
+		    through bring-up, post-silicon validation,
+		    board/device validation,
+		    electrical/physical/security testing, and
+		    conformance checks. Applies to both
+		    IP/SoC/Chip/SiP and board/device
+		    contexts. Generally used only for Detection
+		    Methods.
+		  </xs:documentation>
+		</xs:annotation>
+	      </xs:enumeration>
+	      <xs:enumeration value="Device Configuration &amp; Personalization">
+		<xs:annotation>
+		  <xs:documentation>
+		    Device-specific state is established, including
+		    fuses, lifecycle states, debug lock state, keys,
+		    credentials, identifiers, firmware, settings,
+		    feature enablement, provisioning, and
+		    personalization data. Applies to both
+		    IP/SoC/Chip/SiP and board/device contexts.
+		  </xs:documentation>
+		</xs:annotation>
+	      </xs:enumeration>
+	      <xs:enumeration value="Device / System Integration">
+		<xs:annotation>
+		  <xs:documentation>
+		    Realized chips, components, boards, devices,
+		    firmware, software, subsystems, or systems are
+		    integrated into a larger product, platform, or
+		    operational environment. Applies primarily to
+		    board/device/system contexts; applies to
+		    IP/SoC/Chip/SiP at application level only after
+		    the realized silicon is integrated into a larger
+		    product or system. Does not include pre-silicon
+		    IP/SoC integration.
+		  </xs:documentation>
+		</xs:annotation>
+	      </xs:enumeration>
+	      <xs:enumeration value="Field Operations &amp; Sustainment">
+		<xs:annotation>
+		  <xs:documentation>
+		    Hardware is operated, monitored, updated,
+		    serviced, repaired, replaced, reconfigured,
+		    mitigated, or otherwise sustained after
+		    deployment, including firmware/software
+		    mitigations that affect hardware behavior. Applies
+		    to both IP/SoC/Chip/SiP and board/device contexts.
+		  </xs:documentation>
+		</xs:annotation>
+	      </xs:enumeration>
+	      <xs:enumeration value="Reuse">
+		<xs:annotation>
+		  <xs:documentation>
+		    Hardware is prepared for renewed use, transfer,
+		    redeployment, refurbishment, resale,
+		    repair-return, or repurposing, including reset,
+		    requalification, residual-state review,
+		    provenance, and counterfeit-related
+		    concerns. Applies to both, but is more commonly
+		    board/device/system-facing.
+		  </xs:documentation>
+		</xs:annotation>
+	      </xs:enumeration>
+	      <xs:enumeration value="Decommissioning">
+		<xs:annotation>
+		  <xs:documentation>
+		    Hardware is permanently removed from service,
+		    retired, destroyed, recycled, discarded, or
+		    otherwise disposed of, including sanitization or
+		    destruction of stored data, firmware, credentials,
+		    keys, identifiers, personalization data, and
+		    lifecycle-state information. Applies to both, but
+		    is more commonly board/device/system-facing.
+		  </xs:documentation>
+		</xs:annotation>
+	      </xs:enumeration>
+	    </xs:restriction>
+	</xs:simpleType>
 	<xs:simpleType name="PrevalenceEnumeration">
 		<xs:annotation>
 			<xs:documentation>The PrevalenceEnumeration simple type defines the different regularities that guide the applicability of platforms.</xs:documentation>
@@ -947,41 +1627,227 @@
 			<xs:enumeration value="Sometimes"/>
 			<xs:enumeration value="Rarely"/>
 			<xs:enumeration value="Undetermined"/>
+			<xs:enumeration value="None"/>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ReasonEnumeration">
 	    <xs:annotation>
-	        <xs:documentation>The ReasonEnumeration simple type holds all the different types of reasons to why a CWE might not be considered for mapping.</xs:documentation>
+	        <xs:documentation>The ReasonEnumeration simple type holds all the different types of reasons why a CWE might not be considered for mapping.</xs:documentation>
 	    </xs:annotation>
 	    <xs:restriction base="xs:string">
 	    	<xs:enumeration value="Abstraction"/>
 	    	<xs:enumeration value="Category"/>
+	    	<xs:enumeration value="Grouping"/>
 	        <xs:enumeration value="View"/>
 	        <xs:enumeration value="Deprecated"/>
-			<xs:enumeration value="Potential Deprecation"/>
-			<xs:enumeration value="Frequent Misuse"/>
-			<xs:enumeration value="Frequent Misinterpretation"/>
-	        <xs:enumeration value="Multiple Use"/>
-			<xs:enumeration value="CWE Overlap"/>
-			<xs:enumeration value="Acceptable-Use"/>
+		<xs:enumeration value="Potential Deprecation"/>
+		<xs:enumeration value="Frequent Misuse"/>
+		<xs:enumeration value="Frequent Misinterpretation"/>
+		<xs:enumeration value="Multiple Use"/>
+		<xs:enumeration value="CWE Overlap"/>
+		<xs:enumeration value="Acceptable-Use"/>
+		<xs:enumeration value="Frequently-Resultant"/>
 	        <xs:enumeration value="Potential Major Changes"/>
-			<xs:enumeration value="Other"/>
+		<xs:enumeration value="Other"/>
 	    </xs:restriction>
     </xs:simpleType>
-	<xs:simpleType name="RelatedNatureEnumeration">
+    <xs:simpleType name="ReferenceAccessRestrictionsEnumeration">
+      <xs:annotation>
+	<xs:documentation>The ReferenceAccessRestrictionsEnumeration simple type defines the different types of access restrictions that might apply to a reference. While CWE attempts to provide freely available references without access restrictions, sometimes it must cite restricted references. (Where possible, the reference will include an "Alt_URL" that provides an alternative with fewer restrictions.)</xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string">
+	<xs:enumeration value="None">
+	  <xs:annotation>
+	    <xs:documentation>The reference has no access restrictions, i.e., is freely available to anybody on the internet</xs:documentation>
+	  </xs:annotation>
+	</xs:enumeration>
+	<xs:enumeration value="Proprietary-Subscription">
+	  <xs:annotation>
+	    <xs:documentation>The reference is only available to proprietary consumers, e.g., paid subscribers such as individuals or academic/corporate institutions who pay for site-wide subscriptions, possibly at a cost that prevents some CWE users from being able to access the reference.</xs:documentation>
+	  </xs:annotation>
+	</xs:enumeration>
+	<xs:enumeration value="Minimal-Registration">
+	  <xs:annotation>
+	    <xs:documentation>The reference is only available (without financial expense) to users who must perform a minimal registration to access the reference, e.g., by providing an e-mail address, being logged into a widely-used service, signing up for marketing purposes, etc.</xs:documentation>
+	  </xs:annotation>
+	</xs:enumeration>
+	<xs:enumeration value="Removed">
+	  <xs:annotation>
+	    <xs:documentation>The reference has been removed, e.g., taken off the web with HTTP 404 "Not Found", possibly without other copies of the reference available on other sites</xs:documentation>
+	  </xs:annotation>
+	</xs:enumeration>
+	<xs:enumeration value="Other"/>
+      </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="ReferenceMediaTypeEnumeration">
+      <xs:annotation>
+	<xs:documentation>The ReferenceMediaTypeEnumeration simple
+	type defines the different media type that a reference might
+	use. The media type could make the reference easier or more
+	difficult to access in different contexts. A given URL might
+	point to multiple media types. Note: while CWE attempts to
+	provide references with simple media types that could be used
+	across many contexts and platforms, sometimes it must cite
+	other media types.</xs:documentation>
+      </xs:annotation>
+      <xs:restriction base="xs:string">
+	<xs:enumeration value="Text">
+	  <xs:annotation>
+	    <xs:documentation>The reference is in text format, or in easily-parsed formats such as static HTML or Markdown</xs:documentation>
+	  </xs:annotation>
+	</xs:enumeration>
+	<xs:enumeration value="Common-Proprietary-Text">
+	  <xs:annotation>
+	    <xs:documentation>The reference is in a proprietary text format that is frequently used, e.g., PDF, PowerPoint, Word docx, etc.</xs:documentation>
+	  </xs:annotation>
+	</xs:enumeration>
+	<xs:enumeration value="Video">
+	  <xs:annotation>
+	    <xs:documentation>The reference is in video format, possibly including audio, such as a conference presentation or tutorial.</xs:documentation>
+	  </xs:annotation>
+	</xs:enumeration>
+	<xs:enumeration value="Audio">
+	  <xs:annotation>
+	    <xs:documentation>The reference is in audio format, without accompanying video.</xs:documentation>
+	    </xs:annotation>
+	</xs:enumeration>
+	<xs:enumeration value="Other">
+	  <xs:annotation>
+	    <xs:documentation>The reference is in some other format, which might indicate difficulty for some users to access.</xs:documentation>
+	    </xs:annotation>
+	</xs:enumeration>
+      </xs:restriction>
+    </xs:simpleType>
+	<xs:simpleType name="ReferenceRationaleEnumeration">
 		<xs:annotation>
-		    <xs:documentation>The RelatedNatureEnumeration simple type defines the different values that can be used to define the nature of a related weakness. A ChildOf nature denotes a related weakness at a higher level of abstraction. A ParentOf nature denotes a related weakness at a lower level of abstraction. The StartsWith, CanPrecede, and CanFollow relationships are used to denote weaknesses that are part of a chaining structure. The RequiredBy and Requires relationships are used to denote a weakness that is part of a composite weakness structure. The CanAlsoBe relationship denotes a weakness that, in the proper environment and context, can also be perceived as the target weakness. Note that the CanAlsoBe relationship is not necessarily reciprocal. The PeerOf relationship is used to show some similarity with the target weakness that does not fit any of the other type of relationships.</xs:documentation>
+			<xs:documentation>The ReferenceRationaleEnumeration enumeration provides hints as to why a Reference was cited in a CWE entry.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
-			<xs:enumeration value="ChildOf"/>
-			<xs:enumeration value="ParentOf"/>
-			<xs:enumeration value="StartsWith"/>
-			<xs:enumeration value="CanFollow"/>
-			<xs:enumeration value="CanPrecede"/>
-			<xs:enumeration value="RequiredBy"/>
-			<xs:enumeration value="Requires"/>
-			<xs:enumeration value="CanAlsoBe"/>
-			<xs:enumeration value="PeerOf"/>
+			<xs:enumeration value="Example">
+			  <xs:annotation>
+			    <xs:documentation>
+			      The reference is being used in an
+			      example (whether an Observed_Example or
+			      Demonstrative_Example) and provides more
+			      details for the example; possibly the
+			      original source of the examples.
+			    </xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Early-Publication">
+			  <xs:annotation>
+			    <xs:documentation>
+			      The reference is an early publication -
+			      possibly the first - in which the
+			      weakness (or its exploitation) is
+			      described and explained in some depth.
+			    </xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Influential/Newsworthy">
+			  <xs:annotation>
+			    <xs:documentation>
+			      The reference is influential and/or
+			      newsworthy for describing this weakness
+			      (or its exploitation) in some depth.
+			    </xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Manual/Man Pages">
+			  <xs:annotation>
+			    <xs:documentation>
+			      The reference is a manual,
+			      specification, or "man pages" that is a
+			      technical reference for related behavior
+			      with a technical audience, but the
+			      reference is not focused on the given
+			      weakness. This is typically used for
+			      background explanation.
+			    </xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Mitigation-Based">
+			  <xs:annotation>
+			    <xs:documentation>
+			      The reference proposes ways to mitigate
+			      or eliminate weaknesses on a systemic
+			      level.
+			    </xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Secure-Development-Rules">
+			  <xs:annotation>
+			    <xs:documentation>
+			      The reference points to formalized,
+			      commonly-used mechanisms related to
+			      rules or guides for secure development.
+			    </xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RelatedNatureEnumeration">
+		<xs:annotation>
+		    <xs:documentation>The RelatedNatureEnumeration simple type defines the different values that can be used to define the nature of a related weakness.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+		  <xs:enumeration value="ChildOf">
+		    <xs:annotation>
+		      <xs:documentation>A ChildOf nature denotes a related weakness at a higher level of abstraction.</xs:documentation>
+		    </xs:annotation>
+		  </xs:enumeration>
+		  <xs:enumeration value="ParentOf">
+		    <xs:annotation>
+                      <xs:documentation>A ParentOf nature denotes a related weakness at a lower level of abstraction.
+		      </xs:documentation>
+		    </xs:annotation>
+		  </xs:enumeration>
+			<xs:enumeration value="StartsWith">
+			  <xs:annotation>
+			    <xs:documentation>Used for Named Chains only. Denotes the start of a named chain that has a chaining structure.</xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CanFollow">
+			  <xs:annotation>
+			    <xs:documentation>Denotes which weakness can appear before this one in a chaining relationship.
+			    </xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CanPrecede">
+			  <xs:annotation>
+			    <xs:documentation>Denotes which weakness can appear after this one in a chaining relationship.
+			    </xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RequiredBy">
+			  <xs:annotation>
+			    <xs:documentation>Used for relationships with Composites only. Indicates a composite weakness that requires the presence of this weakness.
+			    </xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Requires">
+			  <xs:annotation>
+			    <xs:documentation>For Composites only. Indicates a weakness that is part of this composite weakness.
+			    </xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CanAlsoBe">
+			  <xs:annotation>
+			    <xs:documentation>The CanAlsoBe relationship denotes a weakness that, in the proper environment and context, can also be perceived as the target weakness, but is not a parent or child. Note that the CanAlsoBe relationship is not necessarily reciprocal.</xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="PeerOf">
+			  <xs:annotation>
+			    <xs:documentation>The PeerOf relationship is used to show some similarity with the target weakness that does not fit any of the other type of relationships.
+			    </xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Overlaps">
+			  <xs:annotation>
+			    <xs:documentation>An Overlaps nature denotes a related weakness that has some overlap with the current weakness. Ideally, CWE should not have any overlapping entries, but this is not always the case.</xs:documentation>
+			  </xs:annotation>
+			</xs:enumeration>
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:simpleType name="ResourceEnumeration">
@@ -1057,7 +1923,7 @@
 	</xs:simpleType>
 	<xs:simpleType name="StructuredCodeNatureEnumeration">
 		<xs:annotation>
-			<xs:documentation>The StructuredCodeNatureEnumeration sinple type defines the different values that state what type of code is being shown in an eample.</xs:documentation>
+			<xs:documentation>The StructuredCodeNatureEnumeration simple type defines the different values that state what type of code is being shown in an example.</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:string">
 			<xs:enumeration value="Attack"/>
@@ -1082,7 +1948,7 @@
     </xs:simpleType>
 	<xs:simpleType name="TaxonomyNameEnumeration">
 	    <xs:annotation>
-	        <xs:documentation>The TaxonomyNameEnumeration simple type lists the different known taxomomies that can be mapped to CWE.</xs:documentation>
+	        <xs:documentation>The TaxonomyNameEnumeration simple type lists the different known taxonomies that can be mapped to CWE.</xs:documentation>
 	    </xs:annotation>
 	    <xs:restriction base="xs:string">
 			<xs:enumeration value="7 Pernicious Kingdoms"/>
@@ -1099,9 +1965,12 @@
 			<xs:enumeration value="OMG ASCRM"/>
 			<xs:enumeration value="OMG ASCMM"/>
 			<xs:enumeration value="OMG ASCPEM"/>
+			<xs:enumeration value="OpenSSF Secure Coding Guide for Python"/>
+			<xs:enumeration value="OWASP Golang Secure Coding Practices Guide"/>
 			<xs:enumeration value="OWASP Top Ten 2004"/>
 			<xs:enumeration value="OWASP Top Ten 2007"/>
 			<xs:enumeration value="OWASP Top Ten"/>
+			<xs:enumeration value="PLC Top 20"/>
 			<xs:enumeration value="PLOVER"/>
 			<xs:enumeration value="Protection Analysis"/>
 			<xs:enumeration value="RISOS"/>
@@ -1128,14 +1997,17 @@
 			<xs:enumeration value="DoS: Crash, Exit, or Restart"/>
 			<xs:enumeration value="DoS: Amplification"/>
 			<xs:enumeration value="DoS: Instability"/>
+			<xs:enumeration value="DoS: Prevent Access"/>
 			<xs:enumeration value="DoS: Resource Consumption (CPU)"/>
 			<xs:enumeration value="DoS: Resource Consumption (Memory)"/>
 			<xs:enumeration value="DoS: Resource Consumption (Other)"/>
+			<xs:enumeration value="DoS: Other"/>
 			<xs:enumeration value="Execute Unauthorized Code or Commands"/>
 			<xs:enumeration value="Gain Privileges or Assume Identity"/>
 			<xs:enumeration value="Bypass Protection Mechanism"/>
 			<xs:enumeration value="Hide Activities"/>
 			<xs:enumeration value="Alter Execution Logic"/>
+			<xs:enumeration value="Undefined Behavior"/>
 			<xs:enumeration value="Quality Degradation"/>
 			<xs:enumeration value="Unexpected State"/>
 			<xs:enumeration value="Varies by Context"/>
@@ -1143,7 +2015,7 @@
 			  <xs:annotation>
 				<xs:documentation>It is more difficult for humans or
 				tools to analyze the product's code, documentation,
-				and other artifacts understand how the product works
+				and other artifacts to understand how the product works
 				or is intended to work, which can make it more
 				difficult to find and fix
 				vulnerabilities.</xs:documentation>
@@ -1172,7 +2044,7 @@
 			</xs:enumeration>
 			<xs:enumeration value="ICS/OT">
 				<xs:annotation>
-					<xs:documentation>Represents technology related to Industrial Control Systems (ICS) and Operational Techology (OT), which are often considered to be distinct from Information Technology (IT) systems.</xs:documentation>
+					<xs:documentation>Represents technology related to Industrial Control Systems (ICS) and Operational Technology (OT), which are often considered to be distinct from Information Technology (IT) systems.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="Mainframe"/>
@@ -1220,7 +2092,7 @@
 			</xs:enumeration>
 			<xs:enumeration value="Analog and Mixed Signal Hardware">
 				<xs:annotation>
-					<xs:documentation>hardware Intellectual Property (IP) that controls/senses the electricals for communication which receives/transmits signals conditioned outside of a system’s digital domain.</xs:documentation>
+					<xs:documentation>hardware Intellectual Property (IP) that controls/senses the electricals for communication which receives/transmits signals conditioned outside of a system's digital domain.</xs:documentation>
 				</xs:annotation>
 			</xs:enumeration>
 			<xs:enumeration value="Audio/Video Hardware">
@@ -1326,7 +2198,7 @@
 	<!-- =============================================================================== -->
 	<xs:complexType name="StructuredTextType" mixed="true">
 		<xs:annotation>
-			<xs:documentation>The StructuredTextType complex type is used to allow XHTML content embedded within standard string data. Some common elements are: &lt;BR/&gt; to insert a line break, &lt;UL&gt;&lt;LI/&gt;&lt;/UL&gt; to create a bulleted list, &lt;OL&gt;&lt;LI/&gt;&lt;/OL&gt; to create a numbered list, and &lt;DIV style="margin-left: 40px"&gt;&lt;/DIV&gt; to create a new indented section.</xs:documentation>
+			<xs:documentation>The StructuredTextType complex type is used to allow XHTML content embedded within standard string data. Some common elements are: &lt;BR/&gt; to insert a line break, &lt;UL&gt;&lt;LI/&gt;&lt;/UL&gt; to create a bulleted list, &lt;OL&gt;&lt;LI/&gt;&lt;/OL&gt; to create a numbered list, and &lt;DIV style="margin-left:1em"&gt;&lt;/DIV&gt; to create a new indented section.</xs:documentation>
 		</xs:annotation>
 		<xs:sequence>
 			<xs:any namespace="http://www.w3.org/1999/xhtml" minOccurs="0" maxOccurs="unbounded" processContents="strict"/>
