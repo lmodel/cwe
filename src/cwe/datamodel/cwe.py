@@ -1,13 +1,8 @@
 # Auto generated from cwe.yaml by pythongen.py version: 0.0.1
-# Generation date: 2026-05-07T15:07:42
 # Schema: cwe
 #
 # id: https://w3id.org/lmodel/cwe
-# description: MITRE Common Weakness Enumeration (CWE) LinkML Schema.
-#
-#   Self-contained schema covering the full MITRE CWE XSD: weakness entries,
-#   categories, views, external references, and NVD weakness observations (CWE-ID,
-#   CWE Name, Source).
+# description: A LinkML model of the Common Weakness Enumeration, the catalogue of software and hardware weakness types that The MITRE Corporation publishes for the CWE Program. It renders the catalogue's XML Schema with its own element names and values, so the whole catalogue validates with both unchanged.
 # license: Apache-2.0
 
 import dataclasses
@@ -60,3066 +55,3630 @@ from rdflib import (
     URIRef
 )
 
-from linkml_runtime.linkml_model.types import Date, Integer, String, Uri
+from linkml_runtime.linkml_model.types import Date, String, Uri
 from linkml_runtime.utils.metamodelcore import URI, XSDDate
 
-metamodel_version = "1.7.0"
-version = "7.3"
+metamodel_version = "1.12.0"
+version = "5.0"
 
 # Namespaces
-WIKIDATA = CurieNamespace('WIKIDATA', 'https://www.wikidata.org/wiki/')
-CAPEC = CurieNamespace('capec', 'https://w3id.org/lmodel/capec/')
 CVE = CurieNamespace('cve', 'https://w3id.org/lmodel/cve/')
 CWE = CurieNamespace('cwe', 'https://w3id.org/lmodel/cwe/')
-DCT = CurieNamespace('dct', 'http://purl.org/dc/terms/')
+DCTERMS = CurieNamespace('dcterms', 'http://purl.org/dc/terms/')
+KEV_CATALOG = CurieNamespace('kev_catalog', 'https://w3id.org/lmodel/kev-catalog/')
 LINKML = CurieNamespace('linkml', 'https://w3id.org/linkml/')
-RDFS = CurieNamespace('rdfs', 'http://www.w3.org/2000/01/rdf-schema#')
+NIST_NVD = CurieNamespace('nist_nvd', 'https://w3id.org/lmodel/nist-nvd/')
 SCHEMA = CurieNamespace('schema', 'http://schema.org/')
+SEPSES_CWE = CurieNamespace('sepses_cwe', 'http://w3id.org/sepses/vocab/ref/cwe#')
 SKOS = CurieNamespace('skos', 'http://www.w3.org/2004/02/skos/core#')
+SPDX_CORE = CurieNamespace('spdx_core', 'https://spdx.org/rdf/3.0.1/terms/Core/')
+WD = CurieNamespace('wd', 'http://www.wikidata.org/entity/')
+WDT = CurieNamespace('wdt', 'http://www.wikidata.org/prop/direct/')
 XSD = CurieNamespace('xsd', 'http://www.w3.org/2001/XMLSchema#')
 DEFAULT_ = CWE
 
 
 # Types
-class CveId(str):
-    """ A CVE identifier assigned by a CVE Numbering Authority (CNA). Format: CVE-YYYY-NNNNN. """
+class CweEntryId(String):
+    """ The number that identifies an entry of the CWE List, written as text, such as 79. """
     type_class_uri = XSD["string"]
     type_class_curie = "xsd:string"
-    type_name = "CveId"
-    type_model_uri = CWE.CveId
+    type_name = "cwe_entry_id"
+    type_model_uri = CWE.CweEntryId
+
+
+class CweCapecId(String):
+    """ The number of an attack pattern in the CAPEC list, written as text, such as 63. """
+    type_class_uri = XSD["string"]
+    type_class_curie = "xsd:string"
+    type_name = "cwe_capec_id"
+    type_model_uri = CWE.CweCapecId
+
+
+class CweReferenceId(String):
+    """ The identifier of an external reference in the catalogue, such as REF-1. """
+    type_class_uri = XSD["string"]
+    type_class_curie = "xsd:string"
+    type_name = "cwe_reference_id"
+    type_model_uri = CWE.CweReferenceId
+
+
+class CweStructuredText(String):
+    """ Text that may hold XHTML markup, kept as a well-formed fragment without the namespace prefix and with its special characters escaped. """
+    type_class_uri = XSD["string"]
+    type_class_curie = "xsd:string"
+    type_name = "cwe_structured_text"
+    type_model_uri = CWE.CweStructuredText
+
+
+class CwePublicationYear(String):
+    """ A year in XML Schema's form, such as 2021. """
+    type_class_uri = XSD["gYear"]
+    type_class_curie = "xsd:gYear"
+    type_name = "cwe_publication_year"
+    type_model_uri = CWE.CwePublicationYear
+
+
+class CwePublicationMonth(String):
+    """ A month in XML Schema's form, two hyphens and two digits, such as --03. """
+    type_class_uri = XSD["gMonth"]
+    type_class_curie = "xsd:gMonth"
+    type_name = "cwe_publication_month"
+    type_model_uri = CWE.CwePublicationMonth
+
+
+class CwePublicationDay(String):
+    """ A day of the month in XML Schema's form, three hyphens and two digits, such as ---06. """
+    type_class_uri = XSD["gDay"]
+    type_class_curie = "xsd:gDay"
+    type_name = "cwe_publication_day"
+    type_model_uri = CWE.CwePublicationDay
 
 
 # Class references
-class WeaknessCatalogName(extended_str):
+class CweExternalReferenceReferenceID(CweReferenceId):
     pass
 
 
-class WeaknessId(extended_int):
+class CweEntryID(CweEntryId):
     pass
 
 
-class CategoryId(extended_int):
+class CweWeaknessID(CweEntryID):
     pass
 
 
-class ViewId(extended_int):
+class CweGroupingID(CweEntryID):
     pass
 
 
-class ExternalReferenceReferenceId(extended_str):
-    pass
-
-
-class NVDWeaknessObservationObservationId(extended_str):
+class CweViewID(CweEntryID):
     pass
 
 
 @dataclass(repr=False)
-class WeaknessCatalog(YAMLRoot):
+class CweWeaknessCatalog(YAMLRoot):
     """
-    Top-level container for a CWE catalog snapshot (Weakness_Catalog in XSD). Holds weakness entries, categories,
-    views, external references, and NVD weakness observations.
+    One release of the CWE List, with all its entries and the sources they cite.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["WeaknessCatalog"]
-    class_class_curie: ClassVar[str] = "cwe:WeaknessCatalog"
-    class_name: ClassVar[str] = "WeaknessCatalog"
-    class_model_uri: ClassVar[URIRef] = CWE.WeaknessCatalog
+    class_class_uri: ClassVar[URIRef] = CWE["CweWeaknessCatalog"]
+    class_class_curie: ClassVar[str] = "cwe:CweWeaknessCatalog"
+    class_name: ClassVar[str] = "CweWeaknessCatalog"
+    class_model_uri: ClassVar[URIRef] = CWE.CweWeaknessCatalog
 
-    name: Union[str, WeaknessCatalogName] = None
-    version: str = None
-    date: Union[str, XSDDate] = None
-    weaknesses: Optional[Union[dict[Union[int, WeaknessId], Union[dict, "Weakness"]], list[Union[dict, "Weakness"]]]] = empty_dict()
-    categories: Optional[Union[dict[Union[int, CategoryId], Union[dict, "Category"]], list[Union[dict, "Category"]]]] = empty_dict()
-    views: Optional[Union[dict[Union[int, ViewId], Union[dict, "View"]], list[Union[dict, "View"]]]] = empty_dict()
-    external_references: Optional[Union[dict[Union[str, ExternalReferenceReferenceId], Union[dict, "ExternalReference"]], list[Union[dict, "ExternalReference"]]]] = empty_dict()
-    observations: Optional[Union[dict[Union[str, NVDWeaknessObservationObservationId], Union[dict, "NVDWeaknessObservation"]], list[Union[dict, "NVDWeaknessObservation"]]]] = empty_dict()
+    Name: str = None
+    Version: str = None
+    Date: Union[str, XSDDate] = None
+    Weaknesses: Optional[Union[dict[Union[str, CweWeaknessID], Union[dict, "CweWeakness"]], list[Union[dict, "CweWeakness"]]]] = empty_dict()
+    Groupings: Optional[Union[dict[Union[str, CweGroupingID], Union[dict, "CweGrouping"]], list[Union[dict, "CweGrouping"]]]] = empty_dict()
+    Views: Optional[Union[dict[Union[str, CweViewID], Union[dict, "CweView"]], list[Union[dict, "CweView"]]]] = empty_dict()
+    External_References: Optional[Union[dict[Union[str, CweExternalReferenceReferenceID], Union[dict, "CweExternalReference"]], list[Union[dict, "CweExternalReference"]]]] = empty_dict()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.name):
-            self.MissingRequiredField("name")
-        if not isinstance(self.name, WeaknessCatalogName):
-            self.name = WeaknessCatalogName(self.name)
+        if self._is_empty(self.Name):
+            self.MissingRequiredField("Name")
+        if not isinstance(self.Name, str):
+            self.Name = str(self.Name)
 
-        if self._is_empty(self.version):
-            self.MissingRequiredField("version")
-        if not isinstance(self.version, str):
-            self.version = str(self.version)
+        if self._is_empty(self.Version):
+            self.MissingRequiredField("Version")
+        if not isinstance(self.Version, str):
+            self.Version = str(self.Version)
 
-        if self._is_empty(self.date):
-            self.MissingRequiredField("date")
-        if not isinstance(self.date, XSDDate):
-            self.date = XSDDate(self.date)
+        if self._is_empty(self.Date):
+            self.MissingRequiredField("Date")
+        if not isinstance(self.Date, XSDDate):
+            self.Date = XSDDate(self.Date)
 
-        self._normalize_inlined_as_list(slot_name="weaknesses", slot_type=Weakness, key_name="id", keyed=True)
+        self._normalize_inlined_as_list(slot_name="Weaknesses", slot_type=CweWeakness, key_name="ID", keyed=True)
 
-        self._normalize_inlined_as_list(slot_name="categories", slot_type=Category, key_name="id", keyed=True)
+        self._normalize_inlined_as_list(slot_name="Groupings", slot_type=CweGrouping, key_name="ID", keyed=True)
 
-        self._normalize_inlined_as_list(slot_name="views", slot_type=View, key_name="id", keyed=True)
+        self._normalize_inlined_as_list(slot_name="Views", slot_type=CweView, key_name="ID", keyed=True)
 
-        self._normalize_inlined_as_list(slot_name="external_references", slot_type=ExternalReference, key_name="reference_id", keyed=True)
-
-        self._normalize_inlined_as_list(slot_name="observations", slot_type=NVDWeaknessObservation, key_name="observation_id", keyed=True)
+        self._normalize_inlined_as_list(slot_name="External_References", slot_type=CweExternalReference, key_name="Reference_ID", keyed=True)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class Weakness(YAMLRoot):
+class CweExternalReference(YAMLRoot):
     """
-    Canonical CWE weakness record (WeaknessType in XSD). Describes a specific type of weakness and the full set of
-    associated information.
+    A source that entries of the catalogue cite, such as a paper, a book or a web page.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["Weakness"]
-    class_class_curie: ClassVar[str] = "cwe:Weakness"
-    class_name: ClassVar[str] = "Weakness"
-    class_model_uri: ClassVar[URIRef] = CWE.Weakness
+    class_class_uri: ClassVar[URIRef] = CWE["CweExternalReference"]
+    class_class_curie: ClassVar[str] = "cwe:CweExternalReference"
+    class_name: ClassVar[str] = "CweExternalReference"
+    class_model_uri: ClassVar[URIRef] = CWE.CweExternalReference
 
-    id: Union[int, WeaknessId] = None
-    name: str = None
-    description: str = None
-    abstraction: Union[str, "WeaknessAbstraction"] = None
-    structure: Union[str, "WeaknessStructure"] = None
-    status: Union[str, "WeaknessStatus"] = None
-    mapping_notes: Union[dict, "MappingNotes"] = None
-    content_history: Union[dict, "ContentHistory"] = None
-    extended_description: Optional[str] = None
-    diagram: Optional[str] = None
-    weakness_ordinalities: Optional[Union[Union[dict, "WeaknessOrdinality"], list[Union[dict, "WeaknessOrdinality"]]]] = empty_list()
-    applicable_platforms: Optional[Union[dict, "ApplicablePlatforms"]] = None
-    background_details: Optional[Union[str, list[str]]] = empty_list()
-    alternate_terms: Optional[Union[Union[dict, "AlternateTerm"], list[Union[dict, "AlternateTerm"]]]] = empty_list()
-    modes_of_introduction: Optional[Union[Union[dict, "ModeOfIntroduction"], list[Union[dict, "ModeOfIntroduction"]]]] = empty_list()
-    exploitation_factors: Optional[Union[str, list[str]]] = empty_list()
-    likelihood_of_exploit: Optional[Union[str, "LikelihoodLevel"]] = None
-    common_consequences: Optional[Union[Union[dict, "CommonConsequence"], list[Union[dict, "CommonConsequence"]]]] = empty_list()
-    detection_methods: Optional[Union[Union[dict, "DetectionMethod"], list[Union[dict, "DetectionMethod"]]]] = empty_list()
-    potential_mitigations: Optional[Union[Union[dict, "PotentialMitigation"], list[Union[dict, "PotentialMitigation"]]]] = empty_list()
-    demonstrative_examples: Optional[Union[Union[dict, "DemonstrativeExample"], list[Union[dict, "DemonstrativeExample"]]]] = empty_list()
-    observed_examples: Optional[Union[Union[dict, "ObservedExample"], list[Union[dict, "ObservedExample"]]]] = empty_list()
-    functional_areas: Optional[Union[Union[str, "FunctionalArea"], list[Union[str, "FunctionalArea"]]]] = empty_list()
-    affected_resources: Optional[Union[Union[str, "AffectedResource"], list[Union[str, "AffectedResource"]]]] = empty_list()
-    taxonomy_mappings: Optional[Union[Union[dict, "TaxonomyMapping"], list[Union[dict, "TaxonomyMapping"]]]] = empty_list()
-    related_attack_patterns: Optional[Union[int, list[int]]] = empty_list()
-    related_weaknesses: Optional[Union[Union[dict, "RelatedWeakness"], list[Union[dict, "RelatedWeakness"]]]] = empty_list()
-    references: Optional[Union[Union[dict, "CWEReference"], list[Union[dict, "CWEReference"]]]] = empty_list()
-    notes: Optional[Union[Union[dict, "Note"], list[Union[dict, "Note"]]]] = empty_list()
-    tags: Optional[Union[str, list[str]]] = empty_list()
-    source: Optional[str] = None
+    Reference_ID: Union[str, CweExternalReferenceReferenceID] = None
+    Title: str = None
+    Author: Optional[Union[str, list[str]]] = empty_list()
+    Edition: Optional[str] = None
+    Publication: Optional[str] = None
+    Publication_Year: Optional[Union[str, CwePublicationYear]] = None
+    Publication_Month: Optional[Union[str, CwePublicationMonth]] = None
+    Publication_Day: Optional[Union[str, CwePublicationDay]] = None
+    Publisher: Optional[str] = None
+    URL: Optional[Union[str, URI]] = None
+    URL_Date: Optional[Union[str, XSDDate]] = None
+    Alt_URL: Optional[Union[str, URI]] = None
+    Alt_URL_Date: Optional[Union[str, XSDDate]] = None
+    Media_Type: Optional[Union[Union[str, "CweReferenceMediaType"], list[Union[str, "CweReferenceMediaType"]]]] = empty_list()
+    Access_Restrictions: Optional[Union[str, "CweReferenceAccessRestriction"]] = None
+    Rationale: Optional[Union[Union[str, "CweReferenceRationale"], list[Union[str, "CweReferenceRationale"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.id):
-            self.MissingRequiredField("id")
-        if not isinstance(self.id, WeaknessId):
-            self.id = WeaknessId(self.id)
+        if self._is_empty(self.Reference_ID):
+            self.MissingRequiredField("Reference_ID")
+        if not isinstance(self.Reference_ID, CweExternalReferenceReferenceID):
+            self.Reference_ID = CweExternalReferenceReferenceID(self.Reference_ID)
 
-        if self._is_empty(self.name):
-            self.MissingRequiredField("name")
-        if not isinstance(self.name, str):
-            self.name = str(self.name)
+        if self._is_empty(self.Title):
+            self.MissingRequiredField("Title")
+        if not isinstance(self.Title, str):
+            self.Title = str(self.Title)
 
-        if self._is_empty(self.description):
-            self.MissingRequiredField("description")
-        if not isinstance(self.description, str):
-            self.description = str(self.description)
+        if not isinstance(self.Author, list):
+            self.Author = [self.Author] if self.Author is not None else []
+        self.Author = [v if isinstance(v, str) else str(v) for v in self.Author]
 
-        if self._is_empty(self.abstraction):
-            self.MissingRequiredField("abstraction")
-        if not isinstance(self.abstraction, WeaknessAbstraction):
-            self.abstraction = WeaknessAbstraction(self.abstraction)
+        if self.Edition is not None and not isinstance(self.Edition, str):
+            self.Edition = str(self.Edition)
 
-        if self._is_empty(self.structure):
-            self.MissingRequiredField("structure")
-        if not isinstance(self.structure, WeaknessStructure):
-            self.structure = WeaknessStructure(self.structure)
+        if self.Publication is not None and not isinstance(self.Publication, str):
+            self.Publication = str(self.Publication)
 
-        if self._is_empty(self.status):
-            self.MissingRequiredField("status")
-        if not isinstance(self.status, WeaknessStatus):
-            self.status = WeaknessStatus(self.status)
+        if self.Publication_Year is not None and not isinstance(self.Publication_Year, CwePublicationYear):
+            self.Publication_Year = CwePublicationYear(self.Publication_Year)
 
-        if self._is_empty(self.mapping_notes):
-            self.MissingRequiredField("mapping_notes")
-        if not isinstance(self.mapping_notes, MappingNotes):
-            self.mapping_notes = MappingNotes(**as_dict(self.mapping_notes))
+        if self.Publication_Month is not None and not isinstance(self.Publication_Month, CwePublicationMonth):
+            self.Publication_Month = CwePublicationMonth(self.Publication_Month)
 
-        if self._is_empty(self.content_history):
-            self.MissingRequiredField("content_history")
-        if not isinstance(self.content_history, ContentHistory):
-            self.content_history = ContentHistory(**as_dict(self.content_history))
+        if self.Publication_Day is not None and not isinstance(self.Publication_Day, CwePublicationDay):
+            self.Publication_Day = CwePublicationDay(self.Publication_Day)
 
-        if self.extended_description is not None and not isinstance(self.extended_description, str):
-            self.extended_description = str(self.extended_description)
+        if self.Publisher is not None and not isinstance(self.Publisher, str):
+            self.Publisher = str(self.Publisher)
 
-        if self.diagram is not None and not isinstance(self.diagram, str):
-            self.diagram = str(self.diagram)
+        if self.URL is not None and not isinstance(self.URL, URI):
+            self.URL = URI(self.URL)
 
-        if not isinstance(self.weakness_ordinalities, list):
-            self.weakness_ordinalities = [self.weakness_ordinalities] if self.weakness_ordinalities is not None else []
-        self.weakness_ordinalities = [v if isinstance(v, WeaknessOrdinality) else WeaknessOrdinality(**as_dict(v)) for v in self.weakness_ordinalities]
+        if self.URL_Date is not None and not isinstance(self.URL_Date, XSDDate):
+            self.URL_Date = XSDDate(self.URL_Date)
 
-        if self.applicable_platforms is not None and not isinstance(self.applicable_platforms, ApplicablePlatforms):
-            self.applicable_platforms = ApplicablePlatforms(**as_dict(self.applicable_platforms))
+        if self.Alt_URL is not None and not isinstance(self.Alt_URL, URI):
+            self.Alt_URL = URI(self.Alt_URL)
 
-        if not isinstance(self.background_details, list):
-            self.background_details = [self.background_details] if self.background_details is not None else []
-        self.background_details = [v if isinstance(v, str) else str(v) for v in self.background_details]
+        if self.Alt_URL_Date is not None and not isinstance(self.Alt_URL_Date, XSDDate):
+            self.Alt_URL_Date = XSDDate(self.Alt_URL_Date)
 
-        if not isinstance(self.alternate_terms, list):
-            self.alternate_terms = [self.alternate_terms] if self.alternate_terms is not None else []
-        self.alternate_terms = [v if isinstance(v, AlternateTerm) else AlternateTerm(**as_dict(v)) for v in self.alternate_terms]
+        if not isinstance(self.Media_Type, list):
+            self.Media_Type = [self.Media_Type] if self.Media_Type is not None else []
+        self.Media_Type = [v if isinstance(v, CweReferenceMediaType) else CweReferenceMediaType(v) for v in self.Media_Type]
 
-        if not isinstance(self.modes_of_introduction, list):
-            self.modes_of_introduction = [self.modes_of_introduction] if self.modes_of_introduction is not None else []
-        self.modes_of_introduction = [v if isinstance(v, ModeOfIntroduction) else ModeOfIntroduction(**as_dict(v)) for v in self.modes_of_introduction]
+        if self.Access_Restrictions is not None and not isinstance(self.Access_Restrictions, CweReferenceAccessRestriction):
+            self.Access_Restrictions = CweReferenceAccessRestriction(self.Access_Restrictions)
 
-        if not isinstance(self.exploitation_factors, list):
-            self.exploitation_factors = [self.exploitation_factors] if self.exploitation_factors is not None else []
-        self.exploitation_factors = [v if isinstance(v, str) else str(v) for v in self.exploitation_factors]
-
-        if self.likelihood_of_exploit is not None and not isinstance(self.likelihood_of_exploit, LikelihoodLevel):
-            self.likelihood_of_exploit = LikelihoodLevel(self.likelihood_of_exploit)
-
-        if not isinstance(self.common_consequences, list):
-            self.common_consequences = [self.common_consequences] if self.common_consequences is not None else []
-        self.common_consequences = [v if isinstance(v, CommonConsequence) else CommonConsequence(**as_dict(v)) for v in self.common_consequences]
-
-        if not isinstance(self.detection_methods, list):
-            self.detection_methods = [self.detection_methods] if self.detection_methods is not None else []
-        self.detection_methods = [v if isinstance(v, DetectionMethod) else DetectionMethod(**as_dict(v)) for v in self.detection_methods]
-
-        if not isinstance(self.potential_mitigations, list):
-            self.potential_mitigations = [self.potential_mitigations] if self.potential_mitigations is not None else []
-        self.potential_mitigations = [v if isinstance(v, PotentialMitigation) else PotentialMitigation(**as_dict(v)) for v in self.potential_mitigations]
-
-        if not isinstance(self.demonstrative_examples, list):
-            self.demonstrative_examples = [self.demonstrative_examples] if self.demonstrative_examples is not None else []
-        self.demonstrative_examples = [v if isinstance(v, DemonstrativeExample) else DemonstrativeExample(**as_dict(v)) for v in self.demonstrative_examples]
-
-        if not isinstance(self.observed_examples, list):
-            self.observed_examples = [self.observed_examples] if self.observed_examples is not None else []
-        self.observed_examples = [v if isinstance(v, ObservedExample) else ObservedExample(**as_dict(v)) for v in self.observed_examples]
-
-        if not isinstance(self.functional_areas, list):
-            self.functional_areas = [self.functional_areas] if self.functional_areas is not None else []
-        self.functional_areas = [v if isinstance(v, FunctionalArea) else FunctionalArea(v) for v in self.functional_areas]
-
-        if not isinstance(self.affected_resources, list):
-            self.affected_resources = [self.affected_resources] if self.affected_resources is not None else []
-        self.affected_resources = [v if isinstance(v, AffectedResource) else AffectedResource(v) for v in self.affected_resources]
-
-        if not isinstance(self.taxonomy_mappings, list):
-            self.taxonomy_mappings = [self.taxonomy_mappings] if self.taxonomy_mappings is not None else []
-        self.taxonomy_mappings = [v if isinstance(v, TaxonomyMapping) else TaxonomyMapping(**as_dict(v)) for v in self.taxonomy_mappings]
-
-        if not isinstance(self.related_attack_patterns, list):
-            self.related_attack_patterns = [self.related_attack_patterns] if self.related_attack_patterns is not None else []
-        self.related_attack_patterns = [v if isinstance(v, int) else int(v) for v in self.related_attack_patterns]
-
-        if not isinstance(self.related_weaknesses, list):
-            self.related_weaknesses = [self.related_weaknesses] if self.related_weaknesses is not None else []
-        self.related_weaknesses = [v if isinstance(v, RelatedWeakness) else RelatedWeakness(**as_dict(v)) for v in self.related_weaknesses]
-
-        if not isinstance(self.references, list):
-            self.references = [self.references] if self.references is not None else []
-        self.references = [v if isinstance(v, CWEReference) else CWEReference(**as_dict(v)) for v in self.references]
-
-        if not isinstance(self.notes, list):
-            self.notes = [self.notes] if self.notes is not None else []
-        self.notes = [v if isinstance(v, Note) else Note(**as_dict(v)) for v in self.notes]
-
-        if not isinstance(self.tags, list):
-            self.tags = [self.tags] if self.tags is not None else []
-        self.tags = [v if isinstance(v, str) else str(v) for v in self.tags]
-
-        if self.source is not None and not isinstance(self.source, str):
-            self.source = str(self.source)
+        if not isinstance(self.Rationale, list):
+            self.Rationale = [self.Rationale] if self.Rationale is not None else []
+        self.Rationale = [v if isinstance(v, CweReferenceRationale) else CweReferenceRationale(v) for v in self.Rationale]
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class Category(YAMLRoot):
+class CweReference(YAMLRoot):
     """
-    A collection of weaknesses grouped by a shared characteristic (CategoryType in XSD). Organizational mechanism
-    only; not for mapping.
+    A citation of an external reference from an entry or from one of its parts.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["Category"]
-    class_class_curie: ClassVar[str] = "cwe:Category"
-    class_name: ClassVar[str] = "Category"
-    class_model_uri: ClassVar[URIRef] = CWE.Category
+    class_class_uri: ClassVar[URIRef] = CWE["CweReference"]
+    class_class_curie: ClassVar[str] = "cwe:CweReference"
+    class_name: ClassVar[str] = "CweReference"
+    class_model_uri: ClassVar[URIRef] = CWE.CweReference
 
-    id: Union[int, CategoryId] = None
-    name: str = None
-    status: Union[str, "WeaknessStatus"] = None
-    summary: str = None
-    mapping_notes: Union[dict, "MappingNotes"] = None
-    content_history: Union[dict, "ContentHistory"] = None
-    relationships: Optional[Union[dict, "Relationship"]] = None
-    taxonomy_mappings: Optional[Union[Union[dict, "TaxonomyMapping"], list[Union[dict, "TaxonomyMapping"]]]] = empty_list()
-    references: Optional[Union[Union[dict, "CWEReference"], list[Union[dict, "CWEReference"]]]] = empty_list()
-    notes: Optional[Union[Union[dict, "Note"], list[Union[dict, "Note"]]]] = empty_list()
+    External_Reference_ID: Union[str, CweExternalReferenceReferenceID] = None
+    Section: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.id):
-            self.MissingRequiredField("id")
-        if not isinstance(self.id, CategoryId):
-            self.id = CategoryId(self.id)
+        if self._is_empty(self.External_Reference_ID):
+            self.MissingRequiredField("External_Reference_ID")
+        if not isinstance(self.External_Reference_ID, CweExternalReferenceReferenceID):
+            self.External_Reference_ID = CweExternalReferenceReferenceID(self.External_Reference_ID)
 
-        if self._is_empty(self.name):
-            self.MissingRequiredField("name")
-        if not isinstance(self.name, str):
-            self.name = str(self.name)
-
-        if self._is_empty(self.status):
-            self.MissingRequiredField("status")
-        if not isinstance(self.status, WeaknessStatus):
-            self.status = WeaknessStatus(self.status)
-
-        if self._is_empty(self.summary):
-            self.MissingRequiredField("summary")
-        if not isinstance(self.summary, str):
-            self.summary = str(self.summary)
-
-        if self._is_empty(self.mapping_notes):
-            self.MissingRequiredField("mapping_notes")
-        if not isinstance(self.mapping_notes, MappingNotes):
-            self.mapping_notes = MappingNotes(**as_dict(self.mapping_notes))
-
-        if self._is_empty(self.content_history):
-            self.MissingRequiredField("content_history")
-        if not isinstance(self.content_history, ContentHistory):
-            self.content_history = ContentHistory(**as_dict(self.content_history))
-
-        if self.relationships is not None and not isinstance(self.relationships, Relationship):
-            self.relationships = Relationship(**as_dict(self.relationships))
-
-        if not isinstance(self.taxonomy_mappings, list):
-            self.taxonomy_mappings = [self.taxonomy_mappings] if self.taxonomy_mappings is not None else []
-        self.taxonomy_mappings = [v if isinstance(v, TaxonomyMapping) else TaxonomyMapping(**as_dict(v)) for v in self.taxonomy_mappings]
-
-        if not isinstance(self.references, list):
-            self.references = [self.references] if self.references is not None else []
-        self.references = [v if isinstance(v, CWEReference) else CWEReference(**as_dict(v)) for v in self.references]
-
-        if not isinstance(self.notes, list):
-            self.notes = [self.notes] if self.notes is not None else []
-        self.notes = [v if isinstance(v, Note) else Note(**as_dict(v)) for v in self.notes]
+        if self.Section is not None and not isinstance(self.Section, str):
+            self.Section = str(self.Section)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class View(YAMLRoot):
+class CweDimension(YAMLRoot):
     """
-    A perspective from which to look at weaknesses in the catalog (ViewType in XSD). Types: Graph, Explicit slice,
-    Implicit slice.
+    One aspect of a weakness, or of how two weaknesses differ, named in a word or two.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["View"]
-    class_class_curie: ClassVar[str] = "cwe:View"
-    class_name: ClassVar[str] = "View"
-    class_model_uri: ClassVar[URIRef] = CWE.View
+    class_class_uri: ClassVar[URIRef] = CWE["CweDimension"]
+    class_class_curie: ClassVar[str] = "cwe:CweDimension"
+    class_name: ClassVar[str] = "CweDimension"
+    class_model_uri: ClassVar[URIRef] = CWE.CweDimension
 
-    id: Union[int, ViewId] = None
-    name: str = None
-    type: Union[str, "CWEViewType"] = None
-    status: Union[str, "WeaknessStatus"] = None
-    objective: str = None
-    mapping_notes: Union[dict, "MappingNotes"] = None
-    content_history: Union[dict, "ContentHistory"] = None
-    audience: Optional[Union[Union[dict, "Audience"], list[Union[dict, "Audience"]]]] = empty_list()
-    members: Optional[Union[Union[dict, "CatalogMember"], list[Union[dict, "CatalogMember"]]]] = empty_list()
-    filter: Optional[str] = None
-    references: Optional[Union[Union[dict, "CWEReference"], list[Union[dict, "CWEReference"]]]] = empty_list()
-    notes: Optional[Union[Union[dict, "Note"], list[Union[dict, "Note"]]]] = empty_list()
+    Type: Union[str, "CweDimensionType"] = None
+    Value: str = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.id):
-            self.MissingRequiredField("id")
-        if not isinstance(self.id, ViewId):
-            self.id = ViewId(self.id)
+        if self._is_empty(self.Type):
+            self.MissingRequiredField("Type")
+        if not isinstance(self.Type, CweDimensionType):
+            self.Type = CweDimensionType(self.Type)
 
-        if self._is_empty(self.name):
-            self.MissingRequiredField("name")
-        if not isinstance(self.name, str):
-            self.name = str(self.name)
-
-        if self._is_empty(self.type):
-            self.MissingRequiredField("type")
-        if not isinstance(self.type, CWEViewType):
-            self.type = CWEViewType(self.type)
-
-        if self._is_empty(self.status):
-            self.MissingRequiredField("status")
-        if not isinstance(self.status, WeaknessStatus):
-            self.status = WeaknessStatus(self.status)
-
-        if self._is_empty(self.objective):
-            self.MissingRequiredField("objective")
-        if not isinstance(self.objective, str):
-            self.objective = str(self.objective)
-
-        if self._is_empty(self.mapping_notes):
-            self.MissingRequiredField("mapping_notes")
-        if not isinstance(self.mapping_notes, MappingNotes):
-            self.mapping_notes = MappingNotes(**as_dict(self.mapping_notes))
-
-        if self._is_empty(self.content_history):
-            self.MissingRequiredField("content_history")
-        if not isinstance(self.content_history, ContentHistory):
-            self.content_history = ContentHistory(**as_dict(self.content_history))
-
-        if not isinstance(self.audience, list):
-            self.audience = [self.audience] if self.audience is not None else []
-        self.audience = [v if isinstance(v, Audience) else Audience(**as_dict(v)) for v in self.audience]
-
-        if not isinstance(self.members, list):
-            self.members = [self.members] if self.members is not None else []
-        self.members = [v if isinstance(v, CatalogMember) else CatalogMember(**as_dict(v)) for v in self.members]
-
-        if self.filter is not None and not isinstance(self.filter, str):
-            self.filter = str(self.filter)
-
-        if not isinstance(self.references, list):
-            self.references = [self.references] if self.references is not None else []
-        self.references = [v if isinstance(v, CWEReference) else CWEReference(**as_dict(v)) for v in self.references]
-
-        if not isinstance(self.notes, list):
-            self.notes = [self.notes] if self.notes is not None else []
-        self.notes = [v if isinstance(v, Note) else Note(**as_dict(v)) for v in self.notes]
+        if self._is_empty(self.Value):
+            self.MissingRequiredField("Value")
+        if not isinstance(self.Value, str):
+            self.Value = str(self.Value)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class ExternalReference(YAMLRoot):
+class CweCustomPhase(YAMLRoot):
     """
-    Pointer to external reading material shared across CWE entries (ExternalReferenceType in XSD). Identified by
-    Reference_ID (e.g. REF-1).
+    A life cycle stage from a field whose stages differ from those of software.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["ExternalReference"]
-    class_class_curie: ClassVar[str] = "cwe:ExternalReference"
-    class_name: ClassVar[str] = "ExternalReference"
-    class_model_uri: ClassVar[URIRef] = CWE.ExternalReference
+    class_class_uri: ClassVar[URIRef] = CWE["CweCustomPhase"]
+    class_class_curie: ClassVar[str] = "cwe:CweCustomPhase"
+    class_name: ClassVar[str] = "CweCustomPhase"
+    class_model_uri: ClassVar[URIRef] = CWE.CweCustomPhase
 
-    reference_id: Union[str, ExternalReferenceReferenceId] = None
-    title: str = None
-    authors: Optional[Union[str, list[str]]] = empty_list()
-    edition: Optional[str] = None
-    publication: Optional[str] = None
-    publication_year: Optional[str] = None
-    publication_month: Optional[str] = None
-    publication_day: Optional[str] = None
-    publisher: Optional[str] = None
-    url: Optional[Union[str, URI]] = None
-    url_date: Optional[Union[str, XSDDate]] = None
+    Domain: Union[str, "CweCustomPhaseDomain"] = None
+    Value: Union[str, "CweAiPhase", "CweHardwarePhase"] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.reference_id):
-            self.MissingRequiredField("reference_id")
-        if not isinstance(self.reference_id, ExternalReferenceReferenceId):
-            self.reference_id = ExternalReferenceReferenceId(self.reference_id)
+        if self._is_empty(self.Domain):
+            self.MissingRequiredField("Domain")
+        if not isinstance(self.Domain, CweCustomPhaseDomain):
+            self.Domain = CweCustomPhaseDomain(self.Domain)
 
-        if self._is_empty(self.title):
-            self.MissingRequiredField("title")
-        if not isinstance(self.title, str):
-            self.title = str(self.title)
-
-        if not isinstance(self.authors, list):
-            self.authors = [self.authors] if self.authors is not None else []
-        self.authors = [v if isinstance(v, str) else str(v) for v in self.authors]
-
-        if self.edition is not None and not isinstance(self.edition, str):
-            self.edition = str(self.edition)
-
-        if self.publication is not None and not isinstance(self.publication, str):
-            self.publication = str(self.publication)
-
-        if self.publication_year is not None and not isinstance(self.publication_year, str):
-            self.publication_year = str(self.publication_year)
-
-        if self.publication_month is not None and not isinstance(self.publication_month, str):
-            self.publication_month = str(self.publication_month)
-
-        if self.publication_day is not None and not isinstance(self.publication_day, str):
-            self.publication_day = str(self.publication_day)
-
-        if self.publisher is not None and not isinstance(self.publisher, str):
-            self.publisher = str(self.publisher)
-
-        if self.url is not None and not isinstance(self.url, URI):
-            self.url = URI(self.url)
-
-        if self.url_date is not None and not isinstance(self.url_date, XSDDate):
-            self.url_date = XSDDate(self.url_date)
+        if self._is_empty(self.Value):
+            self.MissingRequiredField("Value")
+        if not isinstance(self.Value, (CweAiPhase, CweHardwarePhase)):
+            value = self.Value
+            for _coerce in (lambda: CweAiPhase(value), lambda: CweHardwarePhase(value)):
+                try:
+                    self.Value = _coerce()
+                    break
+                except (ValueError, TypeError):
+                    continue
+            else:
+                raise ValueError(f"None of the candidate types Union[CweAiPhase, CweHardwarePhase] could be constructed from {value!r} for slot Value")
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class CWEReference(YAMLRoot):
+class CweNote(YAMLRoot):
     """
-    Link from a CWE entry to an ExternalReference in the catalog (ReferencesType/Reference in XSD).
+    A remark on an entry that fits nowhere else.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["CWEReference"]
-    class_class_curie: ClassVar[str] = "cwe:CWEReference"
-    class_name: ClassVar[str] = "CWEReference"
-    class_model_uri: ClassVar[URIRef] = CWE.CWEReference
+    class_class_uri: ClassVar[URIRef] = CWE["CweNote"]
+    class_class_curie: ClassVar[str] = "cwe:CweNote"
+    class_name: ClassVar[str] = "CweNote"
+    class_model_uri: ClassVar[URIRef] = CWE.CweNote
 
-    external_reference_id: str = None
-    section: Optional[str] = None
+    Type: Union[str, "CweNoteType"] = None
+    Version: Optional[str] = None
+    ReleaseDate: Optional[Union[str, XSDDate]] = None
+    Value: Optional[Union[str, CweStructuredText]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.external_reference_id):
-            self.MissingRequiredField("external_reference_id")
-        if not isinstance(self.external_reference_id, str):
-            self.external_reference_id = str(self.external_reference_id)
+        if self._is_empty(self.Type):
+            self.MissingRequiredField("Type")
+        if not isinstance(self.Type, CweNoteType):
+            self.Type = CweNoteType(self.Type)
 
-        if self.section is not None and not isinstance(self.section, str):
-            self.section = str(self.section)
+        if self.Version is not None and not isinstance(self.Version, str):
+            self.Version = str(self.Version)
+
+        if self.ReleaseDate is not None and not isinstance(self.ReleaseDate, XSDDate):
+            self.ReleaseDate = XSDDate(self.ReleaseDate)
+
+        if self.Value is not None and not isinstance(self.Value, CweStructuredText):
+            self.Value = CweStructuredText(self.Value)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class RelatedWeakness(YAMLRoot):
+class CweTaxonomyMapping(YAMLRoot):
     """
-    Typed directional relationship from one CWE entry to another (RelatedWeaknessesType/Related_Weakness in XSD).
+    A link from an entry to an entry of another taxonomy.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["RelatedWeakness"]
-    class_class_curie: ClassVar[str] = "cwe:RelatedWeakness"
-    class_name: ClassVar[str] = "RelatedWeakness"
-    class_model_uri: ClassVar[URIRef] = CWE.RelatedWeakness
+    class_class_uri: ClassVar[URIRef] = CWE["CweTaxonomyMapping"]
+    class_class_curie: ClassVar[str] = "cwe:CweTaxonomyMapping"
+    class_name: ClassVar[str] = "CweTaxonomyMapping"
+    class_model_uri: ClassVar[URIRef] = CWE.CweTaxonomyMapping
 
-    nature: Union[str, "WeaknessRelationNature"] = None
-    cwe_id: int = None
-    view_id: int = None
-    chain_id: Optional[int] = None
-    ordinal: Optional[Union[str, "OrdinalQualifier"]] = None
+    Taxonomy_Name: Union[str, "CweTaxonomyName"] = None
+    Entry_ID: Optional[str] = None
+    Entry_Name: Optional[str] = None
+    Mapping_Fit: Optional[Union[str, "CweMappingFit"]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.nature):
-            self.MissingRequiredField("nature")
-        if not isinstance(self.nature, WeaknessRelationNature):
-            self.nature = WeaknessRelationNature(self.nature)
+        if self._is_empty(self.Taxonomy_Name):
+            self.MissingRequiredField("Taxonomy_Name")
+        if not isinstance(self.Taxonomy_Name, CweTaxonomyName):
+            self.Taxonomy_Name = CweTaxonomyName(self.Taxonomy_Name)
 
-        if self._is_empty(self.cwe_id):
-            self.MissingRequiredField("cwe_id")
-        if not isinstance(self.cwe_id, int):
-            self.cwe_id = int(self.cwe_id)
+        if self.Entry_ID is not None and not isinstance(self.Entry_ID, str):
+            self.Entry_ID = str(self.Entry_ID)
 
-        if self._is_empty(self.view_id):
-            self.MissingRequiredField("view_id")
-        if not isinstance(self.view_id, int):
-            self.view_id = int(self.view_id)
+        if self.Entry_Name is not None and not isinstance(self.Entry_Name, str):
+            self.Entry_Name = str(self.Entry_Name)
 
-        if self.chain_id is not None and not isinstance(self.chain_id, int):
-            self.chain_id = int(self.chain_id)
-
-        if self.ordinal is not None and not isinstance(self.ordinal, OrdinalQualifier):
-            self.ordinal = OrdinalQualifier(self.ordinal)
+        if self.Mapping_Fit is not None and not isinstance(self.Mapping_Fit, CweMappingFit):
+            self.Mapping_Fit = CweMappingFit(self.Mapping_Fit)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class WeaknessOrdinality(YAMLRoot):
+class CweContentHistory(YAMLRoot):
     """
-    Potential ordering relationship with other weaknesses (WeaknessOrdinalitiesType/Weakness_Ordinality in XSD).
+    The record of who wrote an entry and how it has changed since.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["WeaknessOrdinality"]
-    class_class_curie: ClassVar[str] = "cwe:WeaknessOrdinality"
-    class_name: ClassVar[str] = "WeaknessOrdinality"
-    class_model_uri: ClassVar[URIRef] = CWE.WeaknessOrdinality
+    class_class_uri: ClassVar[URIRef] = CWE["CweContentHistory"]
+    class_class_curie: ClassVar[str] = "cwe:CweContentHistory"
+    class_name: ClassVar[str] = "CweContentHistory"
+    class_model_uri: ClassVar[URIRef] = CWE.CweContentHistory
 
-    ordinality: Union[str, "WeaknessOrdinalityLevel"] = None
-    description: Optional[str] = None
+    Submission: Union[Union[dict, "CweSubmission"], list[Union[dict, "CweSubmission"]]] = None
+    Modification: Optional[Union[Union[dict, "CweModification"], list[Union[dict, "CweModification"]]]] = empty_list()
+    Contribution: Optional[Union[Union[dict, "CweContribution"], list[Union[dict, "CweContribution"]]]] = empty_list()
+    Previous_Entry_Name: Optional[Union[Union[dict, "CwePreviousEntryName"], list[Union[dict, "CwePreviousEntryName"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.ordinality):
-            self.MissingRequiredField("ordinality")
-        if not isinstance(self.ordinality, WeaknessOrdinalityLevel):
-            self.ordinality = WeaknessOrdinalityLevel(self.ordinality)
+        if self._is_empty(self.Submission):
+            self.MissingRequiredField("Submission")
+        self._normalize_inlined_as_list(slot_name="Submission", slot_type=CweSubmission, key_name="Submission_Date", keyed=False)
 
-        if self.description is not None and not isinstance(self.description, str):
-            self.description = str(self.description)
+        self._normalize_inlined_as_list(slot_name="Modification", slot_type=CweModification, key_name="Modification_Date", keyed=False)
+
+        self._normalize_inlined_as_list(slot_name="Contribution", slot_type=CweContribution, key_name="Type", keyed=False)
+
+        self._normalize_inlined_as_list(slot_name="Previous_Entry_Name", slot_type=CwePreviousEntryName, key_name="Date", keyed=False)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class ApplicablePlatforms(YAMLRoot):
+class CweSubmission(YAMLRoot):
     """
-    Languages, operating systems, architectures, and technologies where a weakness could appear
-    (ApplicablePlatformsType in XSD).
+    Who first submitted an entry, and when it joined the list.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["ApplicablePlatforms"]
-    class_class_curie: ClassVar[str] = "cwe:ApplicablePlatforms"
-    class_name: ClassVar[str] = "ApplicablePlatforms"
-    class_model_uri: ClassVar[URIRef] = CWE.ApplicablePlatforms
+    class_class_uri: ClassVar[URIRef] = CWE["CweSubmission"]
+    class_class_curie: ClassVar[str] = "cwe:CweSubmission"
+    class_name: ClassVar[str] = "CweSubmission"
+    class_model_uri: ClassVar[URIRef] = CWE.CweSubmission
 
-    languages: Optional[Union[Union[dict, "LanguagePlatform"], list[Union[dict, "LanguagePlatform"]]]] = empty_list()
-    operating_systems: Optional[Union[Union[dict, "OSPlatform"], list[Union[dict, "OSPlatform"]]]] = empty_list()
-    architectures: Optional[Union[Union[dict, "ArchitecturePlatform"], list[Union[dict, "ArchitecturePlatform"]]]] = empty_list()
-    technologies: Optional[Union[Union[dict, "TechnologyPlatform"], list[Union[dict, "TechnologyPlatform"]]]] = empty_list()
+    Submission_Date: Union[str, XSDDate] = None
+    Submission_Version: str = None
+    Submission_ReleaseDate: Union[str, XSDDate] = None
+    Submission_Name: Optional[Union[str, list[str]]] = empty_list()
+    Submission_Organization: Optional[str] = None
+    Submission_Comment: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if not isinstance(self.languages, list):
-            self.languages = [self.languages] if self.languages is not None else []
-        self.languages = [v if isinstance(v, LanguagePlatform) else LanguagePlatform(**as_dict(v)) for v in self.languages]
+        if self._is_empty(self.Submission_Date):
+            self.MissingRequiredField("Submission_Date")
+        if not isinstance(self.Submission_Date, XSDDate):
+            self.Submission_Date = XSDDate(self.Submission_Date)
 
-        if not isinstance(self.operating_systems, list):
-            self.operating_systems = [self.operating_systems] if self.operating_systems is not None else []
-        self.operating_systems = [v if isinstance(v, OSPlatform) else OSPlatform(**as_dict(v)) for v in self.operating_systems]
+        if self._is_empty(self.Submission_Version):
+            self.MissingRequiredField("Submission_Version")
+        if not isinstance(self.Submission_Version, str):
+            self.Submission_Version = str(self.Submission_Version)
 
-        if not isinstance(self.architectures, list):
-            self.architectures = [self.architectures] if self.architectures is not None else []
-        self.architectures = [v if isinstance(v, ArchitecturePlatform) else ArchitecturePlatform(**as_dict(v)) for v in self.architectures]
+        if self._is_empty(self.Submission_ReleaseDate):
+            self.MissingRequiredField("Submission_ReleaseDate")
+        if not isinstance(self.Submission_ReleaseDate, XSDDate):
+            self.Submission_ReleaseDate = XSDDate(self.Submission_ReleaseDate)
 
-        if not isinstance(self.technologies, list):
-            self.technologies = [self.technologies] if self.technologies is not None else []
-        self.technologies = [v if isinstance(v, TechnologyPlatform) else TechnologyPlatform(**as_dict(v)) for v in self.technologies]
+        if not isinstance(self.Submission_Name, list):
+            self.Submission_Name = [self.Submission_Name] if self.Submission_Name is not None else []
+        self.Submission_Name = [v if isinstance(v, str) else str(v) for v in self.Submission_Name]
+
+        if self.Submission_Organization is not None and not isinstance(self.Submission_Organization, str):
+            self.Submission_Organization = str(self.Submission_Organization)
+
+        if self.Submission_Comment is not None and not isinstance(self.Submission_Comment, str):
+            self.Submission_Comment = str(self.Submission_Comment)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class LanguagePlatform(YAMLRoot):
+class CweModification(YAMLRoot):
     """
-    A programming language or language class applicable to a weakness with associated prevalence (Language element in
-    ApplicablePlatformsType).
+    One change made to an entry.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["LanguagePlatform"]
-    class_class_curie: ClassVar[str] = "cwe:LanguagePlatform"
-    class_name: ClassVar[str] = "LanguagePlatform"
-    class_model_uri: ClassVar[URIRef] = CWE.LanguagePlatform
+    class_class_uri: ClassVar[URIRef] = CWE["CweModification"]
+    class_class_curie: ClassVar[str] = "cwe:CweModification"
+    class_name: ClassVar[str] = "CweModification"
+    class_model_uri: ClassVar[URIRef] = CWE.CweModification
 
-    prevalence: Union[str, "PlatformPrevalence"] = None
-    name: Optional[Union[str, "ProgrammingLanguage"]] = None
-    class_: Optional[Union[str, "LanguageClass"]] = None
+    Modification_Date: Union[str, XSDDate] = None
+    Modification_Version: str = None
+    Modification_ReleaseDate: Union[str, XSDDate] = None
+    Modification_Comment: str = None
+    Modification_Name: Optional[str] = None
+    Modification_Organization: Optional[str] = None
+    Modification_Importance: Optional[Union[str, "CweImportance"]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.prevalence):
-            self.MissingRequiredField("prevalence")
-        if not isinstance(self.prevalence, PlatformPrevalence):
-            self.prevalence = PlatformPrevalence(self.prevalence)
+        if self._is_empty(self.Modification_Date):
+            self.MissingRequiredField("Modification_Date")
+        if not isinstance(self.Modification_Date, XSDDate):
+            self.Modification_Date = XSDDate(self.Modification_Date)
 
-        if self.name is not None and not isinstance(self.name, ProgrammingLanguage):
-            self.name = ProgrammingLanguage(self.name)
+        if self._is_empty(self.Modification_Version):
+            self.MissingRequiredField("Modification_Version")
+        if not isinstance(self.Modification_Version, str):
+            self.Modification_Version = str(self.Modification_Version)
 
-        if self.class_ is not None and not isinstance(self.class_, LanguageClass):
-            self.class_ = LanguageClass(self.class_)
+        if self._is_empty(self.Modification_ReleaseDate):
+            self.MissingRequiredField("Modification_ReleaseDate")
+        if not isinstance(self.Modification_ReleaseDate, XSDDate):
+            self.Modification_ReleaseDate = XSDDate(self.Modification_ReleaseDate)
+
+        if self._is_empty(self.Modification_Comment):
+            self.MissingRequiredField("Modification_Comment")
+        if not isinstance(self.Modification_Comment, str):
+            self.Modification_Comment = str(self.Modification_Comment)
+
+        if self.Modification_Name is not None and not isinstance(self.Modification_Name, str):
+            self.Modification_Name = str(self.Modification_Name)
+
+        if self.Modification_Organization is not None and not isinstance(self.Modification_Organization, str):
+            self.Modification_Organization = str(self.Modification_Organization)
+
+        if self.Modification_Importance is not None and not isinstance(self.Modification_Importance, CweImportance):
+            self.Modification_Importance = CweImportance(self.Modification_Importance)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class OSPlatform(YAMLRoot):
+class CweContribution(YAMLRoot):
     """
-    An operating system or OS class applicable to a weakness (Operating_System element in ApplicablePlatformsType).
+    Feedback or content that someone gave to an entry.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["OSPlatform"]
-    class_class_curie: ClassVar[str] = "cwe:OSPlatform"
-    class_name: ClassVar[str] = "OSPlatform"
-    class_model_uri: ClassVar[URIRef] = CWE.OSPlatform
+    class_class_uri: ClassVar[URIRef] = CWE["CweContribution"]
+    class_class_curie: ClassVar[str] = "cwe:CweContribution"
+    class_name: ClassVar[str] = "CweContribution"
+    class_model_uri: ClassVar[URIRef] = CWE.CweContribution
 
-    prevalence: Union[str, "PlatformPrevalence"] = None
-    name: Optional[Union[str, "OperatingSystemName"]] = None
-    class_: Optional[Union[str, "OperatingSystemClass"]] = None
-    version: Optional[str] = None
-    cpe_id: Optional[str] = None
+    Type: Union[str, "CweContributionType"] = None
+    Contribution_Date: Union[str, XSDDate] = None
+    Contribution_Version: str = None
+    Contribution_ReleaseDate: Union[str, XSDDate] = None
+    Contribution_Name: Optional[Union[str, list[str]]] = empty_list()
+    Contribution_Organization: Optional[str] = None
+    Contribution_Comment: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.prevalence):
-            self.MissingRequiredField("prevalence")
-        if not isinstance(self.prevalence, PlatformPrevalence):
-            self.prevalence = PlatformPrevalence(self.prevalence)
+        if self._is_empty(self.Type):
+            self.MissingRequiredField("Type")
+        if not isinstance(self.Type, CweContributionType):
+            self.Type = CweContributionType(self.Type)
 
-        if self.name is not None and not isinstance(self.name, OperatingSystemName):
-            self.name = OperatingSystemName(self.name)
+        if self._is_empty(self.Contribution_Date):
+            self.MissingRequiredField("Contribution_Date")
+        if not isinstance(self.Contribution_Date, XSDDate):
+            self.Contribution_Date = XSDDate(self.Contribution_Date)
 
-        if self.class_ is not None and not isinstance(self.class_, OperatingSystemClass):
-            self.class_ = OperatingSystemClass(self.class_)
+        if self._is_empty(self.Contribution_Version):
+            self.MissingRequiredField("Contribution_Version")
+        if not isinstance(self.Contribution_Version, str):
+            self.Contribution_Version = str(self.Contribution_Version)
 
-        if self.version is not None and not isinstance(self.version, str):
-            self.version = str(self.version)
+        if self._is_empty(self.Contribution_ReleaseDate):
+            self.MissingRequiredField("Contribution_ReleaseDate")
+        if not isinstance(self.Contribution_ReleaseDate, XSDDate):
+            self.Contribution_ReleaseDate = XSDDate(self.Contribution_ReleaseDate)
 
-        if self.cpe_id is not None and not isinstance(self.cpe_id, str):
-            self.cpe_id = str(self.cpe_id)
+        if not isinstance(self.Contribution_Name, list):
+            self.Contribution_Name = [self.Contribution_Name] if self.Contribution_Name is not None else []
+        self.Contribution_Name = [v if isinstance(v, str) else str(v) for v in self.Contribution_Name]
+
+        if self.Contribution_Organization is not None and not isinstance(self.Contribution_Organization, str):
+            self.Contribution_Organization = str(self.Contribution_Organization)
+
+        if self.Contribution_Comment is not None and not isinstance(self.Contribution_Comment, str):
+            self.Contribution_Comment = str(self.Contribution_Comment)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class ArchitecturePlatform(YAMLRoot):
+class CwePreviousEntryName(YAMLRoot):
     """
-    A processor architecture or class applicable to a weakness (Architecture element in ApplicablePlatformsType).
+    A name an entry had before.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["ArchitecturePlatform"]
-    class_class_curie: ClassVar[str] = "cwe:ArchitecturePlatform"
-    class_name: ClassVar[str] = "ArchitecturePlatform"
-    class_model_uri: ClassVar[URIRef] = CWE.ArchitecturePlatform
+    class_class_uri: ClassVar[URIRef] = CWE["CwePreviousEntryName"]
+    class_class_curie: ClassVar[str] = "cwe:CwePreviousEntryName"
+    class_name: ClassVar[str] = "CwePreviousEntryName"
+    class_model_uri: ClassVar[URIRef] = CWE.CwePreviousEntryName
 
-    prevalence: Union[str, "PlatformPrevalence"] = None
-    name: Optional[Union[str, "ArchitectureName"]] = None
-    class_: Optional[Union[str, "ArchitectureClass"]] = None
+    Date: Union[str, XSDDate] = None
+    Value: str = None
+    Version: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.prevalence):
-            self.MissingRequiredField("prevalence")
-        if not isinstance(self.prevalence, PlatformPrevalence):
-            self.prevalence = PlatformPrevalence(self.prevalence)
+        if self._is_empty(self.Date):
+            self.MissingRequiredField("Date")
+        if not isinstance(self.Date, XSDDate):
+            self.Date = XSDDate(self.Date)
 
-        if self.name is not None and not isinstance(self.name, ArchitectureName):
-            self.name = ArchitectureName(self.name)
+        if self._is_empty(self.Value):
+            self.MissingRequiredField("Value")
+        if not isinstance(self.Value, str):
+            self.Value = str(self.Value)
 
-        if self.class_ is not None and not isinstance(self.class_, ArchitectureClass):
-            self.class_ = ArchitectureClass(self.class_)
+        if self.Version is not None and not isinstance(self.Version, str):
+            self.Version = str(self.Version)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class TechnologyPlatform(YAMLRoot):
+class CweEntry(YAMLRoot):
     """
-    A technology or technology class applicable to a weakness (Technology element in ApplicablePlatformsType).
+    Any item of the CWE List that has an identifier of its own: a weakness, a grouping or a view.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["TechnologyPlatform"]
-    class_class_curie: ClassVar[str] = "cwe:TechnologyPlatform"
-    class_name: ClassVar[str] = "TechnologyPlatform"
-    class_model_uri: ClassVar[URIRef] = CWE.TechnologyPlatform
+    class_class_uri: ClassVar[URIRef] = CWE["CweEntry"]
+    class_class_curie: ClassVar[str] = "cwe:CweEntry"
+    class_name: ClassVar[str] = "CweEntry"
+    class_model_uri: ClassVar[URIRef] = CWE.CweEntry
 
-    prevalence: Union[str, "PlatformPrevalence"] = None
-    name: Optional[Union[str, "TechnologyName"]] = None
-    class_: Optional[Union[str, "TechnologyClass"]] = None
+    ID: Union[str, CweEntryID] = None
+    Name: str = None
+    Status: Union[str, "CweStatus"] = None
+    Mapping_Notes: Union[dict, "CweMappingNotes"] = None
+    Content_History: Union[dict, CweContentHistory] = None
+    References: Optional[Union[Union[dict, CweReference], list[Union[dict, CweReference]]]] = empty_list()
+    Notes: Optional[Union[Union[dict, CweNote], list[Union[dict, CweNote]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.prevalence):
-            self.MissingRequiredField("prevalence")
-        if not isinstance(self.prevalence, PlatformPrevalence):
-            self.prevalence = PlatformPrevalence(self.prevalence)
+        if self._is_empty(self.ID):
+            self.MissingRequiredField("ID")
+        if not isinstance(self.ID, CweEntryID):
+            self.ID = CweEntryID(self.ID)
 
-        if self.name is not None and not isinstance(self.name, TechnologyName):
-            self.name = TechnologyName(self.name)
+        if self._is_empty(self.Name):
+            self.MissingRequiredField("Name")
+        if not isinstance(self.Name, str):
+            self.Name = str(self.Name)
 
-        if self.class_ is not None and not isinstance(self.class_, TechnologyClass):
-            self.class_ = TechnologyClass(self.class_)
+        if self._is_empty(self.Status):
+            self.MissingRequiredField("Status")
+        if not isinstance(self.Status, CweStatus):
+            self.Status = CweStatus(self.Status)
+
+        if self._is_empty(self.Mapping_Notes):
+            self.MissingRequiredField("Mapping_Notes")
+        if not isinstance(self.Mapping_Notes, CweMappingNotes):
+            self.Mapping_Notes = CweMappingNotes(**as_dict(self.Mapping_Notes))
+
+        if self._is_empty(self.Content_History):
+            self.MissingRequiredField("Content_History")
+        if not isinstance(self.Content_History, CweContentHistory):
+            self.Content_History = CweContentHistory(**as_dict(self.Content_History))
+
+        if not isinstance(self.References, list):
+            self.References = [self.References] if self.References is not None else []
+        self.References = [v if isinstance(v, CweReference) else CweReference(**as_dict(v)) for v in self.References]
+
+        self._normalize_inlined_as_list(slot_name="Notes", slot_type=CweNote, key_name="Type", keyed=False)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class AlternateTerm(YAMLRoot):
+class CweWeakness(CweEntry):
     """
-    Another name by which this weakness may be known (AlternateTermsType/Alternate_Term in XSD).
+    A type of mistake or condition in software, firmware, hardware or a service that can leave a product open to
+    attack.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["AlternateTerm"]
-    class_class_curie: ClassVar[str] = "cwe:AlternateTerm"
-    class_name: ClassVar[str] = "AlternateTerm"
-    class_model_uri: ClassVar[URIRef] = CWE.AlternateTerm
+    class_class_uri: ClassVar[URIRef] = CWE["CweWeakness"]
+    class_class_curie: ClassVar[str] = "cwe:CweWeakness"
+    class_name: ClassVar[str] = "CweWeakness"
+    class_model_uri: ClassVar[URIRef] = CWE.CweWeakness
 
-    term: str = None
-    description: Optional[str] = None
+    ID: Union[str, CweWeaknessID] = None
+    Name: str = None
+    Status: Union[str, "CweStatus"] = None
+    Mapping_Notes: Union[dict, "CweMappingNotes"] = None
+    Content_History: Union[dict, CweContentHistory] = None
+    Abstraction: Union[str, "CweAbstraction"] = None
+    Structure: Union[str, "CweStructure"] = None
+    Description: str = None
+    Diagram: Optional[str] = None
+    Extended_Description: Optional[Union[str, CweStructuredText]] = None
+    Technical_Nuance: Optional[Union[str, CweStructuredText]] = None
+    Dimensions: Optional[Union[Union[dict, CweDimension], list[Union[dict, CweDimension]]]] = empty_list()
+    Related_Weaknesses: Optional[Union[Union[dict, "CweRelatedWeakness"], list[Union[dict, "CweRelatedWeakness"]]]] = empty_list()
+    Weakness_Ordinalities: Optional[Union[Union[dict, "CweWeaknessOrdinality"], list[Union[dict, "CweWeaknessOrdinality"]]]] = empty_list()
+    Applicable_Platforms: Optional[Union[dict, "CweApplicablePlatforms"]] = None
+    Background_Details: Optional[Union[Union[str, CweStructuredText], list[Union[str, CweStructuredText]]]] = empty_list()
+    Alternate_Terms: Optional[Union[Union[dict, "CweAlternateTerm"], list[Union[dict, "CweAlternateTerm"]]]] = empty_list()
+    Modes_Of_Introduction: Optional[Union[Union[dict, "CweIntroduction"], list[Union[dict, "CweIntroduction"]]]] = empty_list()
+    Exploitation_Factors: Optional[Union[Union[str, CweStructuredText], list[Union[str, CweStructuredText]]]] = empty_list()
+    Likelihood_Of_Exploit: Optional[Union[str, "CweLikelihood"]] = None
+    Common_Consequences: Optional[Union[Union[dict, "CweConsequence"], list[Union[dict, "CweConsequence"]]]] = empty_list()
+    Detection_Methods: Optional[Union[Union[dict, "CweDetectionMethod"], list[Union[dict, "CweDetectionMethod"]]]] = empty_list()
+    Potential_Mitigations: Optional[Union[Union[dict, "CweMitigation"], list[Union[dict, "CweMitigation"]]]] = empty_list()
+    Demonstrative_Examples: Optional[Union[Union[dict, "CweDemonstrativeExample"], list[Union[dict, "CweDemonstrativeExample"]]]] = empty_list()
+    Observed_Examples: Optional[Union[Union[dict, "CweObservedExample"], list[Union[dict, "CweObservedExample"]]]] = empty_list()
+    Functional_Areas: Optional[Union[Union[str, "CweFunctionalArea"], list[Union[str, "CweFunctionalArea"]]]] = empty_list()
+    Affected_Resources: Optional[Union[Union[str, "CweResource"], list[Union[str, "CweResource"]]]] = empty_list()
+    Taxonomy_Mappings: Optional[Union[Union[dict, CweTaxonomyMapping], list[Union[dict, CweTaxonomyMapping]]]] = empty_list()
+    Related_Attack_Patterns: Optional[Union[Union[dict, "CweRelatedAttackPattern"], list[Union[dict, "CweRelatedAttackPattern"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.term):
-            self.MissingRequiredField("term")
-        if not isinstance(self.term, str):
-            self.term = str(self.term)
+        if self._is_empty(self.ID):
+            self.MissingRequiredField("ID")
+        if not isinstance(self.ID, CweWeaknessID):
+            self.ID = CweWeaknessID(self.ID)
 
-        if self.description is not None and not isinstance(self.description, str):
-            self.description = str(self.description)
+        if self._is_empty(self.Abstraction):
+            self.MissingRequiredField("Abstraction")
+        if not isinstance(self.Abstraction, CweAbstraction):
+            self.Abstraction = CweAbstraction(self.Abstraction)
+
+        if self._is_empty(self.Structure):
+            self.MissingRequiredField("Structure")
+        if not isinstance(self.Structure, CweStructure):
+            self.Structure = CweStructure(self.Structure)
+
+        if self._is_empty(self.Description):
+            self.MissingRequiredField("Description")
+        if not isinstance(self.Description, str):
+            self.Description = str(self.Description)
+
+        if self.Diagram is not None and not isinstance(self.Diagram, str):
+            self.Diagram = str(self.Diagram)
+
+        if self.Extended_Description is not None and not isinstance(self.Extended_Description, CweStructuredText):
+            self.Extended_Description = CweStructuredText(self.Extended_Description)
+
+        if self.Technical_Nuance is not None and not isinstance(self.Technical_Nuance, CweStructuredText):
+            self.Technical_Nuance = CweStructuredText(self.Technical_Nuance)
+
+        self._normalize_inlined_as_list(slot_name="Dimensions", slot_type=CweDimension, key_name="Type", keyed=False)
+
+        self._normalize_inlined_as_list(slot_name="Related_Weaknesses", slot_type=CweRelatedWeakness, key_name="Nature", keyed=False)
+
+        self._normalize_inlined_as_list(slot_name="Weakness_Ordinalities", slot_type=CweWeaknessOrdinality, key_name="Ordinality", keyed=False)
+
+        if self.Applicable_Platforms is not None and not isinstance(self.Applicable_Platforms, CweApplicablePlatforms):
+            self.Applicable_Platforms = CweApplicablePlatforms(**as_dict(self.Applicable_Platforms))
+
+        if not isinstance(self.Background_Details, list):
+            self.Background_Details = [self.Background_Details] if self.Background_Details is not None else []
+        self.Background_Details = [v if isinstance(v, CweStructuredText) else CweStructuredText(v) for v in self.Background_Details]
+
+        self._normalize_inlined_as_list(slot_name="Alternate_Terms", slot_type=CweAlternateTerm, key_name="Term", keyed=False)
+
+        if not isinstance(self.Modes_Of_Introduction, list):
+            self.Modes_Of_Introduction = [self.Modes_Of_Introduction] if self.Modes_Of_Introduction is not None else []
+        self.Modes_Of_Introduction = [v if isinstance(v, CweIntroduction) else CweIntroduction(**as_dict(v)) for v in self.Modes_Of_Introduction]
+
+        if not isinstance(self.Exploitation_Factors, list):
+            self.Exploitation_Factors = [self.Exploitation_Factors] if self.Exploitation_Factors is not None else []
+        self.Exploitation_Factors = [v if isinstance(v, CweStructuredText) else CweStructuredText(v) for v in self.Exploitation_Factors]
+
+        if self.Likelihood_Of_Exploit is not None and not isinstance(self.Likelihood_Of_Exploit, CweLikelihood):
+            self.Likelihood_Of_Exploit = CweLikelihood(self.Likelihood_Of_Exploit)
+
+        self._normalize_inlined_as_list(slot_name="Common_Consequences", slot_type=CweConsequence, key_name="Scope", keyed=False)
+
+        self._normalize_inlined_as_list(slot_name="Detection_Methods", slot_type=CweDetectionMethod, key_name="Method", keyed=False)
+
+        self._normalize_inlined_as_list(slot_name="Potential_Mitigations", slot_type=CweMitigation, key_name="Description", keyed=False)
+
+        self._normalize_inlined_as_list(slot_name="Demonstrative_Examples", slot_type=CweDemonstrativeExample, key_name="Intro_Text", keyed=False)
+
+        self._normalize_inlined_as_list(slot_name="Observed_Examples", slot_type=CweObservedExample, key_name="Reference", keyed=False)
+
+        if not isinstance(self.Functional_Areas, list):
+            self.Functional_Areas = [self.Functional_Areas] if self.Functional_Areas is not None else []
+        self.Functional_Areas = [v if isinstance(v, CweFunctionalArea) else CweFunctionalArea(v) for v in self.Functional_Areas]
+
+        if not isinstance(self.Affected_Resources, list):
+            self.Affected_Resources = [self.Affected_Resources] if self.Affected_Resources is not None else []
+        self.Affected_Resources = [v if isinstance(v, CweResource) else CweResource(v) for v in self.Affected_Resources]
+
+        self._normalize_inlined_as_list(slot_name="Taxonomy_Mappings", slot_type=CweTaxonomyMapping, key_name="Taxonomy_Name", keyed=False)
+
+        self._normalize_inlined_as_list(slot_name="Related_Attack_Patterns", slot_type=CweRelatedAttackPattern, key_name="CAPEC_ID", keyed=False)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class ModeOfIntroduction(YAMLRoot):
+class CweGrouping(CweEntry):
     """
-    Information about how and when a weakness may be introduced (ModesOfIntroductionType/Introduction in XSD).
+    A set of weaknesses gathered by something they share, for browsing and not for mapping real vulnerabilities to.
+    Schema versions before 8.0 called it a category.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["ModeOfIntroduction"]
-    class_class_curie: ClassVar[str] = "cwe:ModeOfIntroduction"
-    class_name: ClassVar[str] = "ModeOfIntroduction"
-    class_model_uri: ClassVar[URIRef] = CWE.ModeOfIntroduction
+    class_class_uri: ClassVar[URIRef] = CWE["CweGrouping"]
+    class_class_curie: ClassVar[str] = "cwe:CweGrouping"
+    class_name: ClassVar[str] = "CweGrouping"
+    class_model_uri: ClassVar[URIRef] = CWE.CweGrouping
 
-    phase: Union[str, "LifecyclePhase"] = None
-    note: Optional[str] = None
+    ID: Union[str, CweGroupingID] = None
+    Name: str = None
+    Status: Union[str, "CweStatus"] = None
+    Mapping_Notes: Union[dict, "CweMappingNotes"] = None
+    Content_History: Union[dict, CweContentHistory] = None
+    Summary: Union[str, CweStructuredText] = None
+    Relationships: Optional[Union[dict, "CweRelationships"]] = None
+    Taxonomy_Mappings: Optional[Union[Union[dict, CweTaxonomyMapping], list[Union[dict, CweTaxonomyMapping]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.phase):
-            self.MissingRequiredField("phase")
-        if not isinstance(self.phase, LifecyclePhase):
-            self.phase = LifecyclePhase(self.phase)
+        if self._is_empty(self.ID):
+            self.MissingRequiredField("ID")
+        if not isinstance(self.ID, CweGroupingID):
+            self.ID = CweGroupingID(self.ID)
 
-        if self.note is not None and not isinstance(self.note, str):
-            self.note = str(self.note)
+        if self._is_empty(self.Summary):
+            self.MissingRequiredField("Summary")
+        if not isinstance(self.Summary, CweStructuredText):
+            self.Summary = CweStructuredText(self.Summary)
+
+        if self.Relationships is not None and not isinstance(self.Relationships, CweRelationships):
+            self.Relationships = CweRelationships(**as_dict(self.Relationships))
+
+        self._normalize_inlined_as_list(slot_name="Taxonomy_Mappings", slot_type=CweTaxonomyMapping, key_name="Taxonomy_Name", keyed=False)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class CommonConsequence(YAMLRoot):
+class CweView(CweEntry):
     """
-    Individual consequence associated with a weakness (CommonConsequencesType/Consequence in XSD).
+    A way of looking at the catalogue, as a subset of its entries seen from one standpoint.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["CommonConsequence"]
-    class_class_curie: ClassVar[str] = "cwe:CommonConsequence"
-    class_name: ClassVar[str] = "CommonConsequence"
-    class_model_uri: ClassVar[URIRef] = CWE.CommonConsequence
+    class_class_uri: ClassVar[URIRef] = CWE["CweView"]
+    class_class_curie: ClassVar[str] = "cwe:CweView"
+    class_name: ClassVar[str] = "CweView"
+    class_model_uri: ClassVar[URIRef] = CWE.CweView
 
-    scopes: Union[Union[str, "SecurityScope"], list[Union[str, "SecurityScope"]]] = None
-    impacts: Union[Union[str, "TechnicalImpact"], list[Union[str, "TechnicalImpact"]]] = None
-    consequence_id: Optional[str] = None
-    likelihood: Optional[Union[str, "LikelihoodLevel"]] = None
-    note: Optional[str] = None
+    ID: Union[str, CweViewID] = None
+    Name: str = None
+    Status: Union[str, "CweStatus"] = None
+    Mapping_Notes: Union[dict, "CweMappingNotes"] = None
+    Content_History: Union[dict, CweContentHistory] = None
+    Type: Union[str, "CweViewType"] = None
+    Objective: Union[str, CweStructuredText] = None
+    Audience: Optional[Union[Union[dict, "CweStakeholder"], list[Union[dict, "CweStakeholder"]]]] = empty_list()
+    Members: Optional[Union[dict, "CweRelationships"]] = None
+    Filter: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.scopes):
-            self.MissingRequiredField("scopes")
-        if not isinstance(self.scopes, list):
-            self.scopes = [self.scopes] if self.scopes is not None else []
-        self.scopes = [v if isinstance(v, SecurityScope) else SecurityScope(v) for v in self.scopes]
+        if self._is_empty(self.ID):
+            self.MissingRequiredField("ID")
+        if not isinstance(self.ID, CweViewID):
+            self.ID = CweViewID(self.ID)
 
-        if self._is_empty(self.impacts):
-            self.MissingRequiredField("impacts")
-        if not isinstance(self.impacts, list):
-            self.impacts = [self.impacts] if self.impacts is not None else []
-        self.impacts = [v if isinstance(v, TechnicalImpact) else TechnicalImpact(v) for v in self.impacts]
+        if self._is_empty(self.Type):
+            self.MissingRequiredField("Type")
+        if not isinstance(self.Type, CweViewType):
+            self.Type = CweViewType(self.Type)
 
-        if self.consequence_id is not None and not isinstance(self.consequence_id, str):
-            self.consequence_id = str(self.consequence_id)
+        if self._is_empty(self.Objective):
+            self.MissingRequiredField("Objective")
+        if not isinstance(self.Objective, CweStructuredText):
+            self.Objective = CweStructuredText(self.Objective)
 
-        if self.likelihood is not None and not isinstance(self.likelihood, LikelihoodLevel):
-            self.likelihood = LikelihoodLevel(self.likelihood)
+        self._normalize_inlined_as_list(slot_name="Audience", slot_type=CweStakeholder, key_name="Type", keyed=False)
 
-        if self.note is not None and not isinstance(self.note, str):
-            self.note = str(self.note)
+        if self.Members is not None and not isinstance(self.Members, CweRelationships):
+            self.Members = CweRelationships(**as_dict(self.Members))
+
+        if self.Filter is not None and not isinstance(self.Filter, str):
+            self.Filter = str(self.Filter)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class DetectionMethod(YAMLRoot):
+class CweRelatedWeakness(YAMLRoot):
     """
-    A method that may be employed to detect a weakness, with effectiveness (DetectionMethodsType/Detection_Method in
-    XSD).
+    A link from a weakness to another weakness, in one view.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["DetectionMethod"]
-    class_class_curie: ClassVar[str] = "cwe:DetectionMethod"
-    class_name: ClassVar[str] = "DetectionMethod"
-    class_model_uri: ClassVar[URIRef] = CWE.DetectionMethod
+    class_class_uri: ClassVar[URIRef] = CWE["CweRelatedWeakness"]
+    class_class_curie: ClassVar[str] = "cwe:CweRelatedWeakness"
+    class_name: ClassVar[str] = "CweRelatedWeakness"
+    class_model_uri: ClassVar[URIRef] = CWE.CweRelatedWeakness
 
-    method: Union[str, "DetectionMethodType"] = None
-    description: str = None
-    detection_method_id: Optional[str] = None
-    effectiveness: Optional[Union[str, "DetectionEffectiveness"]] = None
-    effectiveness_notes: Optional[str] = None
+    Nature: Union[str, "CweRelatedNature"] = None
+    CWE_ID: Union[str, CweWeaknessID] = None
+    View_ID: Union[str, CweViewID] = None
+    Chain_ID: Optional[Union[str, CweWeaknessID]] = None
+    Ordinal: Optional[Union[str, "CweOrdinal"]] = None
+    Dimensions: Optional[Union[Union[dict, CweDimension], list[Union[dict, CweDimension]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.method):
-            self.MissingRequiredField("method")
-        if not isinstance(self.method, DetectionMethodType):
-            self.method = DetectionMethodType(self.method)
+        if self._is_empty(self.Nature):
+            self.MissingRequiredField("Nature")
+        if not isinstance(self.Nature, CweRelatedNature):
+            self.Nature = CweRelatedNature(self.Nature)
 
-        if self._is_empty(self.description):
-            self.MissingRequiredField("description")
-        if not isinstance(self.description, str):
-            self.description = str(self.description)
+        if self._is_empty(self.CWE_ID):
+            self.MissingRequiredField("CWE_ID")
+        if not isinstance(self.CWE_ID, CweWeaknessID):
+            self.CWE_ID = CweWeaknessID(self.CWE_ID)
 
-        if self.detection_method_id is not None and not isinstance(self.detection_method_id, str):
-            self.detection_method_id = str(self.detection_method_id)
+        if self._is_empty(self.View_ID):
+            self.MissingRequiredField("View_ID")
+        if not isinstance(self.View_ID, CweViewID):
+            self.View_ID = CweViewID(self.View_ID)
 
-        if self.effectiveness is not None and not isinstance(self.effectiveness, DetectionEffectiveness):
-            self.effectiveness = DetectionEffectiveness(self.effectiveness)
+        if self.Chain_ID is not None and not isinstance(self.Chain_ID, CweWeaknessID):
+            self.Chain_ID = CweWeaknessID(self.Chain_ID)
 
-        if self.effectiveness_notes is not None and not isinstance(self.effectiveness_notes, str):
-            self.effectiveness_notes = str(self.effectiveness_notes)
+        if self.Ordinal is not None and not isinstance(self.Ordinal, CweOrdinal):
+            self.Ordinal = CweOrdinal(self.Ordinal)
+
+        self._normalize_inlined_as_list(slot_name="Dimensions", slot_type=CweDimension, key_name="Type", keyed=False)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class PotentialMitigation(YAMLRoot):
+class CweWeaknessOrdinality(YAMLRoot):
     """
-    A potential mitigation for a weakness (PotentialMitigationsType/Mitigation in XSD).
+    Whether a weakness tends to be a first cause or the result of another.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["PotentialMitigation"]
-    class_class_curie: ClassVar[str] = "cwe:PotentialMitigation"
-    class_name: ClassVar[str] = "PotentialMitigation"
-    class_model_uri: ClassVar[URIRef] = CWE.PotentialMitigation
+    class_class_uri: ClassVar[URIRef] = CWE["CweWeaknessOrdinality"]
+    class_class_curie: ClassVar[str] = "cwe:CweWeaknessOrdinality"
+    class_name: ClassVar[str] = "CweWeaknessOrdinality"
+    class_model_uri: ClassVar[URIRef] = CWE.CweWeaknessOrdinality
 
-    description: str = None
-    mitigation_id: Optional[str] = None
-    phases: Optional[Union[Union[str, "LifecyclePhase"], list[Union[str, "LifecyclePhase"]]]] = empty_list()
-    strategy: Optional[Union[str, "MitigationStrategy"]] = None
-    effectiveness: Optional[Union[str, "MitigationEffectiveness"]] = None
-    effectiveness_notes: Optional[str] = None
+    Ordinality: Union[str, "CweOrdinality"] = None
+    Description: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.description):
-            self.MissingRequiredField("description")
-        if not isinstance(self.description, str):
-            self.description = str(self.description)
+        if self._is_empty(self.Ordinality):
+            self.MissingRequiredField("Ordinality")
+        if not isinstance(self.Ordinality, CweOrdinality):
+            self.Ordinality = CweOrdinality(self.Ordinality)
 
-        if self.mitigation_id is not None and not isinstance(self.mitigation_id, str):
-            self.mitigation_id = str(self.mitigation_id)
-
-        if not isinstance(self.phases, list):
-            self.phases = [self.phases] if self.phases is not None else []
-        self.phases = [v if isinstance(v, LifecyclePhase) else LifecyclePhase(v) for v in self.phases]
-
-        if self.strategy is not None and not isinstance(self.strategy, MitigationStrategy):
-            self.strategy = MitigationStrategy(self.strategy)
-
-        if self.effectiveness is not None and not isinstance(self.effectiveness, MitigationEffectiveness):
-            self.effectiveness = MitigationEffectiveness(self.effectiveness)
-
-        if self.effectiveness_notes is not None and not isinstance(self.effectiveness_notes, str):
-            self.effectiveness_notes = str(self.effectiveness_notes)
+        if self.Description is not None and not isinstance(self.Description, str):
+            self.Description = str(self.Description)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class DemonstrativeExample(YAMLRoot):
+class CweApplicablePlatforms(YAMLRoot):
     """
-    A code example illustrating how a weakness may appear (DemonstrativeExamplesType/Demonstrative_Example in XSD).
+    The kinds of platform where a weakness can appear.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["DemonstrativeExample"]
-    class_class_curie: ClassVar[str] = "cwe:DemonstrativeExample"
-    class_name: ClassVar[str] = "DemonstrativeExample"
-    class_model_uri: ClassVar[URIRef] = CWE.DemonstrativeExample
+    class_class_uri: ClassVar[URIRef] = CWE["CweApplicablePlatforms"]
+    class_class_curie: ClassVar[str] = "cwe:CweApplicablePlatforms"
+    class_name: ClassVar[str] = "CweApplicablePlatforms"
+    class_model_uri: ClassVar[URIRef] = CWE.CweApplicablePlatforms
 
-    intro_text: str = None
-    demonstrative_example_id: Optional[str] = None
-    title_text: Optional[str] = None
-    body_texts: Optional[Union[str, list[str]]] = empty_list()
-    example_codes: Optional[Union[Union[dict, "ExampleCode"], list[Union[dict, "ExampleCode"]]]] = empty_list()
-    references: Optional[Union[Union[dict, CWEReference], list[Union[dict, CWEReference]]]] = empty_list()
+    Language: Optional[Union[Union[dict, "CweLanguagePlatform"], list[Union[dict, "CweLanguagePlatform"]]]] = empty_list()
+    Operating_System: Optional[Union[Union[dict, "CweOperatingSystemPlatform"], list[Union[dict, "CweOperatingSystemPlatform"]]]] = empty_list()
+    Architecture: Optional[Union[Union[dict, "CweArchitecturePlatform"], list[Union[dict, "CweArchitecturePlatform"]]]] = empty_list()
+    Technology: Optional[Union[Union[dict, "CweTechnologyPlatform"], list[Union[dict, "CweTechnologyPlatform"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.intro_text):
-            self.MissingRequiredField("intro_text")
-        if not isinstance(self.intro_text, str):
-            self.intro_text = str(self.intro_text)
+        self._normalize_inlined_as_list(slot_name="Language", slot_type=CweLanguagePlatform, key_name="Prevalence", keyed=False)
 
-        if self.demonstrative_example_id is not None and not isinstance(self.demonstrative_example_id, str):
-            self.demonstrative_example_id = str(self.demonstrative_example_id)
+        self._normalize_inlined_as_list(slot_name="Operating_System", slot_type=CweOperatingSystemPlatform, key_name="Prevalence", keyed=False)
 
-        if self.title_text is not None and not isinstance(self.title_text, str):
-            self.title_text = str(self.title_text)
+        self._normalize_inlined_as_list(slot_name="Architecture", slot_type=CweArchitecturePlatform, key_name="Prevalence", keyed=False)
 
-        if not isinstance(self.body_texts, list):
-            self.body_texts = [self.body_texts] if self.body_texts is not None else []
-        self.body_texts = [v if isinstance(v, str) else str(v) for v in self.body_texts]
-
-        if not isinstance(self.example_codes, list):
-            self.example_codes = [self.example_codes] if self.example_codes is not None else []
-        self.example_codes = [v if isinstance(v, ExampleCode) else ExampleCode(**as_dict(v)) for v in self.example_codes]
-
-        if not isinstance(self.references, list):
-            self.references = [self.references] if self.references is not None else []
-        self.references = [v if isinstance(v, CWEReference) else CWEReference(**as_dict(v)) for v in self.references]
+        self._normalize_inlined_as_list(slot_name="Technology", slot_type=CweTechnologyPlatform, key_name="Prevalence", keyed=False)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class ExampleCode(YAMLRoot):
+class CweLanguagePlatform(YAMLRoot):
     """
-    A structured code snippet within a demonstrative example (StructuredCodeType in XSD).
+    A language where a weakness can appear, named or by its family.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["ExampleCode"]
-    class_class_curie: ClassVar[str] = "cwe:ExampleCode"
-    class_name: ClassVar[str] = "ExampleCode"
-    class_model_uri: ClassVar[URIRef] = CWE.ExampleCode
+    class_class_uri: ClassVar[URIRef] = CWE["CweLanguagePlatform"]
+    class_class_curie: ClassVar[str] = "cwe:CweLanguagePlatform"
+    class_name: ClassVar[str] = "CweLanguagePlatform"
+    class_model_uri: ClassVar[URIRef] = CWE.CweLanguagePlatform
 
-    nature: Union[str, "CodeNature"] = None
-    language: Optional[Union[str, "ProgrammingLanguage"]] = None
-    content: Optional[str] = None
+    Prevalence: Union[str, "CwePrevalence"] = None
+    Name: Optional[Union[str, "CweLanguageName"]] = None
+    Class: Optional[Union[str, "CweLanguageClass"]] = None
+    Note: Optional[Union[str, CweStructuredText]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.nature):
-            self.MissingRequiredField("nature")
-        if not isinstance(self.nature, CodeNature):
-            self.nature = CodeNature(self.nature)
+        if self._is_empty(self.Prevalence):
+            self.MissingRequiredField("Prevalence")
+        if not isinstance(self.Prevalence, CwePrevalence):
+            self.Prevalence = CwePrevalence(self.Prevalence)
 
-        if self.language is not None and not isinstance(self.language, ProgrammingLanguage):
-            self.language = ProgrammingLanguage(self.language)
+        if self.Name is not None and not isinstance(self.Name, CweLanguageName):
+            self.Name = CweLanguageName(self.Name)
 
-        if self.content is not None and not isinstance(self.content, str):
-            self.content = str(self.content)
+        if self.Class is not None and not isinstance(self.Class, CweLanguageClass):
+            self.Class = CweLanguageClass(self.Class)
+
+        if self.Note is not None and not isinstance(self.Note, CweStructuredText):
+            self.Note = CweStructuredText(self.Note)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class ObservedExample(YAMLRoot):
+class CweOperatingSystemPlatform(YAMLRoot):
     """
-    A reference to a real-world instance of a weakness, typically a CVE (ObservedExampleType/Observed_Example in XSD).
+    An operating system where a weakness can appear, named or by its family.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["ObservedExample"]
-    class_class_curie: ClassVar[str] = "cwe:ObservedExample"
-    class_name: ClassVar[str] = "ObservedExample"
-    class_model_uri: ClassVar[URIRef] = CWE.ObservedExample
+    class_class_uri: ClassVar[URIRef] = CWE["CweOperatingSystemPlatform"]
+    class_class_curie: ClassVar[str] = "cwe:CweOperatingSystemPlatform"
+    class_name: ClassVar[str] = "CweOperatingSystemPlatform"
+    class_model_uri: ClassVar[URIRef] = CWE.CweOperatingSystemPlatform
 
-    reference: str = None
-    description: str = None
-    link: Union[str, URI] = None
+    Prevalence: Union[str, "CwePrevalence"] = None
+    Name: Optional[Union[str, "CweOperatingSystemName"]] = None
+    Version: Optional[str] = None
+    CPE_ID: Optional[str] = None
+    Class: Optional[Union[str, "CweOperatingSystemClass"]] = None
+    Note: Optional[Union[str, CweStructuredText]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.reference):
-            self.MissingRequiredField("reference")
-        if not isinstance(self.reference, str):
-            self.reference = str(self.reference)
+        if self._is_empty(self.Prevalence):
+            self.MissingRequiredField("Prevalence")
+        if not isinstance(self.Prevalence, CwePrevalence):
+            self.Prevalence = CwePrevalence(self.Prevalence)
 
-        if self._is_empty(self.description):
-            self.MissingRequiredField("description")
-        if not isinstance(self.description, str):
-            self.description = str(self.description)
+        if self.Name is not None and not isinstance(self.Name, CweOperatingSystemName):
+            self.Name = CweOperatingSystemName(self.Name)
 
-        if self._is_empty(self.link):
-            self.MissingRequiredField("link")
-        if not isinstance(self.link, URI):
-            self.link = URI(self.link)
+        if self.Version is not None and not isinstance(self.Version, str):
+            self.Version = str(self.Version)
+
+        if self.CPE_ID is not None and not isinstance(self.CPE_ID, str):
+            self.CPE_ID = str(self.CPE_ID)
+
+        if self.Class is not None and not isinstance(self.Class, CweOperatingSystemClass):
+            self.Class = CweOperatingSystemClass(self.Class)
+
+        if self.Note is not None and not isinstance(self.Note, CweStructuredText):
+            self.Note = CweStructuredText(self.Note)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class TaxonomyMapping(YAMLRoot):
+class CweArchitecturePlatform(YAMLRoot):
     """
-    A mapping from a CWE entry to an equivalent entry in an external taxonomy (TaxonomyMappingsType/Taxonomy_Mapping
-    in XSD).
+    A hardware architecture where a weakness can appear, named or by its family.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["TaxonomyMapping"]
-    class_class_curie: ClassVar[str] = "cwe:TaxonomyMapping"
-    class_name: ClassVar[str] = "TaxonomyMapping"
-    class_model_uri: ClassVar[URIRef] = CWE.TaxonomyMapping
+    class_class_uri: ClassVar[URIRef] = CWE["CweArchitecturePlatform"]
+    class_class_curie: ClassVar[str] = "cwe:CweArchitecturePlatform"
+    class_name: ClassVar[str] = "CweArchitecturePlatform"
+    class_model_uri: ClassVar[URIRef] = CWE.CweArchitecturePlatform
 
-    taxonomy_name: Union[str, "TaxonomyName"] = None
-    entry_id: Optional[str] = None
-    entry_name: Optional[str] = None
-    mapping_fit: Optional[Union[str, "TaxonomyMappingFit"]] = None
+    Prevalence: Union[str, "CwePrevalence"] = None
+    Name: Optional[Union[str, "CweArchitectureName"]] = None
+    Class: Optional[Union[str, "CweArchitectureClass"]] = None
+    Note: Optional[Union[str, CweStructuredText]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.taxonomy_name):
-            self.MissingRequiredField("taxonomy_name")
-        if not isinstance(self.taxonomy_name, TaxonomyName):
-            self.taxonomy_name = TaxonomyName(self.taxonomy_name)
+        if self._is_empty(self.Prevalence):
+            self.MissingRequiredField("Prevalence")
+        if not isinstance(self.Prevalence, CwePrevalence):
+            self.Prevalence = CwePrevalence(self.Prevalence)
 
-        if self.entry_id is not None and not isinstance(self.entry_id, str):
-            self.entry_id = str(self.entry_id)
+        if self.Name is not None and not isinstance(self.Name, CweArchitectureName):
+            self.Name = CweArchitectureName(self.Name)
 
-        if self.entry_name is not None and not isinstance(self.entry_name, str):
-            self.entry_name = str(self.entry_name)
+        if self.Class is not None and not isinstance(self.Class, CweArchitectureClass):
+            self.Class = CweArchitectureClass(self.Class)
 
-        if self.mapping_fit is not None and not isinstance(self.mapping_fit, TaxonomyMappingFit):
-            self.mapping_fit = TaxonomyMappingFit(self.mapping_fit)
+        if self.Note is not None and not isinstance(self.Note, CweStructuredText):
+            self.Note = CweStructuredText(self.Note)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class CatalogMember(YAMLRoot):
+class CweTechnologyPlatform(YAMLRoot):
     """
-    A Has_Member or Member_Of entry specifying a CWE ID and the View ID in which the membership holds (MemberType in
-    XSD).
+    A technology where a weakness can appear, named or by its family.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["CatalogMember"]
-    class_class_curie: ClassVar[str] = "cwe:CatalogMember"
-    class_name: ClassVar[str] = "CatalogMember"
-    class_model_uri: ClassVar[URIRef] = CWE.CatalogMember
+    class_class_uri: ClassVar[URIRef] = CWE["CweTechnologyPlatform"]
+    class_class_curie: ClassVar[str] = "cwe:CweTechnologyPlatform"
+    class_name: ClassVar[str] = "CweTechnologyPlatform"
+    class_model_uri: ClassVar[URIRef] = CWE.CweTechnologyPlatform
 
-    cwe_id: int = None
-    view_id: int = None
+    Prevalence: Union[str, "CwePrevalence"] = None
+    Name: Optional[Union[str, "CweTechnologyName"]] = None
+    Class: Optional[Union[str, "CweTechnologyClass"]] = None
+    Note: Optional[Union[str, CweStructuredText]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.cwe_id):
-            self.MissingRequiredField("cwe_id")
-        if not isinstance(self.cwe_id, int):
-            self.cwe_id = int(self.cwe_id)
+        if self._is_empty(self.Prevalence):
+            self.MissingRequiredField("Prevalence")
+        if not isinstance(self.Prevalence, CwePrevalence):
+            self.Prevalence = CwePrevalence(self.Prevalence)
 
-        if self._is_empty(self.view_id):
-            self.MissingRequiredField("view_id")
-        if not isinstance(self.view_id, int):
-            self.view_id = int(self.view_id)
+        if self.Name is not None and not isinstance(self.Name, CweTechnologyName):
+            self.Name = CweTechnologyName(self.Name)
+
+        if self.Class is not None and not isinstance(self.Class, CweTechnologyClass):
+            self.Class = CweTechnologyClass(self.Class)
+
+        if self.Note is not None and not isinstance(self.Note, CweStructuredText):
+            self.Note = CweStructuredText(self.Note)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class Relationship(YAMLRoot):
+class CweAlternateTerm(YAMLRoot):
     """
-    Container for category membership relationships (RelationshipsType in XSD). Holds Has_Member and optionally
-    Member_Of lists.
+    Another name people use for a weakness.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["Relationship"]
-    class_class_curie: ClassVar[str] = "cwe:Relationship"
-    class_name: ClassVar[str] = "Relationship"
-    class_model_uri: ClassVar[URIRef] = CWE.Relationship
+    class_class_uri: ClassVar[URIRef] = CWE["CweAlternateTerm"]
+    class_class_curie: ClassVar[str] = "cwe:CweAlternateTerm"
+    class_name: ClassVar[str] = "CweAlternateTerm"
+    class_model_uri: ClassVar[URIRef] = CWE.CweAlternateTerm
 
-    has_member: Optional[Union[Union[dict, CatalogMember], list[Union[dict, CatalogMember]]]] = empty_list()
-    member_of: Optional[Union[Union[dict, CatalogMember], list[Union[dict, CatalogMember]]]] = empty_list()
+    Term: str = None
+    Role: Optional[Union[Union[str, "CweAlternateTermRole"], list[Union[str, "CweAlternateTermRole"]]]] = empty_list()
+    Description: Optional[Union[str, CweStructuredText]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if not isinstance(self.has_member, list):
-            self.has_member = [self.has_member] if self.has_member is not None else []
-        self.has_member = [v if isinstance(v, CatalogMember) else CatalogMember(**as_dict(v)) for v in self.has_member]
+        if self._is_empty(self.Term):
+            self.MissingRequiredField("Term")
+        if not isinstance(self.Term, str):
+            self.Term = str(self.Term)
 
-        if not isinstance(self.member_of, list):
-            self.member_of = [self.member_of] if self.member_of is not None else []
-        self.member_of = [v if isinstance(v, CatalogMember) else CatalogMember(**as_dict(v)) for v in self.member_of]
+        if not isinstance(self.Role, list):
+            self.Role = [self.Role] if self.Role is not None else []
+        self.Role = [v if isinstance(v, CweAlternateTermRole) else CweAlternateTermRole(v) for v in self.Role]
+
+        if self.Description is not None and not isinstance(self.Description, CweStructuredText):
+            self.Description = CweStructuredText(self.Description)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class Audience(YAMLRoot):
+class CweIntroduction(YAMLRoot):
     """
-    A target stakeholder group for a CWE view or category (AudienceType/Stakeholder in XSD).
+    One way a weakness can get into a product.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["Audience"]
-    class_class_curie: ClassVar[str] = "cwe:Audience"
-    class_name: ClassVar[str] = "Audience"
-    class_model_uri: ClassVar[URIRef] = CWE.Audience
+    class_class_uri: ClassVar[URIRef] = CWE["CweIntroduction"]
+    class_class_curie: ClassVar[str] = "cwe:CweIntroduction"
+    class_name: ClassVar[str] = "CweIntroduction"
+    class_model_uri: ClassVar[URIRef] = CWE.CweIntroduction
 
-    type: Union[str, "StakeholderType"] = None
-    description: Optional[str] = None
+    Phase: Optional[Union[Union[str, "CwePhase"], list[Union[str, "CwePhase"]]]] = empty_list()
+    Custom_Phase: Optional[Union[Union[dict, CweCustomPhase], list[Union[dict, CweCustomPhase]]]] = empty_list()
+    Note: Optional[Union[str, CweStructuredText]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.type):
-            self.MissingRequiredField("type")
-        if not isinstance(self.type, StakeholderType):
-            self.type = StakeholderType(self.type)
+        if not isinstance(self.Phase, list):
+            self.Phase = [self.Phase] if self.Phase is not None else []
+        self.Phase = [v if isinstance(v, CwePhase) else CwePhase(v) for v in self.Phase]
 
-        if self.description is not None and not isinstance(self.description, str):
-            self.description = str(self.description)
+        self._normalize_inlined_as_list(slot_name="Custom_Phase", slot_type=CweCustomPhase, key_name="Domain", keyed=False)
+
+        if self.Note is not None and not isinstance(self.Note, CweStructuredText):
+            self.Note = CweStructuredText(self.Note)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class MappingNotes(YAMLRoot):
+class CweConsequence(YAMLRoot):
     """
-    Guidance for when and whether to map an issue to a CWE entry (MappingNotesType in XSD). Required on every
-    Weakness, Category, and View.
+    One thing that can follow when a weakness is exploited.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["MappingNotes"]
-    class_class_curie: ClassVar[str] = "cwe:MappingNotes"
-    class_name: ClassVar[str] = "MappingNotes"
-    class_model_uri: ClassVar[URIRef] = CWE.MappingNotes
+    class_class_uri: ClassVar[URIRef] = CWE["CweConsequence"]
+    class_class_curie: ClassVar[str] = "cwe:CweConsequence"
+    class_name: ClassVar[str] = "CweConsequence"
+    class_model_uri: ClassVar[URIRef] = CWE.CweConsequence
 
-    usage: Union[str, "MappingUsage"] = None
-    rationale: str = None
-    comments: str = None
-    reasons: Union[Union[str, "MappingReason"], list[Union[str, "MappingReason"]]] = None
-    suggestions: Optional[Union[Union[dict, "MappingSuggestion"], list[Union[dict, "MappingSuggestion"]]]] = empty_list()
+    Scope: Union[Union[str, "CweScope"], list[Union[str, "CweScope"]]] = None
+    Impact: Union[Union[str, "CweTechnicalImpact"], list[Union[str, "CweTechnicalImpact"]]] = None
+    Consequence_ID: Optional[str] = None
+    Likelihood: Optional[Union[str, "CweLikelihood"]] = None
+    Note: Optional[Union[str, CweStructuredText]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.usage):
-            self.MissingRequiredField("usage")
-        if not isinstance(self.usage, MappingUsage):
-            self.usage = MappingUsage(self.usage)
+        if self._is_empty(self.Scope):
+            self.MissingRequiredField("Scope")
+        if not isinstance(self.Scope, list):
+            self.Scope = [self.Scope] if self.Scope is not None else []
+        self.Scope = [v if isinstance(v, CweScope) else CweScope(v) for v in self.Scope]
 
-        if self._is_empty(self.rationale):
-            self.MissingRequiredField("rationale")
-        if not isinstance(self.rationale, str):
-            self.rationale = str(self.rationale)
+        if self._is_empty(self.Impact):
+            self.MissingRequiredField("Impact")
+        if not isinstance(self.Impact, list):
+            self.Impact = [self.Impact] if self.Impact is not None else []
+        self.Impact = [v if isinstance(v, CweTechnicalImpact) else CweTechnicalImpact(v) for v in self.Impact]
 
-        if self._is_empty(self.comments):
-            self.MissingRequiredField("comments")
-        if not isinstance(self.comments, str):
-            self.comments = str(self.comments)
+        if self.Consequence_ID is not None and not isinstance(self.Consequence_ID, str):
+            self.Consequence_ID = str(self.Consequence_ID)
 
-        if self._is_empty(self.reasons):
-            self.MissingRequiredField("reasons")
-        if not isinstance(self.reasons, list):
-            self.reasons = [self.reasons] if self.reasons is not None else []
-        self.reasons = [v if isinstance(v, MappingReason) else MappingReason(v) for v in self.reasons]
+        if self.Likelihood is not None and not isinstance(self.Likelihood, CweLikelihood):
+            self.Likelihood = CweLikelihood(self.Likelihood)
 
-        if not isinstance(self.suggestions, list):
-            self.suggestions = [self.suggestions] if self.suggestions is not None else []
-        self.suggestions = [v if isinstance(v, MappingSuggestion) else MappingSuggestion(**as_dict(v)) for v in self.suggestions]
+        if self.Note is not None and not isinstance(self.Note, CweStructuredText):
+            self.Note = CweStructuredText(self.Note)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class MappingSuggestion(YAMLRoot):
+class CweDetectionMethod(YAMLRoot):
     """
-    A suggested alternative CWE entry for mapping purposes (SuggestionsType/Suggestion in XSD).
+    One way of finding a weakness.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["MappingSuggestion"]
-    class_class_curie: ClassVar[str] = "cwe:MappingSuggestion"
-    class_name: ClassVar[str] = "MappingSuggestion"
-    class_model_uri: ClassVar[URIRef] = CWE.MappingSuggestion
+    class_class_uri: ClassVar[URIRef] = CWE["CweDetectionMethod"]
+    class_class_curie: ClassVar[str] = "cwe:CweDetectionMethod"
+    class_name: ClassVar[str] = "CweDetectionMethod"
+    class_model_uri: ClassVar[URIRef] = CWE.CweDetectionMethod
 
-    cwe_id: int = None
-    comment: str = None
+    Method: Union[str, "CweDetectionMethodName"] = None
+    Description: Union[str, CweStructuredText] = None
+    Detection_Method_ID: Optional[str] = None
+    Phase: Optional[Union[Union[str, "CwePhase"], list[Union[str, "CwePhase"]]]] = empty_list()
+    Custom_Phase: Optional[Union[Union[dict, CweCustomPhase], list[Union[dict, CweCustomPhase]]]] = empty_list()
+    Effectiveness: Optional[Union[str, "CweDetectionEffectiveness"]] = None
+    Effectiveness_Notes: Optional[Union[str, CweStructuredText]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.cwe_id):
-            self.MissingRequiredField("cwe_id")
-        if not isinstance(self.cwe_id, int):
-            self.cwe_id = int(self.cwe_id)
+        if self._is_empty(self.Method):
+            self.MissingRequiredField("Method")
+        if not isinstance(self.Method, CweDetectionMethodName):
+            self.Method = CweDetectionMethodName(self.Method)
 
-        if self._is_empty(self.comment):
-            self.MissingRequiredField("comment")
-        if not isinstance(self.comment, str):
-            self.comment = str(self.comment)
+        if self._is_empty(self.Description):
+            self.MissingRequiredField("Description")
+        if not isinstance(self.Description, CweStructuredText):
+            self.Description = CweStructuredText(self.Description)
+
+        if self.Detection_Method_ID is not None and not isinstance(self.Detection_Method_ID, str):
+            self.Detection_Method_ID = str(self.Detection_Method_ID)
+
+        if not isinstance(self.Phase, list):
+            self.Phase = [self.Phase] if self.Phase is not None else []
+        self.Phase = [v if isinstance(v, CwePhase) else CwePhase(v) for v in self.Phase]
+
+        self._normalize_inlined_as_list(slot_name="Custom_Phase", slot_type=CweCustomPhase, key_name="Domain", keyed=False)
+
+        if self.Effectiveness is not None and not isinstance(self.Effectiveness, CweDetectionEffectiveness):
+            self.Effectiveness = CweDetectionEffectiveness(self.Effectiveness)
+
+        if self.Effectiveness_Notes is not None and not isinstance(self.Effectiveness_Notes, CweStructuredText):
+            self.Effectiveness_Notes = CweStructuredText(self.Effectiveness_Notes)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class Note(YAMLRoot):
+class CweMitigation(YAMLRoot):
     """
-    Additional commentary about a CWE entry (NotesType/Note in XSD).
+    One way of preventing a weakness or reducing what it can do.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["Note"]
-    class_class_curie: ClassVar[str] = "cwe:Note"
-    class_name: ClassVar[str] = "Note"
-    class_model_uri: ClassVar[URIRef] = CWE.Note
+    class_class_uri: ClassVar[URIRef] = CWE["CweMitigation"]
+    class_class_curie: ClassVar[str] = "cwe:CweMitigation"
+    class_name: ClassVar[str] = "CweMitigation"
+    class_model_uri: ClassVar[URIRef] = CWE.CweMitigation
 
-    type: Union[str, "NoteType"] = None
-    content: Optional[str] = None
+    Description: Union[str, CweStructuredText] = None
+    Mitigation_ID: Optional[str] = None
+    Phase: Optional[Union[Union[str, "CwePhase"], list[Union[str, "CwePhase"]]]] = empty_list()
+    Custom_Phase: Optional[Union[Union[dict, CweCustomPhase], list[Union[dict, CweCustomPhase]]]] = empty_list()
+    Strategy: Optional[Union[str, "CweMitigationStrategy"]] = None
+    Effectiveness: Optional[Union[str, "CweEffectiveness"]] = None
+    Effectiveness_Notes: Optional[Union[str, CweStructuredText]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.type):
-            self.MissingRequiredField("type")
-        if not isinstance(self.type, NoteType):
-            self.type = NoteType(self.type)
+        if self._is_empty(self.Description):
+            self.MissingRequiredField("Description")
+        if not isinstance(self.Description, CweStructuredText):
+            self.Description = CweStructuredText(self.Description)
 
-        if self.content is not None and not isinstance(self.content, str):
-            self.content = str(self.content)
+        if self.Mitigation_ID is not None and not isinstance(self.Mitigation_ID, str):
+            self.Mitigation_ID = str(self.Mitigation_ID)
+
+        if not isinstance(self.Phase, list):
+            self.Phase = [self.Phase] if self.Phase is not None else []
+        self.Phase = [v if isinstance(v, CwePhase) else CwePhase(v) for v in self.Phase]
+
+        self._normalize_inlined_as_list(slot_name="Custom_Phase", slot_type=CweCustomPhase, key_name="Domain", keyed=False)
+
+        if self.Strategy is not None and not isinstance(self.Strategy, CweMitigationStrategy):
+            self.Strategy = CweMitigationStrategy(self.Strategy)
+
+        if self.Effectiveness is not None and not isinstance(self.Effectiveness, CweEffectiveness):
+            self.Effectiveness = CweEffectiveness(self.Effectiveness)
+
+        if self.Effectiveness_Notes is not None and not isinstance(self.Effectiveness_Notes, CweStructuredText):
+            self.Effectiveness_Notes = CweStructuredText(self.Effectiveness_Notes)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class ContentHistory(YAMLRoot):
+class CweDemonstrativeExample(YAMLRoot):
     """
-    Tracks the original author and subsequent modifications (ContentHistoryType in XSD).
+    A worked example of how a weakness looks in code.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["ContentHistory"]
-    class_class_curie: ClassVar[str] = "cwe:ContentHistory"
-    class_name: ClassVar[str] = "ContentHistory"
-    class_model_uri: ClassVar[URIRef] = CWE.ContentHistory
+    class_class_uri: ClassVar[URIRef] = CWE["CweDemonstrativeExample"]
+    class_class_curie: ClassVar[str] = "cwe:CweDemonstrativeExample"
+    class_name: ClassVar[str] = "CweDemonstrativeExample"
+    class_model_uri: ClassVar[URIRef] = CWE.CweDemonstrativeExample
 
-    submission: Union[dict, "Submission"] = None
-    modifications: Optional[Union[Union[dict, "Modification"], list[Union[dict, "Modification"]]]] = empty_list()
-    contributions: Optional[Union[Union[dict, "Contribution"], list[Union[dict, "Contribution"]]]] = empty_list()
-    previous_entry_names: Optional[Union[Union[dict, "PreviousEntryName"], list[Union[dict, "PreviousEntryName"]]]] = empty_list()
+    Intro_Text: Union[str, CweStructuredText] = None
+    Demonstrative_Example_ID: Optional[str] = None
+    Title_Text: Optional[str] = None
+    Entries: Optional[Union[Union[dict, "CweExampleEntry"], list[Union[dict, "CweExampleEntry"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.submission):
-            self.MissingRequiredField("submission")
-        if not isinstance(self.submission, Submission):
-            self.submission = Submission(**as_dict(self.submission))
+        if self._is_empty(self.Intro_Text):
+            self.MissingRequiredField("Intro_Text")
+        if not isinstance(self.Intro_Text, CweStructuredText):
+            self.Intro_Text = CweStructuredText(self.Intro_Text)
 
-        if not isinstance(self.modifications, list):
-            self.modifications = [self.modifications] if self.modifications is not None else []
-        self.modifications = [v if isinstance(v, Modification) else Modification(**as_dict(v)) for v in self.modifications]
+        if self.Demonstrative_Example_ID is not None and not isinstance(self.Demonstrative_Example_ID, str):
+            self.Demonstrative_Example_ID = str(self.Demonstrative_Example_ID)
 
-        self._normalize_inlined_as_list(slot_name="contributions", slot_type=Contribution, key_name="type", keyed=False)
+        if self.Title_Text is not None and not isinstance(self.Title_Text, str):
+            self.Title_Text = str(self.Title_Text)
 
-        if not isinstance(self.previous_entry_names, list):
-            self.previous_entry_names = [self.previous_entry_names] if self.previous_entry_names is not None else []
-        self.previous_entry_names = [v if isinstance(v, PreviousEntryName) else PreviousEntryName(**as_dict(v)) for v in self.previous_entry_names]
+        if not isinstance(self.Entries, list):
+            self.Entries = [self.Entries] if self.Entries is not None else []
+        self.Entries = [v if isinstance(v, CweExampleEntry) else CweExampleEntry(**as_dict(v)) for v in self.Entries]
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class Submission(YAMLRoot):
+class CweExampleEntry(YAMLRoot):
     """
-    Initial submission record for a CWE entry (ContentHistoryType/Submission in XSD).
+    One step of a worked example, either some prose or some code.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["Submission"]
-    class_class_curie: ClassVar[str] = "cwe:Submission"
-    class_name: ClassVar[str] = "Submission"
-    class_model_uri: ClassVar[URIRef] = CWE.Submission
+    class_class_uri: ClassVar[URIRef] = CWE["CweExampleEntry"]
+    class_class_curie: ClassVar[str] = "cwe:CweExampleEntry"
+    class_name: ClassVar[str] = "CweExampleEntry"
+    class_model_uri: ClassVar[URIRef] = CWE.CweExampleEntry
 
-    submission_date: Union[str, XSDDate] = None
-    submission_version: str = None
-    submission_release_date: Union[str, XSDDate] = None
-    submission_name: Optional[str] = None
-    submission_organization: Optional[str] = None
-    submission_comment: Optional[str] = None
+    Body_Text: Optional[Union[str, CweStructuredText]] = None
+    Example_Code: Optional[Union[dict, "CweExampleCode"]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.submission_date):
-            self.MissingRequiredField("submission_date")
-        if not isinstance(self.submission_date, XSDDate):
-            self.submission_date = XSDDate(self.submission_date)
+        if self.Body_Text is not None and not isinstance(self.Body_Text, CweStructuredText):
+            self.Body_Text = CweStructuredText(self.Body_Text)
 
-        if self._is_empty(self.submission_version):
-            self.MissingRequiredField("submission_version")
-        if not isinstance(self.submission_version, str):
-            self.submission_version = str(self.submission_version)
-
-        if self._is_empty(self.submission_release_date):
-            self.MissingRequiredField("submission_release_date")
-        if not isinstance(self.submission_release_date, XSDDate):
-            self.submission_release_date = XSDDate(self.submission_release_date)
-
-        if self.submission_name is not None and not isinstance(self.submission_name, str):
-            self.submission_name = str(self.submission_name)
-
-        if self.submission_organization is not None and not isinstance(self.submission_organization, str):
-            self.submission_organization = str(self.submission_organization)
-
-        if self.submission_comment is not None and not isinstance(self.submission_comment, str):
-            self.submission_comment = str(self.submission_comment)
+        if self.Example_Code is not None and not isinstance(self.Example_Code, CweExampleCode):
+            self.Example_Code = CweExampleCode(**as_dict(self.Example_Code))
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class Modification(YAMLRoot):
+class CweExampleCode(YAMLRoot):
     """
-    A modification record documenting a change to a CWE entry (ContentHistoryType/Modification in XSD).
+    A block of code in a worked example.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["Modification"]
-    class_class_curie: ClassVar[str] = "cwe:Modification"
-    class_name: ClassVar[str] = "Modification"
-    class_model_uri: ClassVar[URIRef] = CWE.Modification
+    class_class_uri: ClassVar[URIRef] = CWE["CweExampleCode"]
+    class_class_curie: ClassVar[str] = "cwe:CweExampleCode"
+    class_name: ClassVar[str] = "CweExampleCode"
+    class_model_uri: ClassVar[URIRef] = CWE.CweExampleCode
 
-    modification_date: Union[str, XSDDate] = None
-    modification_name: Optional[str] = None
-    modification_organization: Optional[str] = None
-    modification_version: Optional[str] = None
-    modification_release_date: Optional[Union[str, XSDDate]] = None
-    modification_importance: Optional[Union[str, "ContentImportance"]] = None
-    modification_comment: Optional[str] = None
+    Nature: Union[str, "CweCodeNature"] = None
+    Language: Optional[Union[str, "CweLanguageName"]] = None
+    Value: Optional[Union[str, CweStructuredText]] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.modification_date):
-            self.MissingRequiredField("modification_date")
-        if not isinstance(self.modification_date, XSDDate):
-            self.modification_date = XSDDate(self.modification_date)
+        if self._is_empty(self.Nature):
+            self.MissingRequiredField("Nature")
+        if not isinstance(self.Nature, CweCodeNature):
+            self.Nature = CweCodeNature(self.Nature)
 
-        if self.modification_name is not None and not isinstance(self.modification_name, str):
-            self.modification_name = str(self.modification_name)
+        if self.Language is not None and not isinstance(self.Language, CweLanguageName):
+            self.Language = CweLanguageName(self.Language)
 
-        if self.modification_organization is not None and not isinstance(self.modification_organization, str):
-            self.modification_organization = str(self.modification_organization)
-
-        if self.modification_version is not None and not isinstance(self.modification_version, str):
-            self.modification_version = str(self.modification_version)
-
-        if self.modification_release_date is not None and not isinstance(self.modification_release_date, XSDDate):
-            self.modification_release_date = XSDDate(self.modification_release_date)
-
-        if self.modification_importance is not None and not isinstance(self.modification_importance, ContentImportance):
-            self.modification_importance = ContentImportance(self.modification_importance)
-
-        if self.modification_comment is not None and not isinstance(self.modification_comment, str):
-            self.modification_comment = str(self.modification_comment)
+        if self.Value is not None and not isinstance(self.Value, CweStructuredText):
+            self.Value = CweStructuredText(self.Value)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class Contribution(YAMLRoot):
+class CweObservedExample(YAMLRoot):
     """
-    A contribution record documenting donated content or feedback (ContentHistoryType/Contribution in XSD).
+    A real case of a weakness, usually a CVE record.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["Contribution"]
-    class_class_curie: ClassVar[str] = "cwe:Contribution"
-    class_name: ClassVar[str] = "Contribution"
-    class_model_uri: ClassVar[URIRef] = CWE.Contribution
+    class_class_uri: ClassVar[URIRef] = CWE["CweObservedExample"]
+    class_class_curie: ClassVar[str] = "cwe:CweObservedExample"
+    class_name: ClassVar[str] = "CweObservedExample"
+    class_model_uri: ClassVar[URIRef] = CWE.CweObservedExample
 
-    type: Union[str, "ContributionType"] = None
-    contribution_date: Union[str, XSDDate] = None
-    contribution_name: Optional[str] = None
-    contribution_organization: Optional[str] = None
-    contribution_version: Optional[str] = None
-    contribution_release_date: Optional[Union[str, XSDDate]] = None
-    contribution_comment: Optional[str] = None
+    Reference: str = None
+    Description: Union[str, CweStructuredText] = None
+    Link: Union[str, URI] = None
+    Rationale: Optional[Union[Union[str, "CweObservedExampleRationale"], list[Union[str, "CweObservedExampleRationale"]]]] = empty_list()
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.type):
-            self.MissingRequiredField("type")
-        if not isinstance(self.type, ContributionType):
-            self.type = ContributionType(self.type)
+        if self._is_empty(self.Reference):
+            self.MissingRequiredField("Reference")
+        if not isinstance(self.Reference, str):
+            self.Reference = str(self.Reference)
 
-        if self._is_empty(self.contribution_date):
-            self.MissingRequiredField("contribution_date")
-        if not isinstance(self.contribution_date, XSDDate):
-            self.contribution_date = XSDDate(self.contribution_date)
+        if self._is_empty(self.Description):
+            self.MissingRequiredField("Description")
+        if not isinstance(self.Description, CweStructuredText):
+            self.Description = CweStructuredText(self.Description)
 
-        if self.contribution_name is not None and not isinstance(self.contribution_name, str):
-            self.contribution_name = str(self.contribution_name)
+        if self._is_empty(self.Link):
+            self.MissingRequiredField("Link")
+        if not isinstance(self.Link, URI):
+            self.Link = URI(self.Link)
 
-        if self.contribution_organization is not None and not isinstance(self.contribution_organization, str):
-            self.contribution_organization = str(self.contribution_organization)
-
-        if self.contribution_version is not None and not isinstance(self.contribution_version, str):
-            self.contribution_version = str(self.contribution_version)
-
-        if self.contribution_release_date is not None and not isinstance(self.contribution_release_date, XSDDate):
-            self.contribution_release_date = XSDDate(self.contribution_release_date)
-
-        if self.contribution_comment is not None and not isinstance(self.contribution_comment, str):
-            self.contribution_comment = str(self.contribution_comment)
+        if not isinstance(self.Rationale, list):
+            self.Rationale = [self.Rationale] if self.Rationale is not None else []
+        self.Rationale = [v if isinstance(v, CweObservedExampleRationale) else CweObservedExampleRationale(v) for v in self.Rationale]
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class PreviousEntryName(YAMLRoot):
+class CweRelatedAttackPattern(YAMLRoot):
     """
-    A previous name used for a CWE entry before a substantive rename (ContentHistoryType/Previous_Entry_Name in XSD).
+    A pointer from a weakness to an attack pattern in the CAPEC list.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["PreviousEntryName"]
-    class_class_curie: ClassVar[str] = "cwe:PreviousEntryName"
-    class_name: ClassVar[str] = "PreviousEntryName"
-    class_model_uri: ClassVar[URIRef] = CWE.PreviousEntryName
+    class_class_uri: ClassVar[URIRef] = CWE["CweRelatedAttackPattern"]
+    class_class_curie: ClassVar[str] = "cwe:CweRelatedAttackPattern"
+    class_name: ClassVar[str] = "CweRelatedAttackPattern"
+    class_model_uri: ClassVar[URIRef] = CWE.CweRelatedAttackPattern
 
-    name: str = None
-    date: Union[str, XSDDate] = None
-    version: Optional[str] = None
+    CAPEC_ID: Union[str, CweCapecId] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.name):
-            self.MissingRequiredField("name")
-        if not isinstance(self.name, str):
-            self.name = str(self.name)
-
-        if self._is_empty(self.date):
-            self.MissingRequiredField("date")
-        if not isinstance(self.date, XSDDate):
-            self.date = XSDDate(self.date)
-
-        if self.version is not None and not isinstance(self.version, str):
-            self.version = str(self.version)
+        if self._is_empty(self.CAPEC_ID):
+            self.MissingRequiredField("CAPEC_ID")
+        if not isinstance(self.CAPEC_ID, CweCapecId):
+            self.CAPEC_ID = CweCapecId(self.CAPEC_ID)
 
         super().__post_init__(**kwargs)
 
 
 @dataclass(repr=False)
-class NVDWeaknessObservation(YAMLRoot):
+class CweStakeholder(YAMLRoot):
     """
-    Weakness observation from an NVD vulnerability detail page.
+    A group of people who may find a view useful.
     """
     _inherited_slots: ClassVar[list[str]] = []
 
-    class_class_uri: ClassVar[URIRef] = CWE["NVDWeaknessObservation"]
-    class_class_curie: ClassVar[str] = "cwe:NVDWeaknessObservation"
-    class_name: ClassVar[str] = "NVDWeaknessObservation"
-    class_model_uri: ClassVar[URIRef] = CWE.NVDWeaknessObservation
+    class_class_uri: ClassVar[URIRef] = CWE["CweStakeholder"]
+    class_class_curie: ClassVar[str] = "cwe:CweStakeholder"
+    class_name: ClassVar[str] = "CweStakeholder"
+    class_model_uri: ClassVar[URIRef] = CWE.CweStakeholder
 
-    observation_id: Union[str, NVDWeaknessObservationObservationId] = None
-    observed_in_cve: str = None
-    weakness: Union[int, WeaknessId] = None
-    reported_by: Union[str, "WeaknessSource"] = None
-    source: Optional[str] = None
+    Type: Union[str, "CweStakeholderType"] = None
+    Description: Optional[str] = None
 
     def __post_init__(self, *_: str, **kwargs: Any):
-        if self._is_empty(self.observation_id):
-            self.MissingRequiredField("observation_id")
-        if not isinstance(self.observation_id, NVDWeaknessObservationObservationId):
-            self.observation_id = NVDWeaknessObservationObservationId(self.observation_id)
+        if self._is_empty(self.Type):
+            self.MissingRequiredField("Type")
+        if not isinstance(self.Type, CweStakeholderType):
+            self.Type = CweStakeholderType(self.Type)
 
-        if self._is_empty(self.observed_in_cve):
-            self.MissingRequiredField("observed_in_cve")
-        if not isinstance(self.observed_in_cve, str):
-            self.observed_in_cve = str(self.observed_in_cve)
+        if self.Description is not None and not isinstance(self.Description, str):
+            self.Description = str(self.Description)
 
-        if self._is_empty(self.weakness):
-            self.MissingRequiredField("weakness")
-        if not isinstance(self.weakness, WeaknessId):
-            self.weakness = WeaknessId(self.weakness)
+        super().__post_init__(**kwargs)
 
-        if self._is_empty(self.reported_by):
-            self.MissingRequiredField("reported_by")
-        if not isinstance(self.reported_by, WeaknessSource):
-            self.reported_by = WeaknessSource(self.reported_by)
 
-        if self.source is not None and not isinstance(self.source, str):
-            self.source = str(self.source)
+@dataclass(repr=False)
+class CweMember(YAMLRoot):
+    """
+    A link from a grouping or a view to an entry it holds or belongs to, in one view.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CWE["CweMember"]
+    class_class_curie: ClassVar[str] = "cwe:CweMember"
+    class_name: ClassVar[str] = "CweMember"
+    class_model_uri: ClassVar[URIRef] = CWE.CweMember
+
+    CWE_ID: Union[str, CweEntryID] = None
+    View_ID: Union[str, CweViewID] = None
+    Dimensions: Optional[Union[Union[dict, CweDimension], list[Union[dict, CweDimension]]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.CWE_ID):
+            self.MissingRequiredField("CWE_ID")
+        if not isinstance(self.CWE_ID, CweEntryID):
+            self.CWE_ID = CweEntryID(self.CWE_ID)
+
+        if self._is_empty(self.View_ID):
+            self.MissingRequiredField("View_ID")
+        if not isinstance(self.View_ID, CweViewID):
+            self.View_ID = CweViewID(self.View_ID)
+
+        self._normalize_inlined_as_list(slot_name="Dimensions", slot_type=CweDimension, key_name="Type", keyed=False)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class CweRelationships(YAMLRoot):
+    """
+    The entries that a grouping or a view holds or belongs to.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CWE["CweRelationships"]
+    class_class_curie: ClassVar[str] = "cwe:CweRelationships"
+    class_name: ClassVar[str] = "CweRelationships"
+    class_model_uri: ClassVar[URIRef] = CWE.CweRelationships
+
+    Member_Of: Optional[Union[Union[dict, CweMember], list[Union[dict, CweMember]]]] = empty_list()
+    Has_Member: Optional[Union[Union[dict, CweMember], list[Union[dict, CweMember]]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if not isinstance(self.Member_Of, list):
+            self.Member_Of = [self.Member_Of] if self.Member_Of is not None else []
+        self.Member_Of = [v if isinstance(v, CweMember) else CweMember(**as_dict(v)) for v in self.Member_Of]
+
+        if not isinstance(self.Has_Member, list):
+            self.Has_Member = [self.Has_Member] if self.Has_Member is not None else []
+        self.Has_Member = [v if isinstance(v, CweMember) else CweMember(**as_dict(v)) for v in self.Has_Member]
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class CweMappingNotes(YAMLRoot):
+    """
+    Guidance on whether to map a real vulnerability to an entry, and on what to use instead.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CWE["CweMappingNotes"]
+    class_class_curie: ClassVar[str] = "cwe:CweMappingNotes"
+    class_name: ClassVar[str] = "CweMappingNotes"
+    class_model_uri: ClassVar[URIRef] = CWE.CweMappingNotes
+
+    Usage: Union[str, "CweUsage"] = None
+    Rationale: Union[str, CweStructuredText] = None
+    Comments: Union[str, CweStructuredText] = None
+    Reasons: Union[Union[dict, "CweMappingReason"], list[Union[dict, "CweMappingReason"]]] = None
+    Suggestions: Optional[Union[Union[dict, "CweMappingSuggestion"], list[Union[dict, "CweMappingSuggestion"]]]] = empty_list()
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.Usage):
+            self.MissingRequiredField("Usage")
+        if not isinstance(self.Usage, CweUsage):
+            self.Usage = CweUsage(self.Usage)
+
+        if self._is_empty(self.Rationale):
+            self.MissingRequiredField("Rationale")
+        if not isinstance(self.Rationale, CweStructuredText):
+            self.Rationale = CweStructuredText(self.Rationale)
+
+        if self._is_empty(self.Comments):
+            self.MissingRequiredField("Comments")
+        if not isinstance(self.Comments, CweStructuredText):
+            self.Comments = CweStructuredText(self.Comments)
+
+        if self._is_empty(self.Reasons):
+            self.MissingRequiredField("Reasons")
+        self._normalize_inlined_as_list(slot_name="Reasons", slot_type=CweMappingReason, key_name="Type", keyed=False)
+
+        self._normalize_inlined_as_list(slot_name="Suggestions", slot_type=CweMappingSuggestion, key_name="Comment", keyed=False)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class CweMappingReason(YAMLRoot):
+    """
+    One short label that sums up the usage of an entry.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CWE["CweMappingReason"]
+    class_class_curie: ClassVar[str] = "cwe:CweMappingReason"
+    class_name: ClassVar[str] = "CweMappingReason"
+    class_model_uri: ClassVar[URIRef] = CWE.CweMappingReason
+
+    Type: Union[str, "CweReason"] = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.Type):
+            self.MissingRequiredField("Type")
+        if not isinstance(self.Type, CweReason):
+            self.Type = CweReason(self.Type)
+
+        super().__post_init__(**kwargs)
+
+
+@dataclass(repr=False)
+class CweMappingSuggestion(YAMLRoot):
+    """
+    A weakness that may suit a mapping better than this entry.
+    """
+    _inherited_slots: ClassVar[list[str]] = []
+
+    class_class_uri: ClassVar[URIRef] = CWE["CweMappingSuggestion"]
+    class_class_curie: ClassVar[str] = "cwe:CweMappingSuggestion"
+    class_name: ClassVar[str] = "CweMappingSuggestion"
+    class_model_uri: ClassVar[URIRef] = CWE.CweMappingSuggestion
+
+    CWE_ID: Union[str, CweWeaknessID] = None
+    Comment: str = None
+
+    def __post_init__(self, *_: str, **kwargs: Any):
+        if self._is_empty(self.CWE_ID):
+            self.MissingRequiredField("CWE_ID")
+        if not isinstance(self.CWE_ID, CweWeaknessID):
+            self.CWE_ID = CweWeaknessID(self.CWE_ID)
+
+        if self._is_empty(self.Comment):
+            self.MissingRequiredField("Comment")
+        if not isinstance(self.Comment, str):
+            self.Comment = str(self.Comment)
 
         super().__post_init__(**kwargs)
 
 
 # Enumerations
-class WeaknessSource(EnumDefinitionImpl):
+class CweAbstraction(EnumDefinitionImpl):
     """
-    Source attribution for weakness data in NVD/CVE contexts.
+    How far a weakness is described in general terms or tied to a specific product or resource.
     """
-    MITRE = PermissibleValue(
-        text="MITRE",
-        description="Data sourced from MITRE CWE content.")
-    NIST = PermissibleValue(
-        text="NIST",
-        description="Data produced by NIST/NVD analysis.")
-    ASSIGNER = PermissibleValue(
-        text="ASSIGNER",
-        description="Data provided by the CVE assigner/CNA.")
-    CNA = PermissibleValue(
-        text="CNA",
-        description="Data provided by a CVE Numbering Authority.")
-    OTHER = PermissibleValue(
-        text="OTHER",
-        description="Other or unspecified source.")
+    Pillar = PermissibleValue(
+        text="Pillar",
+        description="The most general level, a theme that the weaknesses under it share.")
+    Class = PermissibleValue(
+        text="Class",
+        description="A very general weakness, usually independent of any language or technology.")
+    Base = PermissibleValue(
+        text="Base",
+        description="A weakness general enough to apply widely and detailed enough to find or prevent it.")
+    Variant = PermissibleValue(
+        text="Variant",
+        description="A weakness tied to a particular language, technology or kind of product.")
+    Compound = PermissibleValue(
+        text="Compound",
+        description="An entry that ties two or more weaknesses together, as a chain or a composite.")
 
     _defn = EnumDefinition(
-        name="WeaknessSource",
-        description="Source attribution for weakness data in NVD/CVE contexts.",
+        name="CweAbstraction",
+        description="How far a weakness is described in general terms or tied to a specific product or resource.",
     )
 
-class WeaknessAbstraction(EnumDefinitionImpl):
+class CweAlternateTermRole(EnumDefinitionImpl):
     """
-    CWE abstraction layer (AbstractionEnumeration in XSD).
+    The part an alternate term plays when people talk about a weakness.
     """
-    PILLAR = PermissibleValue(
-        text="PILLAR",
-        description="Most abstract type; a theme for all class/base/variant weaknesses.")
-    CLASS = PermissibleValue(
-        text="CLASS",
-        description="Abstract, independent of any specific language or technology.")
-    BASE = PermissibleValue(
-        text="BASE",
-        description="Mostly independent of resource or technology; supports detection/prevention.")
-    VARIANT = PermissibleValue(
-        text="VARIANT",
-        description="Linked to a specific language or technology.")
-    COMPOUND = PermissibleValue(
-        text="COMPOUND",
-        description="Meaningful aggregation — Chain or Composite.")
+    Abbreviation = PermissibleValue(text="Abbreviation")
+    Acronym = PermissibleValue(text="Acronym")
+    Discouraged = PermissibleValue(text="Discouraged")
+    Legacy = PermissibleValue(text="Legacy")
+    Other = PermissibleValue(text="Other")
 
     _defn = EnumDefinition(
-        name="WeaknessAbstraction",
-        description="CWE abstraction layer (AbstractionEnumeration in XSD).",
+        name="CweAlternateTermRole",
+        description="The part an alternate term plays when people talk about a weakness.",
     )
 
-class WeaknessStatus(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Alternate-Spelling",
+            PermissibleValue(text="Alternate-Spelling"))
+        setattr(cls, "Attack-Focused",
+            PermissibleValue(text="Attack-Focused"))
+        setattr(cls, "Impact-Oriented",
+            PermissibleValue(text="Impact-Oriented"))
+        setattr(cls, "Multi-Weakness",
+            PermissibleValue(text="Multi-Weakness"))
+        setattr(cls, "Multiple-Interpretation",
+            PermissibleValue(text="Multiple-Interpretation"))
+        setattr(cls, "Common-Name",
+            PermissibleValue(text="Common-Name"))
+
+class CweArchitectureClass(EnumDefinitionImpl):
     """
-    Lifecycle status of a CWE entry, category, or view (StatusEnumeration in XSD).
+    A broad family of hardware architectures.
     """
-    DEPRECATED = PermissibleValue(
-        text="DEPRECATED",
-        description="Removed from CWE; likely a duplicate or created in error.")
-    DRAFT = PermissibleValue(
-        text="DRAFT",
-        description="All important elements filled; may still have problems or gaps.")
-    INCOMPLETE = PermissibleValue(
-        text="INCOMPLETE",
-        description="Not all important elements filled; quality not guaranteed.")
-    OBSOLETE = PermissibleValue(
-        text="OBSOLETE",
-        description="Still valid but no longer relevant; likely superseded.")
-    STABLE = PermissibleValue(
-        text="STABLE",
-        description="All important elements verified; unlikely to change significantly.")
-    USABLE = PermissibleValue(
-        text="USABLE",
-        description="Has received close extensive review; critical elements verified.")
+    Embedded = PermissibleValue(text="Embedded")
+    Microcomputer = PermissibleValue(text="Microcomputer")
+    Workstation = PermissibleValue(text="Workstation")
 
     _defn = EnumDefinition(
-        name="WeaknessStatus",
-        description="Lifecycle status of a CWE entry, category, or view (StatusEnumeration in XSD).",
+        name="CweArchitectureClass",
+        description="A broad family of hardware architectures.",
     )
 
-class WeaknessStructure(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Not Architecture-Specific",
+            PermissibleValue(
+                text="Not Architecture-Specific",
+                description="The weakness can appear on many architectures."))
+
+class CweArchitectureName(EnumDefinitionImpl):
     """
-    Structural nature of a weakness (StructureEnumeration in XSD).
+    A named hardware architecture.
     """
-    SIMPLE = PermissibleValue(
-        text="SIMPLE",
-        description="Single weakness whose exploitation is not dependent on another weakness.")
-    CHAIN = PermissibleValue(
-        text="CHAIN",
-        description="Set of weaknesses reachable consecutively to produce a vulnerability.")
-    COMPOSITE = PermissibleValue(
-        text="COMPOSITE",
-        description="Set of weaknesses that must all be present simultaneously.")
+    Alpha = PermissibleValue(text="Alpha")
+    ARM = PermissibleValue(text="ARM")
+    Itanium = PermissibleValue(text="Itanium")
+    SPARC = PermissibleValue(text="SPARC")
+    x86 = PermissibleValue(text="x86")
+    Other = PermissibleValue(text="Other")
 
     _defn = EnumDefinition(
-        name="WeaknessStructure",
-        description="Structural nature of a weakness (StructureEnumeration in XSD).",
+        name="CweArchitectureName",
+        description="A named hardware architecture.",
     )
 
-class LikelihoodLevel(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Power Architecture",
+            PermissibleValue(text="Power Architecture"))
+
+class CweDetectionMethodName(EnumDefinitionImpl):
     """
-    Likelihood of exploitation or occurrence (LikelihoodEnumeration in XSD).
+    A way of finding a weakness.
     """
-    HIGH = PermissibleValue(text="HIGH")
-    MEDIUM = PermissibleValue(text="MEDIUM")
-    LOW = PermissibleValue(text="LOW")
-    UNKNOWN = PermissibleValue(
-        text="UNKNOWN",
-        description="Actual likelihood is not known.")
+    Fuzzing = PermissibleValue(text="Fuzzing")
+    Other = PermissibleValue(text="Other")
 
     _defn = EnumDefinition(
-        name="LikelihoodLevel",
-        description="Likelihood of exploitation or occurrence (LikelihoodEnumeration in XSD).",
+        name="CweDetectionMethodName",
+        description="A way of finding a weakness.",
     )
 
-class WeaknessRelationNature(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Automated Analysis",
+            PermissibleValue(text="Automated Analysis"))
+        setattr(cls, "Automated Dynamic Analysis",
+            PermissibleValue(text="Automated Dynamic Analysis"))
+        setattr(cls, "Automated Static Analysis",
+            PermissibleValue(text="Automated Static Analysis"))
+        setattr(cls, "Automated Static Analysis - Source Code",
+            PermissibleValue(text="Automated Static Analysis - Source Code"))
+        setattr(cls, "Automated Static Analysis - Binary or Bytecode",
+            PermissibleValue(text="Automated Static Analysis - Binary or Bytecode"))
+        setattr(cls, "Manual Analysis",
+            PermissibleValue(text="Manual Analysis"))
+        setattr(cls, "Manual Dynamic Analysis",
+            PermissibleValue(text="Manual Dynamic Analysis"))
+        setattr(cls, "Manual Static Analysis",
+            PermissibleValue(text="Manual Static Analysis"))
+        setattr(cls, "Manual Static Analysis - Source Code",
+            PermissibleValue(text="Manual Static Analysis - Source Code"))
+        setattr(cls, "Manual Static Analysis - Binary or Bytecode",
+            PermissibleValue(text="Manual Static Analysis - Binary or Bytecode"))
+        setattr(cls, "White Box",
+            PermissibleValue(text="White Box"))
+        setattr(cls, "Black Box",
+            PermissibleValue(text="Black Box"))
+        setattr(cls, "Architecture or Design Review",
+            PermissibleValue(text="Architecture or Design Review"))
+        setattr(cls, "Dynamic Analysis with Manual Results Interpretation",
+            PermissibleValue(text="Dynamic Analysis with Manual Results Interpretation"))
+        setattr(cls, "Dynamic Analysis with Automated Results Interpretation",
+            PermissibleValue(text="Dynamic Analysis with Automated Results Interpretation"))
+        setattr(cls, "Formal Verification",
+            PermissibleValue(text="Formal Verification"))
+        setattr(cls, "Simulation / Emulation",
+            PermissibleValue(text="Simulation / Emulation"))
+
+class CweDetectionEffectiveness(EnumDefinitionImpl):
     """
-    Nature of a directional relationship between two CWE entries (RelatedNatureEnumeration in XSD).
+    How well a detection method finds a weakness.
     """
-    CHILD_OF = PermissibleValue(
-        text="CHILD_OF",
-        description="Related weakness at a higher level of abstraction.")
-    PARENT_OF = PermissibleValue(
-        text="PARENT_OF",
-        description="Related weakness at a lower level of abstraction.")
-    STARTS_WITH = PermissibleValue(
-        text="STARTS_WITH",
-        description="Chaining; this weakness starts the chain.")
-    CAN_FOLLOW = PermissibleValue(
-        text="CAN_FOLLOW",
-        description="Chaining; this weakness can follow the target.")
-    CAN_PRECEDE = PermissibleValue(
-        text="CAN_PRECEDE",
-        description="Chaining; this weakness can precede the target.")
-    REQUIRED_BY = PermissibleValue(
-        text="REQUIRED_BY",
-        description="Composite; this weakness is required by the target.")
-    REQUIRES = PermissibleValue(
-        text="REQUIRES",
-        description="Composite; this weakness requires the target.")
-    CAN_ALSO_BE = PermissibleValue(
-        text="CAN_ALSO_BE",
-        description="In proper context can also be perceived as the target weakness.")
-    PEER_OF = PermissibleValue(
-        text="PEER_OF",
-        description="Shows similarity with the target; no precise fit elsewhere.")
+    High = PermissibleValue(
+        text="High",
+        description="It finds the weakness often and with few false reports.")
+    Moderate = PermissibleValue(
+        text="Moderate",
+        description="It works in several situations but misses some forms or gives some false reports.")
+    Opportunistic = PermissibleValue(
+        text="Opportunistic",
+        description="It does not aim at this weakness and finds it only by the way.")
+    Limited = PermissibleValue(
+        text="Limited",
+        description="It helps only in some situations.")
 
     _defn = EnumDefinition(
-        name="WeaknessRelationNature",
-        description="Nature of a directional relationship between two CWE entries (RelatedNatureEnumeration in XSD).",
+        name="CweDetectionEffectiveness",
+        description="How well a detection method finds a weakness.",
     )
 
-class WeaknessOrdinalityLevel(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "SOAR Partial",
+            PermissibleValue(
+                text="SOAR Partial",
+                description="The State Of the Art Report rates it as cost-effective for part of the job."))
+        setattr(cls, "None",
+            PermissibleValue(
+                text="None",
+                description="It does not find the weakness."))
+
+class CweEffectiveness(EnumDefinitionImpl):
     """
-    Potential ordering relationship of a weakness relative to others (OrdinalityEnumeration in XSD).
+    How well a mitigation prevents a weakness.
     """
-    PRIMARY = PermissibleValue(
-        text="PRIMARY",
-        description="Weakness exists independent of other weaknesses.")
-    RESULTANT = PermissibleValue(
-        text="RESULTANT",
-        description="Weakness exists only in the presence of other weaknesses.")
-    INDIRECT = PermissibleValue(
-        text="INDIRECT",
-        description="Does not directly lead to security weaknesses but may facilitate them.")
+    High = PermissibleValue(
+        text="High",
+        description="It often removes the weakness altogether.")
+    Moderate = PermissibleValue(
+        text="Moderate",
+        description="It prevents several forms of the weakness but does not cover them all.")
+    Limited = PermissibleValue(
+        text="Limited",
+        description="It helps only in some situations or against some forms of the weakness.")
+    Incidental = PermissibleValue(
+        text="Incidental",
+        description="It protects by chance and cannot be relied on.")
 
     _defn = EnumDefinition(
-        name="WeaknessOrdinalityLevel",
-        description="Potential ordering relationship of a weakness relative to others (OrdinalityEnumeration in XSD).",
+        name="CweEffectiveness",
+        description="How well a mitigation prevents a weakness.",
     )
 
-class OrdinalQualifier(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Discouraged Common Practice",
+            PermissibleValue(
+                text="Discouraged Common Practice",
+                description="A habit people often follow that does not work well enough to recommend."))
+        setattr(cls, "Defense in Depth",
+            PermissibleValue(
+                text="Defense in Depth",
+                description="It adds a layer of protection and does not remove the weakness by itself."))
+        setattr(cls, "None",
+            PermissibleValue(
+                text="None",
+                description="It does not prevent the weakness."))
+
+class CweFunctionalArea(EnumDefinitionImpl):
     """
-    Marks a related-weakness relationship as the primary one for a given <Nature, CWE_ID, View_ID> triple
-    (OrdinalEnumeration in XSD).
+    The part of a product where a weakness is most likely to appear.
     """
-    PRIMARY = PermissibleValue(
-        text="PRIMARY",
-        description="Primary ChildOf relationship for this weakness in the given view.")
+    Authentication = PermissibleValue(text="Authentication")
+    Authorization = PermissibleValue(text="Authorization")
+    Counters = PermissibleValue(text="Counters")
+    Cryptography = PermissibleValue(text="Cryptography")
+    Logging = PermissibleValue(text="Logging")
+    Networking = PermissibleValue(text="Networking")
+    Signals = PermissibleValue(text="Signals")
+    Power = PermissibleValue(text="Power")
+    Clock = PermissibleValue(text="Clock")
 
     _defn = EnumDefinition(
-        name="OrdinalQualifier",
-        description="""Marks a related-weakness relationship as the primary one for a given <Nature, CWE_ID, View_ID> triple (OrdinalEnumeration in XSD).""",
+        name="CweFunctionalArea",
+        description="The part of a product where a weakness is most likely to appear.",
     )
 
-class SecurityScope(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Code Libraries",
+            PermissibleValue(text="Code Libraries"))
+        setattr(cls, "Error Handling",
+            PermissibleValue(text="Error Handling"))
+        setattr(cls, "Interprocess Communication",
+            PermissibleValue(text="Interprocess Communication"))
+        setattr(cls, "File Processing",
+            PermissibleValue(text="File Processing"))
+        setattr(cls, "Memory Management",
+            PermissibleValue(text="Memory Management"))
+        setattr(cls, "Number Processing",
+            PermissibleValue(text="Number Processing"))
+        setattr(cls, "Program Invocation",
+            PermissibleValue(text="Program Invocation"))
+        setattr(cls, "Protection Mechanism",
+            PermissibleValue(text="Protection Mechanism"))
+        setattr(cls, "Session Management",
+            PermissibleValue(text="Session Management"))
+        setattr(cls, "String Processing",
+            PermissibleValue(text="String Processing"))
+        setattr(cls, "Not Functional-Area-Specific",
+            PermissibleValue(text="Not Functional-Area-Specific"))
+
+class CweImportance(EnumDefinitionImpl):
     """
-    Security property area that can be violated by exploiting a weakness (ScopeEnumeration in XSD).
+    How much a change to an entry matters to people who already rely on it.
     """
-    CONFIDENTIALITY = PermissibleValue(text="CONFIDENTIALITY")
-    INTEGRITY = PermissibleValue(text="INTEGRITY")
-    AVAILABILITY = PermissibleValue(text="AVAILABILITY")
-    ACCESS_CONTROL = PermissibleValue(text="ACCESS_CONTROL")
-    ACCOUNTABILITY = PermissibleValue(text="ACCOUNTABILITY")
-    AUTHENTICATION = PermissibleValue(text="AUTHENTICATION")
-    AUTHORIZATION = PermissibleValue(text="AUTHORIZATION")
-    NON_REPUDIATION = PermissibleValue(text="NON_REPUDIATION")
-    OTHER = PermissibleValue(text="OTHER")
+    Normal = PermissibleValue(text="Normal")
+    Critical = PermissibleValue(
+        text="Critical",
+        description="The change alters what the entry means or how it may be read.")
 
     _defn = EnumDefinition(
-        name="SecurityScope",
-        description="Security property area that can be violated by exploiting a weakness (ScopeEnumeration in XSD).",
+        name="CweImportance",
+        description="How much a change to an entry matters to people who already rely on it.",
     )
 
-class TechnicalImpact(EnumDefinitionImpl):
+class CweLanguageClass(EnumDefinitionImpl):
     """
-    Technical impact of successfully exploiting a weakness (TechnicalImpactEnumeration in XSD).
+    A broad family of programming languages.
     """
-    MODIFY_MEMORY = PermissibleValue(text="MODIFY_MEMORY")
-    READ_MEMORY = PermissibleValue(text="READ_MEMORY")
-    MODIFY_FILES_OR_DIRECTORIES = PermissibleValue(text="MODIFY_FILES_OR_DIRECTORIES")
-    READ_FILES_OR_DIRECTORIES = PermissibleValue(text="READ_FILES_OR_DIRECTORIES")
-    MODIFY_APPLICATION_DATA = PermissibleValue(text="MODIFY_APPLICATION_DATA")
-    READ_APPLICATION_DATA = PermissibleValue(text="READ_APPLICATION_DATA")
-    DOS_CRASH_EXIT_OR_RESTART = PermissibleValue(
-        text="DOS_CRASH_EXIT_OR_RESTART",
-        description="DoS: Crash, Exit, or Restart")
-    DOS_AMPLIFICATION = PermissibleValue(
-        text="DOS_AMPLIFICATION",
-        description="DoS: Amplification")
-    DOS_INSTABILITY = PermissibleValue(
-        text="DOS_INSTABILITY",
-        description="DoS: Instability")
-    DOS_RESOURCE_CONSUMPTION_CPU = PermissibleValue(
-        text="DOS_RESOURCE_CONSUMPTION_CPU",
-        description="DoS: Resource Consumption (CPU)")
-    DOS_RESOURCE_CONSUMPTION_MEMORY = PermissibleValue(
-        text="DOS_RESOURCE_CONSUMPTION_MEMORY",
-        description="DoS: Resource Consumption (Memory)")
-    DOS_RESOURCE_CONSUMPTION_OTHER = PermissibleValue(
-        text="DOS_RESOURCE_CONSUMPTION_OTHER",
-        description="DoS: Resource Consumption (Other)")
-    EXECUTE_UNAUTHORIZED_CODE_OR_COMMANDS = PermissibleValue(text="EXECUTE_UNAUTHORIZED_CODE_OR_COMMANDS")
-    GAIN_PRIVILEGES_OR_ASSUME_IDENTITY = PermissibleValue(text="GAIN_PRIVILEGES_OR_ASSUME_IDENTITY")
-    BYPASS_PROTECTION_MECHANISM = PermissibleValue(text="BYPASS_PROTECTION_MECHANISM")
-    HIDE_ACTIVITIES = PermissibleValue(text="HIDE_ACTIVITIES")
-    ALTER_EXECUTION_LOGIC = PermissibleValue(text="ALTER_EXECUTION_LOGIC")
-    QUALITY_DEGRADATION = PermissibleValue(text="QUALITY_DEGRADATION")
-    UNEXPECTED_STATE = PermissibleValue(text="UNEXPECTED_STATE")
-    VARIES_BY_CONTEXT = PermissibleValue(text="VARIES_BY_CONTEXT")
-    INCREASE_ANALYTICAL_COMPLEXITY = PermissibleValue(
-        text="INCREASE_ANALYTICAL_COMPLEXITY",
-        description="Makes vulnerability harder to find and fix.")
-    REDUCE_MAINTAINABILITY = PermissibleValue(text="REDUCE_MAINTAINABILITY")
-    REDUCE_PERFORMANCE = PermissibleValue(text="REDUCE_PERFORMANCE")
-    REDUCE_RELIABILITY = PermissibleValue(text="REDUCE_RELIABILITY")
-    OTHER = PermissibleValue(text="OTHER")
+    Assembly = PermissibleValue(text="Assembly")
+    Compiled = PermissibleValue(text="Compiled")
+    Interpreted = PermissibleValue(text="Interpreted")
 
     _defn = EnumDefinition(
-        name="TechnicalImpact",
-        description="Technical impact of successfully exploiting a weakness (TechnicalImpactEnumeration in XSD).",
+        name="CweLanguageClass",
+        description="A broad family of programming languages.",
     )
 
-class LifecyclePhase(EnumDefinitionImpl):
-    """
-    Phase in the product lifecycle where a weakness may be introduced or a mitigation applied (PhaseEnumeration in
-    XSD).
-    """
-    POLICY = PermissibleValue(text="POLICY")
-    REQUIREMENTS = PermissibleValue(text="REQUIREMENTS")
-    ARCHITECTURE_AND_DESIGN = PermissibleValue(text="ARCHITECTURE_AND_DESIGN")
-    IMPLEMENTATION = PermissibleValue(text="IMPLEMENTATION")
-    BUILD_AND_COMPILATION = PermissibleValue(text="BUILD_AND_COMPILATION")
-    TESTING = PermissibleValue(text="TESTING")
-    DOCUMENTATION = PermissibleValue(text="DOCUMENTATION")
-    BUNDLING = PermissibleValue(text="BUNDLING")
-    DISTRIBUTION = PermissibleValue(text="DISTRIBUTION")
-    INSTALLATION = PermissibleValue(text="INSTALLATION")
-    SYSTEM_CONFIGURATION = PermissibleValue(text="SYSTEM_CONFIGURATION")
-    OPERATION = PermissibleValue(text="OPERATION")
-    PATCHING_AND_MAINTENANCE = PermissibleValue(text="PATCHING_AND_MAINTENANCE")
-    PORTING = PermissibleValue(text="PORTING")
-    INTEGRATION = PermissibleValue(text="INTEGRATION")
-    MANUFACTURING = PermissibleValue(text="MANUFACTURING")
-    DECOMMISSIONING_AND_END_OF_LIFE = PermissibleValue(text="DECOMMISSIONING_AND_END_OF_LIFE")
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Hardware Description Language",
+            PermissibleValue(text="Hardware Description Language"))
+        setattr(cls, "Object-Oriented",
+            PermissibleValue(text="Object-Oriented"))
+        setattr(cls, "Memory-Unsafe",
+            PermissibleValue(text="Memory-Unsafe"))
+        setattr(cls, "Not Language-Specific",
+            PermissibleValue(
+                text="Not Language-Specific",
+                description="The weakness can appear in many languages."))
 
-    _defn = EnumDefinition(
-        name="LifecyclePhase",
-        description="""Phase in the product lifecycle where a weakness may be introduced or a mitigation applied (PhaseEnumeration in XSD).""",
-    )
-
-class MitigationStrategy(EnumDefinitionImpl):
+class CweLanguageName(EnumDefinitionImpl):
     """
-    General strategy for protecting a system (MitigationStrategyEnumeration in XSD).
+    A named programming language or notation.
     """
-    ATTACK_SURFACE_REDUCTION = PermissibleValue(text="ATTACK_SURFACE_REDUCTION")
-    COMPILATION_OR_BUILD_HARDENING = PermissibleValue(text="COMPILATION_OR_BUILD_HARDENING")
-    ENFORCEMENT_BY_CONVERSION = PermissibleValue(text="ENFORCEMENT_BY_CONVERSION")
-    ENVIRONMENT_HARDENING = PermissibleValue(text="ENVIRONMENT_HARDENING")
-    FIREWALL = PermissibleValue(text="FIREWALL")
-    INPUT_VALIDATION = PermissibleValue(text="INPUT_VALIDATION")
-    LANGUAGE_SELECTION = PermissibleValue(text="LANGUAGE_SELECTION")
-    LIBRARIES_OR_FRAMEWORKS = PermissibleValue(text="LIBRARIES_OR_FRAMEWORKS")
-    RESOURCE_LIMITATION = PermissibleValue(text="RESOURCE_LIMITATION")
-    OUTPUT_ENCODING = PermissibleValue(text="OUTPUT_ENCODING")
-    PARAMETERIZATION = PermissibleValue(text="PARAMETERIZATION")
-    REFACTORING = PermissibleValue(text="REFACTORING")
-    SANDBOX_OR_JAIL = PermissibleValue(text="SANDBOX_OR_JAIL")
-    SEPARATION_OF_PRIVILEGE = PermissibleValue(text="SEPARATION_OF_PRIVILEGE")
-
-    _defn = EnumDefinition(
-        name="MitigationStrategy",
-        description="General strategy for protecting a system (MitigationStrategyEnumeration in XSD).",
-    )
-
-class DetectionMethodType(EnumDefinitionImpl):
-    """
-    Method that may be employed to detect a weakness (DetectionMethodEnumeration in XSD).
-    """
-    AUTOMATED_ANALYSIS = PermissibleValue(text="AUTOMATED_ANALYSIS")
-    AUTOMATED_DYNAMIC_ANALYSIS = PermissibleValue(text="AUTOMATED_DYNAMIC_ANALYSIS")
-    AUTOMATED_STATIC_ANALYSIS = PermissibleValue(text="AUTOMATED_STATIC_ANALYSIS")
-    AUTOMATED_STATIC_ANALYSIS_SOURCE_CODE = PermissibleValue(
-        text="AUTOMATED_STATIC_ANALYSIS_SOURCE_CODE",
-        description="Automated Static Analysis - Source Code")
-    AUTOMATED_STATIC_ANALYSIS_BINARY_OR_BYTECODE = PermissibleValue(
-        text="AUTOMATED_STATIC_ANALYSIS_BINARY_OR_BYTECODE",
-        description="Automated Static Analysis - Binary or Bytecode")
-    FUZZING = PermissibleValue(text="FUZZING")
-    MANUAL_ANALYSIS = PermissibleValue(text="MANUAL_ANALYSIS")
-    MANUAL_DYNAMIC_ANALYSIS = PermissibleValue(text="MANUAL_DYNAMIC_ANALYSIS")
-    MANUAL_STATIC_ANALYSIS = PermissibleValue(text="MANUAL_STATIC_ANALYSIS")
-    MANUAL_STATIC_ANALYSIS_SOURCE_CODE = PermissibleValue(
-        text="MANUAL_STATIC_ANALYSIS_SOURCE_CODE",
-        description="Manual Static Analysis - Source Code")
-    MANUAL_STATIC_ANALYSIS_BINARY_OR_BYTECODE = PermissibleValue(
-        text="MANUAL_STATIC_ANALYSIS_BINARY_OR_BYTECODE",
-        description="Manual Static Analysis - Binary or Bytecode")
-    WHITE_BOX = PermissibleValue(text="WHITE_BOX")
-    BLACK_BOX = PermissibleValue(text="BLACK_BOX")
-    ARCHITECTURE_OR_DESIGN_REVIEW = PermissibleValue(text="ARCHITECTURE_OR_DESIGN_REVIEW")
-    DYNAMIC_ANALYSIS_WITH_MANUAL_RESULTS_INTERPRETATION = PermissibleValue(text="DYNAMIC_ANALYSIS_WITH_MANUAL_RESULTS_INTERPRETATION")
-    DYNAMIC_ANALYSIS_WITH_AUTOMATED_RESULTS_INTERPRETATION = PermissibleValue(text="DYNAMIC_ANALYSIS_WITH_AUTOMATED_RESULTS_INTERPRETATION")
-    FORMAL_VERIFICATION = PermissibleValue(text="FORMAL_VERIFICATION")
-    SIMULATION_EMULATION = PermissibleValue(text="SIMULATION_EMULATION")
-    OTHER = PermissibleValue(text="OTHER")
-
-    _defn = EnumDefinition(
-        name="DetectionMethodType",
-        description="Method that may be employed to detect a weakness (DetectionMethodEnumeration in XSD).",
-    )
-
-class DetectionEffectiveness(EnumDefinitionImpl):
-    """
-    Effectiveness of a detection method (DetectionEffectivenessEnumeration in XSD).
-    """
-    HIGH = PermissibleValue(
-        text="HIGH",
-        description="Succeeds frequently; few false reports.")
-    MODERATE = PermissibleValue(
-        text="MODERATE",
-        description="Applicable broadly but may lack complete coverage.")
-    SOAR_PARTIAL = PermissibleValue(
-        text="SOAR_PARTIAL",
-        description="Cost-effective for partial coverage per IATAC SOAR report.")
-    OPPORTUNISTIC = PermissibleValue(
-        text="OPPORTUNISTIC",
-        description="May succeed by chance rather than reliably.")
-    LIMITED = PermissibleValue(
-        text="LIMITED",
-        description="Useful in limited circumstances.")
-    NONE = PermissibleValue(
-        text="NONE",
-        description="Highly unlikely to work.")
-
-    _defn = EnumDefinition(
-        name="DetectionEffectiveness",
-        description="Effectiveness of a detection method (DetectionEffectivenessEnumeration in XSD).",
-    )
-
-class MitigationEffectiveness(EnumDefinitionImpl):
-    """
-    Effectiveness of a potential mitigation (EffectivenessEnumeration in XSD).
-    """
-    HIGH = PermissibleValue(
-        text="HIGH",
-        description="Frequently eliminates the weakness entirely.")
-    MODERATE = PermissibleValue(
-        text="MODERATE",
-        description="Prevents multiple forms but lacks complete coverage.")
-    LIMITED = PermissibleValue(
-        text="LIMITED",
-        description="Useful in limited circumstances.")
-    INCIDENTAL = PermissibleValue(
-        text="INCIDENTAL",
-        description="Generally not effective; only protects by chance.")
-    DEFENSE_IN_DEPTH = PermissibleValue(
-        text="DEFENSE_IN_DEPTH",
-        description="Minimizes impact rather than preventing the weakness.")
-    DISCOURAGED_COMMON_PRACTICE = PermissibleValue(
-        text="DISCOURAGED_COMMON_PRACTICE",
-        description="Commonly attempted but known to be ineffective or risky.")
-    NONE = PermissibleValue(text="NONE")
-
-    _defn = EnumDefinition(
-        name="MitigationEffectiveness",
-        description="Effectiveness of a potential mitigation (EffectivenessEnumeration in XSD).",
-    )
-
-class NoteType(EnumDefinitionImpl):
-    """
-    Type of note on a CWE entry (NoteTypeEnumeration in XSD).
-    """
-    APPLICABLE_PLATFORM = PermissibleValue(text="APPLICABLE_PLATFORM")
-    MAINTENANCE = PermissibleValue(text="MAINTENANCE")
-    RELATIONSHIP = PermissibleValue(text="RELATIONSHIP")
-    RESEARCH_GAP = PermissibleValue(text="RESEARCH_GAP")
-    TERMINOLOGY = PermissibleValue(text="TERMINOLOGY")
-    THEORETICAL = PermissibleValue(text="THEORETICAL")
-    OTHER = PermissibleValue(text="OTHER")
-
-    _defn = EnumDefinition(
-        name="NoteType",
-        description="Type of note on a CWE entry (NoteTypeEnumeration in XSD).",
-    )
-
-class CWEViewType(EnumDefinitionImpl):
-    """
-    Type of CWE view (ViewTypeEnumeration in XSD).
-    """
-    GRAPH = PermissibleValue(
-        text="GRAPH",
-        description="Hierarchical representation from a specific vantage point.")
-    EXPLICIT = PermissibleValue(
-        text="EXPLICIT",
-        description="Flat list related through an external factor (e.g. Top-N list).")
-    IMPLICIT = PermissibleValue(
-        text="IMPLICIT",
-        description="Subset identified by an XSL filter expression.")
-
-    _defn = EnumDefinition(
-        name="CWEViewType",
-        description="Type of CWE view (ViewTypeEnumeration in XSD).",
-    )
-
-class FunctionalArea(EnumDefinitionImpl):
-    """
-    Functional area where a weakness is most likely to occur (FunctionalAreaEnumeration in XSD).
-    """
-    AUTHENTICATION = PermissibleValue(text="AUTHENTICATION")
-    AUTHORIZATION = PermissibleValue(text="AUTHORIZATION")
-    CODE_LIBRARIES = PermissibleValue(text="CODE_LIBRARIES")
-    COUNTERS = PermissibleValue(text="COUNTERS")
-    CRYPTOGRAPHY = PermissibleValue(text="CRYPTOGRAPHY")
-    ERROR_HANDLING = PermissibleValue(text="ERROR_HANDLING")
-    INTERPROCESS_COMMUNICATION = PermissibleValue(text="INTERPROCESS_COMMUNICATION")
-    FILE_PROCESSING = PermissibleValue(text="FILE_PROCESSING")
-    LOGGING = PermissibleValue(text="LOGGING")
-    MEMORY_MANAGEMENT = PermissibleValue(text="MEMORY_MANAGEMENT")
-    NETWORKING = PermissibleValue(text="NETWORKING")
-    NUMBER_PROCESSING = PermissibleValue(text="NUMBER_PROCESSING")
-    PROGRAM_INVOCATION = PermissibleValue(text="PROGRAM_INVOCATION")
-    PROTECTION_MECHANISM = PermissibleValue(text="PROTECTION_MECHANISM")
-    SESSION_MANAGEMENT = PermissibleValue(text="SESSION_MANAGEMENT")
-    SIGNALS = PermissibleValue(text="SIGNALS")
-    STRING_PROCESSING = PermissibleValue(text="STRING_PROCESSING")
-    NOT_FUNCTIONAL_AREA_SPECIFIC = PermissibleValue(text="NOT_FUNCTIONAL_AREA_SPECIFIC")
-    POWER = PermissibleValue(text="POWER")
-    CLOCK = PermissibleValue(text="CLOCK")
-
-    _defn = EnumDefinition(
-        name="FunctionalArea",
-        description="Functional area where a weakness is most likely to occur (FunctionalAreaEnumeration in XSD).",
-    )
-
-class AffectedResource(EnumDefinitionImpl):
-    """
-    System resource that can be affected by exploiting a weakness (ResourceEnumeration in XSD).
-    """
-    CPU = PermissibleValue(text="CPU")
-    FILE_OR_DIRECTORY = PermissibleValue(text="FILE_OR_DIRECTORY")
-    MEMORY = PermissibleValue(text="MEMORY")
-    SYSTEM_PROCESS = PermissibleValue(text="SYSTEM_PROCESS")
-    OTHER = PermissibleValue(text="OTHER")
-
-    _defn = EnumDefinition(
-        name="AffectedResource",
-        description="System resource that can be affected by exploiting a weakness (ResourceEnumeration in XSD).",
-    )
-
-class PlatformPrevalence(EnumDefinitionImpl):
-    """
-    Regularity with which a weakness applies to a given platform (PrevalenceEnumeration in XSD).
-    """
-    OFTEN = PermissibleValue(text="OFTEN")
-    SOMETIMES = PermissibleValue(text="SOMETIMES")
-    RARELY = PermissibleValue(text="RARELY")
-    UNDETERMINED = PermissibleValue(text="UNDETERMINED")
-
-    _defn = EnumDefinition(
-        name="PlatformPrevalence",
-        description="Regularity with which a weakness applies to a given platform (PrevalenceEnumeration in XSD).",
-    )
-
-class ProgrammingLanguage(EnumDefinitionImpl):
-    """
-    Source code language or data format (LanguageNameEnumeration in XSD).
-    """
-    ADA = PermissibleValue(text="ADA")
-    ARM_ASSEMBLY = PermissibleValue(text="ARM_ASSEMBLY")
+    Ada = PermissibleValue(text="Ada")
+    Algorithm = PermissibleValue(text="Algorithm")
     ASP = PermissibleValue(text="ASP")
-    ASP_DOT_NET = PermissibleValue(text="ASP_DOT_NET")
-    BASIC = PermissibleValue(text="BASIC")
+    Basic = PermissibleValue(text="Basic")
     C = PermissibleValue(text="C")
-    C_PLUS_PLUS = PermissibleValue(text="C_PLUS_PLUS")
-    C_SHARP = PermissibleValue(text="C_SHARP")
     COBOL = PermissibleValue(text="COBOL")
-    FORTRAN = PermissibleValue(text="FORTRAN")
-    FSHARP = PermissibleValue(text="FSHARP")
-    GO = PermissibleValue(text="GO")
+    Fortran = PermissibleValue(text="Fortran")
+    Go = PermissibleValue(text="Go")
     HTML = PermissibleValue(text="HTML")
-    JAVA = PermissibleValue(text="JAVA")
-    JAVASCRIPT = PermissibleValue(text="JAVASCRIPT")
+    Java = PermissibleValue(text="Java")
+    JavaScript = PermissibleValue(text="JavaScript")
     JSON = PermissibleValue(text="JSON")
     JSP = PermissibleValue(text="JSP")
-    OBJECTIVE_C = PermissibleValue(text="OBJECTIVE_C")
-    PASCAL = PermissibleValue(text="PASCAL")
-    PERL = PermissibleValue(text="PERL")
+    Pascal = PermissibleValue(text="Pascal")
+    Perl = PermissibleValue(text="Perl")
     PHP = PermissibleValue(text="PHP")
-    PSEUDOCODE = PermissibleValue(text="PSEUDOCODE")
-    PYTHON = PermissibleValue(text="PYTHON")
-    RUBY = PermissibleValue(text="RUBY")
-    RUST = PermissibleValue(text="RUST")
-    SHELL = PermissibleValue(text="SHELL")
+    Pseudocode = PermissibleValue(text="Pseudocode")
+    Python = PermissibleValue(text="Python")
+    Ruby = PermissibleValue(text="Ruby")
+    Rust = PermissibleValue(text="Rust")
+    Shell = PermissibleValue(text="Shell")
     SQL = PermissibleValue(text="SQL")
-    SWIFT = PermissibleValue(text="SWIFT")
-    VB_DOT_NET = PermissibleValue(text="VB_DOT_NET")
-    VERILOG = PermissibleValue(text="VERILOG")
+    Swift = PermissibleValue(text="Swift")
+    SystemVerilog = PermissibleValue(text="SystemVerilog")
+    Verilog = PermissibleValue(text="Verilog")
     VHDL = PermissibleValue(text="VHDL")
     XML = PermissibleValue(text="XML")
-    X86_ASSEMBLY = PermissibleValue(text="X86_ASSEMBLY")
-    OTHER = PermissibleValue(text="OTHER")
+    Other = PermissibleValue(text="Other")
 
     _defn = EnumDefinition(
-        name="ProgrammingLanguage",
-        description="Source code language or data format (LanguageNameEnumeration in XSD).",
+        name="CweLanguageName",
+        description="A named programming language or notation.",
     )
 
-class LanguageClass(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "ARM Assembly",
+            PermissibleValue(text="ARM Assembly"))
+        setattr(cls, "ASP.NET",
+            PermissibleValue(text="ASP.NET"))
+        setattr(cls, "C++",
+            PermissibleValue(
+                text="C++",
+                title="C plus plus"))
+        setattr(cls, "C#",
+            PermissibleValue(
+                text="C#",
+                title="C sharp"))
+        setattr(cls, "F#",
+            PermissibleValue(
+                text="F#",
+                title="F sharp"))
+        setattr(cls, "Objective-C",
+            PermissibleValue(text="Objective-C"))
+        setattr(cls, "VB.NET",
+            PermissibleValue(text="VB.NET"))
+        setattr(cls, "x86 Assembly",
+            PermissibleValue(text="x86 Assembly"))
+
+class CweLikelihood(EnumDefinitionImpl):
     """
-    Class of programming language (LanguageClassEnumeration in XSD).
+    How likely something is to happen.
     """
-    ASSEMBLY = PermissibleValue(text="ASSEMBLY")
-    COMPILED = PermissibleValue(text="COMPILED")
-    HARDWARE_DESCRIPTION_LANGUAGE = PermissibleValue(text="HARDWARE_DESCRIPTION_LANGUAGE")
-    INTERPRETED = PermissibleValue(text="INTERPRETED")
-    OBJECT_ORIENTED = PermissibleValue(text="OBJECT_ORIENTED")
-    MEMORY_UNSAFE = PermissibleValue(text="MEMORY_UNSAFE")
-    NOT_LANGUAGE_SPECIFIC = PermissibleValue(text="NOT_LANGUAGE_SPECIFIC")
+    High = PermissibleValue(text="High")
+    Medium = PermissibleValue(text="Medium")
+    Low = PermissibleValue(text="Low")
+    Unknown = PermissibleValue(
+        text="Unknown",
+        description="Nobody knows how likely it is.")
 
     _defn = EnumDefinition(
-        name="LanguageClass",
-        description="Class of programming language (LanguageClassEnumeration in XSD).",
+        name="CweLikelihood",
+        description="How likely something is to happen.",
     )
 
-class ArchitectureName(EnumDefinitionImpl):
+class CweMitigationStrategy(EnumDefinitionImpl):
     """
-    Processor architecture (ArchitectureNameEnumeration in XSD).
+    A general approach that a mitigation follows.
     """
-    ALPHA = PermissibleValue(text="ALPHA")
-    ARM = PermissibleValue(text="ARM")
-    ITANIUM = PermissibleValue(text="ITANIUM")
-    POWER_ARCHITECTURE = PermissibleValue(text="POWER_ARCHITECTURE")
-    SPARC = PermissibleValue(text="SPARC")
-    X86 = PermissibleValue(text="X86")
-    OTHER = PermissibleValue(text="OTHER")
+    Firewall = PermissibleValue(text="Firewall")
+    Parameterization = PermissibleValue(text="Parameterization")
+    Refactoring = PermissibleValue(text="Refactoring")
 
     _defn = EnumDefinition(
-        name="ArchitectureName",
-        description="Processor architecture (ArchitectureNameEnumeration in XSD).",
+        name="CweMitigationStrategy",
+        description="A general approach that a mitigation follows.",
     )
 
-class ArchitectureClass(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Attack Surface Reduction",
+            PermissibleValue(text="Attack Surface Reduction"))
+        setattr(cls, "Compilation or Build Hardening",
+            PermissibleValue(text="Compilation or Build Hardening"))
+        setattr(cls, "Enforcement by Conversion",
+            PermissibleValue(text="Enforcement by Conversion"))
+        setattr(cls, "Environment Hardening",
+            PermissibleValue(text="Environment Hardening"))
+        setattr(cls, "Input Validation",
+            PermissibleValue(text="Input Validation"))
+        setattr(cls, "Language Selection",
+            PermissibleValue(text="Language Selection"))
+        setattr(cls, "Libraries or Frameworks",
+            PermissibleValue(text="Libraries or Frameworks"))
+        setattr(cls, "Resource Limitation",
+            PermissibleValue(text="Resource Limitation"))
+        setattr(cls, "Output Encoding",
+            PermissibleValue(text="Output Encoding"))
+        setattr(cls, "Sandbox or Jail",
+            PermissibleValue(text="Sandbox or Jail"))
+        setattr(cls, "Separation of Privilege",
+            PermissibleValue(text="Separation of Privilege"))
+
+class CweNoteType(EnumDefinitionImpl):
     """
-    Class of processor architecture (ArchitectureClassEnumeration in XSD).
+    What a note on an entry is about.
     """
-    EMBEDDED = PermissibleValue(text="EMBEDDED")
-    MICROCOMPUTER = PermissibleValue(text="MICROCOMPUTER")
-    WORKSTATION = PermissibleValue(text="WORKSTATION")
-    NOT_ARCHITECTURE_SPECIFIC = PermissibleValue(text="NOT_ARCHITECTURE_SPECIFIC")
+    Maintenance = PermissibleValue(
+        text="Maintenance",
+        description="Work the entry still needs, such as sharper concepts or better relationships.")
+    Relationship = PermissibleValue(
+        text="Relationship",
+        description="More detail on how the entry relates to others.")
+    Terminology = PermissibleValue(
+        text="Terminology",
+        description="A discussion of the words used for the weakness.")
+    Theoretical = PermissibleValue(
+        text="Theoretical",
+        description="The weakness described in the terms of vulnerability theory.")
+    Other = PermissibleValue(
+        text="Other",
+        description="Anything useful that fits no other type.")
 
     _defn = EnumDefinition(
-        name="ArchitectureClass",
-        description="Class of processor architecture (ArchitectureClassEnumeration in XSD).",
+        name="CweNoteType",
+        description="What a note on an entry is about.",
     )
 
-class OperatingSystemName(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Applicable Platform",
+            PermissibleValue(
+                text="Applicable Platform",
+                description="More detail on the platforms the entry lists."))
+        setattr(cls, "Research Gap",
+            PermissibleValue(
+                text="Research Gap",
+                description="A topic researchers have not yet explored enough."))
+
+class CweOrdinal(EnumDefinitionImpl):
     """
-    Operating system (OperatingSystemNameEnumeration in XSD).
+    Marks the relationship to prefer among several in one view.
+    """
+    Primary = PermissibleValue(
+        text="Primary",
+        description="The relationship to follow first in that view.")
+
+    _defn = EnumDefinition(
+        name="CweOrdinal",
+        description="Marks the relationship to prefer among several in one view.",
+    )
+
+class CweOrdinality(EnumDefinitionImpl):
+    """
+    How a weakness stands to other weaknesses in a sequence of causes.
+    """
+    Indirect = PermissibleValue(
+        text="Indirect",
+        description="A quality problem that makes other weaknesses easier to introduce or harder to find.")
+    Primary = PermissibleValue(
+        text="Primary",
+        description="The weakness exists without depending on another one.")
+    Resultant = PermissibleValue(
+        text="Resultant",
+        description="The weakness exists only because another one is present.")
+
+    _defn = EnumDefinition(
+        name="CweOrdinality",
+        description="How a weakness stands to other weaknesses in a sequence of causes.",
+    )
+
+class CweOperatingSystemClass(EnumDefinitionImpl):
+    """
+    A broad family of operating systems.
+    """
+    Linux = PermissibleValue(text="Linux")
+    macOS = PermissibleValue(text="macOS")
+    Unix = PermissibleValue(text="Unix")
+    Windows = PermissibleValue(text="Windows")
+
+    _defn = EnumDefinition(
+        name="CweOperatingSystemClass",
+        description="A broad family of operating systems.",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Not OS-Specific",
+            PermissibleValue(
+                text="Not OS-Specific",
+                description="The weakness can appear on many operating systems."))
+
+class CweOperatingSystemName(EnumDefinitionImpl):
+    """
+    A named operating system.
     """
     AIX = PermissibleValue(text="AIX")
-    ANDROID = PermissibleValue(text="ANDROID")
-    BLACKBERRY_OS = PermissibleValue(text="BLACKBERRY_OS")
-    CHROME_OS = PermissibleValue(text="CHROME_OS")
-    DARWIN = PermissibleValue(text="DARWIN")
-    FREEBSD = PermissibleValue(text="FREEBSD")
-    IOS = PermissibleValue(text="IOS")
-    MACOS = PermissibleValue(text="MACOS")
-    NETBSD = PermissibleValue(text="NETBSD")
-    OPENBSD = PermissibleValue(text="OPENBSD")
-    RED_HAT = PermissibleValue(text="RED_HAT")
-    SOLARIS = PermissibleValue(text="SOLARIS")
+    Android = PermissibleValue(text="Android")
+    Darwin = PermissibleValue(text="Darwin")
+    FreeBSD = PermissibleValue(text="FreeBSD")
+    iOS = PermissibleValue(text="iOS")
+    macOS = PermissibleValue(text="macOS")
+    NetBSD = PermissibleValue(text="NetBSD")
+    OpenBSD = PermissibleValue(text="OpenBSD")
+    Solaris = PermissibleValue(text="Solaris")
     SUSE = PermissibleValue(text="SUSE")
-    TVOS = PermissibleValue(text="TVOS")
-    UBUNTU = PermissibleValue(text="UBUNTU")
-    WATCHOS = PermissibleValue(text="WATCHOS")
-    WINDOWS_9X = PermissibleValue(text="WINDOWS_9X")
-    WINDOWS_EMBEDDED = PermissibleValue(text="WINDOWS_EMBEDDED")
-    WINDOWS_NT = PermissibleValue(text="WINDOWS_NT")
+    tvOS = PermissibleValue(text="tvOS")
+    Ubuntu = PermissibleValue(text="Ubuntu")
+    watchOS = PermissibleValue(text="watchOS")
+    Other = PermissibleValue(text="Other")
 
     _defn = EnumDefinition(
-        name="OperatingSystemName",
-        description="Operating system (OperatingSystemNameEnumeration in XSD).",
+        name="CweOperatingSystemName",
+        description="A named operating system.",
     )
 
-class OperatingSystemClass(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "BlackBerry OS",
+            PermissibleValue(text="BlackBerry OS"))
+        setattr(cls, "Chrome OS",
+            PermissibleValue(text="Chrome OS"))
+        setattr(cls, "Red Hat",
+            PermissibleValue(text="Red Hat"))
+        setattr(cls, "Windows 9x",
+            PermissibleValue(text="Windows 9x"))
+        setattr(cls, "Windows Embedded",
+            PermissibleValue(text="Windows Embedded"))
+        setattr(cls, "Windows NT",
+            PermissibleValue(text="Windows NT"))
+
+class CwePhase(EnumDefinitionImpl):
     """
-    Class of operating system (OperatingSystemClassEnumeration in XSD).
+    A stage of a product life cycle.
     """
-    LINUX = PermissibleValue(text="LINUX")
-    MACOS = PermissibleValue(text="MACOS")
-    UNIX = PermissibleValue(text="UNIX")
-    WINDOWS = PermissibleValue(text="WINDOWS")
-    NOT_OS_SPECIFIC = PermissibleValue(text="NOT_OS_SPECIFIC")
+    Policy = PermissibleValue(text="Policy")
+    Requirements = PermissibleValue(text="Requirements")
+    Implementation = PermissibleValue(text="Implementation")
+    Testing = PermissibleValue(text="Testing")
+    Documentation = PermissibleValue(text="Documentation")
+    Bundling = PermissibleValue(text="Bundling")
+    Distribution = PermissibleValue(text="Distribution")
+    Installation = PermissibleValue(text="Installation")
+    Operation = PermissibleValue(text="Operation")
+    Porting = PermissibleValue(text="Porting")
+    Integration = PermissibleValue(text="Integration")
+    Manufacturing = PermissibleValue(text="Manufacturing")
 
     _defn = EnumDefinition(
-        name="OperatingSystemClass",
-        description="Class of operating system (OperatingSystemClassEnumeration in XSD).",
+        name="CwePhase",
+        description="A stage of a product life cycle.",
     )
 
-class TechnologyName(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Architecture and Design",
+            PermissibleValue(text="Architecture and Design"))
+        setattr(cls, "Build and Compilation",
+            PermissibleValue(text="Build and Compilation"))
+        setattr(cls, "System Configuration",
+            PermissibleValue(text="System Configuration"))
+        setattr(cls, "Patching and Maintenance",
+            PermissibleValue(text="Patching and Maintenance"))
+        setattr(cls, "Decommissioning and End-of-Life",
+            PermissibleValue(text="Decommissioning and End-of-Life"))
+
+class CweAiPhase(EnumDefinitionImpl):
     """
-    Specific technology applicable to a weakness (TechnologyNameEnumeration in XSD).
+    A stage of the life cycle of an artificial intelligence system.
     """
-    AI_ML = PermissibleValue(text="AI_ML")
-    WEB_SERVER = PermissibleValue(text="WEB_SERVER")
-    DATABASE_SERVER = PermissibleValue(text="DATABASE_SERVER")
-    ACCELERATOR_HARDWARE = PermissibleValue(text="ACCELERATOR_HARDWARE")
-    ANALOG_AND_MIXED_SIGNAL_HARDWARE = PermissibleValue(text="ANALOG_AND_MIXED_SIGNAL_HARDWARE")
-    AUDIO_VIDEO_HARDWARE = PermissibleValue(text="AUDIO_VIDEO_HARDWARE")
-    BUS_INTERFACE_HARDWARE = PermissibleValue(text="BUS_INTERFACE_HARDWARE")
-    CLOCK_COUNTER_HARDWARE = PermissibleValue(text="CLOCK_COUNTER_HARDWARE")
-    COMMUNICATION_HARDWARE = PermissibleValue(text="COMMUNICATION_HARDWARE")
-    CONTROLLER_HARDWARE = PermissibleValue(text="CONTROLLER_HARDWARE")
-    MEMORY_HARDWARE = PermissibleValue(text="MEMORY_HARDWARE")
-    MICROCONTROLLER_HARDWARE = PermissibleValue(text="MICROCONTROLLER_HARDWARE")
-    NETWORK_ON_CHIP_HARDWARE = PermissibleValue(text="NETWORK_ON_CHIP_HARDWARE")
-    POWER_MANAGEMENT_HARDWARE = PermissibleValue(text="POWER_MANAGEMENT_HARDWARE")
-    PROCESSOR_HARDWARE = PermissibleValue(text="PROCESSOR_HARDWARE")
-    SECURITY_HARDWARE = PermissibleValue(text="SECURITY_HARDWARE")
-    SENSOR_HARDWARE = PermissibleValue(text="SENSOR_HARDWARE")
-    STORAGE_HARDWARE = PermissibleValue(text="STORAGE_HARDWARE")
-    TEST_DEBUG_HARDWARE = PermissibleValue(text="TEST_DEBUG_HARDWARE")
-    OTHER = PermissibleValue(text="OTHER")
+    Training = PermissibleValue(text="Training")
+    Testing = PermissibleValue(text="Testing")
+    Tokenization = PermissibleValue(text="Tokenization")
+    Prompting = PermissibleValue(text="Prompting")
 
     _defn = EnumDefinition(
-        name="TechnologyName",
-        description="Specific technology applicable to a weakness (TechnologyNameEnumeration in XSD).",
+        name="CweAiPhase",
+        description="A stage of the life cycle of an artificial intelligence system.",
     )
 
-class TechnologyClass(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Data Collection",
+            PermissibleValue(text="Data Collection"))
+        setattr(cls, "Fine-tuning",
+            PermissibleValue(text="Fine-tuning"))
+        setattr(cls, "Output Processing",
+            PermissibleValue(text="Output Processing"))
+        setattr(cls, "Component Interaction",
+            PermissibleValue(text="Component Interaction"))
+        setattr(cls, "Re-training / Feedback",
+            PermissibleValue(text="Re-training / Feedback"))
+
+class CweHardwarePhase(EnumDefinitionImpl):
     """
-    Class of technology (TechnologyClassEnumeration in XSD).
+    A stage of the life cycle of a hardware product.
     """
-    CLIENT_SERVER = PermissibleValue(text="CLIENT_SERVER")
-    CLOUD_COMPUTING = PermissibleValue(text="CLOUD_COMPUTING")
-    ICS_OT = PermissibleValue(text="ICS_OT")
-    MAINFRAME = PermissibleValue(text="MAINFRAME")
-    MOBILE = PermissibleValue(text="MOBILE")
-    N_TIER = PermissibleValue(text="N_TIER")
-    SOA = PermissibleValue(text="SOA")
-    SYSTEM_ON_CHIP = PermissibleValue(text="SYSTEM_ON_CHIP")
-    WEB_BASED = PermissibleValue(text="WEB_BASED")
-    NOT_TECHNOLOGY_SPECIFIC = PermissibleValue(text="NOT_TECHNOLOGY_SPECIFIC")
+    Reuse = PermissibleValue(text="Reuse")
+    Decommissioning = PermissibleValue(text="Decommissioning")
 
     _defn = EnumDefinition(
-        name="TechnologyClass",
-        description="Class of technology (TechnologyClassEnumeration in XSD).",
+        name="CweHardwarePhase",
+        description="A stage of the life cycle of a hardware product.",
     )
 
-class TaxonomyMappingFit(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Hardware Requirements",
+            PermissibleValue(text="Hardware Requirements"))
+        setattr(cls, "Hardware Architecture",
+            PermissibleValue(text="Hardware Architecture"))
+        setattr(cls, "Hardware Microarchitecture",
+            PermissibleValue(text="Hardware Microarchitecture"))
+        setattr(cls, "Implementation & Physical Design",
+            PermissibleValue(text="Implementation & Physical Design"))
+        setattr(cls, "Pre-Manufacturing Verification",
+            PermissibleValue(text="Pre-Manufacturing Verification"))
+        setattr(cls, "Hardware Manufacturing",
+            PermissibleValue(text="Hardware Manufacturing"))
+        setattr(cls, "Post-Manufacturing Validation",
+            PermissibleValue(text="Post-Manufacturing Validation"))
+        setattr(cls, "Device Configuration & Personalization",
+            PermissibleValue(text="Device Configuration & Personalization"))
+        setattr(cls, "Device / System Integration",
+            PermissibleValue(text="Device / System Integration"))
+        setattr(cls, "Field Operations & Sustainment",
+            PermissibleValue(text="Field Operations & Sustainment"))
+
+class CweCustomPhaseDomain(EnumDefinitionImpl):
     """
-    Closeness of a mapping to an external taxonomy (TaxonomyMappingFitEnumeration in XSD).
+    The field whose own life cycle a custom phase belongs to.
     """
-    EXACT = PermissibleValue(text="EXACT")
-    CWE_MORE_ABSTRACT = PermissibleValue(text="CWE_MORE_ABSTRACT")
-    CWE_MORE_SPECIFIC = PermissibleValue(text="CWE_MORE_SPECIFIC")
-    IMPRECISE = PermissibleValue(text="IMPRECISE")
-    PERSPECTIVE = PermissibleValue(text="PERSPECTIVE")
+    AI = PermissibleValue(text="AI")
+    Hardware = PermissibleValue(text="Hardware")
 
     _defn = EnumDefinition(
-        name="TaxonomyMappingFit",
-        description="Closeness of a mapping to an external taxonomy (TaxonomyMappingFitEnumeration in XSD).",
+        name="CweCustomPhaseDomain",
+        description="The field whose own life cycle a custom phase belongs to.",
     )
 
-class TaxonomyName(EnumDefinitionImpl):
+class CweDimensionType(EnumDefinitionImpl):
     """
-    Known taxonomy that can be mapped to CWE (TaxonomyNameEnumeration in XSD).
+    The aspect of a weakness that a dimension names, such as a behaviour or a resource.
     """
-    SEVEN_PERNICIOUS_KINGDOMS = PermissibleValue(text="SEVEN_PERNICIOUS_KINGDOMS")
-    NINETEEN_DEADLY_SINS = PermissibleValue(text="NINETEEN_DEADLY_SINS")
-    ASLAM = PermissibleValue(text="ASLAM")
-    BISHOP = PermissibleValue(text="BISHOP")
-    CERT_C_SECURE_CODING = PermissibleValue(text="CERT_C_SECURE_CODING")
-    CERT_CPP_SECURE_CODING = PermissibleValue(text="CERT_CPP_SECURE_CODING")
-    THE_CERT_ORACLE_SECURE_CODING_STANDARD_FOR_JAVA_2011 = PermissibleValue(text="THE_CERT_ORACLE_SECURE_CODING_STANDARD_FOR_JAVA_2011")
+    Technology = PermissibleValue(text="Technology")
+    Framework = PermissibleValue(text="Framework")
+    Attack = PermissibleValue(text="Attack")
+    Acronym = PermissibleValue(text="Acronym")
+    Other = PermissibleValue(text="Other")
+
+    _defn = EnumDefinition(
+        name="CweDimensionType",
+        description="The aspect of a weakness that a dimension names, such as a behaviour or a resource.",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Behavior-Type",
+            PermissibleValue(text="Behavior-Type"))
+        setattr(cls, "Behavior-Property",
+            PermissibleValue(text="Behavior-Property"))
+        setattr(cls, "Resource-Type",
+            PermissibleValue(text="Resource-Type"))
+        setattr(cls, "Resource-Property",
+            PermissibleValue(text="Resource-Property"))
+        setattr(cls, "Input-Type",
+            PermissibleValue(text="Input-Type"))
+        setattr(cls, "Input-Property",
+            PermissibleValue(text="Input-Property"))
+        setattr(cls, "Info-Type",
+            PermissibleValue(text="Info-Type"))
+        setattr(cls, "Info-Property",
+            PermissibleValue(text="Info-Property"))
+        setattr(cls, "Code-Type",
+            PermissibleValue(text="Code-Type"))
+        setattr(cls, "Code-Property",
+            PermissibleValue(text="Code-Property"))
+        setattr(cls, "Language-Type",
+            PermissibleValue(text="Language-Type"))
+        setattr(cls, "Language-Property",
+            PermissibleValue(text="Language-Property"))
+        setattr(cls, "Common-Name",
+            PermissibleValue(text="Common-Name"))
+
+class CwePrevalence(EnumDefinitionImpl):
+    """
+    How regularly a weakness applies to a platform.
+    """
+    Often = PermissibleValue(text="Often")
+    Sometimes = PermissibleValue(text="Sometimes")
+    Rarely = PermissibleValue(text="Rarely")
+    Undetermined = PermissibleValue(text="Undetermined")
+
+    _defn = EnumDefinition(
+        name="CwePrevalence",
+        description="How regularly a weakness applies to a platform.",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "None",
+            PermissibleValue(text="None"))
+
+class CweReason(EnumDefinitionImpl):
+    """
+    A short label for why an entry may not suit vulnerability mapping.
+    """
+    Abstraction = PermissibleValue(text="Abstraction")
+    Category = PermissibleValue(text="Category")
+    Grouping = PermissibleValue(text="Grouping")
+    View = PermissibleValue(text="View")
+    Deprecated = PermissibleValue(text="Deprecated")
+    Other = PermissibleValue(text="Other")
+
+    _defn = EnumDefinition(
+        name="CweReason",
+        description="A short label for why an entry may not suit vulnerability mapping.",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Potential Deprecation",
+            PermissibleValue(text="Potential Deprecation"))
+        setattr(cls, "Frequent Misuse",
+            PermissibleValue(text="Frequent Misuse"))
+        setattr(cls, "Frequent Misinterpretation",
+            PermissibleValue(text="Frequent Misinterpretation"))
+        setattr(cls, "Multiple Use",
+            PermissibleValue(text="Multiple Use"))
+        setattr(cls, "CWE Overlap",
+            PermissibleValue(text="CWE Overlap"))
+        setattr(cls, "Acceptable-Use",
+            PermissibleValue(text="Acceptable-Use"))
+        setattr(cls, "Frequently-Resultant",
+            PermissibleValue(text="Frequently-Resultant"))
+        setattr(cls, "Potential Major Changes",
+            PermissibleValue(text="Potential Major Changes"))
+
+class CweRelatedNature(EnumDefinitionImpl):
+    """
+    How one weakness relates to another.
+    """
+    ChildOf = PermissibleValue(
+        text="ChildOf",
+        description="The related weakness is more general than this one.")
+    ParentOf = PermissibleValue(
+        text="ParentOf",
+        description="The related weakness is more specific than this one.")
+    StartsWith = PermissibleValue(
+        text="StartsWith",
+        description="For a named chain only: the related weakness is where the chain begins.")
+    CanFollow = PermissibleValue(
+        text="CanFollow",
+        description="In a chain, the related weakness can come before this one.")
+    CanPrecede = PermissibleValue(
+        text="CanPrecede",
+        description="In a chain, the related weakness can come after this one.")
+    RequiredBy = PermissibleValue(
+        text="RequiredBy",
+        description="For composites only: the related composite needs this weakness to be present.")
+    Requires = PermissibleValue(
+        text="Requires",
+        description="For composites only: this composite needs the related weakness to be present.")
+    CanAlsoBe = PermissibleValue(
+        text="CanAlsoBe",
+        description="""In some settings this weakness may be seen as the related one, with neither being a parent of the other.""")
+    PeerOf = PermissibleValue(
+        text="PeerOf",
+        description="The two are similar in a way that no other nature fits.")
+    Overlaps = PermissibleValue(
+        text="Overlaps",
+        description="The two weaknesses share some ground, which CWE would rather avoid.")
+
+    _defn = EnumDefinition(
+        name="CweRelatedNature",
+        description="How one weakness relates to another.",
+    )
+
+class CweResource(EnumDefinitionImpl):
+    """
+    A kind of system resource that exploiting a weakness can affect.
+    """
+    CPU = PermissibleValue(text="CPU")
+    Memory = PermissibleValue(text="Memory")
+    Other = PermissibleValue(text="Other")
+
+    _defn = EnumDefinition(
+        name="CweResource",
+        description="A kind of system resource that exploiting a weakness can affect.",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "File or Directory",
+            PermissibleValue(text="File or Directory"))
+        setattr(cls, "System Process",
+            PermissibleValue(text="System Process"))
+
+class CweScope(EnumDefinitionImpl):
+    """
+    The security property a consequence violates.
+    """
+    Confidentiality = PermissibleValue(text="Confidentiality")
+    Integrity = PermissibleValue(text="Integrity")
+    Availability = PermissibleValue(text="Availability")
+    Accountability = PermissibleValue(text="Accountability")
+    Authentication = PermissibleValue(text="Authentication")
+    Authorization = PermissibleValue(text="Authorization")
+    Other = PermissibleValue(text="Other")
+
+    _defn = EnumDefinition(
+        name="CweScope",
+        description="The security property a consequence violates.",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Access Control",
+            PermissibleValue(text="Access Control"))
+        setattr(cls, "Non-Repudiation",
+            PermissibleValue(text="Non-Repudiation"))
+
+class CweStatus(EnumDefinitionImpl):
+    """
+    How far an entry has come in its life and how much it can be trusted.
+    """
+    Deprecated = PermissibleValue(
+        text="Deprecated",
+        description="Taken out of CWE, usually because it duplicated another entry or was made by mistake.")
+    Draft = PermissibleValue(
+        text="Draft",
+        description="Its important elements are filled in and readable, though it may still have problems.")
+    Incomplete = PermissibleValue(
+        text="Incomplete",
+        description="Some important elements are missing and its quality is not assured.")
+    Obsolete = PermissibleValue(
+        text="Obsolete",
+        description="Still correct but no longer relevant, usually because a newer entry replaced it.")
+    Stable = PermissibleValue(
+        text="Stable",
+        description="Its important elements have been checked and are not expected to change much.")
+    Usable = PermissibleValue(
+        text="Usable",
+        description="It has had close review and its critical elements have been checked.")
+
+    _defn = EnumDefinition(
+        name="CweStatus",
+        description="How far an entry has come in its life and how much it can be trusted.",
+    )
+
+class CweStakeholderType(EnumDefinitionImpl):
+    """
+    A group of people who may have a use for a view.
+    """
+    Educators = PermissibleValue(text="Educators")
+    Other = PermissibleValue(text="Other")
+
+    _defn = EnumDefinition(
+        name="CweStakeholderType",
+        description="A group of people who may have a use for a view.",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Academic Researchers",
+            PermissibleValue(text="Academic Researchers"))
+        setattr(cls, "Applied Researchers",
+            PermissibleValue(text="Applied Researchers"))
+        setattr(cls, "Assessment Teams",
+            PermissibleValue(text="Assessment Teams"))
+        setattr(cls, "Assessment Tool Vendors",
+            PermissibleValue(text="Assessment Tool Vendors"))
+        setattr(cls, "CWE Team",
+            PermissibleValue(text="CWE Team"))
+        setattr(cls, "Hardware Designers",
+            PermissibleValue(text="Hardware Designers"))
+        setattr(cls, "Information Providers",
+            PermissibleValue(text="Information Providers"))
+        setattr(cls, "Product Customers",
+            PermissibleValue(text="Product Customers"))
+        setattr(cls, "Product Vendors",
+            PermissibleValue(text="Product Vendors"))
+        setattr(cls, "Software Developers",
+            PermissibleValue(text="Software Developers"))
+        setattr(cls, "Vulnerability Analysts",
+            PermissibleValue(text="Vulnerability Analysts"))
+
+class CweStructure(EnumDefinitionImpl):
+    """
+    Whether a weakness stands alone or is made up of others.
+    """
+    Chain = PermissibleValue(
+        text="Chain",
+        description="Several weaknesses that must be reached one after another to give a vulnerability.")
+    Composite = PermissibleValue(
+        text="Composite",
+        description="Several weaknesses that give a vulnerability only when they occur together.")
+    Simple = PermissibleValue(
+        text="Simple",
+        description="One weakness whose exploitation does not depend on another.")
+
+    _defn = EnumDefinition(
+        name="CweStructure",
+        description="Whether a weakness stands alone or is made up of others.",
+    )
+
+class CweCodeNature(EnumDefinitionImpl):
+    """
+    What a block of example code shows.
+    """
+    Attack = PermissibleValue(
+        text="Attack",
+        description="An attack against the code.")
+    Bad = PermissibleValue(
+        text="Bad",
+        description="Code that has the weakness.")
+    Good = PermissibleValue(
+        text="Good",
+        description="Code that avoids the weakness.")
+    Informative = PermissibleValue(
+        text="Informative",
+        description="Background that shows neither good nor bad code.")
+    Mitigation = PermissibleValue(
+        text="Mitigation",
+        description="A way of addressing the weakness.")
+    Result = PermissibleValue(
+        text="Result",
+        description="What running the code produces.")
+
+    _defn = EnumDefinition(
+        name="CweCodeNature",
+        description="What a block of example code shows.",
+    )
+
+class CweMappingFit(EnumDefinitionImpl):
+    """
+    How closely a CWE entry matches an entry of another taxonomy.
+    """
+    Exact = PermissibleValue(text="Exact")
+    Imprecise = PermissibleValue(
+        text="Imprecise",
+        description="The two match only loosely.")
+    Perspective = PermissibleValue(
+        text="Perspective",
+        description="The two look at the same matter from different angles.")
+
+    _defn = EnumDefinition(
+        name="CweMappingFit",
+        description="How closely a CWE entry matches an entry of another taxonomy.",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "CWE More Abstract",
+            PermissibleValue(
+                text="CWE More Abstract",
+                description="The CWE entry is more general than the other."))
+        setattr(cls, "CWE More Specific",
+            PermissibleValue(
+                text="CWE More Specific",
+                description="The CWE entry is narrower than the other."))
+
+class CweTaxonomyName(EnumDefinitionImpl):
+    """
+    A taxonomy that CWE entries are mapped to.
+    """
+    Aslam = PermissibleValue(text="Aslam")
+    Bishop = PermissibleValue(text="Bishop")
     CLASP = PermissibleValue(text="CLASP")
-    ISA_IEC_62443 = PermissibleValue(text="ISA_IEC_62443")
-    LANDWEHR = PermissibleValue(text="LANDWEHR")
-    OMG_ASCSM = PermissibleValue(text="OMG_ASCSM")
-    OMG_ASCRM = PermissibleValue(text="OMG_ASCRM")
-    OMG_ASCMM = PermissibleValue(text="OMG_ASCMM")
-    OMG_ASCPEM = PermissibleValue(text="OMG_ASCPEM")
-    OWASP_TOP_TEN_2004 = PermissibleValue(text="OWASP_TOP_TEN_2004")
-    OWASP_TOP_TEN_2007 = PermissibleValue(text="OWASP_TOP_TEN_2007")
-    OWASP_TOP_TEN = PermissibleValue(text="OWASP_TOP_TEN")
+    Landwehr = PermissibleValue(text="Landwehr")
     PLOVER = PermissibleValue(text="PLOVER")
-    PROTECTION_ANALYSIS = PermissibleValue(text="PROTECTION_ANALYSIS")
     RISOS = PermissibleValue(text="RISOS")
-    SEI_CERT_C_CODING_STANDARD = PermissibleValue(text="SEI_CERT_C_CODING_STANDARD")
-    SEI_CERT_CPP_CODING_STANDARD = PermissibleValue(text="SEI_CERT_CPP_CODING_STANDARD")
-    SEI_CERT_ORACLE_CODING_STANDARD_FOR_JAVA = PermissibleValue(text="SEI_CERT_ORACLE_CODING_STANDARD_FOR_JAVA")
-    SEI_CERT_PERL_CODING_STANDARD = PermissibleValue(text="SEI_CERT_PERL_CODING_STANDARD")
-    SOFTWARE_FAULT_PATTERNS = PermissibleValue(text="SOFTWARE_FAULT_PATTERNS")
-    WEBER_KARGER_PARADKAR = PermissibleValue(text="WEBER_KARGER_PARADKAR")
     WASC = PermissibleValue(text="WASC")
 
     _defn = EnumDefinition(
-        name="TaxonomyName",
-        description="Known taxonomy that can be mapped to CWE (TaxonomyNameEnumeration in XSD).",
+        name="CweTaxonomyName",
+        description="A taxonomy that CWE entries are mapped to.",
     )
 
-class MappingUsage(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "7 Pernicious Kingdoms",
+            PermissibleValue(
+                text="7 Pernicious Kingdoms",
+                title="Seven Pernicious Kingdoms"))
+        setattr(cls, "19 Deadly Sins",
+            PermissibleValue(
+                text="19 Deadly Sins",
+                title="Nineteen Deadly Sins"))
+        setattr(cls, "CERT C Secure Coding",
+            PermissibleValue(text="CERT C Secure Coding"))
+        setattr(cls, "CERT C++ Secure Coding",
+            PermissibleValue(text="CERT C++ Secure Coding"))
+        setattr(cls, "The CERT Oracle Secure Coding Standard for Java (2011)",
+            PermissibleValue(text="The CERT Oracle Secure Coding Standard for Java (2011)"))
+        setattr(cls, "ISA/IEC 62443",
+            PermissibleValue(text="ISA/IEC 62443"))
+        setattr(cls, "OMG ASCSM",
+            PermissibleValue(text="OMG ASCSM"))
+        setattr(cls, "OMG ASCRM",
+            PermissibleValue(text="OMG ASCRM"))
+        setattr(cls, "OMG ASCMM",
+            PermissibleValue(text="OMG ASCMM"))
+        setattr(cls, "OMG ASCPEM",
+            PermissibleValue(text="OMG ASCPEM"))
+        setattr(cls, "OpenSSF Secure Coding Guide for Python",
+            PermissibleValue(text="OpenSSF Secure Coding Guide for Python"))
+        setattr(cls, "OWASP Golang Secure Coding Practices Guide",
+            PermissibleValue(text="OWASP Golang Secure Coding Practices Guide"))
+        setattr(cls, "OWASP Top Ten 2004",
+            PermissibleValue(text="OWASP Top Ten 2004"))
+        setattr(cls, "OWASP Top Ten 2007",
+            PermissibleValue(text="OWASP Top Ten 2007"))
+        setattr(cls, "OWASP Top Ten",
+            PermissibleValue(text="OWASP Top Ten"))
+        setattr(cls, "PLC Top 20",
+            PermissibleValue(text="PLC Top 20"))
+        setattr(cls, "Protection Analysis",
+            PermissibleValue(text="Protection Analysis"))
+        setattr(cls, "SEI CERT C Coding Standard",
+            PermissibleValue(text="SEI CERT C Coding Standard"))
+        setattr(cls, "SEI CERT C++ Coding Standard",
+            PermissibleValue(text="SEI CERT C++ Coding Standard"))
+        setattr(cls, "SEI CERT Oracle Coding Standard for Java",
+            PermissibleValue(text="SEI CERT Oracle Coding Standard for Java"))
+        setattr(cls, "SEI CERT Perl Coding Standard",
+            PermissibleValue(text="SEI CERT Perl Coding Standard"))
+        setattr(cls, "Software Fault Patterns",
+            PermissibleValue(text="Software Fault Patterns"))
+        setattr(cls, "Weber, Karger, Paradkar",
+            PermissibleValue(text="Weber, Karger, Paradkar"))
+
+class CweTechnicalImpact(EnumDefinitionImpl):
     """
-    Whether a CWE entry should be used for mapping (UsageEnumeration in XSD).
+    What an attacker can achieve by exploiting a weakness.
     """
-    ALLOWED = PermissibleValue(
-        text="ALLOWED",
-        description="May be used to map to real-world vulnerabilities.")
-    ALLOWED_WITH_REVIEW = PermissibleValue(
-        text="ALLOWED_WITH_REVIEW",
-        description="May be used in limited situations requiring careful review.")
-    DISCOURAGED = PermissibleValue(
-        text="DISCOURAGED",
-        description="Should not be used for mapping.")
-    PROHIBITED = PermissibleValue(
-        text="PROHIBITED",
-        description="Must not be used for mapping.")
+    Other = PermissibleValue(text="Other")
 
     _defn = EnumDefinition(
-        name="MappingUsage",
-        description="Whether a CWE entry should be used for mapping (UsageEnumeration in XSD).",
+        name="CweTechnicalImpact",
+        description="What an attacker can achieve by exploiting a weakness.",
     )
 
-class MappingReason(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Modify Memory",
+            PermissibleValue(text="Modify Memory"))
+        setattr(cls, "Read Memory",
+            PermissibleValue(text="Read Memory"))
+        setattr(cls, "Modify Files or Directories",
+            PermissibleValue(text="Modify Files or Directories"))
+        setattr(cls, "Read Files or Directories",
+            PermissibleValue(text="Read Files or Directories"))
+        setattr(cls, "Modify Application Data",
+            PermissibleValue(text="Modify Application Data"))
+        setattr(cls, "Read Application Data",
+            PermissibleValue(text="Read Application Data"))
+        setattr(cls, "DoS: Crash, Exit, or Restart",
+            PermissibleValue(text="DoS: Crash, Exit, or Restart"))
+        setattr(cls, "DoS: Amplification",
+            PermissibleValue(text="DoS: Amplification"))
+        setattr(cls, "DoS: Instability",
+            PermissibleValue(text="DoS: Instability"))
+        setattr(cls, "DoS: Prevent Access",
+            PermissibleValue(text="DoS: Prevent Access"))
+        setattr(cls, "DoS: Resource Consumption (CPU)",
+            PermissibleValue(text="DoS: Resource Consumption (CPU)"))
+        setattr(cls, "DoS: Resource Consumption (Memory)",
+            PermissibleValue(text="DoS: Resource Consumption (Memory)"))
+        setattr(cls, "DoS: Resource Consumption (Other)",
+            PermissibleValue(text="DoS: Resource Consumption (Other)"))
+        setattr(cls, "DoS: Other",
+            PermissibleValue(text="DoS: Other"))
+        setattr(cls, "Execute Unauthorized Code or Commands",
+            PermissibleValue(text="Execute Unauthorized Code or Commands"))
+        setattr(cls, "Gain Privileges or Assume Identity",
+            PermissibleValue(text="Gain Privileges or Assume Identity"))
+        setattr(cls, "Bypass Protection Mechanism",
+            PermissibleValue(text="Bypass Protection Mechanism"))
+        setattr(cls, "Hide Activities",
+            PermissibleValue(text="Hide Activities"))
+        setattr(cls, "Alter Execution Logic",
+            PermissibleValue(text="Alter Execution Logic"))
+        setattr(cls, "Undefined Behavior",
+            PermissibleValue(text="Undefined Behavior"))
+        setattr(cls, "Quality Degradation",
+            PermissibleValue(text="Quality Degradation"))
+        setattr(cls, "Unexpected State",
+            PermissibleValue(text="Unexpected State"))
+        setattr(cls, "Varies by Context",
+            PermissibleValue(text="Varies by Context"))
+        setattr(cls, "Increase Analytical Complexity",
+            PermissibleValue(text="Increase Analytical Complexity"))
+        setattr(cls, "Reduce Maintainability",
+            PermissibleValue(text="Reduce Maintainability"))
+        setattr(cls, "Reduce Performance",
+            PermissibleValue(text="Reduce Performance"))
+        setattr(cls, "Reduce Reliability",
+            PermissibleValue(text="Reduce Reliability"))
+
+class CweTechnologyClass(EnumDefinitionImpl):
     """
-    Reason why a CWE entry should not be used for mapping (ReasonEnumeration in XSD).
+    A broad family of technologies.
     """
-    ABSTRACTION = PermissibleValue(text="ABSTRACTION")
-    CATEGORY = PermissibleValue(text="CATEGORY")
-    VIEW = PermissibleValue(text="VIEW")
-    DEPRECATED = PermissibleValue(text="DEPRECATED")
-    POTENTIAL_DEPRECATION = PermissibleValue(text="POTENTIAL_DEPRECATION")
-    FREQUENT_MISUSE = PermissibleValue(text="FREQUENT_MISUSE")
-    FREQUENT_MISINTERPRETATION = PermissibleValue(text="FREQUENT_MISINTERPRETATION")
-    MULTIPLE_USE = PermissibleValue(text="MULTIPLE_USE")
-    CWE_OVERLAP = PermissibleValue(text="CWE_OVERLAP")
-    ACCEPTABLE_USE = PermissibleValue(text="ACCEPTABLE_USE")
-    POTENTIAL_MAJOR_CHANGES = PermissibleValue(text="POTENTIAL_MAJOR_CHANGES")
-    OTHER = PermissibleValue(text="OTHER")
+    Mainframe = PermissibleValue(text="Mainframe")
+    Mobile = PermissibleValue(text="Mobile")
+    SOA = PermissibleValue(text="SOA")
 
     _defn = EnumDefinition(
-        name="MappingReason",
-        description="Reason why a CWE entry should not be used for mapping (ReasonEnumeration in XSD).",
+        name="CweTechnologyClass",
+        description="A broad family of technologies.",
     )
 
-class StakeholderType(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Client Server",
+            PermissibleValue(text="Client Server"))
+        setattr(cls, "Cloud Computing",
+            PermissibleValue(text="Cloud Computing"))
+        setattr(cls, "ICS/OT",
+            PermissibleValue(text="ICS/OT"))
+        setattr(cls, "N-Tier",
+            PermissibleValue(text="N-Tier"))
+        setattr(cls, "System on Chip",
+            PermissibleValue(text="System on Chip"))
+        setattr(cls, "Web Based",
+            PermissibleValue(text="Web Based"))
+        setattr(cls, "Not Technology-Specific",
+            PermissibleValue(
+                text="Not Technology-Specific",
+                description="The weakness can appear in many technologies."))
+
+class CweTechnologyName(EnumDefinitionImpl):
     """
-    Type of stakeholder in the CWE community (StakeholderEnumeration in XSD).
+    A named technology.
     """
-    ACADEMIC_RESEARCHERS = PermissibleValue(text="ACADEMIC_RESEARCHERS")
-    APPLIED_RESEARCHERS = PermissibleValue(text="APPLIED_RESEARCHERS")
-    ASSESSMENT_TEAMS = PermissibleValue(text="ASSESSMENT_TEAMS")
-    ASSESSMENT_TOOL_VENDORS = PermissibleValue(text="ASSESSMENT_TOOL_VENDORS")
-    CWE_TEAM = PermissibleValue(text="CWE_TEAM")
-    EDUCATORS = PermissibleValue(text="EDUCATORS")
-    HARDWARE_DESIGNERS = PermissibleValue(text="HARDWARE_DESIGNERS")
-    INFORMATION_PROVIDERS = PermissibleValue(text="INFORMATION_PROVIDERS")
-    PRODUCT_CUSTOMERS = PermissibleValue(text="PRODUCT_CUSTOMERS")
-    PRODUCT_VENDORS = PermissibleValue(text="PRODUCT_VENDORS")
-    SOFTWARE_DEVELOPERS = PermissibleValue(text="SOFTWARE_DEVELOPERS")
-    VULNERABILITY_ANALYSTS = PermissibleValue(text="VULNERABILITY_ANALYSTS")
-    OTHER = PermissibleValue(text="OTHER")
+    Other = PermissibleValue(text="Other")
 
     _defn = EnumDefinition(
-        name="StakeholderType",
-        description="Type of stakeholder in the CWE community (StakeholderEnumeration in XSD).",
+        name="CweTechnologyName",
+        description="A named technology.",
     )
 
-class CodeNature(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "AI/ML",
+            PermissibleValue(text="AI/ML"))
+        setattr(cls, "Web Server",
+            PermissibleValue(text="Web Server"))
+        setattr(cls, "Database Server",
+            PermissibleValue(text="Database Server"))
+        setattr(cls, "Accelerator Hardware",
+            PermissibleValue(text="Accelerator Hardware"))
+        setattr(cls, "Analog and Mixed Signal Hardware",
+            PermissibleValue(text="Analog and Mixed Signal Hardware"))
+        setattr(cls, "Audio/Video Hardware",
+            PermissibleValue(text="Audio/Video Hardware"))
+        setattr(cls, "Bus/Interface Hardware",
+            PermissibleValue(text="Bus/Interface Hardware"))
+        setattr(cls, "Clock/Counter Hardware",
+            PermissibleValue(text="Clock/Counter Hardware"))
+        setattr(cls, "Communication Hardware",
+            PermissibleValue(text="Communication Hardware"))
+        setattr(cls, "Controller Hardware",
+            PermissibleValue(text="Controller Hardware"))
+        setattr(cls, "Memory Hardware",
+            PermissibleValue(text="Memory Hardware"))
+        setattr(cls, "Microcontroller Hardware",
+            PermissibleValue(text="Microcontroller Hardware"))
+        setattr(cls, "Network on Chip Hardware",
+            PermissibleValue(text="Network on Chip Hardware"))
+        setattr(cls, "Power Management Hardware",
+            PermissibleValue(text="Power Management Hardware"))
+        setattr(cls, "Processor Hardware",
+            PermissibleValue(text="Processor Hardware"))
+        setattr(cls, "Security Hardware",
+            PermissibleValue(text="Security Hardware"))
+        setattr(cls, "Sensor Hardware",
+            PermissibleValue(text="Sensor Hardware"))
+        setattr(cls, "Storage Hardware",
+            PermissibleValue(text="Storage Hardware"))
+        setattr(cls, "Test/Debug Hardware",
+            PermissibleValue(text="Test/Debug Hardware"))
+
+class CweUsage(EnumDefinitionImpl):
     """
-    Nature of a code snippet in a demonstrative example (StructuredCodeNatureEnumeration in XSD).
+    Whether an entry may be used when mapping a real vulnerability to its root cause.
     """
-    ATTACK = PermissibleValue(text="ATTACK")
-    BAD = PermissibleValue(text="BAD")
-    GOOD = PermissibleValue(text="GOOD")
-    INFORMATIVE = PermissibleValue(text="INFORMATIVE")
-    MITIGATION = PermissibleValue(text="MITIGATION")
-    RESULT = PermissibleValue(text="RESULT")
+    Discouraged = PermissibleValue(
+        text="Discouraged",
+        description="It should not be used for mapping.")
+    Prohibited = PermissibleValue(
+        text="Prohibited",
+        description="It must not be used for mapping.")
+    Allowed = PermissibleValue(
+        text="Allowed",
+        description="It may be used for mapping.")
 
     _defn = EnumDefinition(
-        name="CodeNature",
-        description="Nature of a code snippet in a demonstrative example (StructuredCodeNatureEnumeration in XSD).",
+        name="CweUsage",
+        description="Whether an entry may be used when mapping a real vulnerability to its root cause.",
     )
 
-class ContentImportance(EnumDefinitionImpl):
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Allowed-with-Review",
+            PermissibleValue(
+                text="Allowed-with-Review",
+                description="It may be used for mapping only in limited situations and after careful review."))
+
+class CweViewType(EnumDefinitionImpl):
     """
-    Importance level of a content modification (ImportanceEnumeration in XSD).
+    How a view selects and arranges its entries.
     """
-    NORMAL = PermissibleValue(text="NORMAL")
-    CRITICAL = PermissibleValue(
-        text="CRITICAL",
-        description="Changes the meaning or interpretation of the entry.")
+    Implicit = PermissibleValue(
+        text="Implicit",
+        description="A flat list that a filter selects.")
+    Explicit = PermissibleValue(
+        text="Explicit",
+        description="A flat list whose members are named one by one.")
+    Graph = PermissibleValue(
+        text="Graph",
+        description="A hierarchy of entries from one point of view.")
 
     _defn = EnumDefinition(
-        name="ContentImportance",
-        description="Importance level of a content modification (ImportanceEnumeration in XSD).",
+        name="CweViewType",
+        description="How a view selects and arranges its entries.",
     )
 
-class ContributionType(EnumDefinitionImpl):
+class CweObservedExampleRationale(EnumDefinitionImpl):
     """
-    Whether a contribution was donated content or general feedback.
+    A hint at why an observed example was chosen for an entry.
     """
-    CONTENT = PermissibleValue(
-        text="CONTENT",
-        description="Content donated to the CWE entry.")
-    FEEDBACK = PermissibleValue(
-        text="FEEDBACK",
-        description="General feedback given about the CWE entry.")
+    Chain = PermissibleValue(text="Chain")
+    Other = PermissibleValue(text="Other")
 
     _defn = EnumDefinition(
-        name="ContributionType",
-        description="Whether a contribution was donated content or general feedback.",
+        name="CweObservedExampleRationale",
+        description="A hint at why an observed example was chosen for an entry.",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Early-Publication",
+            PermissibleValue(
+                text="Early-Publication",
+                description="One of the earliest examples recognised as showing this weakness."))
+        setattr(cls, "Influential/Newsworthy",
+            PermissibleValue(
+                text="Influential/Newsworthy",
+                description="An example that drew attention or shaped how people see this weakness."))
+        setattr(cls, "Language-Variety",
+            PermissibleValue(text="Language-Variety"))
+        setattr(cls, "Product-Variety",
+            PermissibleValue(text="Product-Variety"))
+        setattr(cls, "Attack-Surface",
+            PermissibleValue(text="Attack-Surface"))
+
+class CweReferenceAccessRestriction(EnumDefinitionImpl):
+    """
+    What stands between a reader and a cited source.
+    """
+    Removed = PermissibleValue(
+        text="Removed",
+        description="It has been taken down and may have no other copy.")
+    Other = PermissibleValue(text="Other")
+
+    _defn = EnumDefinition(
+        name="CweReferenceAccessRestriction",
+        description="What stands between a reader and a cited source.",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "None",
+            PermissibleValue(
+                text="None",
+                description="Anybody on the internet can read it for free."))
+        setattr(cls, "Proprietary-Subscription",
+            PermissibleValue(
+                text="Proprietary-Subscription",
+                description="Only paying subscribers can read it."))
+        setattr(cls, "Minimal-Registration",
+            PermissibleValue(
+                text="Minimal-Registration",
+                description="A reader must register, at no cost, to read it."))
+
+class CweReferenceMediaType(EnumDefinitionImpl):
+    """
+    The form a cited source takes, which affects how easily people can use it.
+    """
+    Text = PermissibleValue(
+        text="Text",
+        description="Plain text or a format that is easy to parse, as HTML with no scripts is.")
+    Video = PermissibleValue(
+        text="Video",
+        description="A recording with pictures, such as a conference talk.")
+    Audio = PermissibleValue(
+        text="Audio",
+        description="A recording with sound and no pictures.")
+    Other = PermissibleValue(
+        text="Other",
+        description="Some other format, which may be harder for some readers to use.")
+
+    _defn = EnumDefinition(
+        name="CweReferenceMediaType",
+        description="The form a cited source takes, which affects how easily people can use it.",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Common-Proprietary-Text",
+            PermissibleValue(
+                text="Common-Proprietary-Text",
+                description="A widely used proprietary format for text, such as PDF or a word processor file."))
+
+class CweReferenceRationale(EnumDefinitionImpl):
+    """
+    A hint at why a source was cited.
+    """
+    Example = PermissibleValue(
+        text="Example",
+        description="It gives more detail on an example in the entry, and may be where the example came from.")
+    Other = PermissibleValue(text="Other")
+
+    _defn = EnumDefinition(
+        name="CweReferenceRationale",
+        description="A hint at why a source was cited.",
+    )
+
+    @classmethod
+    def _addvals(cls):
+        setattr(cls, "Early-Publication",
+            PermissibleValue(
+                text="Early-Publication",
+                description="One of the first publications to explain the weakness or how it is exploited."))
+        setattr(cls, "Influential/Newsworthy",
+            PermissibleValue(
+                text="Influential/Newsworthy",
+                description="A publication that drew attention or shaped how people see the weakness."))
+        setattr(cls, "Manual/Man Pages",
+            PermissibleValue(
+                text="Manual/Man Pages",
+                description="""Technical reference material that gives background and is not about the weakness itself."""))
+        setattr(cls, "Mitigation-Based",
+            PermissibleValue(
+                text="Mitigation-Based",
+                description="It proposes ways to reduce or remove weaknesses across a whole system."))
+        setattr(cls, "Secure-Development-Rules",
+            PermissibleValue(
+                text="Secure-Development-Rules",
+                description="It points to formal rules or guides for developing securely."))
+
+class CweContributionType(EnumDefinitionImpl):
+    """
+    What a contribution to an entry consisted of.
+    """
+    Content = PermissibleValue(
+        text="Content",
+        description="Content given to the entry.")
+    Feedback = PermissibleValue(
+        text="Feedback",
+        description="Feedback on the entry.")
+
+    _defn = EnumDefinition(
+        name="CweContributionType",
+        description="What a contribution to an entry consisted of.",
     )
 
 # Slots
 class slots:
     pass
 
-slots.id = Slot(uri=DCT.identifier, name="id", curie=DCT.curie('identifier'),
-                   model_uri=CWE.id, domain=None, range=URIRef)
+slots.cweWeaknessCatalog__Name = Slot(uri=CWE.Name, name="cweWeaknessCatalog__Name", curie=CWE.curie('Name'),
+                   model_uri=CWE.cweWeaknessCatalog__Name, domain=None, range=str)
 
-slots.name = Slot(uri=RDFS.label, name="name", curie=RDFS.curie('label'),
-                   model_uri=CWE.name, domain=None, range=Optional[str])
+slots.cweWeaknessCatalog__Version = Slot(uri=CWE.Version, name="cweWeaknessCatalog__Version", curie=CWE.curie('Version'),
+                   model_uri=CWE.cweWeaknessCatalog__Version, domain=None, range=str)
 
-slots.title = Slot(uri=DCT.title, name="title", curie=DCT.curie('title'),
-                   model_uri=CWE.title, domain=None, range=Optional[str])
+slots.cweWeaknessCatalog__Date = Slot(uri=CWE.Date, name="cweWeaknessCatalog__Date", curie=CWE.curie('Date'),
+                   model_uri=CWE.cweWeaknessCatalog__Date, domain=None, range=Union[str, XSDDate])
 
-slots.description = Slot(uri=DCT.description, name="description", curie=DCT.curie('description'),
-                   model_uri=CWE.description, domain=None, range=Optional[str])
+slots.cweWeaknessCatalog__Weaknesses = Slot(uri=CWE.Weaknesses, name="cweWeaknessCatalog__Weaknesses", curie=CWE.curie('Weaknesses'),
+                   model_uri=CWE.cweWeaknessCatalog__Weaknesses, domain=None, range=Optional[Union[dict[Union[str, CweWeaknessID], Union[dict, CweWeakness]], list[Union[dict, CweWeakness]]]])
 
-slots.version = Slot(uri=SCHEMA.version, name="version", curie=SCHEMA.curie('version'),
-                   model_uri=CWE.version, domain=None, range=Optional[str])
+slots.cweWeaknessCatalog__Groupings = Slot(uri=CWE.Groupings, name="cweWeaknessCatalog__Groupings", curie=CWE.curie('Groupings'),
+                   model_uri=CWE.cweWeaknessCatalog__Groupings, domain=None, range=Optional[Union[dict[Union[str, CweGroupingID], Union[dict, CweGrouping]], list[Union[dict, CweGrouping]]]])
 
-slots.date = Slot(uri=DCT.date, name="date", curie=DCT.curie('date'),
-                   model_uri=CWE.date, domain=None, range=Optional[Union[str, XSDDate]])
+slots.cweWeaknessCatalog__Views = Slot(uri=CWE.Views, name="cweWeaknessCatalog__Views", curie=CWE.curie('Views'),
+                   model_uri=CWE.cweWeaknessCatalog__Views, domain=None, range=Optional[Union[dict[Union[str, CweViewID], Union[dict, CweView]], list[Union[dict, CweView]]]])
 
-slots.source = Slot(uri=DCT.source, name="source", curie=DCT.curie('source'),
-                   model_uri=CWE.source, domain=None, range=Optional[str])
+slots.cweWeaknessCatalog__External_References = Slot(uri=CWE.External_References, name="cweWeaknessCatalog__External_References", curie=CWE.curie('External_References'),
+                   model_uri=CWE.cweWeaknessCatalog__External_References, domain=None, range=Optional[Union[dict[Union[str, CweExternalReferenceReferenceID], Union[dict, CweExternalReference]], list[Union[dict, CweExternalReference]]]])
 
-slots.url = Slot(uri=SCHEMA.url, name="url", curie=SCHEMA.curie('url'),
-                   model_uri=CWE.url, domain=None, range=Optional[Union[str, URI]])
+slots.cweExternalReference__Reference_ID = Slot(uri=CWE.Reference_ID, name="cweExternalReference__Reference_ID", curie=CWE.curie('Reference_ID'),
+                   model_uri=CWE.cweExternalReference__Reference_ID, domain=None, range=URIRef)
 
-slots.url_date = Slot(uri=CWE.url_date, name="url_date", curie=CWE.curie('url_date'),
-                   model_uri=CWE.url_date, domain=None, range=Optional[Union[str, XSDDate]])
+slots.cweExternalReference__Author = Slot(uri=CWE.Author, name="cweExternalReference__Author", curie=CWE.curie('Author'),
+                   model_uri=CWE.cweExternalReference__Author, domain=None, range=Optional[Union[str, list[str]]])
 
-slots.summary = Slot(uri=CWE.summary, name="summary", curie=CWE.curie('summary'),
-                   model_uri=CWE.summary, domain=None, range=Optional[str])
+slots.cweExternalReference__Title = Slot(uri=CWE.Title, name="cweExternalReference__Title", curie=CWE.curie('Title'),
+                   model_uri=CWE.cweExternalReference__Title, domain=None, range=str)
 
-slots.objective = Slot(uri=CWE.objective, name="objective", curie=CWE.curie('objective'),
-                   model_uri=CWE.objective, domain=None, range=Optional[str])
+slots.cweExternalReference__Edition = Slot(uri=CWE.Edition, name="cweExternalReference__Edition", curie=CWE.curie('Edition'),
+                   model_uri=CWE.cweExternalReference__Edition, domain=None, range=Optional[str])
 
-slots.filter = Slot(uri=CWE.filter, name="filter", curie=CWE.curie('filter'),
-                   model_uri=CWE.filter, domain=None, range=Optional[str])
+slots.cweExternalReference__Publication = Slot(uri=CWE.Publication, name="cweExternalReference__Publication", curie=CWE.curie('Publication'),
+                   model_uri=CWE.cweExternalReference__Publication, domain=None, range=Optional[str])
 
-slots.comment = Slot(uri=CWE.comment, name="comment", curie=CWE.curie('comment'),
-                   model_uri=CWE.comment, domain=None, range=Optional[str])
+slots.cweExternalReference__Publication_Year = Slot(uri=CWE.Publication_Year, name="cweExternalReference__Publication_Year", curie=CWE.curie('Publication_Year'),
+                   model_uri=CWE.cweExternalReference__Publication_Year, domain=None, range=Optional[Union[str, CwePublicationYear]])
 
-slots.abstraction = Slot(uri=SKOS.broader, name="abstraction", curie=SKOS.curie('broader'),
-                   model_uri=CWE.abstraction, domain=None, range=Optional[Union[str, "WeaknessAbstraction"]])
+slots.cweExternalReference__Publication_Month = Slot(uri=CWE.Publication_Month, name="cweExternalReference__Publication_Month", curie=CWE.curie('Publication_Month'),
+                   model_uri=CWE.cweExternalReference__Publication_Month, domain=None, range=Optional[Union[str, CwePublicationMonth]])
 
-slots.structure = Slot(uri=CWE.structure, name="structure", curie=CWE.curie('structure'),
-                   model_uri=CWE.structure, domain=None, range=Optional[Union[str, "WeaknessStructure"]])
+slots.cweExternalReference__Publication_Day = Slot(uri=CWE.Publication_Day, name="cweExternalReference__Publication_Day", curie=CWE.curie('Publication_Day'),
+                   model_uri=CWE.cweExternalReference__Publication_Day, domain=None, range=Optional[Union[str, CwePublicationDay]])
 
-slots.status = Slot(uri=CWE.status, name="status", curie=CWE.curie('status'),
-                   model_uri=CWE.status, domain=None, range=Optional[Union[str, "WeaknessStatus"]])
+slots.cweExternalReference__Publisher = Slot(uri=CWE.Publisher, name="cweExternalReference__Publisher", curie=CWE.curie('Publisher'),
+                   model_uri=CWE.cweExternalReference__Publisher, domain=None, range=Optional[str])
 
-slots.diagram = Slot(uri=CWE.diagram, name="diagram", curie=CWE.curie('diagram'),
-                   model_uri=CWE.diagram, domain=None, range=Optional[str])
+slots.cweExternalReference__URL = Slot(uri=CWE.URL, name="cweExternalReference__URL", curie=CWE.curie('URL'),
+                   model_uri=CWE.cweExternalReference__URL, domain=None, range=Optional[Union[str, URI]])
 
-slots.extended_description = Slot(uri=CWE.extended_description, name="extended_description", curie=CWE.curie('extended_description'),
-                   model_uri=CWE.extended_description, domain=None, range=Optional[str])
+slots.cweExternalReference__URL_Date = Slot(uri=CWE.URL_Date, name="cweExternalReference__URL_Date", curie=CWE.curie('URL_Date'),
+                   model_uri=CWE.cweExternalReference__URL_Date, domain=None, range=Optional[Union[str, XSDDate]])
 
-slots.likelihood_of_exploit = Slot(uri=CWE.likelihood_of_exploit, name="likelihood_of_exploit", curie=CWE.curie('likelihood_of_exploit'),
-                   model_uri=CWE.likelihood_of_exploit, domain=None, range=Optional[Union[str, "LikelihoodLevel"]])
+slots.cweExternalReference__Alt_URL = Slot(uri=CWE.Alt_URL, name="cweExternalReference__Alt_URL", curie=CWE.curie('Alt_URL'),
+                   model_uri=CWE.cweExternalReference__Alt_URL, domain=None, range=Optional[Union[str, URI]])
 
-slots.tags = Slot(uri=CWE.tags, name="tags", curie=CWE.curie('tags'),
-                   model_uri=CWE.tags, domain=None, range=Optional[Union[str, list[str]]])
+slots.cweExternalReference__Alt_URL_Date = Slot(uri=CWE.Alt_URL_Date, name="cweExternalReference__Alt_URL_Date", curie=CWE.curie('Alt_URL_Date'),
+                   model_uri=CWE.cweExternalReference__Alt_URL_Date, domain=None, range=Optional[Union[str, XSDDate]])
 
-slots.type = Slot(uri=CWE.type, name="type", curie=CWE.curie('type'),
-                   model_uri=CWE.type, domain=None, range=Optional[str])
+slots.cweExternalReference__Media_Type = Slot(uri=CWE.Media_Type, name="cweExternalReference__Media_Type", curie=CWE.curie('Media_Type'),
+                   model_uri=CWE.cweExternalReference__Media_Type, domain=None, range=Optional[Union[Union[str, "CweReferenceMediaType"], list[Union[str, "CweReferenceMediaType"]]]])
 
-slots.phase = Slot(uri=CWE.phase, name="phase", curie=CWE.curie('phase'),
-                   model_uri=CWE.phase, domain=None, range=Optional[Union[str, "LifecyclePhase"]])
+slots.cweExternalReference__Access_Restrictions = Slot(uri=CWE.Access_Restrictions, name="cweExternalReference__Access_Restrictions", curie=CWE.curie('Access_Restrictions'),
+                   model_uri=CWE.cweExternalReference__Access_Restrictions, domain=None, range=Optional[Union[str, "CweReferenceAccessRestriction"]])
 
-slots.phases = Slot(uri=CWE.phases, name="phases", curie=CWE.curie('phases'),
-                   model_uri=CWE.phases, domain=None, range=Optional[Union[Union[str, "LifecyclePhase"], list[Union[str, "LifecyclePhase"]]]])
+slots.cweExternalReference__Rationale = Slot(uri=CWE.Rationale, name="cweExternalReference__Rationale", curie=CWE.curie('Rationale'),
+                   model_uri=CWE.cweExternalReference__Rationale, domain=None, range=Optional[Union[Union[str, "CweReferenceRationale"], list[Union[str, "CweReferenceRationale"]]]])
 
-slots.strategy = Slot(uri=CWE.strategy, name="strategy", curie=CWE.curie('strategy'),
-                   model_uri=CWE.strategy, domain=None, range=Optional[Union[str, "MitigationStrategy"]])
+slots.cweReference__External_Reference_ID = Slot(uri=CWE.External_Reference_ID, name="cweReference__External_Reference_ID", curie=CWE.curie('External_Reference_ID'),
+                   model_uri=CWE.cweReference__External_Reference_ID, domain=None, range=Union[str, CweExternalReferenceReferenceID])
 
-slots.effectiveness = Slot(uri=CWE.effectiveness, name="effectiveness", curie=CWE.curie('effectiveness'),
-                   model_uri=CWE.effectiveness, domain=None, range=Optional[str])
+slots.cweReference__Section = Slot(uri=CWE.Section, name="cweReference__Section", curie=CWE.curie('Section'),
+                   model_uri=CWE.cweReference__Section, domain=None, range=Optional[str])
 
-slots.effectiveness_notes = Slot(uri=CWE.effectiveness_notes, name="effectiveness_notes", curie=CWE.curie('effectiveness_notes'),
-                   model_uri=CWE.effectiveness_notes, domain=None, range=Optional[str])
+slots.cweDimension__Type = Slot(uri=CWE.Type, name="cweDimension__Type", curie=CWE.curie('Type'),
+                   model_uri=CWE.cweDimension__Type, domain=None, range=Union[str, "CweDimensionType"])
 
-slots.method = Slot(uri=CWE.method, name="method", curie=CWE.curie('method'),
-                   model_uri=CWE.method, domain=None, range=Optional[str])
+slots.cweDimension__Value = Slot(uri=CWE.Value, name="cweDimension__Value", curie=CWE.curie('Value'),
+                   model_uri=CWE.cweDimension__Value, domain=None, range=str)
 
-slots.usage = Slot(uri=CWE.usage, name="usage", curie=CWE.curie('usage'),
-                   model_uri=CWE.usage, domain=None, range=Optional[Union[str, "MappingUsage"]])
+slots.cweCustomPhase__Domain = Slot(uri=CWE.Domain, name="cweCustomPhase__Domain", curie=CWE.curie('Domain'),
+                   model_uri=CWE.cweCustomPhase__Domain, domain=None, range=Union[str, "CweCustomPhaseDomain"])
 
-slots.rationale = Slot(uri=CWE.rationale, name="rationale", curie=CWE.curie('rationale'),
-                   model_uri=CWE.rationale, domain=None, range=Optional[str])
+slots.cweCustomPhase__Value = Slot(uri=CWE.Value, name="cweCustomPhase__Value", curie=CWE.curie('Value'),
+                   model_uri=CWE.cweCustomPhase__Value, domain=None, range=Union[str, "CweAiPhase", "CweHardwarePhase"])
 
-slots.comments = Slot(uri=CWE.comments, name="comments", curie=CWE.curie('comments'),
-                   model_uri=CWE.comments, domain=None, range=Optional[str])
+slots.cweNote__Type = Slot(uri=CWE.Type, name="cweNote__Type", curie=CWE.curie('Type'),
+                   model_uri=CWE.cweNote__Type, domain=None, range=Union[str, "CweNoteType"])
 
-slots.reasons = Slot(uri=CWE.reasons, name="reasons", curie=CWE.curie('reasons'),
-                   model_uri=CWE.reasons, domain=None, range=Optional[Union[Union[str, "MappingReason"], list[Union[str, "MappingReason"]]]])
+slots.cweNote__Version = Slot(uri=CWE.Version, name="cweNote__Version", curie=CWE.curie('Version'),
+                   model_uri=CWE.cweNote__Version, domain=None, range=Optional[str])
 
-slots.ordinality = Slot(uri=CWE.ordinality, name="ordinality", curie=CWE.curie('ordinality'),
-                   model_uri=CWE.ordinality, domain=None, range=Optional[Union[str, "WeaknessOrdinalityLevel"]])
+slots.cweNote__ReleaseDate = Slot(uri=CWE.ReleaseDate, name="cweNote__ReleaseDate", curie=CWE.curie('ReleaseDate'),
+                   model_uri=CWE.cweNote__ReleaseDate, domain=None, range=Optional[Union[str, XSDDate]])
 
-slots.nature = Slot(uri=SKOS.related, name="nature", curie=SKOS.curie('related'),
-                   model_uri=CWE.nature, domain=None, range=Optional[str])
+slots.cweNote__Value = Slot(uri=CWE.Value, name="cweNote__Value", curie=CWE.curie('Value'),
+                   model_uri=CWE.cweNote__Value, domain=None, range=Optional[Union[str, CweStructuredText]])
 
-slots.class_ = Slot(uri=CWE.class_, name="class_", curie=CWE.curie('class_'),
-                   model_uri=CWE.class_, domain=None, range=Optional[str])
+slots.cweTaxonomyMapping__Taxonomy_Name = Slot(uri=CWE.Taxonomy_Name, name="cweTaxonomyMapping__Taxonomy_Name", curie=CWE.curie('Taxonomy_Name'),
+                   model_uri=CWE.cweTaxonomyMapping__Taxonomy_Name, domain=None, range=Union[str, "CweTaxonomyName"])
 
-slots.prevalence = Slot(uri=CWE.prevalence, name="prevalence", curie=CWE.curie('prevalence'),
-                   model_uri=CWE.prevalence, domain=None, range=Optional[Union[str, "PlatformPrevalence"]])
+slots.cweTaxonomyMapping__Entry_ID = Slot(uri=CWE.Entry_ID, name="cweTaxonomyMapping__Entry_ID", curie=CWE.curie('Entry_ID'),
+                   model_uri=CWE.cweTaxonomyMapping__Entry_ID, domain=None, range=Optional[str])
 
-slots.language = Slot(uri=CWE.language, name="language", curie=CWE.curie('language'),
-                   model_uri=CWE.language, domain=None, range=Optional[Union[str, "ProgrammingLanguage"]])
+slots.cweTaxonomyMapping__Entry_Name = Slot(uri=CWE.Entry_Name, name="cweTaxonomyMapping__Entry_Name", curie=CWE.curie('Entry_Name'),
+                   model_uri=CWE.cweTaxonomyMapping__Entry_Name, domain=None, range=Optional[str])
 
-slots.cpe_id = Slot(uri=CWE.cpe_id, name="cpe_id", curie=CWE.curie('cpe_id'),
-                   model_uri=CWE.cpe_id, domain=None, range=Optional[str])
+slots.cweTaxonomyMapping__Mapping_Fit = Slot(uri=CWE.Mapping_Fit, name="cweTaxonomyMapping__Mapping_Fit", curie=CWE.curie('Mapping_Fit'),
+                   model_uri=CWE.cweTaxonomyMapping__Mapping_Fit, domain=None, range=Optional[Union[str, "CweMappingFit"]])
 
-slots.cwe_id = Slot(uri=CWE.cwe_id, name="cwe_id", curie=CWE.curie('cwe_id'),
-                   model_uri=CWE.cwe_id, domain=None, range=Optional[int])
+slots.cweContentHistory__Submission = Slot(uri=CWE.Submission, name="cweContentHistory__Submission", curie=CWE.curie('Submission'),
+                   model_uri=CWE.cweContentHistory__Submission, domain=None, range=Union[Union[dict, CweSubmission], list[Union[dict, CweSubmission]]])
 
-slots.view_id = Slot(uri=CWE.view_id, name="view_id", curie=CWE.curie('view_id'),
-                   model_uri=CWE.view_id, domain=None, range=Optional[int])
+slots.cweContentHistory__Modification = Slot(uri=CWE.Modification, name="cweContentHistory__Modification", curie=CWE.curie('Modification'),
+                   model_uri=CWE.cweContentHistory__Modification, domain=None, range=Optional[Union[Union[dict, CweModification], list[Union[dict, CweModification]]]])
 
-slots.chain_id = Slot(uri=CWE.chain_id, name="chain_id", curie=CWE.curie('chain_id'),
-                   model_uri=CWE.chain_id, domain=None, range=Optional[int])
+slots.cweContentHistory__Contribution = Slot(uri=CWE.Contribution, name="cweContentHistory__Contribution", curie=CWE.curie('Contribution'),
+                   model_uri=CWE.cweContentHistory__Contribution, domain=None, range=Optional[Union[Union[dict, CweContribution], list[Union[dict, CweContribution]]]])
 
-slots.ordinal = Slot(uri=CWE.ordinal, name="ordinal", curie=CWE.curie('ordinal'),
-                   model_uri=CWE.ordinal, domain=None, range=Optional[Union[str, "OrdinalQualifier"]])
+slots.cweContentHistory__Previous_Entry_Name = Slot(uri=CWE.Previous_Entry_Name, name="cweContentHistory__Previous_Entry_Name", curie=CWE.curie('Previous_Entry_Name'),
+                   model_uri=CWE.cweContentHistory__Previous_Entry_Name, domain=None, range=Optional[Union[Union[dict, CwePreviousEntryName], list[Union[dict, CwePreviousEntryName]]]])
 
-slots.scopes = Slot(uri=CWE.scopes, name="scopes", curie=CWE.curie('scopes'),
-                   model_uri=CWE.scopes, domain=None, range=Optional[Union[Union[str, "SecurityScope"], list[Union[str, "SecurityScope"]]]])
+slots.cweSubmission__Submission_Name = Slot(uri=CWE.Submission_Name, name="cweSubmission__Submission_Name", curie=CWE.curie('Submission_Name'),
+                   model_uri=CWE.cweSubmission__Submission_Name, domain=None, range=Optional[Union[str, list[str]]])
 
-slots.impacts = Slot(uri=CWE.impacts, name="impacts", curie=CWE.curie('impacts'),
-                   model_uri=CWE.impacts, domain=None, range=Optional[Union[Union[str, "TechnicalImpact"], list[Union[str, "TechnicalImpact"]]]])
+slots.cweSubmission__Submission_Organization = Slot(uri=CWE.Submission_Organization, name="cweSubmission__Submission_Organization", curie=CWE.curie('Submission_Organization'),
+                   model_uri=CWE.cweSubmission__Submission_Organization, domain=None, range=Optional[str])
 
-slots.likelihood = Slot(uri=CWE.likelihood, name="likelihood", curie=CWE.curie('likelihood'),
-                   model_uri=CWE.likelihood, domain=None, range=Optional[Union[str, "LikelihoodLevel"]])
+slots.cweSubmission__Submission_Date = Slot(uri=CWE.Submission_Date, name="cweSubmission__Submission_Date", curie=CWE.curie('Submission_Date'),
+                   model_uri=CWE.cweSubmission__Submission_Date, domain=None, range=Union[str, XSDDate])
 
-slots.note = Slot(uri=CWE.note, name="note", curie=CWE.curie('note'),
-                   model_uri=CWE.note, domain=None, range=Optional[str])
+slots.cweSubmission__Submission_Version = Slot(uri=CWE.Submission_Version, name="cweSubmission__Submission_Version", curie=CWE.curie('Submission_Version'),
+                   model_uri=CWE.cweSubmission__Submission_Version, domain=None, range=str)
 
-slots.content = Slot(uri=CWE.content, name="content", curie=CWE.curie('content'),
-                   model_uri=CWE.content, domain=None, range=Optional[str])
+slots.cweSubmission__Submission_ReleaseDate = Slot(uri=CWE.Submission_ReleaseDate, name="cweSubmission__Submission_ReleaseDate", curie=CWE.curie('Submission_ReleaseDate'),
+                   model_uri=CWE.cweSubmission__Submission_ReleaseDate, domain=None, range=Union[str, XSDDate])
 
-slots.term = Slot(uri=CWE.term, name="term", curie=CWE.curie('term'),
-                   model_uri=CWE.term, domain=None, range=Optional[str])
+slots.cweSubmission__Submission_Comment = Slot(uri=CWE.Submission_Comment, name="cweSubmission__Submission_Comment", curie=CWE.curie('Submission_Comment'),
+                   model_uri=CWE.cweSubmission__Submission_Comment, domain=None, range=Optional[str])
 
-slots.detection_method_id = Slot(uri=CWE.detection_method_id, name="detection_method_id", curie=CWE.curie('detection_method_id'),
-                   model_uri=CWE.detection_method_id, domain=None, range=Optional[str])
+slots.cweModification__Modification_Name = Slot(uri=CWE.Modification_Name, name="cweModification__Modification_Name", curie=CWE.curie('Modification_Name'),
+                   model_uri=CWE.cweModification__Modification_Name, domain=None, range=Optional[str])
 
-slots.mitigation_id = Slot(uri=CWE.mitigation_id, name="mitigation_id", curie=CWE.curie('mitigation_id'),
-                   model_uri=CWE.mitigation_id, domain=None, range=Optional[str])
+slots.cweModification__Modification_Organization = Slot(uri=CWE.Modification_Organization, name="cweModification__Modification_Organization", curie=CWE.curie('Modification_Organization'),
+                   model_uri=CWE.cweModification__Modification_Organization, domain=None, range=Optional[str])
 
-slots.demonstrative_example_id = Slot(uri=CWE.demonstrative_example_id, name="demonstrative_example_id", curie=CWE.curie('demonstrative_example_id'),
-                   model_uri=CWE.demonstrative_example_id, domain=None, range=Optional[str])
+slots.cweModification__Modification_Date = Slot(uri=CWE.Modification_Date, name="cweModification__Modification_Date", curie=CWE.curie('Modification_Date'),
+                   model_uri=CWE.cweModification__Modification_Date, domain=None, range=Union[str, XSDDate])
 
-slots.title_text = Slot(uri=CWE.title_text, name="title_text", curie=CWE.curie('title_text'),
-                   model_uri=CWE.title_text, domain=None, range=Optional[str])
+slots.cweModification__Modification_Version = Slot(uri=CWE.Modification_Version, name="cweModification__Modification_Version", curie=CWE.curie('Modification_Version'),
+                   model_uri=CWE.cweModification__Modification_Version, domain=None, range=str)
 
-slots.intro_text = Slot(uri=CWE.intro_text, name="intro_text", curie=CWE.curie('intro_text'),
-                   model_uri=CWE.intro_text, domain=None, range=Optional[str])
+slots.cweModification__Modification_ReleaseDate = Slot(uri=CWE.Modification_ReleaseDate, name="cweModification__Modification_ReleaseDate", curie=CWE.curie('Modification_ReleaseDate'),
+                   model_uri=CWE.cweModification__Modification_ReleaseDate, domain=None, range=Union[str, XSDDate])
 
-slots.body_texts = Slot(uri=CWE.body_texts, name="body_texts", curie=CWE.curie('body_texts'),
-                   model_uri=CWE.body_texts, domain=None, range=Optional[Union[str, list[str]]])
+slots.cweModification__Modification_Importance = Slot(uri=CWE.Modification_Importance, name="cweModification__Modification_Importance", curie=CWE.curie('Modification_Importance'),
+                   model_uri=CWE.cweModification__Modification_Importance, domain=None, range=Optional[Union[str, "CweImportance"]])
 
-slots.reference = Slot(uri=CWE.reference, name="reference", curie=CWE.curie('reference'),
-                   model_uri=CWE.reference, domain=None, range=Optional[str])
+slots.cweModification__Modification_Comment = Slot(uri=CWE.Modification_Comment, name="cweModification__Modification_Comment", curie=CWE.curie('Modification_Comment'),
+                   model_uri=CWE.cweModification__Modification_Comment, domain=None, range=str)
 
-slots.link = Slot(uri=CWE.link, name="link", curie=CWE.curie('link'),
-                   model_uri=CWE.link, domain=None, range=Optional[Union[str, URI]])
+slots.cweContribution__Type = Slot(uri=CWE.Type, name="cweContribution__Type", curie=CWE.curie('Type'),
+                   model_uri=CWE.cweContribution__Type, domain=None, range=Union[str, "CweContributionType"])
 
-slots.taxonomy_name = Slot(uri=CWE.taxonomy_name, name="taxonomy_name", curie=CWE.curie('taxonomy_name'),
-                   model_uri=CWE.taxonomy_name, domain=None, range=Optional[Union[str, "TaxonomyName"]])
+slots.cweContribution__Contribution_Name = Slot(uri=CWE.Contribution_Name, name="cweContribution__Contribution_Name", curie=CWE.curie('Contribution_Name'),
+                   model_uri=CWE.cweContribution__Contribution_Name, domain=None, range=Optional[Union[str, list[str]]])
 
-slots.entry_id = Slot(uri=CWE.entry_id, name="entry_id", curie=CWE.curie('entry_id'),
-                   model_uri=CWE.entry_id, domain=None, range=Optional[str])
+slots.cweContribution__Contribution_Organization = Slot(uri=CWE.Contribution_Organization, name="cweContribution__Contribution_Organization", curie=CWE.curie('Contribution_Organization'),
+                   model_uri=CWE.cweContribution__Contribution_Organization, domain=None, range=Optional[str])
 
-slots.entry_name = Slot(uri=CWE.entry_name, name="entry_name", curie=CWE.curie('entry_name'),
-                   model_uri=CWE.entry_name, domain=None, range=Optional[str])
+slots.cweContribution__Contribution_Date = Slot(uri=CWE.Contribution_Date, name="cweContribution__Contribution_Date", curie=CWE.curie('Contribution_Date'),
+                   model_uri=CWE.cweContribution__Contribution_Date, domain=None, range=Union[str, XSDDate])
 
-slots.mapping_fit = Slot(uri=CWE.mapping_fit, name="mapping_fit", curie=CWE.curie('mapping_fit'),
-                   model_uri=CWE.mapping_fit, domain=None, range=Optional[Union[str, "TaxonomyMappingFit"]])
+slots.cweContribution__Contribution_Version = Slot(uri=CWE.Contribution_Version, name="cweContribution__Contribution_Version", curie=CWE.curie('Contribution_Version'),
+                   model_uri=CWE.cweContribution__Contribution_Version, domain=None, range=str)
 
-slots.related_attack_patterns = Slot(uri=SKOS.related, name="related_attack_patterns", curie=SKOS.curie('related'),
-                   model_uri=CWE.related_attack_patterns, domain=None, range=Optional[Union[int, list[int]]])
+slots.cweContribution__Contribution_ReleaseDate = Slot(uri=CWE.Contribution_ReleaseDate, name="cweContribution__Contribution_ReleaseDate", curie=CWE.curie('Contribution_ReleaseDate'),
+                   model_uri=CWE.cweContribution__Contribution_ReleaseDate, domain=None, range=Union[str, XSDDate])
 
-slots.functional_areas = Slot(uri=CWE.functional_areas, name="functional_areas", curie=CWE.curie('functional_areas'),
-                   model_uri=CWE.functional_areas, domain=None, range=Optional[Union[Union[str, "FunctionalArea"], list[Union[str, "FunctionalArea"]]]])
+slots.cweContribution__Contribution_Comment = Slot(uri=CWE.Contribution_Comment, name="cweContribution__Contribution_Comment", curie=CWE.curie('Contribution_Comment'),
+                   model_uri=CWE.cweContribution__Contribution_Comment, domain=None, range=Optional[str])
 
-slots.affected_resources = Slot(uri=CWE.affected_resources, name="affected_resources", curie=CWE.curie('affected_resources'),
-                   model_uri=CWE.affected_resources, domain=None, range=Optional[Union[Union[str, "AffectedResource"], list[Union[str, "AffectedResource"]]]])
+slots.cwePreviousEntryName__Date = Slot(uri=CWE.Date, name="cwePreviousEntryName__Date", curie=CWE.curie('Date'),
+                   model_uri=CWE.cwePreviousEntryName__Date, domain=None, range=Union[str, XSDDate])
 
-slots.background_details = Slot(uri=CWE.background_details, name="background_details", curie=CWE.curie('background_details'),
-                   model_uri=CWE.background_details, domain=None, range=Optional[Union[str, list[str]]])
+slots.cwePreviousEntryName__Version = Slot(uri=CWE.Version, name="cwePreviousEntryName__Version", curie=CWE.curie('Version'),
+                   model_uri=CWE.cwePreviousEntryName__Version, domain=None, range=Optional[str])
 
-slots.exploitation_factors = Slot(uri=CWE.exploitation_factors, name="exploitation_factors", curie=CWE.curie('exploitation_factors'),
-                   model_uri=CWE.exploitation_factors, domain=None, range=Optional[Union[str, list[str]]])
+slots.cwePreviousEntryName__Value = Slot(uri=CWE.Value, name="cwePreviousEntryName__Value", curie=CWE.curie('Value'),
+                   model_uri=CWE.cwePreviousEntryName__Value, domain=None, range=str)
 
-slots.reference_id = Slot(uri=DCT.identifier, name="reference_id", curie=DCT.curie('identifier'),
-                   model_uri=CWE.reference_id, domain=None, range=URIRef)
+slots.cweEntry__ID = Slot(uri=CWE.ID, name="cweEntry__ID", curie=CWE.curie('ID'),
+                   model_uri=CWE.cweEntry__ID, domain=None, range=URIRef)
 
-slots.authors = Slot(uri=CWE.authors, name="authors", curie=CWE.curie('authors'),
-                   model_uri=CWE.authors, domain=None, range=Optional[Union[str, list[str]]])
+slots.cweEntry__Name = Slot(uri=CWE.Name, name="cweEntry__Name", curie=CWE.curie('Name'),
+                   model_uri=CWE.cweEntry__Name, domain=None, range=str)
 
-slots.edition = Slot(uri=CWE.edition, name="edition", curie=CWE.curie('edition'),
-                   model_uri=CWE.edition, domain=None, range=Optional[str])
+slots.cweEntry__Status = Slot(uri=CWE.Status, name="cweEntry__Status", curie=CWE.curie('Status'),
+                   model_uri=CWE.cweEntry__Status, domain=None, range=Union[str, "CweStatus"])
 
-slots.publication = Slot(uri=CWE.publication, name="publication", curie=CWE.curie('publication'),
-                   model_uri=CWE.publication, domain=None, range=Optional[str])
+slots.cweEntry__References = Slot(uri=CWE.References, name="cweEntry__References", curie=CWE.curie('References'),
+                   model_uri=CWE.cweEntry__References, domain=None, range=Optional[Union[Union[dict, CweReference], list[Union[dict, CweReference]]]])
 
-slots.publication_year = Slot(uri=CWE.publication_year, name="publication_year", curie=CWE.curie('publication_year'),
-                   model_uri=CWE.publication_year, domain=None, range=Optional[str])
+slots.cweEntry__Mapping_Notes = Slot(uri=CWE.Mapping_Notes, name="cweEntry__Mapping_Notes", curie=CWE.curie('Mapping_Notes'),
+                   model_uri=CWE.cweEntry__Mapping_Notes, domain=None, range=Union[dict, CweMappingNotes])
 
-slots.publication_month = Slot(uri=CWE.publication_month, name="publication_month", curie=CWE.curie('publication_month'),
-                   model_uri=CWE.publication_month, domain=None, range=Optional[str])
+slots.cweEntry__Notes = Slot(uri=CWE.Notes, name="cweEntry__Notes", curie=CWE.curie('Notes'),
+                   model_uri=CWE.cweEntry__Notes, domain=None, range=Optional[Union[Union[dict, CweNote], list[Union[dict, CweNote]]]])
 
-slots.publication_day = Slot(uri=CWE.publication_day, name="publication_day", curie=CWE.curie('publication_day'),
-                   model_uri=CWE.publication_day, domain=None, range=Optional[str])
+slots.cweEntry__Content_History = Slot(uri=CWE.Content_History, name="cweEntry__Content_History", curie=CWE.curie('Content_History'),
+                   model_uri=CWE.cweEntry__Content_History, domain=None, range=Union[dict, CweContentHistory])
 
-slots.publisher = Slot(uri=CWE.publisher, name="publisher", curie=CWE.curie('publisher'),
-                   model_uri=CWE.publisher, domain=None, range=Optional[str])
+slots.cweWeakness__Abstraction = Slot(uri=CWE.Abstraction, name="cweWeakness__Abstraction", curie=CWE.curie('Abstraction'),
+                   model_uri=CWE.cweWeakness__Abstraction, domain=None, range=Union[str, "CweAbstraction"])
 
-slots.external_reference_id = Slot(uri=CWE.external_reference_id, name="external_reference_id", curie=CWE.curie('external_reference_id'),
-                   model_uri=CWE.external_reference_id, domain=None, range=Optional[str])
+slots.cweWeakness__Structure = Slot(uri=CWE.Structure, name="cweWeakness__Structure", curie=CWE.curie('Structure'),
+                   model_uri=CWE.cweWeakness__Structure, domain=None, range=Union[str, "CweStructure"])
 
-slots.section = Slot(uri=CWE.section, name="section", curie=CWE.curie('section'),
-                   model_uri=CWE.section, domain=None, range=Optional[str])
+slots.cweWeakness__Diagram = Slot(uri=CWE.Diagram, name="cweWeakness__Diagram", curie=CWE.curie('Diagram'),
+                   model_uri=CWE.cweWeakness__Diagram, domain=None, range=Optional[str])
 
-slots.consequence_id = Slot(uri=CWE.consequence_id, name="consequence_id", curie=CWE.curie('consequence_id'),
-                   model_uri=CWE.consequence_id, domain=None, range=Optional[str])
+slots.cweWeakness__Description = Slot(uri=CWE.Description, name="cweWeakness__Description", curie=CWE.curie('Description'),
+                   model_uri=CWE.cweWeakness__Description, domain=None, range=str)
 
-slots.submission_name = Slot(uri=CWE.submission_name, name="submission_name", curie=CWE.curie('submission_name'),
-                   model_uri=CWE.submission_name, domain=None, range=Optional[str])
+slots.cweWeakness__Extended_Description = Slot(uri=CWE.Extended_Description, name="cweWeakness__Extended_Description", curie=CWE.curie('Extended_Description'),
+                   model_uri=CWE.cweWeakness__Extended_Description, domain=None, range=Optional[Union[str, CweStructuredText]])
 
-slots.submission_organization = Slot(uri=CWE.submission_organization, name="submission_organization", curie=CWE.curie('submission_organization'),
-                   model_uri=CWE.submission_organization, domain=None, range=Optional[str])
+slots.cweWeakness__Technical_Nuance = Slot(uri=CWE.Technical_Nuance, name="cweWeakness__Technical_Nuance", curie=CWE.curie('Technical_Nuance'),
+                   model_uri=CWE.cweWeakness__Technical_Nuance, domain=None, range=Optional[Union[str, CweStructuredText]])
 
-slots.submission_date = Slot(uri=CWE.submission_date, name="submission_date", curie=CWE.curie('submission_date'),
-                   model_uri=CWE.submission_date, domain=None, range=Optional[Union[str, XSDDate]])
+slots.cweWeakness__Dimensions = Slot(uri=CWE.Dimensions, name="cweWeakness__Dimensions", curie=CWE.curie('Dimensions'),
+                   model_uri=CWE.cweWeakness__Dimensions, domain=None, range=Optional[Union[Union[dict, CweDimension], list[Union[dict, CweDimension]]]])
 
-slots.submission_version = Slot(uri=CWE.submission_version, name="submission_version", curie=CWE.curie('submission_version'),
-                   model_uri=CWE.submission_version, domain=None, range=Optional[str])
+slots.cweWeakness__Related_Weaknesses = Slot(uri=CWE.Related_Weaknesses, name="cweWeakness__Related_Weaknesses", curie=CWE.curie('Related_Weaknesses'),
+                   model_uri=CWE.cweWeakness__Related_Weaknesses, domain=None, range=Optional[Union[Union[dict, CweRelatedWeakness], list[Union[dict, CweRelatedWeakness]]]])
 
-slots.submission_release_date = Slot(uri=CWE.submission_release_date, name="submission_release_date", curie=CWE.curie('submission_release_date'),
-                   model_uri=CWE.submission_release_date, domain=None, range=Optional[Union[str, XSDDate]])
+slots.cweWeakness__Weakness_Ordinalities = Slot(uri=CWE.Weakness_Ordinalities, name="cweWeakness__Weakness_Ordinalities", curie=CWE.curie('Weakness_Ordinalities'),
+                   model_uri=CWE.cweWeakness__Weakness_Ordinalities, domain=None, range=Optional[Union[Union[dict, CweWeaknessOrdinality], list[Union[dict, CweWeaknessOrdinality]]]])
 
-slots.submission_comment = Slot(uri=CWE.submission_comment, name="submission_comment", curie=CWE.curie('submission_comment'),
-                   model_uri=CWE.submission_comment, domain=None, range=Optional[str])
+slots.cweWeakness__Applicable_Platforms = Slot(uri=CWE.Applicable_Platforms, name="cweWeakness__Applicable_Platforms", curie=CWE.curie('Applicable_Platforms'),
+                   model_uri=CWE.cweWeakness__Applicable_Platforms, domain=None, range=Optional[Union[dict, CweApplicablePlatforms]])
 
-slots.modification_name = Slot(uri=CWE.modification_name, name="modification_name", curie=CWE.curie('modification_name'),
-                   model_uri=CWE.modification_name, domain=None, range=Optional[str])
+slots.cweWeakness__Background_Details = Slot(uri=CWE.Background_Details, name="cweWeakness__Background_Details", curie=CWE.curie('Background_Details'),
+                   model_uri=CWE.cweWeakness__Background_Details, domain=None, range=Optional[Union[Union[str, CweStructuredText], list[Union[str, CweStructuredText]]]])
 
-slots.modification_organization = Slot(uri=CWE.modification_organization, name="modification_organization", curie=CWE.curie('modification_organization'),
-                   model_uri=CWE.modification_organization, domain=None, range=Optional[str])
+slots.cweWeakness__Alternate_Terms = Slot(uri=CWE.Alternate_Terms, name="cweWeakness__Alternate_Terms", curie=CWE.curie('Alternate_Terms'),
+                   model_uri=CWE.cweWeakness__Alternate_Terms, domain=None, range=Optional[Union[Union[dict, CweAlternateTerm], list[Union[dict, CweAlternateTerm]]]])
 
-slots.modification_date = Slot(uri=CWE.modification_date, name="modification_date", curie=CWE.curie('modification_date'),
-                   model_uri=CWE.modification_date, domain=None, range=Optional[Union[str, XSDDate]])
+slots.cweWeakness__Modes_Of_Introduction = Slot(uri=CWE.Modes_Of_Introduction, name="cweWeakness__Modes_Of_Introduction", curie=CWE.curie('Modes_Of_Introduction'),
+                   model_uri=CWE.cweWeakness__Modes_Of_Introduction, domain=None, range=Optional[Union[Union[dict, CweIntroduction], list[Union[dict, CweIntroduction]]]])
 
-slots.modification_version = Slot(uri=CWE.modification_version, name="modification_version", curie=CWE.curie('modification_version'),
-                   model_uri=CWE.modification_version, domain=None, range=Optional[str])
+slots.cweWeakness__Exploitation_Factors = Slot(uri=CWE.Exploitation_Factors, name="cweWeakness__Exploitation_Factors", curie=CWE.curie('Exploitation_Factors'),
+                   model_uri=CWE.cweWeakness__Exploitation_Factors, domain=None, range=Optional[Union[Union[str, CweStructuredText], list[Union[str, CweStructuredText]]]])
 
-slots.modification_release_date = Slot(uri=CWE.modification_release_date, name="modification_release_date", curie=CWE.curie('modification_release_date'),
-                   model_uri=CWE.modification_release_date, domain=None, range=Optional[Union[str, XSDDate]])
+slots.cweWeakness__Likelihood_Of_Exploit = Slot(uri=CWE.Likelihood_Of_Exploit, name="cweWeakness__Likelihood_Of_Exploit", curie=CWE.curie('Likelihood_Of_Exploit'),
+                   model_uri=CWE.cweWeakness__Likelihood_Of_Exploit, domain=None, range=Optional[Union[str, "CweLikelihood"]])
 
-slots.modification_importance = Slot(uri=CWE.modification_importance, name="modification_importance", curie=CWE.curie('modification_importance'),
-                   model_uri=CWE.modification_importance, domain=None, range=Optional[Union[str, "ContentImportance"]])
+slots.cweWeakness__Common_Consequences = Slot(uri=CWE.Common_Consequences, name="cweWeakness__Common_Consequences", curie=CWE.curie('Common_Consequences'),
+                   model_uri=CWE.cweWeakness__Common_Consequences, domain=None, range=Optional[Union[Union[dict, CweConsequence], list[Union[dict, CweConsequence]]]])
 
-slots.modification_comment = Slot(uri=CWE.modification_comment, name="modification_comment", curie=CWE.curie('modification_comment'),
-                   model_uri=CWE.modification_comment, domain=None, range=Optional[str])
+slots.cweWeakness__Detection_Methods = Slot(uri=CWE.Detection_Methods, name="cweWeakness__Detection_Methods", curie=CWE.curie('Detection_Methods'),
+                   model_uri=CWE.cweWeakness__Detection_Methods, domain=None, range=Optional[Union[Union[dict, CweDetectionMethod], list[Union[dict, CweDetectionMethod]]]])
 
-slots.contribution_name = Slot(uri=CWE.contribution_name, name="contribution_name", curie=CWE.curie('contribution_name'),
-                   model_uri=CWE.contribution_name, domain=None, range=Optional[str])
+slots.cweWeakness__Potential_Mitigations = Slot(uri=CWE.Potential_Mitigations, name="cweWeakness__Potential_Mitigations", curie=CWE.curie('Potential_Mitigations'),
+                   model_uri=CWE.cweWeakness__Potential_Mitigations, domain=None, range=Optional[Union[Union[dict, CweMitigation], list[Union[dict, CweMitigation]]]])
 
-slots.contribution_organization = Slot(uri=CWE.contribution_organization, name="contribution_organization", curie=CWE.curie('contribution_organization'),
-                   model_uri=CWE.contribution_organization, domain=None, range=Optional[str])
+slots.cweWeakness__Demonstrative_Examples = Slot(uri=CWE.Demonstrative_Examples, name="cweWeakness__Demonstrative_Examples", curie=CWE.curie('Demonstrative_Examples'),
+                   model_uri=CWE.cweWeakness__Demonstrative_Examples, domain=None, range=Optional[Union[Union[dict, CweDemonstrativeExample], list[Union[dict, CweDemonstrativeExample]]]])
 
-slots.contribution_date = Slot(uri=CWE.contribution_date, name="contribution_date", curie=CWE.curie('contribution_date'),
-                   model_uri=CWE.contribution_date, domain=None, range=Optional[Union[str, XSDDate]])
+slots.cweWeakness__Observed_Examples = Slot(uri=CWE.Observed_Examples, name="cweWeakness__Observed_Examples", curie=CWE.curie('Observed_Examples'),
+                   model_uri=CWE.cweWeakness__Observed_Examples, domain=None, range=Optional[Union[Union[dict, CweObservedExample], list[Union[dict, CweObservedExample]]]])
 
-slots.contribution_version = Slot(uri=CWE.contribution_version, name="contribution_version", curie=CWE.curie('contribution_version'),
-                   model_uri=CWE.contribution_version, domain=None, range=Optional[str])
+slots.cweWeakness__Functional_Areas = Slot(uri=CWE.Functional_Areas, name="cweWeakness__Functional_Areas", curie=CWE.curie('Functional_Areas'),
+                   model_uri=CWE.cweWeakness__Functional_Areas, domain=None, range=Optional[Union[Union[str, "CweFunctionalArea"], list[Union[str, "CweFunctionalArea"]]]])
 
-slots.contribution_release_date = Slot(uri=CWE.contribution_release_date, name="contribution_release_date", curie=CWE.curie('contribution_release_date'),
-                   model_uri=CWE.contribution_release_date, domain=None, range=Optional[Union[str, XSDDate]])
+slots.cweWeakness__Affected_Resources = Slot(uri=CWE.Affected_Resources, name="cweWeakness__Affected_Resources", curie=CWE.curie('Affected_Resources'),
+                   model_uri=CWE.cweWeakness__Affected_Resources, domain=None, range=Optional[Union[Union[str, "CweResource"], list[Union[str, "CweResource"]]]])
 
-slots.contribution_comment = Slot(uri=CWE.contribution_comment, name="contribution_comment", curie=CWE.curie('contribution_comment'),
-                   model_uri=CWE.contribution_comment, domain=None, range=Optional[str])
+slots.cweWeakness__Taxonomy_Mappings = Slot(uri=CWE.Taxonomy_Mappings, name="cweWeakness__Taxonomy_Mappings", curie=CWE.curie('Taxonomy_Mappings'),
+                   model_uri=CWE.cweWeakness__Taxonomy_Mappings, domain=None, range=Optional[Union[Union[dict, CweTaxonomyMapping], list[Union[dict, CweTaxonomyMapping]]]])
 
-slots.observation_id = Slot(uri=DCT.identifier, name="observation_id", curie=DCT.curie('identifier'),
-                   model_uri=CWE.observation_id, domain=None, range=URIRef)
+slots.cweWeakness__Related_Attack_Patterns = Slot(uri=CWE.Related_Attack_Patterns, name="cweWeakness__Related_Attack_Patterns", curie=CWE.curie('Related_Attack_Patterns'),
+                   model_uri=CWE.cweWeakness__Related_Attack_Patterns, domain=None, range=Optional[Union[Union[dict, CweRelatedAttackPattern], list[Union[dict, CweRelatedAttackPattern]]]])
 
-slots.observed_in_cve = Slot(uri=DCT.references, name="observed_in_cve", curie=DCT.curie('references'),
-                   model_uri=CWE.observed_in_cve, domain=None, range=Optional[str])
+slots.cweGrouping__Summary = Slot(uri=CWE.Summary, name="cweGrouping__Summary", curie=CWE.curie('Summary'),
+                   model_uri=CWE.cweGrouping__Summary, domain=None, range=Union[str, CweStructuredText])
 
-slots.weakness = Slot(uri=SCHEMA.about, name="weakness", curie=SCHEMA.curie('about'),
-                   model_uri=CWE.weakness, domain=None, range=Optional[Union[int, WeaknessId]])
+slots.cweGrouping__Relationships = Slot(uri=CWE.Relationships, name="cweGrouping__Relationships", curie=CWE.curie('Relationships'),
+                   model_uri=CWE.cweGrouping__Relationships, domain=None, range=Optional[Union[dict, CweRelationships]])
 
-slots.reported_by = Slot(uri=DCT.source, name="reported_by", curie=DCT.curie('source'),
-                   model_uri=CWE.reported_by, domain=None, range=Optional[Union[str, "WeaknessSource"]])
+slots.cweGrouping__Taxonomy_Mappings = Slot(uri=CWE.Taxonomy_Mappings, name="cweGrouping__Taxonomy_Mappings", curie=CWE.curie('Taxonomy_Mappings'),
+                   model_uri=CWE.cweGrouping__Taxonomy_Mappings, domain=None, range=Optional[Union[Union[dict, CweTaxonomyMapping], list[Union[dict, CweTaxonomyMapping]]]])
 
-slots.weaknesses = Slot(uri=CWE.weaknesses, name="weaknesses", curie=CWE.curie('weaknesses'),
-                   model_uri=CWE.weaknesses, domain=None, range=Optional[Union[dict[Union[int, WeaknessId], Union[dict, Weakness]], list[Union[dict, Weakness]]]])
+slots.cweView__Type = Slot(uri=CWE.Type, name="cweView__Type", curie=CWE.curie('Type'),
+                   model_uri=CWE.cweView__Type, domain=None, range=Union[str, "CweViewType"])
 
-slots.categories = Slot(uri=CWE.categories, name="categories", curie=CWE.curie('categories'),
-                   model_uri=CWE.categories, domain=None, range=Optional[Union[dict[Union[int, CategoryId], Union[dict, Category]], list[Union[dict, Category]]]])
+slots.cweView__Objective = Slot(uri=CWE.Objective, name="cweView__Objective", curie=CWE.curie('Objective'),
+                   model_uri=CWE.cweView__Objective, domain=None, range=Union[str, CweStructuredText])
 
-slots.views = Slot(uri=CWE.views, name="views", curie=CWE.curie('views'),
-                   model_uri=CWE.views, domain=None, range=Optional[Union[dict[Union[int, ViewId], Union[dict, View]], list[Union[dict, View]]]])
+slots.cweView__Audience = Slot(uri=CWE.Audience, name="cweView__Audience", curie=CWE.curie('Audience'),
+                   model_uri=CWE.cweView__Audience, domain=None, range=Optional[Union[Union[dict, CweStakeholder], list[Union[dict, CweStakeholder]]]])
 
-slots.external_references = Slot(uri=CWE.external_references, name="external_references", curie=CWE.curie('external_references'),
-                   model_uri=CWE.external_references, domain=None, range=Optional[Union[dict[Union[str, ExternalReferenceReferenceId], Union[dict, ExternalReference]], list[Union[dict, ExternalReference]]]])
+slots.cweView__Members = Slot(uri=CWE.Members, name="cweView__Members", curie=CWE.curie('Members'),
+                   model_uri=CWE.cweView__Members, domain=None, range=Optional[Union[dict, CweRelationships]])
 
-slots.observations = Slot(uri=CWE.observations, name="observations", curie=CWE.curie('observations'),
-                   model_uri=CWE.observations, domain=None, range=Optional[Union[dict[Union[str, NVDWeaknessObservationObservationId], Union[dict, NVDWeaknessObservation]], list[Union[dict, NVDWeaknessObservation]]]])
+slots.cweView__Filter = Slot(uri=CWE.Filter, name="cweView__Filter", curie=CWE.curie('Filter'),
+                   model_uri=CWE.cweView__Filter, domain=None, range=Optional[str])
 
-slots.weakness_ordinalities = Slot(uri=CWE.weakness_ordinalities, name="weakness_ordinalities", curie=CWE.curie('weakness_ordinalities'),
-                   model_uri=CWE.weakness_ordinalities, domain=None, range=Optional[Union[Union[dict, WeaknessOrdinality], list[Union[dict, WeaknessOrdinality]]]])
+slots.cweRelatedWeakness__Nature = Slot(uri=CWE.Nature, name="cweRelatedWeakness__Nature", curie=CWE.curie('Nature'),
+                   model_uri=CWE.cweRelatedWeakness__Nature, domain=None, range=Union[str, "CweRelatedNature"])
 
-slots.applicable_platforms = Slot(uri=CWE.applicable_platforms, name="applicable_platforms", curie=CWE.curie('applicable_platforms'),
-                   model_uri=CWE.applicable_platforms, domain=None, range=Optional[Union[dict, ApplicablePlatforms]])
+slots.cweRelatedWeakness__CWE_ID = Slot(uri=CWE.CWE_ID, name="cweRelatedWeakness__CWE_ID", curie=CWE.curie('CWE_ID'),
+                   model_uri=CWE.cweRelatedWeakness__CWE_ID, domain=None, range=Union[str, CweWeaknessID],
+                   pattern=re.compile(r'^[1-9][0-9]*$'))
 
-slots.languages = Slot(uri=CWE.languages, name="languages", curie=CWE.curie('languages'),
-                   model_uri=CWE.languages, domain=None, range=Optional[Union[Union[dict, LanguagePlatform], list[Union[dict, LanguagePlatform]]]])
+slots.cweRelatedWeakness__View_ID = Slot(uri=CWE.View_ID, name="cweRelatedWeakness__View_ID", curie=CWE.curie('View_ID'),
+                   model_uri=CWE.cweRelatedWeakness__View_ID, domain=None, range=Union[str, CweViewID],
+                   pattern=re.compile(r'^[1-9][0-9]*$'))
 
-slots.operating_systems = Slot(uri=CWE.operating_systems, name="operating_systems", curie=CWE.curie('operating_systems'),
-                   model_uri=CWE.operating_systems, domain=None, range=Optional[Union[Union[dict, OSPlatform], list[Union[dict, OSPlatform]]]])
+slots.cweRelatedWeakness__Chain_ID = Slot(uri=CWE.Chain_ID, name="cweRelatedWeakness__Chain_ID", curie=CWE.curie('Chain_ID'),
+                   model_uri=CWE.cweRelatedWeakness__Chain_ID, domain=None, range=Optional[Union[str, CweWeaknessID]],
+                   pattern=re.compile(r'^[1-9][0-9]*$'))
 
-slots.architectures = Slot(uri=CWE.architectures, name="architectures", curie=CWE.curie('architectures'),
-                   model_uri=CWE.architectures, domain=None, range=Optional[Union[Union[dict, ArchitecturePlatform], list[Union[dict, ArchitecturePlatform]]]])
+slots.cweRelatedWeakness__Ordinal = Slot(uri=CWE.Ordinal, name="cweRelatedWeakness__Ordinal", curie=CWE.curie('Ordinal'),
+                   model_uri=CWE.cweRelatedWeakness__Ordinal, domain=None, range=Optional[Union[str, "CweOrdinal"]])
 
-slots.technologies = Slot(uri=CWE.technologies, name="technologies", curie=CWE.curie('technologies'),
-                   model_uri=CWE.technologies, domain=None, range=Optional[Union[Union[dict, TechnologyPlatform], list[Union[dict, TechnologyPlatform]]]])
+slots.cweRelatedWeakness__Dimensions = Slot(uri=CWE.Dimensions, name="cweRelatedWeakness__Dimensions", curie=CWE.curie('Dimensions'),
+                   model_uri=CWE.cweRelatedWeakness__Dimensions, domain=None, range=Optional[Union[Union[dict, CweDimension], list[Union[dict, CweDimension]]]])
 
-slots.alternate_terms = Slot(uri=CWE.alternate_terms, name="alternate_terms", curie=CWE.curie('alternate_terms'),
-                   model_uri=CWE.alternate_terms, domain=None, range=Optional[Union[Union[dict, AlternateTerm], list[Union[dict, AlternateTerm]]]])
+slots.cweWeaknessOrdinality__Ordinality = Slot(uri=CWE.Ordinality, name="cweWeaknessOrdinality__Ordinality", curie=CWE.curie('Ordinality'),
+                   model_uri=CWE.cweWeaknessOrdinality__Ordinality, domain=None, range=Union[str, "CweOrdinality"])
 
-slots.modes_of_introduction = Slot(uri=CWE.modes_of_introduction, name="modes_of_introduction", curie=CWE.curie('modes_of_introduction'),
-                   model_uri=CWE.modes_of_introduction, domain=None, range=Optional[Union[Union[dict, ModeOfIntroduction], list[Union[dict, ModeOfIntroduction]]]])
+slots.cweWeaknessOrdinality__Description = Slot(uri=CWE.Description, name="cweWeaknessOrdinality__Description", curie=CWE.curie('Description'),
+                   model_uri=CWE.cweWeaknessOrdinality__Description, domain=None, range=Optional[str])
 
-slots.common_consequences = Slot(uri=CWE.common_consequences, name="common_consequences", curie=CWE.curie('common_consequences'),
-                   model_uri=CWE.common_consequences, domain=None, range=Optional[Union[Union[dict, CommonConsequence], list[Union[dict, CommonConsequence]]]])
+slots.cweApplicablePlatforms__Language = Slot(uri=CWE.Language, name="cweApplicablePlatforms__Language", curie=CWE.curie('Language'),
+                   model_uri=CWE.cweApplicablePlatforms__Language, domain=None, range=Optional[Union[Union[dict, CweLanguagePlatform], list[Union[dict, CweLanguagePlatform]]]])
 
-slots.detection_methods = Slot(uri=CWE.detection_methods, name="detection_methods", curie=CWE.curie('detection_methods'),
-                   model_uri=CWE.detection_methods, domain=None, range=Optional[Union[Union[dict, DetectionMethod], list[Union[dict, DetectionMethod]]]])
+slots.cweApplicablePlatforms__Operating_System = Slot(uri=CWE.Operating_System, name="cweApplicablePlatforms__Operating_System", curie=CWE.curie('Operating_System'),
+                   model_uri=CWE.cweApplicablePlatforms__Operating_System, domain=None, range=Optional[Union[Union[dict, CweOperatingSystemPlatform], list[Union[dict, CweOperatingSystemPlatform]]]])
 
-slots.potential_mitigations = Slot(uri=CWE.potential_mitigations, name="potential_mitigations", curie=CWE.curie('potential_mitigations'),
-                   model_uri=CWE.potential_mitigations, domain=None, range=Optional[Union[Union[dict, PotentialMitigation], list[Union[dict, PotentialMitigation]]]])
+slots.cweApplicablePlatforms__Architecture = Slot(uri=CWE.Architecture, name="cweApplicablePlatforms__Architecture", curie=CWE.curie('Architecture'),
+                   model_uri=CWE.cweApplicablePlatforms__Architecture, domain=None, range=Optional[Union[Union[dict, CweArchitecturePlatform], list[Union[dict, CweArchitecturePlatform]]]])
 
-slots.demonstrative_examples = Slot(uri=CWE.demonstrative_examples, name="demonstrative_examples", curie=CWE.curie('demonstrative_examples'),
-                   model_uri=CWE.demonstrative_examples, domain=None, range=Optional[Union[Union[dict, DemonstrativeExample], list[Union[dict, DemonstrativeExample]]]])
+slots.cweApplicablePlatforms__Technology = Slot(uri=CWE.Technology, name="cweApplicablePlatforms__Technology", curie=CWE.curie('Technology'),
+                   model_uri=CWE.cweApplicablePlatforms__Technology, domain=None, range=Optional[Union[Union[dict, CweTechnologyPlatform], list[Union[dict, CweTechnologyPlatform]]]])
 
-slots.example_codes = Slot(uri=CWE.example_codes, name="example_codes", curie=CWE.curie('example_codes'),
-                   model_uri=CWE.example_codes, domain=None, range=Optional[Union[Union[dict, ExampleCode], list[Union[dict, ExampleCode]]]])
+slots.cweLanguagePlatform__Name = Slot(uri=CWE.Name, name="cweLanguagePlatform__Name", curie=CWE.curie('Name'),
+                   model_uri=CWE.cweLanguagePlatform__Name, domain=None, range=Optional[Union[str, "CweLanguageName"]])
 
-slots.observed_examples = Slot(uri=CWE.observed_examples, name="observed_examples", curie=CWE.curie('observed_examples'),
-                   model_uri=CWE.observed_examples, domain=None, range=Optional[Union[Union[dict, ObservedExample], list[Union[dict, ObservedExample]]]])
+slots.cweLanguagePlatform__Class = Slot(uri=CWE.Class, name="cweLanguagePlatform__Class", curie=CWE.curie('Class'),
+                   model_uri=CWE.cweLanguagePlatform__Class, domain=None, range=Optional[Union[str, "CweLanguageClass"]])
 
-slots.taxonomy_mappings = Slot(uri=CWE.taxonomy_mappings, name="taxonomy_mappings", curie=CWE.curie('taxonomy_mappings'),
-                   model_uri=CWE.taxonomy_mappings, domain=None, range=Optional[Union[Union[dict, TaxonomyMapping], list[Union[dict, TaxonomyMapping]]]])
+slots.cweLanguagePlatform__Prevalence = Slot(uri=CWE.Prevalence, name="cweLanguagePlatform__Prevalence", curie=CWE.curie('Prevalence'),
+                   model_uri=CWE.cweLanguagePlatform__Prevalence, domain=None, range=Union[str, "CwePrevalence"])
 
-slots.related_weaknesses = Slot(uri=CWE.related_weaknesses, name="related_weaknesses", curie=CWE.curie('related_weaknesses'),
-                   model_uri=CWE.related_weaknesses, domain=None, range=Optional[Union[Union[dict, RelatedWeakness], list[Union[dict, RelatedWeakness]]]])
+slots.cweLanguagePlatform__Note = Slot(uri=CWE.Note, name="cweLanguagePlatform__Note", curie=CWE.curie('Note'),
+                   model_uri=CWE.cweLanguagePlatform__Note, domain=None, range=Optional[Union[str, CweStructuredText]])
 
-slots.references = Slot(uri=CWE.references, name="references", curie=CWE.curie('references'),
-                   model_uri=CWE.references, domain=None, range=Optional[Union[Union[dict, CWEReference], list[Union[dict, CWEReference]]]])
+slots.cweOperatingSystemPlatform__Name = Slot(uri=CWE.Name, name="cweOperatingSystemPlatform__Name", curie=CWE.curie('Name'),
+                   model_uri=CWE.cweOperatingSystemPlatform__Name, domain=None, range=Optional[Union[str, "CweOperatingSystemName"]])
 
-slots.mapping_notes = Slot(uri=CWE.mapping_notes, name="mapping_notes", curie=CWE.curie('mapping_notes'),
-                   model_uri=CWE.mapping_notes, domain=None, range=Optional[Union[dict, MappingNotes]])
+slots.cweOperatingSystemPlatform__Version = Slot(uri=CWE.Version, name="cweOperatingSystemPlatform__Version", curie=CWE.curie('Version'),
+                   model_uri=CWE.cweOperatingSystemPlatform__Version, domain=None, range=Optional[str])
 
-slots.suggestions = Slot(uri=CWE.suggestions, name="suggestions", curie=CWE.curie('suggestions'),
-                   model_uri=CWE.suggestions, domain=None, range=Optional[Union[Union[dict, MappingSuggestion], list[Union[dict, MappingSuggestion]]]])
+slots.cweOperatingSystemPlatform__CPE_ID = Slot(uri=CWE.CPE_ID, name="cweOperatingSystemPlatform__CPE_ID", curie=CWE.curie('CPE_ID'),
+                   model_uri=CWE.cweOperatingSystemPlatform__CPE_ID, domain=None, range=Optional[str])
 
-slots.notes = Slot(uri=SKOS.note, name="notes", curie=SKOS.curie('note'),
-                   model_uri=CWE.notes, domain=None, range=Optional[Union[Union[dict, Note], list[Union[dict, Note]]]])
+slots.cweOperatingSystemPlatform__Class = Slot(uri=CWE.Class, name="cweOperatingSystemPlatform__Class", curie=CWE.curie('Class'),
+                   model_uri=CWE.cweOperatingSystemPlatform__Class, domain=None, range=Optional[Union[str, "CweOperatingSystemClass"]])
 
-slots.content_history = Slot(uri=CWE.content_history, name="content_history", curie=CWE.curie('content_history'),
-                   model_uri=CWE.content_history, domain=None, range=Optional[Union[dict, ContentHistory]])
+slots.cweOperatingSystemPlatform__Prevalence = Slot(uri=CWE.Prevalence, name="cweOperatingSystemPlatform__Prevalence", curie=CWE.curie('Prevalence'),
+                   model_uri=CWE.cweOperatingSystemPlatform__Prevalence, domain=None, range=Union[str, "CwePrevalence"])
 
-slots.submission = Slot(uri=CWE.submission, name="submission", curie=CWE.curie('submission'),
-                   model_uri=CWE.submission, domain=None, range=Optional[Union[dict, Submission]])
+slots.cweOperatingSystemPlatform__Note = Slot(uri=CWE.Note, name="cweOperatingSystemPlatform__Note", curie=CWE.curie('Note'),
+                   model_uri=CWE.cweOperatingSystemPlatform__Note, domain=None, range=Optional[Union[str, CweStructuredText]])
 
-slots.modifications = Slot(uri=CWE.modifications, name="modifications", curie=CWE.curie('modifications'),
-                   model_uri=CWE.modifications, domain=None, range=Optional[Union[Union[dict, Modification], list[Union[dict, Modification]]]])
+slots.cweArchitecturePlatform__Name = Slot(uri=CWE.Name, name="cweArchitecturePlatform__Name", curie=CWE.curie('Name'),
+                   model_uri=CWE.cweArchitecturePlatform__Name, domain=None, range=Optional[Union[str, "CweArchitectureName"]])
 
-slots.contributions = Slot(uri=CWE.contributions, name="contributions", curie=CWE.curie('contributions'),
-                   model_uri=CWE.contributions, domain=None, range=Optional[Union[Union[dict, Contribution], list[Union[dict, Contribution]]]])
+slots.cweArchitecturePlatform__Class = Slot(uri=CWE.Class, name="cweArchitecturePlatform__Class", curie=CWE.curie('Class'),
+                   model_uri=CWE.cweArchitecturePlatform__Class, domain=None, range=Optional[Union[str, "CweArchitectureClass"]])
 
-slots.previous_entry_names = Slot(uri=CWE.previous_entry_names, name="previous_entry_names", curie=CWE.curie('previous_entry_names'),
-                   model_uri=CWE.previous_entry_names, domain=None, range=Optional[Union[Union[dict, PreviousEntryName], list[Union[dict, PreviousEntryName]]]])
+slots.cweArchitecturePlatform__Prevalence = Slot(uri=CWE.Prevalence, name="cweArchitecturePlatform__Prevalence", curie=CWE.curie('Prevalence'),
+                   model_uri=CWE.cweArchitecturePlatform__Prevalence, domain=None, range=Union[str, "CwePrevalence"])
 
-slots.members = Slot(uri=CWE.members, name="members", curie=CWE.curie('members'),
-                   model_uri=CWE.members, domain=None, range=Optional[Union[Union[dict, CatalogMember], list[Union[dict, CatalogMember]]]])
+slots.cweArchitecturePlatform__Note = Slot(uri=CWE.Note, name="cweArchitecturePlatform__Note", curie=CWE.curie('Note'),
+                   model_uri=CWE.cweArchitecturePlatform__Note, domain=None, range=Optional[Union[str, CweStructuredText]])
 
-slots.has_member = Slot(uri=CWE.has_member, name="has_member", curie=CWE.curie('has_member'),
-                   model_uri=CWE.has_member, domain=None, range=Optional[Union[Union[dict, CatalogMember], list[Union[dict, CatalogMember]]]])
+slots.cweTechnologyPlatform__Name = Slot(uri=CWE.Name, name="cweTechnologyPlatform__Name", curie=CWE.curie('Name'),
+                   model_uri=CWE.cweTechnologyPlatform__Name, domain=None, range=Optional[Union[str, "CweTechnologyName"]])
 
-slots.member_of = Slot(uri=CWE.member_of, name="member_of", curie=CWE.curie('member_of'),
-                   model_uri=CWE.member_of, domain=None, range=Optional[Union[Union[dict, CatalogMember], list[Union[dict, CatalogMember]]]])
+slots.cweTechnologyPlatform__Class = Slot(uri=CWE.Class, name="cweTechnologyPlatform__Class", curie=CWE.curie('Class'),
+                   model_uri=CWE.cweTechnologyPlatform__Class, domain=None, range=Optional[Union[str, "CweTechnologyClass"]])
 
-slots.relationships = Slot(uri=CWE.relationships, name="relationships", curie=CWE.curie('relationships'),
-                   model_uri=CWE.relationships, domain=None, range=Optional[Union[dict, Relationship]])
+slots.cweTechnologyPlatform__Prevalence = Slot(uri=CWE.Prevalence, name="cweTechnologyPlatform__Prevalence", curie=CWE.curie('Prevalence'),
+                   model_uri=CWE.cweTechnologyPlatform__Prevalence, domain=None, range=Union[str, "CwePrevalence"])
 
-slots.audience = Slot(uri=CWE.audience, name="audience", curie=CWE.curie('audience'),
-                   model_uri=CWE.audience, domain=None, range=Optional[Union[Union[dict, Audience], list[Union[dict, Audience]]]])
+slots.cweTechnologyPlatform__Note = Slot(uri=CWE.Note, name="cweTechnologyPlatform__Note", curie=CWE.curie('Note'),
+                   model_uri=CWE.cweTechnologyPlatform__Note, domain=None, range=Optional[Union[str, CweStructuredText]])
 
-slots.WeaknessCatalog_name = Slot(uri=RDFS.label, name="WeaknessCatalog_name", curie=RDFS.curie('label'),
-                   model_uri=CWE.WeaknessCatalog_name, domain=WeaknessCatalog, range=Union[str, WeaknessCatalogName])
+slots.cweAlternateTerm__Term = Slot(uri=CWE.Term, name="cweAlternateTerm__Term", curie=CWE.curie('Term'),
+                   model_uri=CWE.cweAlternateTerm__Term, domain=None, range=str)
 
-slots.WeaknessCatalog_version = Slot(uri=SCHEMA.version, name="WeaknessCatalog_version", curie=SCHEMA.curie('version'),
-                   model_uri=CWE.WeaknessCatalog_version, domain=WeaknessCatalog, range=str)
+slots.cweAlternateTerm__Role = Slot(uri=CWE.Role, name="cweAlternateTerm__Role", curie=CWE.curie('Role'),
+                   model_uri=CWE.cweAlternateTerm__Role, domain=None, range=Optional[Union[Union[str, "CweAlternateTermRole"], list[Union[str, "CweAlternateTermRole"]]]])
 
-slots.WeaknessCatalog_date = Slot(uri=DCT.date, name="WeaknessCatalog_date", curie=DCT.curie('date'),
-                   model_uri=CWE.WeaknessCatalog_date, domain=WeaknessCatalog, range=Union[str, XSDDate])
+slots.cweAlternateTerm__Description = Slot(uri=CWE.Description, name="cweAlternateTerm__Description", curie=CWE.curie('Description'),
+                   model_uri=CWE.cweAlternateTerm__Description, domain=None, range=Optional[Union[str, CweStructuredText]])
 
-slots.Weakness_id = Slot(uri=DCT.identifier, name="Weakness_id", curie=DCT.curie('identifier'),
-                   model_uri=CWE.Weakness_id, domain=Weakness, range=Union[int, WeaknessId])
+slots.cweIntroduction__Phase = Slot(uri=CWE.Phase, name="cweIntroduction__Phase", curie=CWE.curie('Phase'),
+                   model_uri=CWE.cweIntroduction__Phase, domain=None, range=Optional[Union[Union[str, "CwePhase"], list[Union[str, "CwePhase"]]]])
 
-slots.Weakness_name = Slot(uri=RDFS.label, name="Weakness_name", curie=RDFS.curie('label'),
-                   model_uri=CWE.Weakness_name, domain=Weakness, range=str)
+slots.cweIntroduction__Custom_Phase = Slot(uri=CWE.Custom_Phase, name="cweIntroduction__Custom_Phase", curie=CWE.curie('Custom_Phase'),
+                   model_uri=CWE.cweIntroduction__Custom_Phase, domain=None, range=Optional[Union[Union[dict, CweCustomPhase], list[Union[dict, CweCustomPhase]]]])
 
-slots.Weakness_description = Slot(uri=DCT.description, name="Weakness_description", curie=DCT.curie('description'),
-                   model_uri=CWE.Weakness_description, domain=Weakness, range=str)
+slots.cweIntroduction__Note = Slot(uri=CWE.Note, name="cweIntroduction__Note", curie=CWE.curie('Note'),
+                   model_uri=CWE.cweIntroduction__Note, domain=None, range=Optional[Union[str, CweStructuredText]])
 
-slots.Weakness_abstraction = Slot(uri=SKOS.broader, name="Weakness_abstraction", curie=SKOS.curie('broader'),
-                   model_uri=CWE.Weakness_abstraction, domain=Weakness, range=Union[str, "WeaknessAbstraction"])
+slots.cweConsequence__Consequence_ID = Slot(uri=CWE.Consequence_ID, name="cweConsequence__Consequence_ID", curie=CWE.curie('Consequence_ID'),
+                   model_uri=CWE.cweConsequence__Consequence_ID, domain=None, range=Optional[str])
 
-slots.Weakness_structure = Slot(uri=CWE.structure, name="Weakness_structure", curie=CWE.curie('structure'),
-                   model_uri=CWE.Weakness_structure, domain=Weakness, range=Union[str, "WeaknessStructure"])
+slots.cweConsequence__Scope = Slot(uri=CWE.Scope, name="cweConsequence__Scope", curie=CWE.curie('Scope'),
+                   model_uri=CWE.cweConsequence__Scope, domain=None, range=Union[Union[str, "CweScope"], list[Union[str, "CweScope"]]])
 
-slots.Weakness_status = Slot(uri=CWE.status, name="Weakness_status", curie=CWE.curie('status'),
-                   model_uri=CWE.Weakness_status, domain=Weakness, range=Union[str, "WeaknessStatus"])
+slots.cweConsequence__Impact = Slot(uri=CWE.Impact, name="cweConsequence__Impact", curie=CWE.curie('Impact'),
+                   model_uri=CWE.cweConsequence__Impact, domain=None, range=Union[Union[str, "CweTechnicalImpact"], list[Union[str, "CweTechnicalImpact"]]])
 
-slots.Weakness_mapping_notes = Slot(uri=CWE.mapping_notes, name="Weakness_mapping_notes", curie=CWE.curie('mapping_notes'),
-                   model_uri=CWE.Weakness_mapping_notes, domain=Weakness, range=Union[dict, "MappingNotes"])
+slots.cweConsequence__Likelihood = Slot(uri=CWE.Likelihood, name="cweConsequence__Likelihood", curie=CWE.curie('Likelihood'),
+                   model_uri=CWE.cweConsequence__Likelihood, domain=None, range=Optional[Union[str, "CweLikelihood"]])
 
-slots.Weakness_content_history = Slot(uri=CWE.content_history, name="Weakness_content_history", curie=CWE.curie('content_history'),
-                   model_uri=CWE.Weakness_content_history, domain=Weakness, range=Union[dict, "ContentHistory"])
+slots.cweConsequence__Note = Slot(uri=CWE.Note, name="cweConsequence__Note", curie=CWE.curie('Note'),
+                   model_uri=CWE.cweConsequence__Note, domain=None, range=Optional[Union[str, CweStructuredText]])
 
-slots.Category_id = Slot(uri=DCT.identifier, name="Category_id", curie=DCT.curie('identifier'),
-                   model_uri=CWE.Category_id, domain=Category, range=Union[int, CategoryId])
+slots.cweDetectionMethod__Detection_Method_ID = Slot(uri=CWE.Detection_Method_ID, name="cweDetectionMethod__Detection_Method_ID", curie=CWE.curie('Detection_Method_ID'),
+                   model_uri=CWE.cweDetectionMethod__Detection_Method_ID, domain=None, range=Optional[str])
 
-slots.Category_name = Slot(uri=RDFS.label, name="Category_name", curie=RDFS.curie('label'),
-                   model_uri=CWE.Category_name, domain=Category, range=str)
+slots.cweDetectionMethod__Method = Slot(uri=CWE.Method, name="cweDetectionMethod__Method", curie=CWE.curie('Method'),
+                   model_uri=CWE.cweDetectionMethod__Method, domain=None, range=Union[str, "CweDetectionMethodName"])
 
-slots.Category_status = Slot(uri=CWE.status, name="Category_status", curie=CWE.curie('status'),
-                   model_uri=CWE.Category_status, domain=Category, range=Union[str, "WeaknessStatus"])
+slots.cweDetectionMethod__Phase = Slot(uri=CWE.Phase, name="cweDetectionMethod__Phase", curie=CWE.curie('Phase'),
+                   model_uri=CWE.cweDetectionMethod__Phase, domain=None, range=Optional[Union[Union[str, "CwePhase"], list[Union[str, "CwePhase"]]]])
 
-slots.Category_summary = Slot(uri=CWE.summary, name="Category_summary", curie=CWE.curie('summary'),
-                   model_uri=CWE.Category_summary, domain=Category, range=str)
+slots.cweDetectionMethod__Custom_Phase = Slot(uri=CWE.Custom_Phase, name="cweDetectionMethod__Custom_Phase", curie=CWE.curie('Custom_Phase'),
+                   model_uri=CWE.cweDetectionMethod__Custom_Phase, domain=None, range=Optional[Union[Union[dict, CweCustomPhase], list[Union[dict, CweCustomPhase]]]])
 
-slots.Category_mapping_notes = Slot(uri=CWE.mapping_notes, name="Category_mapping_notes", curie=CWE.curie('mapping_notes'),
-                   model_uri=CWE.Category_mapping_notes, domain=Category, range=Union[dict, "MappingNotes"])
+slots.cweDetectionMethod__Description = Slot(uri=CWE.Description, name="cweDetectionMethod__Description", curie=CWE.curie('Description'),
+                   model_uri=CWE.cweDetectionMethod__Description, domain=None, range=Union[str, CweStructuredText])
 
-slots.Category_content_history = Slot(uri=CWE.content_history, name="Category_content_history", curie=CWE.curie('content_history'),
-                   model_uri=CWE.Category_content_history, domain=Category, range=Union[dict, "ContentHistory"])
+slots.cweDetectionMethod__Effectiveness = Slot(uri=CWE.Effectiveness, name="cweDetectionMethod__Effectiveness", curie=CWE.curie('Effectiveness'),
+                   model_uri=CWE.cweDetectionMethod__Effectiveness, domain=None, range=Optional[Union[str, "CweDetectionEffectiveness"]])
 
-slots.View_id = Slot(uri=DCT.identifier, name="View_id", curie=DCT.curie('identifier'),
-                   model_uri=CWE.View_id, domain=View, range=Union[int, ViewId])
+slots.cweDetectionMethod__Effectiveness_Notes = Slot(uri=CWE.Effectiveness_Notes, name="cweDetectionMethod__Effectiveness_Notes", curie=CWE.curie('Effectiveness_Notes'),
+                   model_uri=CWE.cweDetectionMethod__Effectiveness_Notes, domain=None, range=Optional[Union[str, CweStructuredText]])
 
-slots.View_name = Slot(uri=RDFS.label, name="View_name", curie=RDFS.curie('label'),
-                   model_uri=CWE.View_name, domain=View, range=str)
+slots.cweMitigation__Mitigation_ID = Slot(uri=CWE.Mitigation_ID, name="cweMitigation__Mitigation_ID", curie=CWE.curie('Mitigation_ID'),
+                   model_uri=CWE.cweMitigation__Mitigation_ID, domain=None, range=Optional[str])
 
-slots.View_status = Slot(uri=CWE.status, name="View_status", curie=CWE.curie('status'),
-                   model_uri=CWE.View_status, domain=View, range=Union[str, "WeaknessStatus"])
+slots.cweMitigation__Phase = Slot(uri=CWE.Phase, name="cweMitigation__Phase", curie=CWE.curie('Phase'),
+                   model_uri=CWE.cweMitigation__Phase, domain=None, range=Optional[Union[Union[str, "CwePhase"], list[Union[str, "CwePhase"]]]])
 
-slots.View_objective = Slot(uri=CWE.objective, name="View_objective", curie=CWE.curie('objective'),
-                   model_uri=CWE.View_objective, domain=View, range=str)
+slots.cweMitigation__Custom_Phase = Slot(uri=CWE.Custom_Phase, name="cweMitigation__Custom_Phase", curie=CWE.curie('Custom_Phase'),
+                   model_uri=CWE.cweMitigation__Custom_Phase, domain=None, range=Optional[Union[Union[dict, CweCustomPhase], list[Union[dict, CweCustomPhase]]]])
 
-slots.View_mapping_notes = Slot(uri=CWE.mapping_notes, name="View_mapping_notes", curie=CWE.curie('mapping_notes'),
-                   model_uri=CWE.View_mapping_notes, domain=View, range=Union[dict, "MappingNotes"])
+slots.cweMitigation__Strategy = Slot(uri=CWE.Strategy, name="cweMitigation__Strategy", curie=CWE.curie('Strategy'),
+                   model_uri=CWE.cweMitigation__Strategy, domain=None, range=Optional[Union[str, "CweMitigationStrategy"]])
 
-slots.View_content_history = Slot(uri=CWE.content_history, name="View_content_history", curie=CWE.curie('content_history'),
-                   model_uri=CWE.View_content_history, domain=View, range=Union[dict, "ContentHistory"])
+slots.cweMitigation__Description = Slot(uri=CWE.Description, name="cweMitigation__Description", curie=CWE.curie('Description'),
+                   model_uri=CWE.cweMitigation__Description, domain=None, range=Union[str, CweStructuredText])
 
-slots.View_type = Slot(uri=CWE.type, name="View_type", curie=CWE.curie('type'),
-                   model_uri=CWE.View_type, domain=View, range=Union[str, "CWEViewType"])
+slots.cweMitigation__Effectiveness = Slot(uri=CWE.Effectiveness, name="cweMitigation__Effectiveness", curie=CWE.curie('Effectiveness'),
+                   model_uri=CWE.cweMitigation__Effectiveness, domain=None, range=Optional[Union[str, "CweEffectiveness"]])
 
-slots.ExternalReference_reference_id = Slot(uri=DCT.identifier, name="ExternalReference_reference_id", curie=DCT.curie('identifier'),
-                   model_uri=CWE.ExternalReference_reference_id, domain=ExternalReference, range=Union[str, ExternalReferenceReferenceId])
+slots.cweMitigation__Effectiveness_Notes = Slot(uri=CWE.Effectiveness_Notes, name="cweMitigation__Effectiveness_Notes", curie=CWE.curie('Effectiveness_Notes'),
+                   model_uri=CWE.cweMitigation__Effectiveness_Notes, domain=None, range=Optional[Union[str, CweStructuredText]])
 
-slots.ExternalReference_title = Slot(uri=DCT.title, name="ExternalReference_title", curie=DCT.curie('title'),
-                   model_uri=CWE.ExternalReference_title, domain=ExternalReference, range=str)
+slots.cweDemonstrativeExample__Demonstrative_Example_ID = Slot(uri=CWE.Demonstrative_Example_ID, name="cweDemonstrativeExample__Demonstrative_Example_ID", curie=CWE.curie('Demonstrative_Example_ID'),
+                   model_uri=CWE.cweDemonstrativeExample__Demonstrative_Example_ID, domain=None, range=Optional[str])
 
-slots.CWEReference_external_reference_id = Slot(uri=CWE.external_reference_id, name="CWEReference_external_reference_id", curie=CWE.curie('external_reference_id'),
-                   model_uri=CWE.CWEReference_external_reference_id, domain=CWEReference, range=str)
+slots.cweDemonstrativeExample__Title_Text = Slot(uri=CWE.Title_Text, name="cweDemonstrativeExample__Title_Text", curie=CWE.curie('Title_Text'),
+                   model_uri=CWE.cweDemonstrativeExample__Title_Text, domain=None, range=Optional[str])
 
-slots.RelatedWeakness_nature = Slot(uri=SKOS.related, name="RelatedWeakness_nature", curie=SKOS.curie('related'),
-                   model_uri=CWE.RelatedWeakness_nature, domain=RelatedWeakness, range=Union[str, "WeaknessRelationNature"])
+slots.cweDemonstrativeExample__Intro_Text = Slot(uri=CWE.Intro_Text, name="cweDemonstrativeExample__Intro_Text", curie=CWE.curie('Intro_Text'),
+                   model_uri=CWE.cweDemonstrativeExample__Intro_Text, domain=None, range=Union[str, CweStructuredText])
 
-slots.RelatedWeakness_cwe_id = Slot(uri=CWE.cwe_id, name="RelatedWeakness_cwe_id", curie=CWE.curie('cwe_id'),
-                   model_uri=CWE.RelatedWeakness_cwe_id, domain=RelatedWeakness, range=int)
+slots.cweDemonstrativeExample__Entries = Slot(uri=CWE.Entries, name="cweDemonstrativeExample__Entries", curie=CWE.curie('Entries'),
+                   model_uri=CWE.cweDemonstrativeExample__Entries, domain=None, range=Optional[Union[Union[dict, CweExampleEntry], list[Union[dict, CweExampleEntry]]]])
 
-slots.RelatedWeakness_view_id = Slot(uri=CWE.view_id, name="RelatedWeakness_view_id", curie=CWE.curie('view_id'),
-                   model_uri=CWE.RelatedWeakness_view_id, domain=RelatedWeakness, range=int)
+slots.cweExampleEntry__Body_Text = Slot(uri=CWE.Body_Text, name="cweExampleEntry__Body_Text", curie=CWE.curie('Body_Text'),
+                   model_uri=CWE.cweExampleEntry__Body_Text, domain=None, range=Optional[Union[str, CweStructuredText]])
 
-slots.RelatedWeakness_chain_id = Slot(uri=CWE.chain_id, name="RelatedWeakness_chain_id", curie=CWE.curie('chain_id'),
-                   model_uri=CWE.RelatedWeakness_chain_id, domain=RelatedWeakness, range=Optional[int])
+slots.cweExampleEntry__Example_Code = Slot(uri=CWE.Example_Code, name="cweExampleEntry__Example_Code", curie=CWE.curie('Example_Code'),
+                   model_uri=CWE.cweExampleEntry__Example_Code, domain=None, range=Optional[Union[dict, CweExampleCode]])
 
-slots.RelatedWeakness_ordinal = Slot(uri=CWE.ordinal, name="RelatedWeakness_ordinal", curie=CWE.curie('ordinal'),
-                   model_uri=CWE.RelatedWeakness_ordinal, domain=RelatedWeakness, range=Optional[Union[str, "OrdinalQualifier"]])
+slots.cweExampleCode__Nature = Slot(uri=CWE.Nature, name="cweExampleCode__Nature", curie=CWE.curie('Nature'),
+                   model_uri=CWE.cweExampleCode__Nature, domain=None, range=Union[str, "CweCodeNature"])
 
-slots.WeaknessOrdinality_ordinality = Slot(uri=CWE.ordinality, name="WeaknessOrdinality_ordinality", curie=CWE.curie('ordinality'),
-                   model_uri=CWE.WeaknessOrdinality_ordinality, domain=WeaknessOrdinality, range=Union[str, "WeaknessOrdinalityLevel"])
+slots.cweExampleCode__Language = Slot(uri=CWE.Language, name="cweExampleCode__Language", curie=CWE.curie('Language'),
+                   model_uri=CWE.cweExampleCode__Language, domain=None, range=Optional[Union[str, "CweLanguageName"]])
 
-slots.WeaknessOrdinality_description = Slot(uri=DCT.description, name="WeaknessOrdinality_description", curie=DCT.curie('description'),
-                   model_uri=CWE.WeaknessOrdinality_description, domain=WeaknessOrdinality, range=Optional[str])
+slots.cweExampleCode__Value = Slot(uri=CWE.Value, name="cweExampleCode__Value", curie=CWE.curie('Value'),
+                   model_uri=CWE.cweExampleCode__Value, domain=None, range=Optional[Union[str, CweStructuredText]])
 
-slots.LanguagePlatform_name = Slot(uri=RDFS.label, name="LanguagePlatform_name", curie=RDFS.curie('label'),
-                   model_uri=CWE.LanguagePlatform_name, domain=LanguagePlatform, range=Optional[Union[str, "ProgrammingLanguage"]])
+slots.cweObservedExample__Reference = Slot(uri=CWE.Reference, name="cweObservedExample__Reference", curie=CWE.curie('Reference'),
+                   model_uri=CWE.cweObservedExample__Reference, domain=None, range=str)
 
-slots.LanguagePlatform_class_ = Slot(uri=CWE.class_, name="LanguagePlatform_class_", curie=CWE.curie('class_'),
-                   model_uri=CWE.LanguagePlatform_class_, domain=LanguagePlatform, range=Optional[Union[str, "LanguageClass"]])
+slots.cweObservedExample__Description = Slot(uri=CWE.Description, name="cweObservedExample__Description", curie=CWE.curie('Description'),
+                   model_uri=CWE.cweObservedExample__Description, domain=None, range=Union[str, CweStructuredText])
 
-slots.LanguagePlatform_prevalence = Slot(uri=CWE.prevalence, name="LanguagePlatform_prevalence", curie=CWE.curie('prevalence'),
-                   model_uri=CWE.LanguagePlatform_prevalence, domain=LanguagePlatform, range=Union[str, "PlatformPrevalence"])
+slots.cweObservedExample__Link = Slot(uri=CWE.Link, name="cweObservedExample__Link", curie=CWE.curie('Link'),
+                   model_uri=CWE.cweObservedExample__Link, domain=None, range=Union[str, URI])
 
-slots.OSPlatform_name = Slot(uri=RDFS.label, name="OSPlatform_name", curie=RDFS.curie('label'),
-                   model_uri=CWE.OSPlatform_name, domain=OSPlatform, range=Optional[Union[str, "OperatingSystemName"]])
+slots.cweObservedExample__Rationale = Slot(uri=CWE.Rationale, name="cweObservedExample__Rationale", curie=CWE.curie('Rationale'),
+                   model_uri=CWE.cweObservedExample__Rationale, domain=None, range=Optional[Union[Union[str, "CweObservedExampleRationale"], list[Union[str, "CweObservedExampleRationale"]]]])
 
-slots.OSPlatform_class_ = Slot(uri=CWE.class_, name="OSPlatform_class_", curie=CWE.curie('class_'),
-                   model_uri=CWE.OSPlatform_class_, domain=OSPlatform, range=Optional[Union[str, "OperatingSystemClass"]])
+slots.cweRelatedAttackPattern__CAPEC_ID = Slot(uri=CWE.CAPEC_ID, name="cweRelatedAttackPattern__CAPEC_ID", curie=CWE.curie('CAPEC_ID'),
+                   model_uri=CWE.cweRelatedAttackPattern__CAPEC_ID, domain=None, range=Union[str, CweCapecId])
 
-slots.OSPlatform_version = Slot(uri=SCHEMA.version, name="OSPlatform_version", curie=SCHEMA.curie('version'),
-                   model_uri=CWE.OSPlatform_version, domain=OSPlatform, range=Optional[str])
+slots.cweStakeholder__Type = Slot(uri=CWE.Type, name="cweStakeholder__Type", curie=CWE.curie('Type'),
+                   model_uri=CWE.cweStakeholder__Type, domain=None, range=Union[str, "CweStakeholderType"])
 
-slots.OSPlatform_cpe_id = Slot(uri=CWE.cpe_id, name="OSPlatform_cpe_id", curie=CWE.curie('cpe_id'),
-                   model_uri=CWE.OSPlatform_cpe_id, domain=OSPlatform, range=Optional[str])
+slots.cweStakeholder__Description = Slot(uri=CWE.Description, name="cweStakeholder__Description", curie=CWE.curie('Description'),
+                   model_uri=CWE.cweStakeholder__Description, domain=None, range=Optional[str])
 
-slots.OSPlatform_prevalence = Slot(uri=CWE.prevalence, name="OSPlatform_prevalence", curie=CWE.curie('prevalence'),
-                   model_uri=CWE.OSPlatform_prevalence, domain=OSPlatform, range=Union[str, "PlatformPrevalence"])
+slots.cweMember__CWE_ID = Slot(uri=CWE.CWE_ID, name="cweMember__CWE_ID", curie=CWE.curie('CWE_ID'),
+                   model_uri=CWE.cweMember__CWE_ID, domain=None, range=Union[str, CweEntryID],
+                   pattern=re.compile(r'^[1-9][0-9]*$'))
 
-slots.ArchitecturePlatform_name = Slot(uri=RDFS.label, name="ArchitecturePlatform_name", curie=RDFS.curie('label'),
-                   model_uri=CWE.ArchitecturePlatform_name, domain=ArchitecturePlatform, range=Optional[Union[str, "ArchitectureName"]])
+slots.cweMember__View_ID = Slot(uri=CWE.View_ID, name="cweMember__View_ID", curie=CWE.curie('View_ID'),
+                   model_uri=CWE.cweMember__View_ID, domain=None, range=Union[str, CweViewID],
+                   pattern=re.compile(r'^[1-9][0-9]*$'))
 
-slots.ArchitecturePlatform_class_ = Slot(uri=CWE.class_, name="ArchitecturePlatform_class_", curie=CWE.curie('class_'),
-                   model_uri=CWE.ArchitecturePlatform_class_, domain=ArchitecturePlatform, range=Optional[Union[str, "ArchitectureClass"]])
+slots.cweMember__Dimensions = Slot(uri=CWE.Dimensions, name="cweMember__Dimensions", curie=CWE.curie('Dimensions'),
+                   model_uri=CWE.cweMember__Dimensions, domain=None, range=Optional[Union[Union[dict, CweDimension], list[Union[dict, CweDimension]]]])
 
-slots.ArchitecturePlatform_prevalence = Slot(uri=CWE.prevalence, name="ArchitecturePlatform_prevalence", curie=CWE.curie('prevalence'),
-                   model_uri=CWE.ArchitecturePlatform_prevalence, domain=ArchitecturePlatform, range=Union[str, "PlatformPrevalence"])
+slots.cweRelationships__Member_Of = Slot(uri=CWE.Member_Of, name="cweRelationships__Member_Of", curie=CWE.curie('Member_Of'),
+                   model_uri=CWE.cweRelationships__Member_Of, domain=None, range=Optional[Union[Union[dict, CweMember], list[Union[dict, CweMember]]]])
 
-slots.TechnologyPlatform_name = Slot(uri=RDFS.label, name="TechnologyPlatform_name", curie=RDFS.curie('label'),
-                   model_uri=CWE.TechnologyPlatform_name, domain=TechnologyPlatform, range=Optional[Union[str, "TechnologyName"]])
+slots.cweRelationships__Has_Member = Slot(uri=CWE.Has_Member, name="cweRelationships__Has_Member", curie=CWE.curie('Has_Member'),
+                   model_uri=CWE.cweRelationships__Has_Member, domain=None, range=Optional[Union[Union[dict, CweMember], list[Union[dict, CweMember]]]])
 
-slots.TechnologyPlatform_class_ = Slot(uri=CWE.class_, name="TechnologyPlatform_class_", curie=CWE.curie('class_'),
-                   model_uri=CWE.TechnologyPlatform_class_, domain=TechnologyPlatform, range=Optional[Union[str, "TechnologyClass"]])
+slots.cweMappingNotes__Usage = Slot(uri=CWE.Usage, name="cweMappingNotes__Usage", curie=CWE.curie('Usage'),
+                   model_uri=CWE.cweMappingNotes__Usage, domain=None, range=Union[str, "CweUsage"])
 
-slots.TechnologyPlatform_prevalence = Slot(uri=CWE.prevalence, name="TechnologyPlatform_prevalence", curie=CWE.curie('prevalence'),
-                   model_uri=CWE.TechnologyPlatform_prevalence, domain=TechnologyPlatform, range=Union[str, "PlatformPrevalence"])
+slots.cweMappingNotes__Rationale = Slot(uri=CWE.Rationale, name="cweMappingNotes__Rationale", curie=CWE.curie('Rationale'),
+                   model_uri=CWE.cweMappingNotes__Rationale, domain=None, range=Union[str, CweStructuredText])
 
-slots.AlternateTerm_term = Slot(uri=CWE.term, name="AlternateTerm_term", curie=CWE.curie('term'),
-                   model_uri=CWE.AlternateTerm_term, domain=AlternateTerm, range=str)
+slots.cweMappingNotes__Comments = Slot(uri=CWE.Comments, name="cweMappingNotes__Comments", curie=CWE.curie('Comments'),
+                   model_uri=CWE.cweMappingNotes__Comments, domain=None, range=Union[str, CweStructuredText])
 
-slots.ModeOfIntroduction_phase = Slot(uri=CWE.phase, name="ModeOfIntroduction_phase", curie=CWE.curie('phase'),
-                   model_uri=CWE.ModeOfIntroduction_phase, domain=ModeOfIntroduction, range=Union[str, "LifecyclePhase"])
+slots.cweMappingNotes__Reasons = Slot(uri=CWE.Reasons, name="cweMappingNotes__Reasons", curie=CWE.curie('Reasons'),
+                   model_uri=CWE.cweMappingNotes__Reasons, domain=None, range=Union[Union[dict, CweMappingReason], list[Union[dict, CweMappingReason]]])
 
-slots.CommonConsequence_scopes = Slot(uri=CWE.scopes, name="CommonConsequence_scopes", curie=CWE.curie('scopes'),
-                   model_uri=CWE.CommonConsequence_scopes, domain=CommonConsequence, range=Union[Union[str, "SecurityScope"], list[Union[str, "SecurityScope"]]])
+slots.cweMappingNotes__Suggestions = Slot(uri=CWE.Suggestions, name="cweMappingNotes__Suggestions", curie=CWE.curie('Suggestions'),
+                   model_uri=CWE.cweMappingNotes__Suggestions, domain=None, range=Optional[Union[Union[dict, CweMappingSuggestion], list[Union[dict, CweMappingSuggestion]]]])
 
-slots.CommonConsequence_impacts = Slot(uri=CWE.impacts, name="CommonConsequence_impacts", curie=CWE.curie('impacts'),
-                   model_uri=CWE.CommonConsequence_impacts, domain=CommonConsequence, range=Union[Union[str, "TechnicalImpact"], list[Union[str, "TechnicalImpact"]]])
+slots.cweMappingReason__Type = Slot(uri=CWE.Type, name="cweMappingReason__Type", curie=CWE.curie('Type'),
+                   model_uri=CWE.cweMappingReason__Type, domain=None, range=Union[str, "CweReason"])
 
-slots.DetectionMethod_method = Slot(uri=CWE.method, name="DetectionMethod_method", curie=CWE.curie('method'),
-                   model_uri=CWE.DetectionMethod_method, domain=DetectionMethod, range=Union[str, "DetectionMethodType"])
+slots.cweMappingSuggestion__CWE_ID = Slot(uri=CWE.CWE_ID, name="cweMappingSuggestion__CWE_ID", curie=CWE.curie('CWE_ID'),
+                   model_uri=CWE.cweMappingSuggestion__CWE_ID, domain=None, range=Union[str, CweWeaknessID],
+                   pattern=re.compile(r'^[1-9][0-9]*$'))
 
-slots.DetectionMethod_description = Slot(uri=DCT.description, name="DetectionMethod_description", curie=DCT.curie('description'),
-                   model_uri=CWE.DetectionMethod_description, domain=DetectionMethod, range=str)
-
-slots.DetectionMethod_effectiveness = Slot(uri=CWE.effectiveness, name="DetectionMethod_effectiveness", curie=CWE.curie('effectiveness'),
-                   model_uri=CWE.DetectionMethod_effectiveness, domain=DetectionMethod, range=Optional[Union[str, "DetectionEffectiveness"]])
-
-slots.PotentialMitigation_description = Slot(uri=DCT.description, name="PotentialMitigation_description", curie=DCT.curie('description'),
-                   model_uri=CWE.PotentialMitigation_description, domain=PotentialMitigation, range=str)
-
-slots.PotentialMitigation_effectiveness = Slot(uri=CWE.effectiveness, name="PotentialMitigation_effectiveness", curie=CWE.curie('effectiveness'),
-                   model_uri=CWE.PotentialMitigation_effectiveness, domain=PotentialMitigation, range=Optional[Union[str, "MitigationEffectiveness"]])
-
-slots.DemonstrativeExample_intro_text = Slot(uri=CWE.intro_text, name="DemonstrativeExample_intro_text", curie=CWE.curie('intro_text'),
-                   model_uri=CWE.DemonstrativeExample_intro_text, domain=DemonstrativeExample, range=str)
-
-slots.ExampleCode_nature = Slot(uri=SKOS.related, name="ExampleCode_nature", curie=SKOS.curie('related'),
-                   model_uri=CWE.ExampleCode_nature, domain=ExampleCode, range=Union[str, "CodeNature"])
-
-slots.ExampleCode_language = Slot(uri=CWE.language, name="ExampleCode_language", curie=CWE.curie('language'),
-                   model_uri=CWE.ExampleCode_language, domain=ExampleCode, range=Optional[Union[str, "ProgrammingLanguage"]])
-
-slots.ExampleCode_content = Slot(uri=CWE.content, name="ExampleCode_content", curie=CWE.curie('content'),
-                   model_uri=CWE.ExampleCode_content, domain=ExampleCode, range=Optional[str])
-
-slots.ObservedExample_reference = Slot(uri=CWE.reference, name="ObservedExample_reference", curie=CWE.curie('reference'),
-                   model_uri=CWE.ObservedExample_reference, domain=ObservedExample, range=str)
-
-slots.ObservedExample_description = Slot(uri=DCT.description, name="ObservedExample_description", curie=DCT.curie('description'),
-                   model_uri=CWE.ObservedExample_description, domain=ObservedExample, range=str)
-
-slots.ObservedExample_link = Slot(uri=CWE.link, name="ObservedExample_link", curie=CWE.curie('link'),
-                   model_uri=CWE.ObservedExample_link, domain=ObservedExample, range=Union[str, URI])
-
-slots.TaxonomyMapping_taxonomy_name = Slot(uri=CWE.taxonomy_name, name="TaxonomyMapping_taxonomy_name", curie=CWE.curie('taxonomy_name'),
-                   model_uri=CWE.TaxonomyMapping_taxonomy_name, domain=TaxonomyMapping, range=Union[str, "TaxonomyName"])
-
-slots.CatalogMember_cwe_id = Slot(uri=CWE.cwe_id, name="CatalogMember_cwe_id", curie=CWE.curie('cwe_id'),
-                   model_uri=CWE.CatalogMember_cwe_id, domain=CatalogMember, range=int)
-
-slots.CatalogMember_view_id = Slot(uri=CWE.view_id, name="CatalogMember_view_id", curie=CWE.curie('view_id'),
-                   model_uri=CWE.CatalogMember_view_id, domain=CatalogMember, range=int)
-
-slots.Audience_type = Slot(uri=CWE.type, name="Audience_type", curie=CWE.curie('type'),
-                   model_uri=CWE.Audience_type, domain=Audience, range=Union[str, "StakeholderType"])
-
-slots.MappingNotes_usage = Slot(uri=CWE.usage, name="MappingNotes_usage", curie=CWE.curie('usage'),
-                   model_uri=CWE.MappingNotes_usage, domain=MappingNotes, range=Union[str, "MappingUsage"])
-
-slots.MappingNotes_rationale = Slot(uri=CWE.rationale, name="MappingNotes_rationale", curie=CWE.curie('rationale'),
-                   model_uri=CWE.MappingNotes_rationale, domain=MappingNotes, range=str)
-
-slots.MappingNotes_comments = Slot(uri=CWE.comments, name="MappingNotes_comments", curie=CWE.curie('comments'),
-                   model_uri=CWE.MappingNotes_comments, domain=MappingNotes, range=str)
-
-slots.MappingNotes_reasons = Slot(uri=CWE.reasons, name="MappingNotes_reasons", curie=CWE.curie('reasons'),
-                   model_uri=CWE.MappingNotes_reasons, domain=MappingNotes, range=Union[Union[str, "MappingReason"], list[Union[str, "MappingReason"]]])
-
-slots.MappingSuggestion_cwe_id = Slot(uri=CWE.cwe_id, name="MappingSuggestion_cwe_id", curie=CWE.curie('cwe_id'),
-                   model_uri=CWE.MappingSuggestion_cwe_id, domain=MappingSuggestion, range=int)
-
-slots.MappingSuggestion_comment = Slot(uri=CWE.comment, name="MappingSuggestion_comment", curie=CWE.curie('comment'),
-                   model_uri=CWE.MappingSuggestion_comment, domain=MappingSuggestion, range=str)
-
-slots.Note_type = Slot(uri=CWE.type, name="Note_type", curie=CWE.curie('type'),
-                   model_uri=CWE.Note_type, domain=Note, range=Union[str, "NoteType"])
-
-slots.ContentHistory_submission = Slot(uri=CWE.submission, name="ContentHistory_submission", curie=CWE.curie('submission'),
-                   model_uri=CWE.ContentHistory_submission, domain=ContentHistory, range=Union[dict, "Submission"])
-
-slots.Submission_submission_date = Slot(uri=CWE.submission_date, name="Submission_submission_date", curie=CWE.curie('submission_date'),
-                   model_uri=CWE.Submission_submission_date, domain=Submission, range=Union[str, XSDDate])
-
-slots.Submission_submission_version = Slot(uri=CWE.submission_version, name="Submission_submission_version", curie=CWE.curie('submission_version'),
-                   model_uri=CWE.Submission_submission_version, domain=Submission, range=str)
-
-slots.Submission_submission_release_date = Slot(uri=CWE.submission_release_date, name="Submission_submission_release_date", curie=CWE.curie('submission_release_date'),
-                   model_uri=CWE.Submission_submission_release_date, domain=Submission, range=Union[str, XSDDate])
-
-slots.Modification_modification_date = Slot(uri=CWE.modification_date, name="Modification_modification_date", curie=CWE.curie('modification_date'),
-                   model_uri=CWE.Modification_modification_date, domain=Modification, range=Union[str, XSDDate])
-
-slots.Contribution_contribution_date = Slot(uri=CWE.contribution_date, name="Contribution_contribution_date", curie=CWE.curie('contribution_date'),
-                   model_uri=CWE.Contribution_contribution_date, domain=Contribution, range=Union[str, XSDDate])
-
-slots.Contribution_type = Slot(uri=CWE.type, name="Contribution_type", curie=CWE.curie('type'),
-                   model_uri=CWE.Contribution_type, domain=Contribution, range=Union[str, "ContributionType"])
-
-slots.PreviousEntryName_name = Slot(uri=RDFS.label, name="PreviousEntryName_name", curie=RDFS.curie('label'),
-                   model_uri=CWE.PreviousEntryName_name, domain=PreviousEntryName, range=str)
-
-slots.PreviousEntryName_date = Slot(uri=DCT.date, name="PreviousEntryName_date", curie=DCT.curie('date'),
-                   model_uri=CWE.PreviousEntryName_date, domain=PreviousEntryName, range=Union[str, XSDDate])
-
-slots.PreviousEntryName_version = Slot(uri=SCHEMA.version, name="PreviousEntryName_version", curie=SCHEMA.curie('version'),
-                   model_uri=CWE.PreviousEntryName_version, domain=PreviousEntryName, range=Optional[str])
-
-slots.NVDWeaknessObservation_observation_id = Slot(uri=DCT.identifier, name="NVDWeaknessObservation_observation_id", curie=DCT.curie('identifier'),
-                   model_uri=CWE.NVDWeaknessObservation_observation_id, domain=NVDWeaknessObservation, range=Union[str, NVDWeaknessObservationObservationId])
-
-slots.NVDWeaknessObservation_observed_in_cve = Slot(uri=DCT.references, name="NVDWeaknessObservation_observed_in_cve", curie=DCT.curie('references'),
-                   model_uri=CWE.NVDWeaknessObservation_observed_in_cve, domain=NVDWeaknessObservation, range=str)
-
-slots.NVDWeaknessObservation_weakness = Slot(uri=SCHEMA.about, name="NVDWeaknessObservation_weakness", curie=SCHEMA.curie('about'),
-                   model_uri=CWE.NVDWeaknessObservation_weakness, domain=NVDWeaknessObservation, range=Union[int, WeaknessId])
-
-slots.NVDWeaknessObservation_reported_by = Slot(uri=DCT.source, name="NVDWeaknessObservation_reported_by", curie=DCT.curie('source'),
-                   model_uri=CWE.NVDWeaknessObservation_reported_by, domain=NVDWeaknessObservation, range=Union[str, "WeaknessSource"])
+slots.cweMappingSuggestion__Comment = Slot(uri=CWE.Comment, name="cweMappingSuggestion__Comment", curie=CWE.curie('Comment'),
+                   model_uri=CWE.cweMappingSuggestion__Comment, domain=None, range=str)

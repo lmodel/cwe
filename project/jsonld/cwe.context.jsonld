@@ -1,668 +1,740 @@
 {
    "@context": {
       "xsd": "http://www.w3.org/2001/XMLSchema#",
-      "WIKIDATA": "https://www.wikidata.org/wiki/",
-      "capec": "https://w3id.org/lmodel/capec/",
       "cve": "https://w3id.org/lmodel/cve/",
       "cwe": "https://w3id.org/lmodel/cwe/",
-      "dct": "http://purl.org/dc/terms/",
+      "dcterms": "http://purl.org/dc/terms/",
       "linkml": "https://w3id.org/linkml/",
-      "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+      "nist_nvd": "https://w3id.org/lmodel/nist-nvd/",
       "schema": "http://schema.org/",
+      "sepses_cwe": "http://w3id.org/sepses/vocab/ref/cwe#",
       "skos": "http://www.w3.org/2004/02/skos/core#",
+      "spdx_core": "https://spdx.org/rdf/3.0.1/terms/Core/",
+      "wd": "http://www.wikidata.org/entity/",
       "@vocab": "https://w3id.org/lmodel/cwe/",
-      "abstraction": {
+      "Description": {
+         "@id": "Description"
+      },
+      "Role": {
          "@context": {
             "text": "skos:notation",
             "description": "skos:prefLabel",
             "meaning": "@id"
          },
-         "@id": "skos:broader"
+         "@id": "Role"
       },
-      "affected_resources": {
+      "Term": {
+         "@id": "Term"
+      },
+      "Architecture": {
+         "@type": "@id",
+         "@id": "Architecture"
+      },
+      "Language": {
          "@context": {
             "text": "skos:notation",
             "description": "skos:prefLabel",
             "meaning": "@id"
          },
-         "@id": "affected_resources"
+         "@id": "Language"
       },
-      "alternate_terms": {
+      "Operating_System": {
          "@type": "@id",
-         "@id": "alternate_terms"
+         "@id": "Operating_System"
       },
-      "applicable_platforms": {
+      "Technology": {
          "@type": "@id",
-         "@id": "applicable_platforms"
+         "@id": "Technology"
       },
-      "architectures": {
-         "@type": "@id",
-         "@id": "architectures"
-      },
-      "audience": {
-         "@type": "@id",
-         "@id": "audience"
-      },
-      "authors": {
-         "@id": "authors"
-      },
-      "background_details": {
-         "@id": "background_details"
-      },
-      "body_texts": {
-         "@id": "body_texts"
-      },
-      "categories": {
-         "@type": "@id",
-         "@id": "categories"
-      },
-      "id": "@id",
-      "chain_id": {
-         "@type": "xsd:integer",
-         "@id": "chain_id"
-      },
-      "class_": {
-         "@id": "class_"
-      },
-      "comment": {
-         "@id": "comment"
-      },
-      "comments": {
-         "@id": "comments"
-      },
-      "common_consequences": {
-         "@type": "@id",
-         "@id": "common_consequences"
-      },
-      "consequence_id": {
-         "@id": "consequence_id"
-      },
-      "content": {
-         "@id": "content"
-      },
-      "content_history": {
-         "@type": "@id",
-         "@id": "content_history"
-      },
-      "contribution_comment": {
-         "@id": "contribution_comment"
-      },
-      "contribution_date": {
-         "@type": "xsd:date",
-         "@id": "contribution_date"
-      },
-      "contribution_name": {
-         "@id": "contribution_name"
-      },
-      "contribution_organization": {
-         "@id": "contribution_organization"
-      },
-      "contribution_release_date": {
-         "@type": "xsd:date",
-         "@id": "contribution_release_date"
-      },
-      "contribution_version": {
-         "@id": "contribution_version"
-      },
-      "contributions": {
-         "@type": "@id",
-         "@id": "contributions"
-      },
-      "cpe_id": {
-         "@id": "cpe_id"
-      },
-      "cwe_id": {
-         "@type": "xsd:integer",
-         "@id": "cwe_id"
-      },
-      "date": {
-         "@type": "xsd:date",
-         "@id": "dct:date"
-      },
-      "demonstrative_example_id": {
-         "@id": "demonstrative_example_id"
-      },
-      "demonstrative_examples": {
-         "@type": "@id",
-         "@id": "demonstrative_examples"
-      },
-      "description": {
-         "@id": "dct:description"
-      },
-      "detection_method_id": {
-         "@id": "detection_method_id"
-      },
-      "detection_methods": {
-         "@type": "@id",
-         "@id": "detection_methods"
-      },
-      "diagram": {
-         "@id": "diagram"
-      },
-      "edition": {
-         "@id": "edition"
-      },
-      "effectiveness": {
-         "@id": "effectiveness"
-      },
-      "effectiveness_notes": {
-         "@id": "effectiveness_notes"
-      },
-      "entry_id": {
-         "@id": "entry_id"
-      },
-      "entry_name": {
-         "@id": "entry_name"
-      },
-      "example_codes": {
-         "@type": "@id",
-         "@id": "example_codes"
-      },
-      "exploitation_factors": {
-         "@id": "exploitation_factors"
-      },
-      "extended_description": {
-         "@id": "extended_description"
-      },
-      "external_reference_id": {
-         "@id": "external_reference_id"
-      },
-      "external_references": {
-         "@type": "@id",
-         "@id": "external_references"
-      },
-      "reference_id": "@id",
-      "filter": {
-         "@id": "filter"
-      },
-      "functional_areas": {
+      "Class": {
          "@context": {
             "text": "skos:notation",
             "description": "skos:prefLabel",
             "meaning": "@id"
          },
-         "@id": "functional_areas"
+         "@id": "Class"
       },
-      "has_member": {
-         "@type": "@id",
-         "@id": "has_member"
-      },
-      "impacts": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "impacts"
-      },
-      "intro_text": {
-         "@id": "intro_text"
-      },
-      "language": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "language"
-      },
-      "languages": {
-         "@type": "@id",
-         "@id": "languages"
-      },
-      "likelihood": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "likelihood"
-      },
-      "likelihood_of_exploit": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "likelihood_of_exploit"
-      },
-      "link": {
-         "@type": "xsd:anyURI",
-         "@id": "link"
-      },
-      "mapping_fit": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "mapping_fit"
-      },
-      "mapping_notes": {
-         "@type": "@id",
-         "@id": "mapping_notes"
-      },
-      "member_of": {
-         "@type": "@id",
-         "@id": "member_of"
-      },
-      "members": {
-         "@type": "@id",
-         "@id": "members"
-      },
-      "method": {
-         "@id": "method"
-      },
-      "mitigation_id": {
-         "@id": "mitigation_id"
-      },
-      "modes_of_introduction": {
-         "@type": "@id",
-         "@id": "modes_of_introduction"
-      },
-      "modification_comment": {
-         "@id": "modification_comment"
-      },
-      "modification_date": {
-         "@type": "xsd:date",
-         "@id": "modification_date"
-      },
-      "modification_importance": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "modification_importance"
-      },
-      "modification_name": {
-         "@id": "modification_name"
-      },
-      "modification_organization": {
-         "@id": "modification_organization"
-      },
-      "modification_release_date": {
-         "@type": "xsd:date",
-         "@id": "modification_release_date"
-      },
-      "modification_version": {
-         "@id": "modification_version"
-      },
-      "modifications": {
-         "@type": "@id",
-         "@id": "modifications"
-      },
-      "name": "@id",
-      "nature": {
-         "@id": "skos:related"
-      },
-      "note": {
-         "@id": "note"
-      },
-      "notes": {
-         "@type": "@id",
-         "@id": "skos:note"
-      },
-      "observation_id": "@id",
-      "objective": {
-         "@id": "objective"
-      },
-      "observations": {
-         "@type": "@id",
-         "@id": "observations"
-      },
-      "observed_examples": {
-         "@type": "@id",
-         "@id": "observed_examples"
-      },
-      "observed_in_cve": {
-         "@id": "dct:references"
-      },
-      "operating_systems": {
-         "@type": "@id",
-         "@id": "operating_systems"
-      },
-      "ordinal": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "ordinal"
-      },
-      "ordinality": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "ordinality"
-      },
-      "phase": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "phase"
-      },
-      "phases": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "phases"
-      },
-      "potential_mitigations": {
-         "@type": "@id",
-         "@id": "potential_mitigations"
-      },
-      "prevalence": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "prevalence"
-      },
-      "previous_entry_names": {
-         "@type": "@id",
-         "@id": "previous_entry_names"
-      },
-      "publication": {
-         "@id": "publication"
-      },
-      "publication_day": {
-         "@id": "publication_day"
-      },
-      "publication_month": {
-         "@id": "publication_month"
-      },
-      "publication_year": {
-         "@id": "publication_year"
-      },
-      "publisher": {
-         "@id": "publisher"
-      },
-      "rationale": {
-         "@id": "rationale"
-      },
-      "reasons": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "reasons"
-      },
-      "reference": {
-         "@id": "reference"
-      },
-      "references": {
-         "@type": "@id",
-         "@id": "references"
-      },
-      "related_attack_patterns": {
-         "@type": "xsd:integer",
-         "@id": "skos:related"
-      },
-      "related_weaknesses": {
-         "@type": "@id",
-         "@id": "related_weaknesses"
-      },
-      "relationships": {
-         "@type": "@id",
-         "@id": "relationships"
-      },
-      "reported_by": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "dct:source"
-      },
-      "scopes": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "scopes"
-      },
-      "section": {
-         "@id": "section"
-      },
-      "source": {
-         "@id": "dct:source"
-      },
-      "status": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "status"
-      },
-      "strategy": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "strategy"
-      },
-      "structure": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "structure"
-      },
-      "submission": {
-         "@type": "@id",
-         "@id": "submission"
-      },
-      "submission_comment": {
-         "@id": "submission_comment"
-      },
-      "submission_date": {
-         "@type": "xsd:date",
-         "@id": "submission_date"
-      },
-      "submission_name": {
-         "@id": "submission_name"
-      },
-      "submission_organization": {
-         "@id": "submission_organization"
-      },
-      "submission_release_date": {
-         "@type": "xsd:date",
-         "@id": "submission_release_date"
-      },
-      "submission_version": {
-         "@id": "submission_version"
-      },
-      "suggestions": {
-         "@type": "@id",
-         "@id": "suggestions"
-      },
-      "summary": {
-         "@id": "summary"
-      },
-      "tags": {
-         "@id": "tags"
-      },
-      "taxonomy_mappings": {
-         "@type": "@id",
-         "@id": "taxonomy_mappings"
-      },
-      "taxonomy_name": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "taxonomy_name"
-      },
-      "technologies": {
-         "@type": "@id",
-         "@id": "technologies"
-      },
-      "term": {
-         "@id": "term"
-      },
-      "title": {
-         "@id": "dct:title"
-      },
-      "title_text": {
-         "@id": "title_text"
-      },
-      "type": {
-         "@id": "type"
-      },
-      "url": {
-         "@type": "xsd:anyURI",
-         "@id": "schema:url"
-      },
-      "url_date": {
-         "@type": "xsd:date",
-         "@id": "url_date"
-      },
-      "usage": {
-         "@context": {
-            "text": "skos:notation",
-            "description": "skos:prefLabel",
-            "meaning": "@id"
-         },
-         "@id": "usage"
-      },
-      "version": {
-         "@id": "schema:version"
-      },
-      "view_id": {
-         "@type": "xsd:integer",
-         "@id": "view_id"
-      },
-      "views": {
-         "@type": "@id",
-         "@id": "views"
-      },
-      "weakness": {
-         "@type": "@id",
-         "@id": "schema:about"
-      },
-      "weakness_ordinalities": {
-         "@type": "@id",
-         "@id": "weakness_ordinalities"
-      },
-      "weaknesses": {
-         "@type": "@id",
-         "@id": "weaknesses"
-      },
-      "AlternateTerm": {
-         "@id": "AlternateTerm"
-      },
-      "ApplicablePlatforms": {
-         "@id": "ApplicablePlatforms"
-      },
-      "ArchitecturePlatform": {
-         "@id": "ArchitecturePlatform"
-      },
-      "Audience": {
-         "@id": "Audience"
-      },
-      "CatalogMember": {
-         "@id": "CatalogMember"
-      },
-      "Category": {
-         "@id": "Category"
-      },
-      "CommonConsequence": {
-         "@id": "CommonConsequence"
-      },
-      "ContentHistory": {
-         "@id": "ContentHistory"
-      },
-      "Contribution": {
-         "@id": "Contribution"
-      },
-      "CWEReference": {
-         "@id": "CWEReference"
-      },
-      "DemonstrativeExample": {
-         "@id": "DemonstrativeExample"
-      },
-      "DetectionMethod": {
-         "@id": "DetectionMethod"
-      },
-      "ExampleCode": {
-         "@id": "ExampleCode"
-      },
-      "ExternalReference": {
-         "@id": "ExternalReference"
-      },
-      "LanguagePlatform": {
-         "@id": "LanguagePlatform"
-      },
-      "MappingNotes": {
-         "@id": "MappingNotes"
-      },
-      "MappingSuggestion": {
-         "@id": "MappingSuggestion"
-      },
-      "ModeOfIntroduction": {
-         "@id": "ModeOfIntroduction"
-      },
-      "Modification": {
-         "@id": "Modification"
+      "Name": {
+         "@id": "Name"
       },
       "Note": {
          "@id": "Note"
       },
-      "NVDWeaknessObservation": {
-         "@id": "NVDWeaknessObservation"
+      "Prevalence": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Prevalence"
       },
-      "ObservedExample": {
-         "@id": "ObservedExample"
+      "Consequence_ID": {
+         "@id": "Consequence_ID"
       },
-      "OSPlatform": {
-         "@id": "OSPlatform"
+      "Impact": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Impact"
       },
-      "PotentialMitigation": {
-         "@id": "PotentialMitigation"
+      "Likelihood": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Likelihood"
       },
-      "PreviousEntryName": {
-         "@id": "PreviousEntryName"
+      "Scope": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Scope"
       },
-      "RelatedWeakness": {
-         "@id": "RelatedWeakness"
+      "Contribution": {
+         "@type": "@id",
+         "@id": "Contribution"
       },
-      "Relationship": {
-         "@id": "Relationship"
+      "Modification": {
+         "@type": "@id",
+         "@id": "Modification"
+      },
+      "Previous_Entry_Name": {
+         "@type": "@id",
+         "@id": "Previous_Entry_Name"
       },
       "Submission": {
+         "@type": "@id",
          "@id": "Submission"
       },
-      "TaxonomyMapping": {
-         "@id": "TaxonomyMapping"
+      "Contribution_Comment": {
+         "@id": "Contribution_Comment"
       },
-      "TechnologyPlatform": {
-         "@id": "TechnologyPlatform"
+      "Contribution_Date": {
+         "@type": "xsd:date",
+         "@id": "Contribution_Date"
       },
-      "View": {
-         "@id": "View"
+      "Contribution_Name": {
+         "@id": "Contribution_Name"
       },
-      "Weakness": {
-         "@id": "Weakness"
+      "Contribution_Organization": {
+         "@id": "Contribution_Organization"
       },
-      "WeaknessCatalog": {
-         "@id": "WeaknessCatalog"
+      "Contribution_ReleaseDate": {
+         "@type": "xsd:date",
+         "@id": "Contribution_ReleaseDate"
       },
-      "WeaknessOrdinality": {
-         "@id": "WeaknessOrdinality"
+      "Contribution_Version": {
+         "@id": "Contribution_Version"
+      },
+      "Type": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Type"
+      },
+      "Domain": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Domain"
+      },
+      "Value": {
+         "@id": "Value"
+      },
+      "Demonstrative_Example_ID": {
+         "@id": "Demonstrative_Example_ID"
+      },
+      "Entries": {
+         "@type": "@id",
+         "@id": "Entries"
+      },
+      "Intro_Text": {
+         "@id": "Intro_Text"
+      },
+      "Title_Text": {
+         "@id": "Title_Text"
+      },
+      "Custom_Phase": {
+         "@type": "@id",
+         "@id": "Custom_Phase"
+      },
+      "Detection_Method_ID": {
+         "@id": "Detection_Method_ID"
+      },
+      "Effectiveness": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Effectiveness"
+      },
+      "Effectiveness_Notes": {
+         "@id": "Effectiveness_Notes"
+      },
+      "Method": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Method"
+      },
+      "Phase": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Phase"
+      },
+      "Content_History": {
+         "@type": "@id",
+         "@id": "Content_History"
+      },
+      "ID": "@id",
+      "Mapping_Notes": {
+         "@type": "@id",
+         "@id": "Mapping_Notes"
+      },
+      "Notes": {
+         "@type": "@id",
+         "@id": "Notes"
+      },
+      "References": {
+         "@type": "@id",
+         "@id": "References"
+      },
+      "Status": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Status"
+      },
+      "Nature": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Nature"
+      },
+      "Body_Text": {
+         "@id": "Body_Text"
+      },
+      "Example_Code": {
+         "@type": "@id",
+         "@id": "Example_Code"
+      },
+      "Access_Restrictions": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Access_Restrictions"
+      },
+      "Alt_URL": {
+         "@type": "xsd:anyURI",
+         "@id": "Alt_URL"
+      },
+      "Alt_URL_Date": {
+         "@type": "xsd:date",
+         "@id": "Alt_URL_Date"
+      },
+      "Author": {
+         "@id": "Author"
+      },
+      "Edition": {
+         "@id": "Edition"
+      },
+      "Media_Type": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Media_Type"
+      },
+      "Publication": {
+         "@id": "Publication"
+      },
+      "Publication_Day": {
+         "@type": "xsd:gDay",
+         "@id": "Publication_Day"
+      },
+      "Publication_Month": {
+         "@type": "xsd:gMonth",
+         "@id": "Publication_Month"
+      },
+      "Publication_Year": {
+         "@type": "xsd:gYear",
+         "@id": "Publication_Year"
+      },
+      "Publisher": {
+         "@id": "Publisher"
+      },
+      "Rationale": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Rationale"
+      },
+      "Reference_ID": "@id",
+      "Title": {
+         "@id": "Title"
+      },
+      "URL": {
+         "@type": "xsd:anyURI",
+         "@id": "URL"
+      },
+      "URL_Date": {
+         "@type": "xsd:date",
+         "@id": "URL_Date"
+      },
+      "Relationships": {
+         "@type": "@id",
+         "@id": "Relationships"
+      },
+      "Summary": {
+         "@id": "Summary"
+      },
+      "Taxonomy_Mappings": {
+         "@type": "@id",
+         "@id": "Taxonomy_Mappings"
+      },
+      "Comments": {
+         "@id": "Comments"
+      },
+      "Reasons": {
+         "@type": "@id",
+         "@id": "Reasons"
+      },
+      "Suggestions": {
+         "@type": "@id",
+         "@id": "Suggestions"
+      },
+      "Usage": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Usage"
+      },
+      "Comment": {
+         "@id": "Comment"
+      },
+      "CWE_ID": {
+         "@type": "@id",
+         "@id": "CWE_ID"
+      },
+      "Dimensions": {
+         "@type": "@id",
+         "@id": "Dimensions"
+      },
+      "View_ID": {
+         "@type": "@id",
+         "@id": "View_ID"
+      },
+      "Mitigation_ID": {
+         "@id": "Mitigation_ID"
+      },
+      "Strategy": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Strategy"
+      },
+      "Modification_Comment": {
+         "@id": "Modification_Comment"
+      },
+      "Modification_Date": {
+         "@type": "xsd:date",
+         "@id": "Modification_Date"
+      },
+      "Modification_Importance": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Modification_Importance"
+      },
+      "Modification_Name": {
+         "@id": "Modification_Name"
+      },
+      "Modification_Organization": {
+         "@id": "Modification_Organization"
+      },
+      "Modification_ReleaseDate": {
+         "@type": "xsd:date",
+         "@id": "Modification_ReleaseDate"
+      },
+      "Modification_Version": {
+         "@id": "Modification_Version"
+      },
+      "ReleaseDate": {
+         "@type": "xsd:date",
+         "@id": "ReleaseDate"
+      },
+      "Version": {
+         "@id": "Version"
+      },
+      "Link": {
+         "@type": "xsd:anyURI",
+         "@id": "Link"
+      },
+      "Reference": {
+         "@id": "Reference"
+      },
+      "CPE_ID": {
+         "@id": "CPE_ID"
+      },
+      "Date": {
+         "@type": "xsd:date",
+         "@id": "Date"
+      },
+      "External_Reference_ID": {
+         "@type": "@id",
+         "@id": "External_Reference_ID"
+      },
+      "Section": {
+         "@id": "Section"
+      },
+      "CAPEC_ID": {
+         "@id": "CAPEC_ID"
+      },
+      "Chain_ID": {
+         "@type": "@id",
+         "@id": "Chain_ID"
+      },
+      "Ordinal": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Ordinal"
+      },
+      "Has_Member": {
+         "@type": "@id",
+         "@id": "Has_Member"
+      },
+      "Member_Of": {
+         "@type": "@id",
+         "@id": "Member_Of"
+      },
+      "Submission_Comment": {
+         "@id": "Submission_Comment"
+      },
+      "Submission_Date": {
+         "@type": "xsd:date",
+         "@id": "Submission_Date"
+      },
+      "Submission_Name": {
+         "@id": "Submission_Name"
+      },
+      "Submission_Organization": {
+         "@id": "Submission_Organization"
+      },
+      "Submission_ReleaseDate": {
+         "@type": "xsd:date",
+         "@id": "Submission_ReleaseDate"
+      },
+      "Submission_Version": {
+         "@id": "Submission_Version"
+      },
+      "Entry_ID": {
+         "@id": "Entry_ID"
+      },
+      "Entry_Name": {
+         "@id": "Entry_Name"
+      },
+      "Mapping_Fit": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Mapping_Fit"
+      },
+      "Taxonomy_Name": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Taxonomy_Name"
+      },
+      "Audience": {
+         "@type": "@id",
+         "@id": "Audience"
+      },
+      "Filter": {
+         "@id": "Filter"
+      },
+      "Members": {
+         "@type": "@id",
+         "@id": "Members"
+      },
+      "Objective": {
+         "@id": "Objective"
+      },
+      "Abstraction": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Abstraction"
+      },
+      "Affected_Resources": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Affected_Resources"
+      },
+      "Alternate_Terms": {
+         "@type": "@id",
+         "@id": "Alternate_Terms"
+      },
+      "Applicable_Platforms": {
+         "@type": "@id",
+         "@id": "Applicable_Platforms"
+      },
+      "Background_Details": {
+         "@id": "Background_Details"
+      },
+      "Common_Consequences": {
+         "@type": "@id",
+         "@id": "Common_Consequences"
+      },
+      "Demonstrative_Examples": {
+         "@type": "@id",
+         "@id": "Demonstrative_Examples"
+      },
+      "Detection_Methods": {
+         "@type": "@id",
+         "@id": "Detection_Methods"
+      },
+      "Diagram": {
+         "@id": "Diagram"
+      },
+      "Exploitation_Factors": {
+         "@id": "Exploitation_Factors"
+      },
+      "Extended_Description": {
+         "@id": "Extended_Description"
+      },
+      "Functional_Areas": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Functional_Areas"
+      },
+      "Likelihood_Of_Exploit": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Likelihood_Of_Exploit"
+      },
+      "Modes_Of_Introduction": {
+         "@type": "@id",
+         "@id": "Modes_Of_Introduction"
+      },
+      "Observed_Examples": {
+         "@type": "@id",
+         "@id": "Observed_Examples"
+      },
+      "Potential_Mitigations": {
+         "@type": "@id",
+         "@id": "Potential_Mitigations"
+      },
+      "Related_Attack_Patterns": {
+         "@type": "@id",
+         "@id": "Related_Attack_Patterns"
+      },
+      "Related_Weaknesses": {
+         "@type": "@id",
+         "@id": "Related_Weaknesses"
+      },
+      "Structure": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Structure"
+      },
+      "Technical_Nuance": {
+         "@id": "Technical_Nuance"
+      },
+      "Weakness_Ordinalities": {
+         "@type": "@id",
+         "@id": "Weakness_Ordinalities"
+      },
+      "External_References": {
+         "@type": "@id",
+         "@id": "External_References"
+      },
+      "Groupings": {
+         "@type": "@id",
+         "@id": "Groupings"
+      },
+      "Views": {
+         "@type": "@id",
+         "@id": "Views"
+      },
+      "Weaknesses": {
+         "@type": "@id",
+         "@id": "Weaknesses"
+      },
+      "Ordinality": {
+         "@context": {
+            "text": "skos:notation",
+            "description": "skos:prefLabel",
+            "meaning": "@id"
+         },
+         "@id": "Ordinality"
+      },
+      "CweAlternateTerm": {
+         "@id": "CweAlternateTerm"
+      },
+      "CweApplicablePlatforms": {
+         "@id": "CweApplicablePlatforms"
+      },
+      "CweArchitecturePlatform": {
+         "@id": "CweArchitecturePlatform"
+      },
+      "CweConsequence": {
+         "@id": "CweConsequence"
+      },
+      "CweContentHistory": {
+         "@id": "CweContentHistory"
+      },
+      "CweContribution": {
+         "@id": "CweContribution"
+      },
+      "CweCustomPhase": {
+         "@id": "CweCustomPhase"
+      },
+      "CweDemonstrativeExample": {
+         "@id": "CweDemonstrativeExample"
+      },
+      "CweDetectionMethod": {
+         "@id": "CweDetectionMethod"
+      },
+      "CweDimension": {
+         "@id": "CweDimension"
+      },
+      "CweEntry": {
+         "@id": "CweEntry"
+      },
+      "CweExampleCode": {
+         "@id": "CweExampleCode"
+      },
+      "CweExampleEntry": {
+         "@id": "CweExampleEntry"
+      },
+      "CweExternalReference": {
+         "@id": "CweExternalReference"
+      },
+      "CweGrouping": {
+         "@id": "CweGrouping"
+      },
+      "CweIntroduction": {
+         "@id": "CweIntroduction"
+      },
+      "CweLanguagePlatform": {
+         "@id": "CweLanguagePlatform"
+      },
+      "CweMappingNotes": {
+         "@id": "CweMappingNotes"
+      },
+      "CweMappingReason": {
+         "@id": "CweMappingReason"
+      },
+      "CweMappingSuggestion": {
+         "@id": "CweMappingSuggestion"
+      },
+      "CweMember": {
+         "@id": "CweMember"
+      },
+      "CweMitigation": {
+         "@id": "CweMitigation"
+      },
+      "CweModification": {
+         "@id": "CweModification"
+      },
+      "CweNote": {
+         "@id": "CweNote"
+      },
+      "CweObservedExample": {
+         "@id": "CweObservedExample"
+      },
+      "CweOperatingSystemPlatform": {
+         "@id": "CweOperatingSystemPlatform"
+      },
+      "CwePreviousEntryName": {
+         "@id": "CwePreviousEntryName"
+      },
+      "CweReference": {
+         "@id": "CweReference"
+      },
+      "CweRelatedAttackPattern": {
+         "@id": "CweRelatedAttackPattern"
+      },
+      "CweRelatedWeakness": {
+         "@id": "CweRelatedWeakness"
+      },
+      "CweRelationships": {
+         "@id": "CweRelationships"
+      },
+      "CweStakeholder": {
+         "@id": "CweStakeholder"
+      },
+      "CweSubmission": {
+         "@id": "CweSubmission"
+      },
+      "CweTaxonomyMapping": {
+         "@id": "CweTaxonomyMapping"
+      },
+      "CweTechnologyPlatform": {
+         "@id": "CweTechnologyPlatform"
+      },
+      "CweView": {
+         "@id": "CweView"
+      },
+      "CweWeakness": {
+         "@id": "CweWeakness"
+      },
+      "CweWeaknessCatalog": {
+         "@id": "CweWeaknessCatalog"
+      },
+      "CweWeaknessOrdinality": {
+         "@id": "CweWeaknessOrdinality"
       }
    }
 }

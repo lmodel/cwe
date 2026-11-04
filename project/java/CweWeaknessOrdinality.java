@@ -1,0 +1,23 @@
+package example;
+
+/* metamodel_version: 1.12.0 */
+/* version: 5.0 */
+import java.net.URI;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.ZonedDateTime;
+import java.util.List;
+import lombok.*;
+
+/**
+  Whether a weakness tends to be a first cause or the result of another.
+**/
+@Data
+@EqualsAndHashCode(callSuper=false)
+public class CweWeaknessOrdinality  {
+
+  private String ordinality;
+  private String description;
+
+
+}

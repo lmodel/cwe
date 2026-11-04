@@ -1,0 +1,943 @@
+---
+id: https://w3id.org/lmodel/cwe/cwe_entries
+name: cwe_entries
+title: CWE entries
+description: >-
+  The three kinds of entry in the CWE List, weaknesses, groupings and views, with
+  everything they hold: how a weakness is introduced, detected, mitigated and related
+  to others, and how entries group each other.
+version: "5.0"
+source: https://cwe.mitre.org/data/xsd/cwe_schema_v8.0.xsd
+license: Apache-2.0
+see_also:
+  - https://lmodel.github.io/cwe
+  - https://cwe.mitre.org/
+annotations:
+  xsd_version: "8.0"
+  xsd_namespace: http://cwe.mitre.org/cwe-8
+  xsd_date: "2026-10-28"
+notes:
+  - >-
+    XSD 8.0 still declares CategoryType and a Categories element beside GroupingType
+    and Groupings, but CWE 5.0 holds no category and the CWE Program says Grouping
+    replaced Category. So this schema models the grouping alone, and
+    tests/test_coverage.py names Category as the one exclusion.
+
+prefixes:
+  cve: https://w3id.org/lmodel/cve/
+  cwe: https://w3id.org/lmodel/cwe/
+  dcterms: http://purl.org/dc/terms/
+  kev_catalog: https://w3id.org/lmodel/kev-catalog/
+  linkml: https://w3id.org/linkml/
+  nist_nvd: https://w3id.org/lmodel/nist-nvd/
+  schema: http://schema.org/
+  sepses_cwe: http://w3id.org/sepses/vocab/ref/cwe#
+  skos: http://www.w3.org/2004/02/skos/core#
+  spdx_core: https://spdx.org/rdf/3.0.1/terms/Core/
+  wdt: http://www.wikidata.org/prop/direct/
+default_prefix: cwe
+default_range: string
+
+imports:
+  - linkml:types
+  - ./cwe_core
+
+classes:
+
+  CweEntry:
+    abstract: true
+    description: >-
+      Any item of the CWE List that has an identifier of its own: a weakness, a grouping
+      or a view.
+    see_also:
+      - https://cwe.mitre.org/documents/glossary/index.html#Entry
+    annotations:
+      xsd_type: WeaknessType GroupingType ViewType
+    attributes:
+      ID:
+        description: The number that identifies the entry across the whole list.
+        identifier: true
+        range: cwe_entry_id
+        comments:
+          - >-
+            Wikidata's P3624 holds this number for a weakness, without the CWE- prefix.
+            lmodel/cve's cweId and lmodel/kev-catalog's cwes write the same number with the
+            prefix, as CWE-79, so they are related.
+        close_mappings:
+          - wdt:P3624
+          - schema:termCode
+        related_mappings:
+          - cve:cweId
+          - kev_catalog:cwes
+      Name:
+        description: The name of the entry.
+        required: true
+        close_mappings:
+          - schema:name
+          - skos:prefLabel
+      Status:
+        description: How far the entry has come and how much it can be trusted.
+        required: true
+        range: CweStatus
+        exact_mappings:
+          - sepses_cwe:status
+      References:
+        description: The external references the entry cites.
+        multivalued: true
+        range: CweReference
+        inlined: true
+        inlined_as_list: true
+        close_mappings:
+          - sepses_cwe:hasReference
+      Mapping_Notes:
+        description: Guidance on whether to map a real vulnerability to this entry.
+        required: true
+        range: CweMappingNotes
+        inlined: true
+      Notes:
+        description: Remarks on the entry that fit nowhere else.
+        multivalued: true
+        range: CweNote
+        inlined: true
+        inlined_as_list: true
+        close_mappings:
+          - skos:note
+      Content_History:
+        description: Who wrote the entry and how it has changed since.
+        required: true
+        range: CweContentHistory
+        inlined: true
+
+  CweWeakness:
+    is_a: CweEntry
+    description: >-
+      A type of mistake or condition in software, firmware, hardware or a service that can
+      leave a product open to attack.
+    see_also:
+      - https://cwe.mitre.org/documents/glossary/index.html#Weakness
+    comments:
+      - >-
+        The SPDX external reference type names a weakness as a target of a link, and an
+        NVD weakness names one as the cause of a vulnerability, so both are related.
+    close_mappings:
+      - sepses_cwe:CWE
+      - schema:DefinedTerm
+      - skos:Concept
+    related_mappings:
+      - spdx_core:ExternalRefType/cwe
+      - nist_nvd:NvdWeakness
+    annotations:
+      xsd_type: WeaknessType
+    rules:
+      - description: A compound weakness is a chain or a composite.
+        preconditions:
+          slot_conditions:
+            Abstraction:
+              equals_string: Compound
+        postconditions:
+          slot_conditions:
+            Structure:
+              none_of:
+                - equals_string: Simple
+      - description: A chain is a compound weakness.
+        preconditions:
+          slot_conditions:
+            Structure:
+              equals_string: Chain
+        postconditions:
+          slot_conditions:
+            Abstraction:
+              equals_string: Compound
+      - description: A composite is a compound weakness.
+        preconditions:
+          slot_conditions:
+            Structure:
+              equals_string: Composite
+        postconditions:
+          slot_conditions:
+            Abstraction:
+              equals_string: Compound
+    attributes:
+      Abstraction:
+        description: How far the weakness is described in general terms or tied to a specific product.
+        required: true
+        range: CweAbstraction
+        exact_mappings:
+          - sepses_cwe:abstraction
+      Structure:
+        description: Whether the weakness stands alone or is made up of others.
+        required: true
+        range: CweStructure
+        exact_mappings:
+          - sepses_cwe:structure
+      Diagram:
+        description: The path on MITRE's site of a diagram of the weakness.
+      Description:
+        description: A sentence or two that define the weakness.
+        required: true
+        close_mappings:
+          - dcterms:description
+          - schema:description
+          - skos:definition
+      Extended_Description:
+        description: More about the weakness than its short description gives.
+        range: cwe_structured_text
+        exact_mappings:
+          - sepses_cwe:extendedDescription
+      Technical_Nuance:
+        description: Finer technical detail that helps tell this weakness from close relatives.
+        range: cwe_structured_text
+      Dimensions:
+        description: The aspects of the weakness that this entry centres on.
+        multivalued: true
+        range: CweDimension
+        inlined: true
+        inlined_as_list: true
+      Related_Weaknesses:
+        description: How this weakness relates to others in the list.
+        multivalued: true
+        range: CweRelatedWeakness
+        inlined: true
+        inlined_as_list: true
+        close_mappings:
+          - sepses_cwe:hasRelatedWeakness
+        related_mappings:
+          - skos:semanticRelation
+      Weakness_Ordinalities:
+        description: Whether the weakness tends to be a first cause or the result of another.
+        multivalued: true
+        range: CweWeaknessOrdinality
+        inlined: true
+        inlined_as_list: true
+      Applicable_Platforms:
+        description: The languages, systems, architectures and technologies where the weakness can appear.
+        range: CweApplicablePlatforms
+        inlined: true
+        close_mappings:
+          - sepses_cwe:hasApplicablePlatform
+      Background_Details:
+        description: Background that helps a reader but does not describe the weakness itself.
+        multivalued: true
+        range: cwe_structured_text
+        close_mappings:
+          - sepses_cwe:backgroundDetail
+      Alternate_Terms:
+        description: Other names people use for the weakness.
+        multivalued: true
+        range: CweAlternateTerm
+        inlined: true
+        inlined_as_list: true
+      Modes_Of_Introduction:
+        description: How and when the weakness can get into a product.
+        multivalued: true
+        range: CweIntroduction
+        inlined: true
+        inlined_as_list: true
+        close_mappings:
+          - sepses_cwe:hasModeOfIntroduction
+      Exploitation_Factors:
+        description: Conditions that make exploiting the weakness more likely.
+        multivalued: true
+        range: cwe_structured_text
+      Likelihood_Of_Exploit:
+        description: How likely it is that the weakness gets exploited.
+        range: CweLikelihood
+        exact_mappings:
+          - sepses_cwe:likelihoodOfExploit
+      Common_Consequences:
+        description: What can follow when the weakness is exploited.
+        multivalued: true
+        range: CweConsequence
+        inlined: true
+        inlined_as_list: true
+        close_mappings:
+          - sepses_cwe:hasCommonConsequence
+      Detection_Methods:
+        description: Ways of finding the weakness, with what each is good for.
+        multivalued: true
+        range: CweDetectionMethod
+        inlined: true
+        inlined_as_list: true
+        close_mappings:
+          - sepses_cwe:hasDetectionMethod
+      Potential_Mitigations:
+        description: Ways of preventing the weakness or reducing what it can do.
+        multivalued: true
+        range: CweMitigation
+        inlined: true
+        inlined_as_list: true
+        close_mappings:
+          - sepses_cwe:hasPotentialMitigation
+      Demonstrative_Examples:
+        description: Worked examples of how the weakness looks in code.
+        multivalued: true
+        range: CweDemonstrativeExample
+        inlined: true
+        inlined_as_list: true
+      Observed_Examples:
+        description: Real cases of the weakness, usually CVE records.
+        multivalued: true
+        range: CweObservedExample
+        inlined: true
+        inlined_as_list: true
+      Functional_Areas:
+        description: The parts of a product where the weakness tends to appear.
+        multivalued: true
+        range: CweFunctionalArea
+      Affected_Resources:
+        description: The system resources that exploiting the weakness can affect.
+        multivalued: true
+        range: CweResource
+      Taxonomy_Mappings:
+        description: Links to entries of other taxonomies.
+        multivalued: true
+        range: CweTaxonomyMapping
+        inlined: true
+        inlined_as_list: true
+      Related_Attack_Patterns:
+        description: Attack patterns that may apply where the weakness is present.
+        multivalued: true
+        range: CweRelatedAttackPattern
+        inlined: true
+        inlined_as_list: true
+        close_mappings:
+          - sepses_cwe:hasCAPEC
+
+  CweGrouping:
+    is_a: CweEntry
+    description: >-
+      A set of weaknesses gathered by something they share, for browsing and not for
+      mapping real vulnerabilities to. Schema versions before 8.0 called it a category.
+    close_mappings:
+      - skos:Collection
+    annotations:
+      xsd_type: GroupingType
+    attributes:
+      Summary:
+        description: What the grouped weaknesses have in common.
+        required: true
+        range: cwe_structured_text
+        close_mappings:
+          - dcterms:description
+      Relationships:
+        description: The entries this grouping holds.
+        range: CweRelationships
+        inlined: true
+      Taxonomy_Mappings:
+        description: Links to entries of other taxonomies.
+        multivalued: true
+        range: CweTaxonomyMapping
+        inlined: true
+        inlined_as_list: true
+
+  CweView:
+    is_a: CweEntry
+    description: A way of looking at the catalogue, as a subset of its entries seen from one standpoint.
+    see_also:
+      - https://cwe.mitre.org/documents/glossary/index.html#View
+    comments:
+      - >-
+        A graph view arranges concepts as a scheme does, but a slice is a flat list, so the
+        SKOS concept scheme is only related.
+    related_mappings:
+      - skos:ConceptScheme
+    annotations:
+      xsd_type: ViewType
+    attributes:
+      Type:
+        description: How the view selects and arranges its entries.
+        required: true
+        range: CweViewType
+      Objective:
+        description: What the view is for.
+        required: true
+        range: cwe_structured_text
+        close_mappings:
+          - dcterms:description
+      Audience:
+        description: The people who may find the view useful, and why.
+        multivalued: true
+        range: CweStakeholder
+        inlined: true
+        inlined_as_list: true
+      Members:
+        description: The entries a view names one by one, when it is not selected by a filter.
+        range: CweRelationships
+        inlined: true
+      Filter:
+        description: The XPath expression that selects the entries of an implicit slice.
+
+  CweRelatedWeakness:
+    description: A link from a weakness to another weakness, in one view.
+    close_mappings:
+      - sepses_cwe:RelatedWeakness
+    annotations:
+      xsd_type: RelatedWeaknessesType/Related_Weakness
+    attributes:
+      Nature:
+        description: How the two weaknesses relate.
+        required: true
+        range: CweRelatedNature
+        exact_mappings:
+          - sepses_cwe:relatedWeaknessNature
+      CWE_ID:
+        description: The weakness at the other end of the link.
+        required: true
+        range: CweWeakness
+        pattern: '^[1-9][0-9]*$'
+        exact_mappings:
+          - sepses_cwe:relatedCWE
+      View_ID:
+        description: The view in which the link holds.
+        required: true
+        range: CweView
+        pattern: '^[1-9][0-9]*$'
+        exact_mappings:
+          - sepses_cwe:relatedWeaknessViewId
+      Chain_ID:
+        description: The named chain that the link belongs to.
+        range: CweWeakness
+        pattern: '^[1-9][0-9]*$'
+      Ordinal:
+        description: Marks this as the link to prefer in the view.
+        range: CweOrdinal
+        exact_mappings:
+          - sepses_cwe:relatedWeaknessOrdinal
+      Dimensions:
+        description: The aspects in which the two weaknesses differ.
+        multivalued: true
+        range: CweDimension
+        inlined: true
+        inlined_as_list: true
+
+  CweWeaknessOrdinality:
+    description: Whether a weakness tends to be a first cause or the result of another.
+    annotations:
+      xsd_type: WeaknessOrdinalitiesType/Weakness_Ordinality
+    attributes:
+      Ordinality:
+        description: The position in the sequence of causes.
+        required: true
+        range: CweOrdinality
+        exact_mappings:
+          - sepses_cwe:weaknessOrdinality
+      Description:
+        description: The setting in which the weakness takes this position.
+
+  CweApplicablePlatforms:
+    description: The kinds of platform where a weakness can appear.
+    close_mappings:
+      - sepses_cwe:ApplicablePlatform
+    annotations:
+      xsd_type: ApplicablePlatformsType
+    attributes:
+      Language:
+        description: A programming language, or a family of them.
+        multivalued: true
+        range: CweLanguagePlatform
+        inlined: true
+        inlined_as_list: true
+      Operating_System:
+        description: An operating system, or a family of them.
+        multivalued: true
+        range: CweOperatingSystemPlatform
+        inlined: true
+        inlined_as_list: true
+      Architecture:
+        description: A hardware architecture, or a family of them.
+        multivalued: true
+        range: CweArchitecturePlatform
+        inlined: true
+        inlined_as_list: true
+      Technology:
+        description: A technology, or a family of them.
+        multivalued: true
+        range: CweTechnologyPlatform
+        inlined: true
+        inlined_as_list: true
+
+  CweLanguagePlatform:
+    description: A language where a weakness can appear, named or by its family.
+    annotations:
+      xsd_type: ApplicablePlatformsType/Language
+    any_of:
+      - slot_conditions:
+          Name:
+            required: true
+      - slot_conditions:
+          Class:
+            required: true
+    attributes:
+      Name:
+        description: The name of the language.
+        range: CweLanguageName
+      Class:
+        description: The family of languages.
+        range: CweLanguageClass
+      Prevalence:
+        description: How regularly the weakness applies here.
+        required: true
+        range: CwePrevalence
+      Note:
+        description: A remark on this platform.
+        range: cwe_structured_text
+
+  CweOperatingSystemPlatform:
+    description: An operating system where a weakness can appear, named or by its family.
+    annotations:
+      xsd_type: ApplicablePlatformsType/Operating_System
+    any_of:
+      - slot_conditions:
+          Name:
+            required: true
+      - slot_conditions:
+          Class:
+            required: true
+    attributes:
+      Name:
+        description: The name of the operating system.
+        range: CweOperatingSystemName
+      Version:
+        description: The version of the operating system.
+      CPE_ID:
+        description: The Common Platform Enumeration name of the operating system.
+      Class:
+        description: The family of operating systems.
+        range: CweOperatingSystemClass
+      Prevalence:
+        description: How regularly the weakness applies here.
+        required: true
+        range: CwePrevalence
+      Note:
+        description: A remark on this platform.
+        range: cwe_structured_text
+
+  CweArchitecturePlatform:
+    description: A hardware architecture where a weakness can appear, named or by its family.
+    annotations:
+      xsd_type: ApplicablePlatformsType/Architecture
+    any_of:
+      - slot_conditions:
+          Name:
+            required: true
+      - slot_conditions:
+          Class:
+            required: true
+    attributes:
+      Name:
+        description: The name of the architecture.
+        range: CweArchitectureName
+      Class:
+        description: The family of architectures.
+        range: CweArchitectureClass
+      Prevalence:
+        description: How regularly the weakness applies here.
+        required: true
+        range: CwePrevalence
+      Note:
+        description: A remark on this platform.
+        range: cwe_structured_text
+
+  CweTechnologyPlatform:
+    description: A technology where a weakness can appear, named or by its family.
+    comments:
+      - >-
+        Exactly one of Name and Class would hold everywhere in CWE 5.0 but on one Technology,
+        in CWE-1259, which gives both. So the rule is at least one.
+    annotations:
+      xsd_type: ApplicablePlatformsType/Technology
+    any_of:
+      - slot_conditions:
+          Name:
+            required: true
+      - slot_conditions:
+          Class:
+            required: true
+    attributes:
+      Name:
+        description: The name of the technology.
+        range: CweTechnologyName
+      Class:
+        description: The family of technologies.
+        range: CweTechnologyClass
+      Prevalence:
+        description: How regularly the weakness applies here.
+        required: true
+        range: CwePrevalence
+      Note:
+        description: A remark on this platform.
+        range: cwe_structured_text
+
+  CweAlternateTerm:
+    description: Another name people use for a weakness.
+    annotations:
+      xsd_type: AlternateTermsType/Alternate_Term
+    attributes:
+      Term:
+        description: The name.
+        required: true
+        close_mappings:
+          - skos:altLabel
+      Role:
+        description: The part the name plays when people talk about the weakness.
+        multivalued: true
+        range: CweAlternateTermRole
+      Description:
+        description: When and how the name is used.
+        range: cwe_structured_text
+
+  CweIntroduction:
+    description: One way a weakness can get into a product.
+    close_mappings:
+      - sepses_cwe:ModeOfIntroduction
+    annotations:
+      xsd_type: ModesOfIntroductionType/Introduction
+    attributes:
+      Phase:
+        description: A life cycle stage where the weakness can get in.
+        multivalued: true
+        range: CwePhase
+        close_mappings:
+          - sepses_cwe:modeOfIntroductionPhase
+      Custom_Phase:
+        description: A stage from the life cycle of a field such as hardware or AI.
+        multivalued: true
+        range: CweCustomPhase
+        inlined: true
+        inlined_as_list: true
+      Note:
+        description: The usual way this happens.
+        range: cwe_structured_text
+        close_mappings:
+          - sepses_cwe:modeOfIntroductionNote
+
+  CweConsequence:
+    description: One thing that can follow when a weakness is exploited.
+    close_mappings:
+      - sepses_cwe:CommonConsequence
+    annotations:
+      xsd_type: CommonConsequencesType/Consequence
+    attributes:
+      Consequence_ID:
+        description: An identifier for this consequence.
+      Scope:
+        description: A security property the consequence violates.
+        required: true
+        multivalued: true
+        range: CweScope
+        close_mappings:
+          - sepses_cwe:consequenceScope
+      Impact:
+        description: What an attacker can achieve.
+        required: true
+        multivalued: true
+        range: CweTechnicalImpact
+        close_mappings:
+          - sepses_cwe:consequenceImpact
+      Likelihood:
+        description: How likely this consequence is beside the others.
+        range: CweLikelihood
+      Note:
+        description: A remark on the consequence.
+        range: cwe_structured_text
+        close_mappings:
+          - sepses_cwe:consequenceNote
+
+  CweDetectionMethod:
+    description: One way of finding a weakness.
+    close_mappings:
+      - sepses_cwe:DetectionMethod
+    annotations:
+      xsd_type: DetectionMethodsType/Detection_Method
+    attributes:
+      Detection_Method_ID:
+        description: An identifier that lets entries share this text, such as DM-14.
+      Method:
+        description: The way of finding the weakness.
+        required: true
+        range: CweDetectionMethodName
+        exact_mappings:
+          - sepses_cwe:detectionMethod
+      Phase:
+        description: A life cycle stage where the method applies.
+        multivalued: true
+        range: CwePhase
+      Custom_Phase:
+        description: A stage from the life cycle of a field such as hardware or AI.
+        multivalued: true
+        range: CweCustomPhase
+        inlined: true
+        inlined_as_list: true
+      Description:
+        description: How the method applies to this weakness.
+        required: true
+        range: cwe_structured_text
+        exact_mappings:
+          - sepses_cwe:detectionDescription
+      Effectiveness:
+        description: How well the method finds the weakness.
+        range: CweDetectionEffectiveness
+        exact_mappings:
+          - sepses_cwe:detectionEffectiveness
+      Effectiveness_Notes:
+        description: The strengths and limits of the method here.
+        range: cwe_structured_text
+        exact_mappings:
+          - sepses_cwe:detectionEffectivenessNote
+
+  CweMitigation:
+    description: One way of preventing a weakness or reducing what it can do.
+    close_mappings:
+      - sepses_cwe:PotentialMitigation
+    annotations:
+      xsd_type: PotentialMitigationsType/Mitigation
+    attributes:
+      Mitigation_ID:
+        description: An identifier that lets entries share this text, such as MIT-5.
+      Phase:
+        description: A life cycle stage where the mitigation applies.
+        multivalued: true
+        range: CwePhase
+        close_mappings:
+          - sepses_cwe:mitigationPhase
+      Custom_Phase:
+        description: A stage from the life cycle of a field such as hardware or AI.
+        multivalued: true
+        range: CweCustomPhase
+        inlined: true
+        inlined_as_list: true
+      Strategy:
+        description: The general approach the mitigation follows.
+        range: CweMitigationStrategy
+      Description:
+        description: What to do, with its strengths and limits.
+        required: true
+        range: cwe_structured_text
+        exact_mappings:
+          - sepses_cwe:mitigationDescription
+      Effectiveness:
+        description: How well the mitigation prevents the weakness.
+        range: CweEffectiveness
+        exact_mappings:
+          - sepses_cwe:mitigationEffectiveness
+      Effectiveness_Notes:
+        description: The strengths and limits of the mitigation here.
+        range: cwe_structured_text
+        exact_mappings:
+          - sepses_cwe:mitigationEffectivenessNote
+
+  CweDemonstrativeExample:
+    description: A worked example of how a weakness looks in code.
+    annotations:
+      xsd_type: DemonstrativeExamplesType/Demonstrative_Example
+    attributes:
+      Demonstrative_Example_ID:
+        description: An identifier that lets entries share this example, such as DX-221.
+      Title_Text:
+        description: A title for the example.
+      Intro_Text:
+        description: The setting of the code, and what it is trying to do.
+        required: true
+        range: cwe_structured_text
+      Entries:
+        description: The example's prose and code, in the order they are meant to be read.
+        comments:
+          - >-
+            The XSD gives this list no name, because it writes a repeating choice of two
+            elements. The name is the one the CWE REST API uses, and it is the one key here
+            that is not in the XSD.
+        multivalued: true
+        range: CweExampleEntry
+        inlined: true
+        inlined_as_list: true
+
+  CweExampleEntry:
+    description: One step of a worked example, either some prose or some code.
+    annotations:
+      xsd_type: DemonstrativeExamplesType/Demonstrative_Example#choice
+    exactly_one_of:
+      - slot_conditions:
+          Body_Text:
+            required: true
+      - slot_conditions:
+          Example_Code:
+            required: true
+    attributes:
+      Body_Text:
+        description: Prose that explains the code around it.
+        range: cwe_structured_text
+      Example_Code:
+        description: A block of code.
+        range: CweExampleCode
+        inlined: true
+
+  CweExampleCode:
+    description: A block of code in a worked example.
+    annotations:
+      xsd_type: StructuredCodeType
+    attributes:
+      Nature:
+        description: What the code shows.
+        required: true
+        range: CweCodeNature
+      Language:
+        description: The language of the code.
+        range: CweLanguageName
+      Value:
+        description: The code, as an XHTML fragment with its special characters escaped.
+        range: cwe_structured_text
+        annotations:
+          xsd_text_of: StructuredTextType
+
+  CweObservedExample:
+    description: A real case of a weakness, usually a CVE record.
+    annotations:
+      xsd_type: ObservedExampleType/Observed_Example
+    attributes:
+      Reference:
+        description: The identifier of the case, such as a CVE identifier.
+        required: true
+        comments:
+          - >-
+            In CWE 5.0 it holds a CVE identifier in 3173 of 3183 cases and an external
+            reference such as [REF-1100] in the rest, so lmodel/cve's cveId is only related.
+        related_mappings:
+          - cve:cveId
+      Description:
+        description: What went wrong in that case, as it bears on the weakness.
+        required: true
+        range: cwe_structured_text
+      Link:
+        description: An address with more about the case.
+        required: true
+        range: uri
+      Rationale:
+        description: A hint at why this case was chosen.
+        multivalued: true
+        range: CweObservedExampleRationale
+
+  CweRelatedAttackPattern:
+    description: A pointer from a weakness to an attack pattern in the CAPEC list.
+    annotations:
+      xsd_type: RelatedAttackPatternsType/Related_Attack_Pattern
+    attributes:
+      CAPEC_ID:
+        description: The number of the attack pattern in the CAPEC list.
+        required: true
+        range: cwe_capec_id
+
+  CweStakeholder:
+    description: A group of people who may find a view useful.
+    annotations:
+      xsd_type: AudienceType/Stakeholder
+    attributes:
+      Type:
+        description: The group.
+        required: true
+        range: CweStakeholderType
+      Description:
+        description: What in the view this group may find useful.
+
+  CweMember:
+    description: A link from a grouping or a view to an entry it holds or belongs to, in one view.
+    annotations:
+      xsd_type: MemberType
+    attributes:
+      CWE_ID:
+        description: The entry at the other end of the link.
+        required: true
+        range: CweEntry
+        pattern: '^[1-9][0-9]*$'
+      View_ID:
+        description: The view in which the link holds.
+        required: true
+        range: CweView
+        pattern: '^[1-9][0-9]*$'
+      Dimensions:
+        description: The aspects in which the two entries differ.
+        multivalued: true
+        range: CweDimension
+        inlined: true
+        inlined_as_list: true
+
+  CweRelationships:
+    description: The entries that a grouping or a view holds or belongs to.
+    annotations:
+      xsd_type: RelationshipsType
+    any_of:
+      - slot_conditions:
+          Member_Of:
+            required: true
+      - slot_conditions:
+          Has_Member:
+            required: true
+    attributes:
+      Member_Of:
+        description: An entry that holds this one.
+        multivalued: true
+        range: CweMember
+        inlined: true
+        inlined_as_list: true
+      Has_Member:
+        description: An entry that this one holds.
+        multivalued: true
+        range: CweMember
+        inlined: true
+        inlined_as_list: true
+
+  CweMappingNotes:
+    description: Guidance on whether to map a real vulnerability to an entry, and on what to use instead.
+    annotations:
+      xsd_type: MappingNotesType
+    attributes:
+      Usage:
+        description: Whether the entry may be used for mapping.
+        required: true
+        range: CweUsage
+        exact_mappings:
+          - sepses_cwe:mappingUsage
+      Rationale:
+        description: Why the entry has that usage.
+        required: true
+        range: cwe_structured_text
+      Comments:
+        description: More advice for someone mapping to the entry.
+        required: true
+        range: cwe_structured_text
+      Reasons:
+        description: Short labels that sum up the usage.
+        required: true
+        multivalued: true
+        range: CweMappingReason
+        inlined: true
+        inlined_as_list: true
+      Suggestions:
+        description: Other weaknesses that may suit the mapping better.
+        multivalued: true
+        range: CweMappingSuggestion
+        inlined: true
+        inlined_as_list: true
+
+  CweMappingReason:
+    description: One short label that sums up the usage of an entry.
+    annotations:
+      xsd_type: ReasonsType/Reason
+    attributes:
+      Type:
+        description: The label.
+        required: true
+        range: CweReason
+
+  CweMappingSuggestion:
+    description: A weakness that may suit a mapping better than this entry.
+    annotations:
+      xsd_type: SuggestionsType/Suggestion
+    attributes:
+      CWE_ID:
+        description: The suggested weakness.
+        required: true
+        range: CweWeakness
+        pattern: '^[1-9][0-9]*$'
+      Comment:
+        description: When the suggestion applies.
+        required: true

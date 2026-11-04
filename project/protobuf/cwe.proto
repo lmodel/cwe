@@ -1,322 +1,1147 @@
- syntax="proto3";
- package
-// metamodel_version: 1.7.0
-// version: 7.3
-// Another name by which this weakness may be known (AlternateTermsType/Alternate_Term in XSD).
-message AlternateTerm
- {
-  string term = 0
-  string description = 0
- }
-// Languages, operating systems, architectures, and technologies where a weakness could appear (ApplicablePlatformsType in XSD).
-message ApplicablePlatforms
- {
- repeated  languagePlatform languages = 0
- repeated  oSPlatform operatingSystems = 0
- repeated  architecturePlatform architectures = 0
- repeated  technologyPlatform technologies = 0
- }
-// A processor architecture or class applicable to a weakness (Architecture element in ApplicablePlatformsType).
-message ArchitecturePlatform
- {
-  architectureName name = 0
-  architectureClass class = 0
-  platformPrevalence prevalence = 0
- }
-// A target stakeholder group for a CWE view or category (AudienceType/Stakeholder in XSD).
-message Audience
- {
-  stakeholderType type = 0
-  string description = 0
- }
-// A Has_Member or Member_Of entry specifying a CWE ID and the View ID in which the membership holds (MemberType in XSD).
-message CatalogMember
- {
-  integer cweId = 0
-  integer viewId = 0
- }
-// A collection of weaknesses grouped by a shared characteristic (CategoryType in XSD). Organizational mechanism only; not for mapping.
-message Category
- {
-  integer id = 0
-  string name = 0
-  weaknessStatus status = 0
-  string summary = 0
-  relationship relationships = 0
- repeated  taxonomyMapping taxonomyMappings = 0
- repeated  cWEReference references = 0
-  mappingNotes mappingNotes = 0
- repeated  note notes = 0
-  contentHistory contentHistory = 0
- }
-// Individual consequence associated with a weakness (CommonConsequencesType/Consequence in XSD).
-message CommonConsequence
- {
-  string consequenceId = 0
- repeated  securityScope scopes = 0
- repeated  technicalImpact impacts = 0
-  likelihoodLevel likelihood = 0
-  string note = 0
- }
-// Tracks the original author and subsequent modifications (ContentHistoryType in XSD).
-message ContentHistory
- {
-  submission submission = 0
- repeated  modification modifications = 0
- repeated  contribution contributions = 0
- repeated  previousEntryName previousEntryNames = 0
- }
-// A contribution record documenting donated content or feedback (ContentHistoryType/Contribution in XSD).
-message Contribution
- {
-  contributionType type = 0
-  string contributionName = 0
-  string contributionOrganization = 0
-  date contributionDate = 0
-  string contributionVersion = 0
-  date contributionReleaseDate = 0
-  string contributionComment = 0
- }
-// Link from a CWE entry to an ExternalReference in the catalog (ReferencesType/Reference in XSD).
-message CWEReference
- {
-  string externalReferenceId = 0
-  string section = 0
- }
-// A code example illustrating how a weakness may appear (DemonstrativeExamplesType/Demonstrative_Example in XSD).
-message DemonstrativeExample
- {
-  string demonstrativeExampleId = 0
-  string titleText = 0
-  string introText = 0
- repeated  string bodyTexts = 0
- repeated  exampleCode exampleCodes = 0
- repeated  cWEReference references = 0
- }
-// A method that may be employed to detect a weakness, with effectiveness (DetectionMethodsType/Detection_Method in XSD).
-message DetectionMethod
- {
-  string detectionMethodId = 0
-  detectionMethodType method = 0
-  string description = 0
-  detectionEffectiveness effectiveness = 0
-  string effectivenessNotes = 0
- }
-// A structured code snippet within a demonstrative example (StructuredCodeType in XSD).
-message ExampleCode
- {
-  codeNature nature = 0
-  programmingLanguage language = 0
-  string content = 0
- }
-// Pointer to external reading material shared across CWE entries (ExternalReferenceType in XSD). Identified by Reference_ID (e.g. REF-1).
-message ExternalReference
- {
-  string referenceId = 0
-  string title = 0
- repeated  string authors = 0
-  string edition = 0
-  string publication = 0
-  string publicationYear = 0
-  string publicationMonth = 0
-  string publicationDay = 0
-  string publisher = 0
-  uri url = 0
-  date urlDate = 0
- }
-// A programming language or language class applicable to a weakness with associated prevalence (Language element in ApplicablePlatformsType).
-message LanguagePlatform
- {
-  programmingLanguage name = 0
-  languageClass class = 0
-  platformPrevalence prevalence = 0
- }
-// Guidance for when and whether to map an issue to a CWE entry (MappingNotesType in XSD). Required on every Weakness, Category, and View.
-message MappingNotes
- {
-  mappingUsage usage = 0
-  string rationale = 0
-  string comments = 0
- repeated  mappingReason reasons = 0
- repeated  mappingSuggestion suggestions = 0
- }
-// A suggested alternative CWE entry for mapping purposes (SuggestionsType/Suggestion in XSD).
-message MappingSuggestion
- {
-  integer cweId = 0
-  string comment = 0
- }
-// Information about how and when a weakness may be introduced (ModesOfIntroductionType/Introduction in XSD).
-message ModeOfIntroduction
- {
-  lifecyclePhase phase = 0
-  string note = 0
- }
-// A modification record documenting a change to a CWE entry (ContentHistoryType/Modification in XSD).
-message Modification
- {
-  string modificationName = 0
-  string modificationOrganization = 0
-  date modificationDate = 0
-  string modificationVersion = 0
-  date modificationReleaseDate = 0
-  contentImportance modificationImportance = 0
-  string modificationComment = 0
- }
-// Additional commentary about a CWE entry (NotesType/Note in XSD).
-message Note
- {
-  noteType type = 0
-  string content = 0
- }
-// Weakness observation from an NVD vulnerability detail page.
-message NVDWeaknessObservation
- {
-  string observationId = 0
-  cveId observedInCve = 0
-  weakness weakness = 0
-  weaknessSource reportedBy = 0
-  string source = 0
- }
-// A reference to a real-world instance of a weakness, typically a CVE (ObservedExampleType/Observed_Example in XSD).
-message ObservedExample
- {
-  string reference = 0
-  string description = 0
-  uri link = 0
- }
-// An operating system or OS class applicable to a weakness (Operating_System element in ApplicablePlatformsType).
-message OSPlatform
- {
-  operatingSystemName name = 0
-  operatingSystemClass class = 0
-  string version = 0
-  string cpeId = 0
-  platformPrevalence prevalence = 0
- }
-// A potential mitigation for a weakness (PotentialMitigationsType/Mitigation in XSD).
-message PotentialMitigation
- {
-  string mitigationId = 0
- repeated  lifecyclePhase phases = 0
-  mitigationStrategy strategy = 0
-  string description = 0
-  mitigationEffectiveness effectiveness = 0
-  string effectivenessNotes = 0
- }
-// A previous name used for a CWE entry before a substantive rename (ContentHistoryType/Previous_Entry_Name in XSD).
-message PreviousEntryName
- {
-  string name = 0
-  date date = 0
-  string version = 0
- }
-// Typed directional relationship from one CWE entry to another (RelatedWeaknessesType/Related_Weakness in XSD).
-message RelatedWeakness
- {
-  weaknessRelationNature nature = 0
-  integer cweId = 0
-  integer viewId = 0
-  integer chainId = 0
-  ordinalQualifier ordinal = 0
- }
-// Container for category membership relationships (RelationshipsType in XSD). Holds Has_Member and optionally Member_Of lists.
-message Relationship
- {
- repeated  catalogMember hasMember = 0
- repeated  catalogMember memberOf = 0
- }
-// Initial submission record for a CWE entry (ContentHistoryType/Submission in XSD).
-message Submission
- {
-  string submissionName = 0
-  string submissionOrganization = 0
-  date submissionDate = 0
-  string submissionVersion = 0
-  date submissionReleaseDate = 0
-  string submissionComment = 0
- }
-// A mapping from a CWE entry to an equivalent entry in an external taxonomy (TaxonomyMappingsType/Taxonomy_Mapping in XSD).
-message TaxonomyMapping
- {
-  taxonomyName taxonomyName = 0
-  string entryId = 0
-  string entryName = 0
-  taxonomyMappingFit mappingFit = 0
- }
-// A technology or technology class applicable to a weakness (Technology element in ApplicablePlatformsType).
-message TechnologyPlatform
- {
-  technologyName name = 0
-  technologyClass class = 0
-  platformPrevalence prevalence = 0
- }
-// A perspective from which to look at weaknesses in the catalog (ViewType in XSD). Types: Graph, Explicit slice, Implicit slice.
-message View
- {
-  integer id = 0
-  string name = 0
-  cWEViewType type = 0
-  weaknessStatus status = 0
-  string objective = 0
- repeated  audience audience = 0
- repeated  catalogMember members = 0
-  string filter = 0
- repeated  cWEReference references = 0
-  mappingNotes mappingNotes = 0
- repeated  note notes = 0
-  contentHistory contentHistory = 0
- }
-// Canonical CWE weakness record (WeaknessType in XSD). Describes a specific type of weakness and the full set of associated information.
-message Weakness
- {
-  integer id = 0
-  string name = 0
-  string description = 0
-  string extendedDescription = 0
-  weaknessAbstraction abstraction = 0
-  weaknessStructure structure = 0
-  weaknessStatus status = 0
-  string diagram = 0
- repeated  weaknessOrdinality weaknessOrdinalities = 0
-  applicablePlatforms applicablePlatforms = 0
- repeated  string backgroundDetails = 0
- repeated  alternateTerm alternateTerms = 0
- repeated  modeOfIntroduction modesOfIntroduction = 0
- repeated  string exploitationFactors = 0
-  likelihoodLevel likelihoodOfExploit = 0
- repeated  commonConsequence commonConsequences = 0
- repeated  detectionMethod detectionMethods = 0
- repeated  potentialMitigation potentialMitigations = 0
- repeated  demonstrativeExample demonstrativeExamples = 0
- repeated  observedExample observedExamples = 0
- repeated  functionalArea functionalAreas = 0
- repeated  affectedResource affectedResources = 0
- repeated  taxonomyMapping taxonomyMappings = 0
- repeated  integer relatedAttackPatterns = 0
- repeated  relatedWeakness relatedWeaknesses = 0
- repeated  cWEReference references = 0
-  mappingNotes mappingNotes = 0
- repeated  note notes = 0
-  contentHistory contentHistory = 0
- repeated  string tags = 0
-  string source = 0
- }
-// Top-level container for a CWE catalog snapshot (Weakness_Catalog in XSD). Holds weakness entries, categories, views, external references, and NVD weakness observations.
-message WeaknessCatalog
- {
-  string name = 0
-  string version = 0
-  date date = 0
- repeated  weakness weaknesses = 0
- repeated  category categories = 0
- repeated  view views = 0
- repeated  externalReference externalReferences = 0
- repeated  nVDWeaknessObservation observations = 0
- }
-// Potential ordering relationship with other weaknesses (WeaknessOrdinalitiesType/Weakness_Ordinality in XSD).
-message WeaknessOrdinality
- {
-  weaknessOrdinalityLevel ordinality = 0
-  string description = 0
- }
+syntax = "proto3";
+package cwe;
+// metamodel_version: 1.12.0
+// version: 5.0
+// Another name people use for a weakness.
+message CweAlternateTerm {
+  // The name.
+  string Term = 1;
+  // The part the name plays when people talk about the weakness.
+  repeated CweAlternateTermRole Role = 2;
+  // When and how the name is used.
+  string Description = 3;
+}
+// The kinds of platform where a weakness can appear.
+message CweApplicablePlatforms {
+  // A programming language, or a family of them.
+  repeated CweLanguagePlatform Language = 1;
+  // An operating system, or a family of them.
+  repeated CweOperatingSystemPlatform Operating_System = 2;
+  // A hardware architecture, or a family of them.
+  repeated CweArchitecturePlatform Architecture = 3;
+  // A technology, or a family of them.
+  repeated CweTechnologyPlatform Technology = 4;
+}
+// A hardware architecture where a weakness can appear, named or by its family.
+message CweArchitecturePlatform {
+  // The name of the architecture.
+  CweArchitectureName Name = 1;
+  // The family of architectures.
+  CweArchitectureClass Class = 2;
+  // How regularly the weakness applies here.
+  CwePrevalence Prevalence = 3;
+  // A remark on this platform.
+  string Note = 4;
+}
+// One thing that can follow when a weakness is exploited.
+message CweConsequence {
+  // An identifier for this consequence.
+  string Consequence_ID = 1;
+  // A security property the consequence violates.
+  repeated CweScope Scope = 2;
+  // What an attacker can achieve.
+  repeated CweTechnicalImpact Impact = 3;
+  // How likely this consequence is beside the others.
+  CweLikelihood Likelihood = 4;
+  // A remark on the consequence.
+  string Note = 5;
+}
+// The record of who wrote an entry and how it has changed since.
+message CweContentHistory {
+  // The original submission of the entry, or each of several.
+  repeated CweSubmission Submission = 1;
+  // A change made to the entry.
+  repeated CweModification Modification = 2;
+  // Feedback or content that someone gave to the entry.
+  repeated CweContribution Contribution = 3;
+  // A name the entry used to have.
+  repeated CwePreviousEntryName Previous_Entry_Name = 4;
+}
+// Feedback or content that someone gave to an entry.
+message CweContribution {
+  // Whether the contribution was feedback or content.
+  CweContributionType Type = 1;
+  // A person or group who contributed.
+  repeated string Contribution_Name = 2;
+  // The organization the contributor belongs to.
+  string Contribution_Organization = 3;
+  // The date of the contribution.
+  string Contribution_Date = 4;
+  // The first CWE version that held the contribution.
+  string Contribution_Version = 5;
+  // The release date of that version.
+  string Contribution_ReleaseDate = 6;
+  // A remark on the contribution.
+  string Contribution_Comment = 7;
+}
+// A life cycle stage from a field whose stages differ from those of software.
+message CweCustomPhase {
+  // The field whose life cycle the stage belongs to.
+  CweCustomPhaseDomain Domain = 1;
+  // The stage.
+  string Value = 2;
+}
+// A worked example of how a weakness looks in code.
+message CweDemonstrativeExample {
+  // An identifier that lets entries share this example, such as DX-221.
+  string Demonstrative_Example_ID = 1;
+  // A title for the example.
+  string Title_Text = 2;
+  // The setting of the code, and what it is trying to do.
+  string Intro_Text = 3;
+  // The example's prose and code, in the order they are meant to be read.
+  repeated CweExampleEntry Entries = 4;
+}
+// One way of finding a weakness.
+message CweDetectionMethod {
+  // An identifier that lets entries share this text, such as DM-14.
+  string Detection_Method_ID = 1;
+  // The way of finding the weakness.
+  CweDetectionMethodName Method = 2;
+  // A life cycle stage where the method applies.
+  repeated CwePhase Phase = 3;
+  // A stage from the life cycle of a field such as hardware or AI.
+  repeated CweCustomPhase Custom_Phase = 4;
+  // How the method applies to this weakness.
+  string Description = 5;
+  // How well the method finds the weakness.
+  CweDetectionEffectiveness Effectiveness = 6;
+  // The strengths and limits of the method here.
+  string Effectiveness_Notes = 7;
+}
+// One aspect of a weakness, or of how two weaknesses differ, named in a word or two.
+message CweDimension {
+  // The kind of aspect, such as a behaviour or a resource.
+  CweDimensionType Type = 1;
+  // The aspect itself, such as Generation or Page.
+  string Value = 2;
+}
+// Any item of the CWE List that has an identifier of its own: a weakness, a grouping or a view.
+message CweEntry {
+  // The number that identifies the entry across the whole list.
+  string ID = 1;
+  // The name of the entry.
+  string Name = 2;
+  // How far the entry has come and how much it can be trusted.
+  CweStatus Status = 3;
+  // The external references the entry cites.
+  repeated CweReference References = 4;
+  // Guidance on whether to map a real vulnerability to this entry.
+  CweMappingNotes Mapping_Notes = 5;
+  // Remarks on the entry that fit nowhere else.
+  repeated CweNote Notes = 6;
+  // Who wrote the entry and how it has changed since.
+  CweContentHistory Content_History = 7;
+}
+// A block of code in a worked example.
+message CweExampleCode {
+  // What the code shows.
+  CweCodeNature Nature = 1;
+  // The language of the code.
+  CweLanguageName Language = 2;
+  // The code, as an XHTML fragment with its special characters escaped.
+  string Value = 3;
+}
+// One step of a worked example, either some prose or some code.
+message CweExampleEntry {
+  // Prose that explains the code around it.
+  string Body_Text = 1;
+  // A block of code.
+  CweExampleCode Example_Code = 2;
+}
+// A source that entries of the catalogue cite, such as a paper, a book or a web page.
+message CweExternalReference {
+  // The identifier entries use to cite this source.
+  string Reference_ID = 1;
+  // A person or group who wrote the source.
+  repeated string Author = 2;
+  // The title of the source.
+  string Title = 3;
+  // The edition of the source.
+  string Edition = 4;
+  // The journal, conference or other publication that holds the source.
+  string Publication = 5;
+  // The year the source came out.
+  string Publication_Year = 6;
+  // The month the source came out.
+  string Publication_Month = 7;
+  // The day of the month the source came out.
+  string Publication_Day = 8;
+  // Who published the source.
+  string Publisher = 9;
+  // An address where the source can be read.
+  string URL = 10;
+  // The date on which the address was last seen to work.
+  string URL_Date = 11;
+  // Another address of the source, usually one with fewer restrictions.
+  string Alt_URL = 12;
+  // The date on which the other address was last seen to work.
+  string Alt_URL_Date = 13;
+  // A form the source takes.
+  repeated CweReferenceMediaType Media_Type = 14;
+  // What stands between a reader and the source.
+  CweReferenceAccessRestriction Access_Restrictions = 15;
+  // A hint at why the source was cited.
+  repeated CweReferenceRationale Rationale = 16;
+}
+// A set of weaknesses gathered by something they share, for browsing and not for mapping real vulnerabilities to. Schema versions before 8.0 called it a category.
+message CweGrouping {
+  // The number that identifies the entry across the whole list.
+  string ID = 1;
+  // The name of the entry.
+  string Name = 2;
+  // How far the entry has come and how much it can be trusted.
+  CweStatus Status = 3;
+  // The external references the entry cites.
+  repeated CweReference References = 4;
+  // Guidance on whether to map a real vulnerability to this entry.
+  CweMappingNotes Mapping_Notes = 5;
+  // Remarks on the entry that fit nowhere else.
+  repeated CweNote Notes = 6;
+  // Who wrote the entry and how it has changed since.
+  CweContentHistory Content_History = 7;
+  // What the grouped weaknesses have in common.
+  string Summary = 8;
+  // The entries this grouping holds.
+  CweRelationships Relationships = 9;
+  // Links to entries of other taxonomies.
+  repeated CweTaxonomyMapping Taxonomy_Mappings = 10;
+}
+// One way a weakness can get into a product.
+message CweIntroduction {
+  // A life cycle stage where the weakness can get in.
+  repeated CwePhase Phase = 1;
+  // A stage from the life cycle of a field such as hardware or AI.
+  repeated CweCustomPhase Custom_Phase = 2;
+  // The usual way this happens.
+  string Note = 3;
+}
+// A language where a weakness can appear, named or by its family.
+message CweLanguagePlatform {
+  // The name of the language.
+  CweLanguageName Name = 1;
+  // The family of languages.
+  CweLanguageClass Class = 2;
+  // How regularly the weakness applies here.
+  CwePrevalence Prevalence = 3;
+  // A remark on this platform.
+  string Note = 4;
+}
+// Guidance on whether to map a real vulnerability to an entry, and on what to use instead.
+message CweMappingNotes {
+  // Whether the entry may be used for mapping.
+  CweUsage Usage = 1;
+  // Why the entry has that usage.
+  string Rationale = 2;
+  // More advice for someone mapping to the entry.
+  string Comments = 3;
+  // Short labels that sum up the usage.
+  repeated CweMappingReason Reasons = 4;
+  // Other weaknesses that may suit the mapping better.
+  repeated CweMappingSuggestion Suggestions = 5;
+}
+// One short label that sums up the usage of an entry.
+message CweMappingReason {
+  // The label.
+  CweReason Type = 1;
+}
+// A weakness that may suit a mapping better than this entry.
+message CweMappingSuggestion {
+  // The suggested weakness.
+  CweWeakness CWE_ID = 1;
+  // When the suggestion applies.
+  string Comment = 2;
+}
+// A link from a grouping or a view to an entry it holds or belongs to, in one view.
+message CweMember {
+  // The entry at the other end of the link.
+  CweEntry CWE_ID = 1;
+  // The view in which the link holds.
+  CweView View_ID = 2;
+  // The aspects in which the two entries differ.
+  repeated CweDimension Dimensions = 3;
+}
+// One way of preventing a weakness or reducing what it can do.
+message CweMitigation {
+  // An identifier that lets entries share this text, such as MIT-5.
+  string Mitigation_ID = 1;
+  // A life cycle stage where the mitigation applies.
+  repeated CwePhase Phase = 2;
+  // A stage from the life cycle of a field such as hardware or AI.
+  repeated CweCustomPhase Custom_Phase = 3;
+  // The general approach the mitigation follows.
+  CweMitigationStrategy Strategy = 4;
+  // What to do, with its strengths and limits.
+  string Description = 5;
+  // How well the mitigation prevents the weakness.
+  CweEffectiveness Effectiveness = 6;
+  // The strengths and limits of the mitigation here.
+  string Effectiveness_Notes = 7;
+}
+// One change made to an entry.
+message CweModification {
+  // The person who made or suggested the change.
+  string Modification_Name = 1;
+  // The organization that person belongs to.
+  string Modification_Organization = 2;
+  // The date of the change.
+  string Modification_Date = 3;
+  // The first CWE version that held the change.
+  string Modification_Version = 4;
+  // The release date of that version.
+  string Modification_ReleaseDate = 5;
+  // How much the change matters to people who rely on the entry.
+  CweImportance Modification_Importance = 6;
+  // What changed.
+  string Modification_Comment = 7;
+}
+// A remark on an entry that fits nowhere else.
+message CweNote {
+  // What the note is about.
+  CweNoteType Type = 1;
+  // The CWE version the note belongs to.
+  string Version = 2;
+  // The release date of that version.
+  string ReleaseDate = 3;
+  // The text of the note.
+  string Value = 4;
+}
+// A real case of a weakness, usually a CVE record.
+message CweObservedExample {
+  // The identifier of the case, such as a CVE identifier.
+  string Reference = 1;
+  // What went wrong in that case, as it bears on the weakness.
+  string Description = 2;
+  // An address with more about the case.
+  string Link = 3;
+  // A hint at why this case was chosen.
+  repeated CweObservedExampleRationale Rationale = 4;
+}
+// An operating system where a weakness can appear, named or by its family.
+message CweOperatingSystemPlatform {
+  // The name of the operating system.
+  CweOperatingSystemName Name = 1;
+  // The version of the operating system.
+  string Version = 2;
+  // The Common Platform Enumeration name of the operating system.
+  string CPE_ID = 3;
+  // The family of operating systems.
+  CweOperatingSystemClass Class = 4;
+  // How regularly the weakness applies here.
+  CwePrevalence Prevalence = 5;
+  // A remark on this platform.
+  string Note = 6;
+}
+// A name an entry had before.
+message CwePreviousEntryName {
+  // The date the name stopped being used.
+  string Date = 1;
+  // The CWE version in which the name changed.
+  string Version = 2;
+  // The earlier name.
+  string Value = 3;
+}
+// A citation of an external reference from an entry or from one of its parts.
+message CweReference {
+  // The external reference being cited.
+  CweExternalReference External_Reference_ID = 1;
+  // The section or page of the source that this citation means.
+  string Section = 2;
+}
+// A pointer from a weakness to an attack pattern in the CAPEC list.
+message CweRelatedAttackPattern {
+  // The number of the attack pattern in the CAPEC list.
+  string CAPEC_ID = 1;
+}
+// A link from a weakness to another weakness, in one view.
+message CweRelatedWeakness {
+  // How the two weaknesses relate.
+  CweRelatedNature Nature = 1;
+  // The weakness at the other end of the link.
+  CweWeakness CWE_ID = 2;
+  // The view in which the link holds.
+  CweView View_ID = 3;
+  // The named chain that the link belongs to.
+  CweWeakness Chain_ID = 4;
+  // Marks this as the link to prefer in the view.
+  CweOrdinal Ordinal = 5;
+  // The aspects in which the two weaknesses differ.
+  repeated CweDimension Dimensions = 6;
+}
+// The entries that a grouping or a view holds or belongs to.
+message CweRelationships {
+  // An entry that holds this one.
+  repeated CweMember Member_Of = 1;
+  // An entry that this one holds.
+  repeated CweMember Has_Member = 2;
+}
+// A group of people who may find a view useful.
+message CweStakeholder {
+  // The group.
+  CweStakeholderType Type = 1;
+  // What in the view this group may find useful.
+  string Description = 2;
+}
+// Who first submitted an entry, and when it joined the list.
+message CweSubmission {
+  // A person or group who submitted the entry.
+  repeated string Submission_Name = 1;
+  // The organization the submitter belongs to.
+  string Submission_Organization = 2;
+  // The date of the submission.
+  string Submission_Date = 3;
+  // The first CWE version that held the submission.
+  string Submission_Version = 4;
+  // The release date of that version.
+  string Submission_ReleaseDate = 5;
+  // A remark on the submission.
+  string Submission_Comment = 6;
+}
+// A link from an entry to an entry of another taxonomy.
+message CweTaxonomyMapping {
+  // The other taxonomy.
+  CweTaxonomyName Taxonomy_Name = 1;
+  // The identifier of the entry in the other taxonomy.
+  string Entry_ID = 2;
+  // The name of the entry in the other taxonomy.
+  string Entry_Name = 3;
+  // How closely the two entries match.
+  CweMappingFit Mapping_Fit = 4;
+}
+// A technology where a weakness can appear, named or by its family.
+message CweTechnologyPlatform {
+  // The name of the technology.
+  CweTechnologyName Name = 1;
+  // The family of technologies.
+  CweTechnologyClass Class = 2;
+  // How regularly the weakness applies here.
+  CwePrevalence Prevalence = 3;
+  // A remark on this platform.
+  string Note = 4;
+}
+// A way of looking at the catalogue, as a subset of its entries seen from one standpoint.
+message CweView {
+  // The number that identifies the entry across the whole list.
+  string ID = 1;
+  // The name of the entry.
+  string Name = 2;
+  // How far the entry has come and how much it can be trusted.
+  CweStatus Status = 3;
+  // The external references the entry cites.
+  repeated CweReference References = 4;
+  // Guidance on whether to map a real vulnerability to this entry.
+  CweMappingNotes Mapping_Notes = 5;
+  // Remarks on the entry that fit nowhere else.
+  repeated CweNote Notes = 6;
+  // Who wrote the entry and how it has changed since.
+  CweContentHistory Content_History = 7;
+  // How the view selects and arranges its entries.
+  CweViewType Type = 8;
+  // What the view is for.
+  string Objective = 9;
+  // The people who may find the view useful, and why.
+  repeated CweStakeholder Audience = 10;
+  // The entries a view names one by one, when it is not selected by a filter.
+  CweRelationships Members = 11;
+  // The XPath expression that selects the entries of an implicit slice.
+  string Filter = 12;
+}
+// A type of mistake or condition in software, firmware, hardware or a service that can leave a product open to attack.
+message CweWeakness {
+  // The number that identifies the entry across the whole list.
+  string ID = 1;
+  // The name of the entry.
+  string Name = 2;
+  // How far the entry has come and how much it can be trusted.
+  CweStatus Status = 3;
+  // The external references the entry cites.
+  repeated CweReference References = 4;
+  // Guidance on whether to map a real vulnerability to this entry.
+  CweMappingNotes Mapping_Notes = 5;
+  // Remarks on the entry that fit nowhere else.
+  repeated CweNote Notes = 6;
+  // Who wrote the entry and how it has changed since.
+  CweContentHistory Content_History = 7;
+  // How far the weakness is described in general terms or tied to a specific product.
+  CweAbstraction Abstraction = 8;
+  // Whether the weakness stands alone or is made up of others.
+  CweStructure Structure = 9;
+  // The path on MITRE's site of a diagram of the weakness.
+  string Diagram = 10;
+  // A sentence or two that define the weakness.
+  string Description = 11;
+  // More about the weakness than its short description gives.
+  string Extended_Description = 12;
+  // Finer technical detail that helps tell this weakness from close relatives.
+  string Technical_Nuance = 13;
+  // The aspects of the weakness that this entry centres on.
+  repeated CweDimension Dimensions = 14;
+  // How this weakness relates to others in the list.
+  repeated CweRelatedWeakness Related_Weaknesses = 15;
+  // Whether the weakness tends to be a first cause or the result of another.
+  repeated CweWeaknessOrdinality Weakness_Ordinalities = 16;
+  // The languages, systems, architectures and technologies where the weakness can appear.
+  CweApplicablePlatforms Applicable_Platforms = 17;
+  // Background that helps a reader but does not describe the weakness itself.
+  repeated string Background_Details = 18;
+  // Other names people use for the weakness.
+  repeated CweAlternateTerm Alternate_Terms = 19;
+  // How and when the weakness can get into a product.
+  repeated CweIntroduction Modes_Of_Introduction = 20;
+  // Conditions that make exploiting the weakness more likely.
+  repeated string Exploitation_Factors = 21;
+  // How likely it is that the weakness gets exploited.
+  CweLikelihood Likelihood_Of_Exploit = 22;
+  // What can follow when the weakness is exploited.
+  repeated CweConsequence Common_Consequences = 23;
+  // Ways of finding the weakness, with what each is good for.
+  repeated CweDetectionMethod Detection_Methods = 24;
+  // Ways of preventing the weakness or reducing what it can do.
+  repeated CweMitigation Potential_Mitigations = 25;
+  // Worked examples of how the weakness looks in code.
+  repeated CweDemonstrativeExample Demonstrative_Examples = 26;
+  // Real cases of the weakness, usually CVE records.
+  repeated CweObservedExample Observed_Examples = 27;
+  // The parts of a product where the weakness tends to appear.
+  repeated CweFunctionalArea Functional_Areas = 28;
+  // The system resources that exploiting the weakness can affect.
+  repeated CweResource Affected_Resources = 29;
+  // Links to entries of other taxonomies.
+  repeated CweTaxonomyMapping Taxonomy_Mappings = 30;
+  // Attack patterns that may apply where the weakness is present.
+  repeated CweRelatedAttackPattern Related_Attack_Patterns = 31;
+}
+// One release of the CWE List, with all its entries and the sources they cite.
+message CweWeaknessCatalog {
+  // The name of the catalogue, which is CWE.
+  string Name = 1;
+  // The version of this release.
+  string Version = 2;
+  // The date of this release.
+  string Date = 3;
+  // The weakness entries.
+  repeated CweWeakness Weaknesses = 4;
+  // The grouping entries.
+  repeated CweGrouping Groupings = 5;
+  // The view entries.
+  repeated CweView Views = 6;
+  // The sources that the entries cite.
+  repeated CweExternalReference External_References = 7;
+}
+// Whether a weakness tends to be a first cause or the result of another.
+message CweWeaknessOrdinality {
+  // The position in the sequence of causes.
+  CweOrdinality Ordinality = 1;
+  // The setting in which the weakness takes this position.
+  string Description = 2;
+}
+
+// How far a weakness is described in general terms or tied to a specific product or resource.
+enum CweAbstraction {
+  CWE_ABSTRACTION_UNSPECIFIED = 0;
+  CWE_ABSTRACTION_PILLAR = 1;
+  CWE_ABSTRACTION_CLASS = 2;
+  CWE_ABSTRACTION_BASE = 3;
+  CWE_ABSTRACTION_VARIANT = 4;
+  CWE_ABSTRACTION_COMPOUND = 5;
+}
+// A stage of the life cycle of an artificial intelligence system.
+enum CweAiPhase {
+  CWE_AI_PHASE_UNSPECIFIED = 0;
+  CWE_AI_PHASE_DATA_COLLECTION = 1;
+  CWE_AI_PHASE_TRAINING = 2;
+  CWE_AI_PHASE_FINE_TUNING = 3;
+  CWE_AI_PHASE_TESTING = 4;
+  CWE_AI_PHASE_TOKENIZATION = 5;
+  CWE_AI_PHASE_PROMPTING = 6;
+  CWE_AI_PHASE_OUTPUT_PROCESSING = 7;
+  CWE_AI_PHASE_COMPONENT_INTERACTION = 8;
+  CWE_AI_PHASE_RE_TRAINING_FEEDBACK = 9;
+}
+// The part an alternate term plays when people talk about a weakness.
+enum CweAlternateTermRole {
+  CWE_ALTERNATE_TERM_ROLE_UNSPECIFIED = 0;
+  CWE_ALTERNATE_TERM_ROLE_ABBREVIATION = 1;
+  CWE_ALTERNATE_TERM_ROLE_ACRONYM = 2;
+  CWE_ALTERNATE_TERM_ROLE_ALTERNATE_SPELLING = 3;
+  CWE_ALTERNATE_TERM_ROLE_ATTACK_FOCUSED = 4;
+  CWE_ALTERNATE_TERM_ROLE_IMPACT_ORIENTED = 5;
+  CWE_ALTERNATE_TERM_ROLE_MULTI_WEAKNESS = 6;
+  CWE_ALTERNATE_TERM_ROLE_MULTIPLE_INTERPRETATION = 7;
+  CWE_ALTERNATE_TERM_ROLE_COMMON_NAME = 8;
+  CWE_ALTERNATE_TERM_ROLE_DISCOURAGED = 9;
+  CWE_ALTERNATE_TERM_ROLE_LEGACY = 10;
+  CWE_ALTERNATE_TERM_ROLE_OTHER = 11;
+}
+// A broad family of hardware architectures.
+enum CweArchitectureClass {
+  CWE_ARCHITECTURE_CLASS_UNSPECIFIED = 0;
+  CWE_ARCHITECTURE_CLASS_EMBEDDED = 1;
+  CWE_ARCHITECTURE_CLASS_MICROCOMPUTER = 2;
+  CWE_ARCHITECTURE_CLASS_WORKSTATION = 3;
+  CWE_ARCHITECTURE_CLASS_NOT_ARCHITECTURE_SPECIFIC = 4;
+}
+// A named hardware architecture.
+enum CweArchitectureName {
+  CWE_ARCHITECTURE_NAME_UNSPECIFIED = 0;
+  CWE_ARCHITECTURE_NAME_ALPHA = 1;
+  CWE_ARCHITECTURE_NAME_ARM = 2;
+  CWE_ARCHITECTURE_NAME_ITANIUM = 3;
+  CWE_ARCHITECTURE_NAME_POWER_ARCHITECTURE = 4;
+  CWE_ARCHITECTURE_NAME_SPARC = 5;
+  CWE_ARCHITECTURE_NAME_X86 = 6;
+  CWE_ARCHITECTURE_NAME_OTHER = 7;
+}
+// What a block of example code shows.
+enum CweCodeNature {
+  CWE_CODE_NATURE_UNSPECIFIED = 0;
+  CWE_CODE_NATURE_ATTACK = 1;
+  CWE_CODE_NATURE_BAD = 2;
+  CWE_CODE_NATURE_GOOD = 3;
+  CWE_CODE_NATURE_INFORMATIVE = 4;
+  CWE_CODE_NATURE_MITIGATION = 5;
+  CWE_CODE_NATURE_RESULT = 6;
+}
+// What a contribution to an entry consisted of.
+enum CweContributionType {
+  CWE_CONTRIBUTION_TYPE_UNSPECIFIED = 0;
+  CWE_CONTRIBUTION_TYPE_CONTENT = 1;
+  CWE_CONTRIBUTION_TYPE_FEEDBACK = 2;
+}
+// The field whose own life cycle a custom phase belongs to.
+enum CweCustomPhaseDomain {
+  CWE_CUSTOM_PHASE_DOMAIN_UNSPECIFIED = 0;
+  CWE_CUSTOM_PHASE_DOMAIN_AI = 1;
+  CWE_CUSTOM_PHASE_DOMAIN_HARDWARE = 2;
+}
+// How well a detection method finds a weakness.
+enum CweDetectionEffectiveness {
+  CWE_DETECTION_EFFECTIVENESS_UNSPECIFIED = 0;
+  CWE_DETECTION_EFFECTIVENESS_HIGH = 1;
+  CWE_DETECTION_EFFECTIVENESS_MODERATE = 2;
+  CWE_DETECTION_EFFECTIVENESS_SOAR_PARTIAL = 3;
+  CWE_DETECTION_EFFECTIVENESS_OPPORTUNISTIC = 4;
+  CWE_DETECTION_EFFECTIVENESS_LIMITED = 5;
+  CWE_DETECTION_EFFECTIVENESS_NONE = 6;
+}
+// A way of finding a weakness.
+enum CweDetectionMethodName {
+  CWE_DETECTION_METHOD_NAME_UNSPECIFIED = 0;
+  CWE_DETECTION_METHOD_NAME_AUTOMATED_ANALYSIS = 1;
+  CWE_DETECTION_METHOD_NAME_AUTOMATED_DYNAMIC_ANALYSIS = 2;
+  CWE_DETECTION_METHOD_NAME_AUTOMATED_STATIC_ANALYSIS = 3;
+  CWE_DETECTION_METHOD_NAME_AUTOMATED_STATIC_ANALYSIS_SOURCE_CODE = 4;
+  CWE_DETECTION_METHOD_NAME_AUTOMATED_STATIC_ANALYSIS_BINARY_OR_BYTECODE = 5;
+  CWE_DETECTION_METHOD_NAME_FUZZING = 6;
+  CWE_DETECTION_METHOD_NAME_MANUAL_ANALYSIS = 7;
+  CWE_DETECTION_METHOD_NAME_MANUAL_DYNAMIC_ANALYSIS = 8;
+  CWE_DETECTION_METHOD_NAME_MANUAL_STATIC_ANALYSIS = 9;
+  CWE_DETECTION_METHOD_NAME_MANUAL_STATIC_ANALYSIS_SOURCE_CODE = 10;
+  CWE_DETECTION_METHOD_NAME_MANUAL_STATIC_ANALYSIS_BINARY_OR_BYTECODE = 11;
+  CWE_DETECTION_METHOD_NAME_WHITE_BOX = 12;
+  CWE_DETECTION_METHOD_NAME_BLACK_BOX = 13;
+  CWE_DETECTION_METHOD_NAME_ARCHITECTURE_OR_DESIGN_REVIEW = 14;
+  CWE_DETECTION_METHOD_NAME_DYNAMIC_ANALYSIS_WITH_MANUAL_RESULTS_INTERPRETATION = 15;
+  CWE_DETECTION_METHOD_NAME_DYNAMIC_ANALYSIS_WITH_AUTOMATED_RESULTS_INTERPRETATION = 16;
+  CWE_DETECTION_METHOD_NAME_FORMAL_VERIFICATION = 17;
+  CWE_DETECTION_METHOD_NAME_SIMULATION_EMULATION = 18;
+  CWE_DETECTION_METHOD_NAME_OTHER = 19;
+}
+// The aspect of a weakness that a dimension names, such as a behaviour or a resource.
+enum CweDimensionType {
+  CWE_DIMENSION_TYPE_UNSPECIFIED = 0;
+  CWE_DIMENSION_TYPE_BEHAVIOR_TYPE = 1;
+  CWE_DIMENSION_TYPE_BEHAVIOR_PROPERTY = 2;
+  CWE_DIMENSION_TYPE_RESOURCE_TYPE = 3;
+  CWE_DIMENSION_TYPE_RESOURCE_PROPERTY = 4;
+  CWE_DIMENSION_TYPE_INPUT_TYPE = 5;
+  CWE_DIMENSION_TYPE_INPUT_PROPERTY = 6;
+  CWE_DIMENSION_TYPE_INFO_TYPE = 7;
+  CWE_DIMENSION_TYPE_INFO_PROPERTY = 8;
+  CWE_DIMENSION_TYPE_CODE_TYPE = 9;
+  CWE_DIMENSION_TYPE_CODE_PROPERTY = 10;
+  CWE_DIMENSION_TYPE_TECHNOLOGY = 11;
+  CWE_DIMENSION_TYPE_LANGUAGE_TYPE = 12;
+  CWE_DIMENSION_TYPE_LANGUAGE_PROPERTY = 13;
+  CWE_DIMENSION_TYPE_FRAMEWORK = 14;
+  CWE_DIMENSION_TYPE_COMMON_NAME = 15;
+  CWE_DIMENSION_TYPE_ATTACK = 16;
+  CWE_DIMENSION_TYPE_ACRONYM = 17;
+  CWE_DIMENSION_TYPE_OTHER = 18;
+}
+// How well a mitigation prevents a weakness.
+enum CweEffectiveness {
+  CWE_EFFECTIVENESS_UNSPECIFIED = 0;
+  CWE_EFFECTIVENESS_HIGH = 1;
+  CWE_EFFECTIVENESS_MODERATE = 2;
+  CWE_EFFECTIVENESS_LIMITED = 3;
+  CWE_EFFECTIVENESS_INCIDENTAL = 4;
+  CWE_EFFECTIVENESS_DISCOURAGED_COMMON_PRACTICE = 5;
+  CWE_EFFECTIVENESS_DEFENSE_IN_DEPTH = 6;
+  CWE_EFFECTIVENESS_NONE = 7;
+}
+// The part of a product where a weakness is most likely to appear.
+enum CweFunctionalArea {
+  CWE_FUNCTIONAL_AREA_UNSPECIFIED = 0;
+  CWE_FUNCTIONAL_AREA_AUTHENTICATION = 1;
+  CWE_FUNCTIONAL_AREA_AUTHORIZATION = 2;
+  CWE_FUNCTIONAL_AREA_CODE_LIBRARIES = 3;
+  CWE_FUNCTIONAL_AREA_COUNTERS = 4;
+  CWE_FUNCTIONAL_AREA_CRYPTOGRAPHY = 5;
+  CWE_FUNCTIONAL_AREA_ERROR_HANDLING = 6;
+  CWE_FUNCTIONAL_AREA_INTERPROCESS_COMMUNICATION = 7;
+  CWE_FUNCTIONAL_AREA_FILE_PROCESSING = 8;
+  CWE_FUNCTIONAL_AREA_LOGGING = 9;
+  CWE_FUNCTIONAL_AREA_MEMORY_MANAGEMENT = 10;
+  CWE_FUNCTIONAL_AREA_NETWORKING = 11;
+  CWE_FUNCTIONAL_AREA_NUMBER_PROCESSING = 12;
+  CWE_FUNCTIONAL_AREA_PROGRAM_INVOCATION = 13;
+  CWE_FUNCTIONAL_AREA_PROTECTION_MECHANISM = 14;
+  CWE_FUNCTIONAL_AREA_SESSION_MANAGEMENT = 15;
+  CWE_FUNCTIONAL_AREA_SIGNALS = 16;
+  CWE_FUNCTIONAL_AREA_STRING_PROCESSING = 17;
+  CWE_FUNCTIONAL_AREA_NOT_FUNCTIONAL_AREA_SPECIFIC = 18;
+  CWE_FUNCTIONAL_AREA_POWER = 19;
+  CWE_FUNCTIONAL_AREA_CLOCK = 20;
+}
+// A stage of the life cycle of a hardware product.
+enum CweHardwarePhase {
+  CWE_HARDWARE_PHASE_UNSPECIFIED = 0;
+  CWE_HARDWARE_PHASE_HARDWARE_REQUIREMENTS = 1;
+  CWE_HARDWARE_PHASE_HARDWARE_ARCHITECTURE = 2;
+  CWE_HARDWARE_PHASE_HARDWARE_MICROARCHITECTURE = 3;
+  CWE_HARDWARE_PHASE_IMPLEMENTATION_PHYSICAL_DESIGN = 4;
+  CWE_HARDWARE_PHASE_PRE_MANUFACTURING_VERIFICATION = 5;
+  CWE_HARDWARE_PHASE_HARDWARE_MANUFACTURING = 6;
+  CWE_HARDWARE_PHASE_POST_MANUFACTURING_VALIDATION = 7;
+  CWE_HARDWARE_PHASE_DEVICE_CONFIGURATION_PERSONALIZATION = 8;
+  CWE_HARDWARE_PHASE_DEVICE_SYSTEM_INTEGRATION = 9;
+  CWE_HARDWARE_PHASE_FIELD_OPERATIONS_SUSTAINMENT = 10;
+  CWE_HARDWARE_PHASE_REUSE = 11;
+  CWE_HARDWARE_PHASE_DECOMMISSIONING = 12;
+}
+// How much a change to an entry matters to people who already rely on it.
+enum CweImportance {
+  CWE_IMPORTANCE_UNSPECIFIED = 0;
+  CWE_IMPORTANCE_NORMAL = 1;
+  CWE_IMPORTANCE_CRITICAL = 2;
+}
+// A broad family of programming languages.
+enum CweLanguageClass {
+  CWE_LANGUAGE_CLASS_UNSPECIFIED = 0;
+  CWE_LANGUAGE_CLASS_ASSEMBLY = 1;
+  CWE_LANGUAGE_CLASS_COMPILED = 2;
+  CWE_LANGUAGE_CLASS_HARDWARE_DESCRIPTION_LANGUAGE = 3;
+  CWE_LANGUAGE_CLASS_INTERPRETED = 4;
+  CWE_LANGUAGE_CLASS_OBJECT_ORIENTED = 5;
+  CWE_LANGUAGE_CLASS_MEMORY_UNSAFE = 6;
+  CWE_LANGUAGE_CLASS_NOT_LANGUAGE_SPECIFIC = 7;
+}
+// A named programming language or notation.
+enum CweLanguageName {
+  CWE_LANGUAGE_NAME_UNSPECIFIED = 0;
+  CWE_LANGUAGE_NAME_ADA = 1;
+  CWE_LANGUAGE_NAME_ALGORITHM = 2;
+  CWE_LANGUAGE_NAME_ARM_ASSEMBLY = 3;
+  CWE_LANGUAGE_NAME_ASP = 4;
+  CWE_LANGUAGE_NAME_ASP_NET = 5;
+  CWE_LANGUAGE_NAME_BASIC = 6;
+  CWE_LANGUAGE_NAME_C = 7;
+  CWE_LANGUAGE_NAME_C_V2 = 8;
+  CWE_LANGUAGE_NAME_C_V3 = 9;
+  CWE_LANGUAGE_NAME_COBOL = 10;
+  CWE_LANGUAGE_NAME_FORTRAN = 11;
+  CWE_LANGUAGE_NAME_F = 12;
+  CWE_LANGUAGE_NAME_GO = 13;
+  CWE_LANGUAGE_NAME_HTML = 14;
+  CWE_LANGUAGE_NAME_JAVA = 15;
+  CWE_LANGUAGE_NAME_JAVA_SCRIPT = 16;
+  CWE_LANGUAGE_NAME_JSON = 17;
+  CWE_LANGUAGE_NAME_JSP = 18;
+  CWE_LANGUAGE_NAME_OBJECTIVE_C = 19;
+  CWE_LANGUAGE_NAME_PASCAL = 20;
+  CWE_LANGUAGE_NAME_PERL = 21;
+  CWE_LANGUAGE_NAME_PHP = 22;
+  CWE_LANGUAGE_NAME_PSEUDOCODE = 23;
+  CWE_LANGUAGE_NAME_PYTHON = 24;
+  CWE_LANGUAGE_NAME_RUBY = 25;
+  CWE_LANGUAGE_NAME_RUST = 26;
+  CWE_LANGUAGE_NAME_SHELL = 27;
+  CWE_LANGUAGE_NAME_SQL = 28;
+  CWE_LANGUAGE_NAME_SWIFT = 29;
+  CWE_LANGUAGE_NAME_SYSTEM_VERILOG = 30;
+  CWE_LANGUAGE_NAME_VB_NET = 31;
+  CWE_LANGUAGE_NAME_VERILOG = 32;
+  CWE_LANGUAGE_NAME_VHDL = 33;
+  CWE_LANGUAGE_NAME_XML = 34;
+  CWE_LANGUAGE_NAME_X86_ASSEMBLY = 35;
+  CWE_LANGUAGE_NAME_OTHER = 36;
+}
+// How likely something is to happen.
+enum CweLikelihood {
+  CWE_LIKELIHOOD_UNSPECIFIED = 0;
+  CWE_LIKELIHOOD_HIGH = 1;
+  CWE_LIKELIHOOD_MEDIUM = 2;
+  CWE_LIKELIHOOD_LOW = 3;
+  CWE_LIKELIHOOD_UNKNOWN = 4;
+}
+// How closely a CWE entry matches an entry of another taxonomy.
+enum CweMappingFit {
+  CWE_MAPPING_FIT_UNSPECIFIED = 0;
+  CWE_MAPPING_FIT_EXACT = 1;
+  CWE_MAPPING_FIT_CWE_MORE_ABSTRACT = 2;
+  CWE_MAPPING_FIT_CWE_MORE_SPECIFIC = 3;
+  CWE_MAPPING_FIT_IMPRECISE = 4;
+  CWE_MAPPING_FIT_PERSPECTIVE = 5;
+}
+// A general approach that a mitigation follows.
+enum CweMitigationStrategy {
+  CWE_MITIGATION_STRATEGY_UNSPECIFIED = 0;
+  CWE_MITIGATION_STRATEGY_ATTACK_SURFACE_REDUCTION = 1;
+  CWE_MITIGATION_STRATEGY_COMPILATION_OR_BUILD_HARDENING = 2;
+  CWE_MITIGATION_STRATEGY_ENFORCEMENT_BY_CONVERSION = 3;
+  CWE_MITIGATION_STRATEGY_ENVIRONMENT_HARDENING = 4;
+  CWE_MITIGATION_STRATEGY_FIREWALL = 5;
+  CWE_MITIGATION_STRATEGY_INPUT_VALIDATION = 6;
+  CWE_MITIGATION_STRATEGY_LANGUAGE_SELECTION = 7;
+  CWE_MITIGATION_STRATEGY_LIBRARIES_OR_FRAMEWORKS = 8;
+  CWE_MITIGATION_STRATEGY_RESOURCE_LIMITATION = 9;
+  CWE_MITIGATION_STRATEGY_OUTPUT_ENCODING = 10;
+  CWE_MITIGATION_STRATEGY_PARAMETERIZATION = 11;
+  CWE_MITIGATION_STRATEGY_REFACTORING = 12;
+  CWE_MITIGATION_STRATEGY_SANDBOX_OR_JAIL = 13;
+  CWE_MITIGATION_STRATEGY_SEPARATION_OF_PRIVILEGE = 14;
+}
+// What a note on an entry is about.
+enum CweNoteType {
+  CWE_NOTE_TYPE_UNSPECIFIED = 0;
+  CWE_NOTE_TYPE_APPLICABLE_PLATFORM = 1;
+  CWE_NOTE_TYPE_MAINTENANCE = 2;
+  CWE_NOTE_TYPE_RELATIONSHIP = 3;
+  CWE_NOTE_TYPE_RESEARCH_GAP = 4;
+  CWE_NOTE_TYPE_TERMINOLOGY = 5;
+  CWE_NOTE_TYPE_THEORETICAL = 6;
+  CWE_NOTE_TYPE_OTHER = 7;
+}
+// A hint at why an observed example was chosen for an entry.
+enum CweObservedExampleRationale {
+  CWE_OBSERVED_EXAMPLE_RATIONALE_UNSPECIFIED = 0;
+  CWE_OBSERVED_EXAMPLE_RATIONALE_CHAIN = 1;
+  CWE_OBSERVED_EXAMPLE_RATIONALE_EARLY_PUBLICATION = 2;
+  CWE_OBSERVED_EXAMPLE_RATIONALE_INFLUENTIAL_NEWSWORTHY = 3;
+  CWE_OBSERVED_EXAMPLE_RATIONALE_LANGUAGE_VARIETY = 4;
+  CWE_OBSERVED_EXAMPLE_RATIONALE_PRODUCT_VARIETY = 5;
+  CWE_OBSERVED_EXAMPLE_RATIONALE_ATTACK_SURFACE = 6;
+  CWE_OBSERVED_EXAMPLE_RATIONALE_OTHER = 7;
+}
+// A broad family of operating systems.
+enum CweOperatingSystemClass {
+  CWE_OPERATING_SYSTEM_CLASS_UNSPECIFIED = 0;
+  CWE_OPERATING_SYSTEM_CLASS_LINUX = 1;
+  CWE_OPERATING_SYSTEM_CLASS_MAC_OS = 2;
+  CWE_OPERATING_SYSTEM_CLASS_UNIX = 3;
+  CWE_OPERATING_SYSTEM_CLASS_WINDOWS = 4;
+  CWE_OPERATING_SYSTEM_CLASS_NOT_OS_SPECIFIC = 5;
+}
+// A named operating system.
+enum CweOperatingSystemName {
+  CWE_OPERATING_SYSTEM_NAME_UNSPECIFIED = 0;
+  CWE_OPERATING_SYSTEM_NAME_AIX = 1;
+  CWE_OPERATING_SYSTEM_NAME_ANDROID = 2;
+  CWE_OPERATING_SYSTEM_NAME_BLACK_BERRY_OS = 3;
+  CWE_OPERATING_SYSTEM_NAME_CHROME_OS = 4;
+  CWE_OPERATING_SYSTEM_NAME_DARWIN = 5;
+  CWE_OPERATING_SYSTEM_NAME_FREE_BSD = 6;
+  CWE_OPERATING_SYSTEM_NAME_I_OS = 7;
+  CWE_OPERATING_SYSTEM_NAME_MAC_OS = 8;
+  CWE_OPERATING_SYSTEM_NAME_NET_BSD = 9;
+  CWE_OPERATING_SYSTEM_NAME_OPEN_BSD = 10;
+  CWE_OPERATING_SYSTEM_NAME_RED_HAT = 11;
+  CWE_OPERATING_SYSTEM_NAME_SOLARIS = 12;
+  CWE_OPERATING_SYSTEM_NAME_SUSE = 13;
+  CWE_OPERATING_SYSTEM_NAME_TV_OS = 14;
+  CWE_OPERATING_SYSTEM_NAME_UBUNTU = 15;
+  CWE_OPERATING_SYSTEM_NAME_WATCH_OS = 16;
+  CWE_OPERATING_SYSTEM_NAME_WINDOWS_N9X = 17;
+  CWE_OPERATING_SYSTEM_NAME_WINDOWS_EMBEDDED = 18;
+  CWE_OPERATING_SYSTEM_NAME_WINDOWS_NT = 19;
+  CWE_OPERATING_SYSTEM_NAME_OTHER = 20;
+}
+// Marks the relationship to prefer among several in one view.
+enum CweOrdinal {
+  CWE_ORDINAL_UNSPECIFIED = 0;
+  CWE_ORDINAL_PRIMARY = 1;
+}
+// How a weakness stands to other weaknesses in a sequence of causes.
+enum CweOrdinality {
+  CWE_ORDINALITY_UNSPECIFIED = 0;
+  CWE_ORDINALITY_INDIRECT = 1;
+  CWE_ORDINALITY_PRIMARY = 2;
+  CWE_ORDINALITY_RESULTANT = 3;
+}
+// A stage of a product life cycle.
+enum CwePhase {
+  CWE_PHASE_UNSPECIFIED = 0;
+  CWE_PHASE_POLICY = 1;
+  CWE_PHASE_REQUIREMENTS = 2;
+  CWE_PHASE_ARCHITECTURE_AND_DESIGN = 3;
+  CWE_PHASE_IMPLEMENTATION = 4;
+  CWE_PHASE_BUILD_AND_COMPILATION = 5;
+  CWE_PHASE_TESTING = 6;
+  CWE_PHASE_DOCUMENTATION = 7;
+  CWE_PHASE_BUNDLING = 8;
+  CWE_PHASE_DISTRIBUTION = 9;
+  CWE_PHASE_INSTALLATION = 10;
+  CWE_PHASE_SYSTEM_CONFIGURATION = 11;
+  CWE_PHASE_OPERATION = 12;
+  CWE_PHASE_PATCHING_AND_MAINTENANCE = 13;
+  CWE_PHASE_PORTING = 14;
+  CWE_PHASE_INTEGRATION = 15;
+  CWE_PHASE_MANUFACTURING = 16;
+  CWE_PHASE_DECOMMISSIONING_AND_END_OF_LIFE = 17;
+}
+// How regularly a weakness applies to a platform.
+enum CwePrevalence {
+  CWE_PREVALENCE_UNSPECIFIED = 0;
+  CWE_PREVALENCE_OFTEN = 1;
+  CWE_PREVALENCE_SOMETIMES = 2;
+  CWE_PREVALENCE_RARELY = 3;
+  CWE_PREVALENCE_UNDETERMINED = 4;
+  CWE_PREVALENCE_NONE = 5;
+}
+// A short label for why an entry may not suit vulnerability mapping.
+enum CweReason {
+  CWE_REASON_UNSPECIFIED = 0;
+  CWE_REASON_ABSTRACTION = 1;
+  CWE_REASON_CATEGORY = 2;
+  CWE_REASON_GROUPING = 3;
+  CWE_REASON_VIEW = 4;
+  CWE_REASON_DEPRECATED = 5;
+  CWE_REASON_POTENTIAL_DEPRECATION = 6;
+  CWE_REASON_FREQUENT_MISUSE = 7;
+  CWE_REASON_FREQUENT_MISINTERPRETATION = 8;
+  CWE_REASON_MULTIPLE_USE = 9;
+  CWE_REASON_CWE_OVERLAP = 10;
+  CWE_REASON_ACCEPTABLE_USE = 11;
+  CWE_REASON_FREQUENTLY_RESULTANT = 12;
+  CWE_REASON_POTENTIAL_MAJOR_CHANGES = 13;
+  CWE_REASON_OTHER = 14;
+}
+// What stands between a reader and a cited source.
+enum CweReferenceAccessRestriction {
+  CWE_REFERENCE_ACCESS_RESTRICTION_UNSPECIFIED = 0;
+  CWE_REFERENCE_ACCESS_RESTRICTION_NONE = 1;
+  CWE_REFERENCE_ACCESS_RESTRICTION_PROPRIETARY_SUBSCRIPTION = 2;
+  CWE_REFERENCE_ACCESS_RESTRICTION_MINIMAL_REGISTRATION = 3;
+  CWE_REFERENCE_ACCESS_RESTRICTION_REMOVED = 4;
+  CWE_REFERENCE_ACCESS_RESTRICTION_OTHER = 5;
+}
+// The form a cited source takes, which affects how easily people can use it.
+enum CweReferenceMediaType {
+  CWE_REFERENCE_MEDIA_TYPE_UNSPECIFIED = 0;
+  CWE_REFERENCE_MEDIA_TYPE_TEXT = 1;
+  CWE_REFERENCE_MEDIA_TYPE_COMMON_PROPRIETARY_TEXT = 2;
+  CWE_REFERENCE_MEDIA_TYPE_VIDEO = 3;
+  CWE_REFERENCE_MEDIA_TYPE_AUDIO = 4;
+  CWE_REFERENCE_MEDIA_TYPE_OTHER = 5;
+}
+// A hint at why a source was cited.
+enum CweReferenceRationale {
+  CWE_REFERENCE_RATIONALE_UNSPECIFIED = 0;
+  CWE_REFERENCE_RATIONALE_EXAMPLE = 1;
+  CWE_REFERENCE_RATIONALE_EARLY_PUBLICATION = 2;
+  CWE_REFERENCE_RATIONALE_INFLUENTIAL_NEWSWORTHY = 3;
+  CWE_REFERENCE_RATIONALE_MANUAL_MAN_PAGES = 4;
+  CWE_REFERENCE_RATIONALE_MITIGATION_BASED = 5;
+  CWE_REFERENCE_RATIONALE_SECURE_DEVELOPMENT_RULES = 6;
+  CWE_REFERENCE_RATIONALE_OTHER = 7;
+}
+// How one weakness relates to another.
+enum CweRelatedNature {
+  CWE_RELATED_NATURE_UNSPECIFIED = 0;
+  CWE_RELATED_NATURE_CHILD_OF = 1;
+  CWE_RELATED_NATURE_PARENT_OF = 2;
+  CWE_RELATED_NATURE_STARTS_WITH = 3;
+  CWE_RELATED_NATURE_CAN_FOLLOW = 4;
+  CWE_RELATED_NATURE_CAN_PRECEDE = 5;
+  CWE_RELATED_NATURE_REQUIRED_BY = 6;
+  CWE_RELATED_NATURE_REQUIRES = 7;
+  CWE_RELATED_NATURE_CAN_ALSO_BE = 8;
+  CWE_RELATED_NATURE_PEER_OF = 9;
+  CWE_RELATED_NATURE_OVERLAPS = 10;
+}
+// A kind of system resource that exploiting a weakness can affect.
+enum CweResource {
+  CWE_RESOURCE_UNSPECIFIED = 0;
+  CWE_RESOURCE_CPU = 1;
+  CWE_RESOURCE_FILE_OR_DIRECTORY = 2;
+  CWE_RESOURCE_MEMORY = 3;
+  CWE_RESOURCE_SYSTEM_PROCESS = 4;
+  CWE_RESOURCE_OTHER = 5;
+}
+// The security property a consequence violates.
+enum CweScope {
+  CWE_SCOPE_UNSPECIFIED = 0;
+  CWE_SCOPE_CONFIDENTIALITY = 1;
+  CWE_SCOPE_INTEGRITY = 2;
+  CWE_SCOPE_AVAILABILITY = 3;
+  CWE_SCOPE_ACCESS_CONTROL = 4;
+  CWE_SCOPE_ACCOUNTABILITY = 5;
+  CWE_SCOPE_AUTHENTICATION = 6;
+  CWE_SCOPE_AUTHORIZATION = 7;
+  CWE_SCOPE_NON_REPUDIATION = 8;
+  CWE_SCOPE_OTHER = 9;
+}
+// A group of people who may have a use for a view.
+enum CweStakeholderType {
+  CWE_STAKEHOLDER_TYPE_UNSPECIFIED = 0;
+  CWE_STAKEHOLDER_TYPE_ACADEMIC_RESEARCHERS = 1;
+  CWE_STAKEHOLDER_TYPE_APPLIED_RESEARCHERS = 2;
+  CWE_STAKEHOLDER_TYPE_ASSESSMENT_TEAMS = 3;
+  CWE_STAKEHOLDER_TYPE_ASSESSMENT_TOOL_VENDORS = 4;
+  CWE_STAKEHOLDER_TYPE_CWE_TEAM = 5;
+  CWE_STAKEHOLDER_TYPE_EDUCATORS = 6;
+  CWE_STAKEHOLDER_TYPE_HARDWARE_DESIGNERS = 7;
+  CWE_STAKEHOLDER_TYPE_INFORMATION_PROVIDERS = 8;
+  CWE_STAKEHOLDER_TYPE_PRODUCT_CUSTOMERS = 9;
+  CWE_STAKEHOLDER_TYPE_PRODUCT_VENDORS = 10;
+  CWE_STAKEHOLDER_TYPE_SOFTWARE_DEVELOPERS = 11;
+  CWE_STAKEHOLDER_TYPE_VULNERABILITY_ANALYSTS = 12;
+  CWE_STAKEHOLDER_TYPE_OTHER = 13;
+}
+// How far an entry has come in its life and how much it can be trusted.
+enum CweStatus {
+  CWE_STATUS_UNSPECIFIED = 0;
+  CWE_STATUS_DEPRECATED = 1;
+  CWE_STATUS_DRAFT = 2;
+  CWE_STATUS_INCOMPLETE = 3;
+  CWE_STATUS_OBSOLETE = 4;
+  CWE_STATUS_STABLE = 5;
+  CWE_STATUS_USABLE = 6;
+}
+// Whether a weakness stands alone or is made up of others.
+enum CweStructure {
+  CWE_STRUCTURE_UNSPECIFIED = 0;
+  CWE_STRUCTURE_CHAIN = 1;
+  CWE_STRUCTURE_COMPOSITE = 2;
+  CWE_STRUCTURE_SIMPLE = 3;
+}
+// A taxonomy that CWE entries are mapped to.
+enum CweTaxonomyName {
+  CWE_TAXONOMY_NAME_UNSPECIFIED = 0;
+  CWE_TAXONOMY_NAME_N7_PERNICIOUS_KINGDOMS = 1;
+  CWE_TAXONOMY_NAME_N19_DEADLY_SINS = 2;
+  CWE_TAXONOMY_NAME_ASLAM = 3;
+  CWE_TAXONOMY_NAME_BISHOP = 4;
+  CWE_TAXONOMY_NAME_CERT_C_SECURE_CODING = 5;
+  CWE_TAXONOMY_NAME_CERT_C_SECURE_CODING_V2 = 6;
+  CWE_TAXONOMY_NAME_THE_CERT_ORACLE_SECURE_CODING_STANDARD_FOR_JAVA_N2011 = 7;
+  CWE_TAXONOMY_NAME_CLASP = 8;
+  CWE_TAXONOMY_NAME_ISA_IEC_N62443 = 9;
+  CWE_TAXONOMY_NAME_LANDWEHR = 10;
+  CWE_TAXONOMY_NAME_OMG_ASCSM = 11;
+  CWE_TAXONOMY_NAME_OMG_ASCRM = 12;
+  CWE_TAXONOMY_NAME_OMG_ASCMM = 13;
+  CWE_TAXONOMY_NAME_OMG_ASCPEM = 14;
+  CWE_TAXONOMY_NAME_OPEN_SSF_SECURE_CODING_GUIDE_FOR_PYTHON = 15;
+  CWE_TAXONOMY_NAME_OWASP_GOLANG_SECURE_CODING_PRACTICES_GUIDE = 16;
+  CWE_TAXONOMY_NAME_OWASP_TOP_TEN_N2004 = 17;
+  CWE_TAXONOMY_NAME_OWASP_TOP_TEN_N2007 = 18;
+  CWE_TAXONOMY_NAME_OWASP_TOP_TEN = 19;
+  CWE_TAXONOMY_NAME_PLC_TOP_N20 = 20;
+  CWE_TAXONOMY_NAME_PLOVER = 21;
+  CWE_TAXONOMY_NAME_PROTECTION_ANALYSIS = 22;
+  CWE_TAXONOMY_NAME_RISOS = 23;
+  CWE_TAXONOMY_NAME_SEI_CERT_C_CODING_STANDARD = 24;
+  CWE_TAXONOMY_NAME_SEI_CERT_C_CODING_STANDARD_V2 = 25;
+  CWE_TAXONOMY_NAME_SEI_CERT_ORACLE_CODING_STANDARD_FOR_JAVA = 26;
+  CWE_TAXONOMY_NAME_SEI_CERT_PERL_CODING_STANDARD = 27;
+  CWE_TAXONOMY_NAME_SOFTWARE_FAULT_PATTERNS = 28;
+  CWE_TAXONOMY_NAME_WEBER_KARGER_PARADKAR = 29;
+  CWE_TAXONOMY_NAME_WASC = 30;
+}
+// What an attacker can achieve by exploiting a weakness.
+enum CweTechnicalImpact {
+  CWE_TECHNICAL_IMPACT_UNSPECIFIED = 0;
+  CWE_TECHNICAL_IMPACT_MODIFY_MEMORY = 1;
+  CWE_TECHNICAL_IMPACT_READ_MEMORY = 2;
+  CWE_TECHNICAL_IMPACT_MODIFY_FILES_OR_DIRECTORIES = 3;
+  CWE_TECHNICAL_IMPACT_READ_FILES_OR_DIRECTORIES = 4;
+  CWE_TECHNICAL_IMPACT_MODIFY_APPLICATION_DATA = 5;
+  CWE_TECHNICAL_IMPACT_READ_APPLICATION_DATA = 6;
+  CWE_TECHNICAL_IMPACT_DO_S_CRASH_EXIT_OR_RESTART = 7;
+  CWE_TECHNICAL_IMPACT_DO_S_AMPLIFICATION = 8;
+  CWE_TECHNICAL_IMPACT_DO_S_INSTABILITY = 9;
+  CWE_TECHNICAL_IMPACT_DO_S_PREVENT_ACCESS = 10;
+  CWE_TECHNICAL_IMPACT_DO_S_RESOURCE_CONSUMPTION_CPU = 11;
+  CWE_TECHNICAL_IMPACT_DO_S_RESOURCE_CONSUMPTION_MEMORY = 12;
+  CWE_TECHNICAL_IMPACT_DO_S_RESOURCE_CONSUMPTION_OTHER = 13;
+  CWE_TECHNICAL_IMPACT_DO_S_OTHER = 14;
+  CWE_TECHNICAL_IMPACT_EXECUTE_UNAUTHORIZED_CODE_OR_COMMANDS = 15;
+  CWE_TECHNICAL_IMPACT_GAIN_PRIVILEGES_OR_ASSUME_IDENTITY = 16;
+  CWE_TECHNICAL_IMPACT_BYPASS_PROTECTION_MECHANISM = 17;
+  CWE_TECHNICAL_IMPACT_HIDE_ACTIVITIES = 18;
+  CWE_TECHNICAL_IMPACT_ALTER_EXECUTION_LOGIC = 19;
+  CWE_TECHNICAL_IMPACT_UNDEFINED_BEHAVIOR = 20;
+  CWE_TECHNICAL_IMPACT_QUALITY_DEGRADATION = 21;
+  CWE_TECHNICAL_IMPACT_UNEXPECTED_STATE = 22;
+  CWE_TECHNICAL_IMPACT_VARIES_BY_CONTEXT = 23;
+  CWE_TECHNICAL_IMPACT_INCREASE_ANALYTICAL_COMPLEXITY = 24;
+  CWE_TECHNICAL_IMPACT_REDUCE_MAINTAINABILITY = 25;
+  CWE_TECHNICAL_IMPACT_REDUCE_PERFORMANCE = 26;
+  CWE_TECHNICAL_IMPACT_REDUCE_RELIABILITY = 27;
+  CWE_TECHNICAL_IMPACT_OTHER = 28;
+}
+// A broad family of technologies.
+enum CweTechnologyClass {
+  CWE_TECHNOLOGY_CLASS_UNSPECIFIED = 0;
+  CWE_TECHNOLOGY_CLASS_CLIENT_SERVER = 1;
+  CWE_TECHNOLOGY_CLASS_CLOUD_COMPUTING = 2;
+  CWE_TECHNOLOGY_CLASS_ICS_OT = 3;
+  CWE_TECHNOLOGY_CLASS_MAINFRAME = 4;
+  CWE_TECHNOLOGY_CLASS_MOBILE = 5;
+  CWE_TECHNOLOGY_CLASS_N_TIER = 6;
+  CWE_TECHNOLOGY_CLASS_SOA = 7;
+  CWE_TECHNOLOGY_CLASS_SYSTEM_ON_CHIP = 8;
+  CWE_TECHNOLOGY_CLASS_WEB_BASED = 9;
+  CWE_TECHNOLOGY_CLASS_NOT_TECHNOLOGY_SPECIFIC = 10;
+}
+// A named technology.
+enum CweTechnologyName {
+  CWE_TECHNOLOGY_NAME_UNSPECIFIED = 0;
+  CWE_TECHNOLOGY_NAME_AI_ML = 1;
+  CWE_TECHNOLOGY_NAME_WEB_SERVER = 2;
+  CWE_TECHNOLOGY_NAME_DATABASE_SERVER = 3;
+  CWE_TECHNOLOGY_NAME_ACCELERATOR_HARDWARE = 4;
+  CWE_TECHNOLOGY_NAME_ANALOG_AND_MIXED_SIGNAL_HARDWARE = 5;
+  CWE_TECHNOLOGY_NAME_AUDIO_VIDEO_HARDWARE = 6;
+  CWE_TECHNOLOGY_NAME_BUS_INTERFACE_HARDWARE = 7;
+  CWE_TECHNOLOGY_NAME_CLOCK_COUNTER_HARDWARE = 8;
+  CWE_TECHNOLOGY_NAME_COMMUNICATION_HARDWARE = 9;
+  CWE_TECHNOLOGY_NAME_CONTROLLER_HARDWARE = 10;
+  CWE_TECHNOLOGY_NAME_MEMORY_HARDWARE = 11;
+  CWE_TECHNOLOGY_NAME_MICROCONTROLLER_HARDWARE = 12;
+  CWE_TECHNOLOGY_NAME_NETWORK_ON_CHIP_HARDWARE = 13;
+  CWE_TECHNOLOGY_NAME_POWER_MANAGEMENT_HARDWARE = 14;
+  CWE_TECHNOLOGY_NAME_PROCESSOR_HARDWARE = 15;
+  CWE_TECHNOLOGY_NAME_SECURITY_HARDWARE = 16;
+  CWE_TECHNOLOGY_NAME_SENSOR_HARDWARE = 17;
+  CWE_TECHNOLOGY_NAME_STORAGE_HARDWARE = 18;
+  CWE_TECHNOLOGY_NAME_TEST_DEBUG_HARDWARE = 19;
+  CWE_TECHNOLOGY_NAME_OTHER = 20;
+}
+// Whether an entry may be used when mapping a real vulnerability to its root cause.
+enum CweUsage {
+  CWE_USAGE_UNSPECIFIED = 0;
+  CWE_USAGE_DISCOURAGED = 1;
+  CWE_USAGE_PROHIBITED = 2;
+  CWE_USAGE_ALLOWED = 3;
+  CWE_USAGE_ALLOWED_WITH_REVIEW = 4;
+}
+// How a view selects and arranges its entries.
+enum CweViewType {
+  CWE_VIEW_TYPE_UNSPECIFIED = 0;
+  CWE_VIEW_TYPE_IMPLICIT = 1;
+  CWE_VIEW_TYPE_EXPLICIT = 2;
+  CWE_VIEW_TYPE_GRAPH = 3;
+}

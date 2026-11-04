@@ -1,16 +1,10 @@
-# metamodel_version: 1.7.0
-# version: 7.3
+# metamodel_version: 1.12.0
+# version: 5.0
 BASE <https://w3id.org/lmodel/cwe/>
-PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
 PREFIX linkml: <https://w3id.org/linkml/>
-PREFIX schema1: <http://schema.org/>
-PREFIX dct: <http://purl.org/dc/terms/>
 
-
-<CveId> xsd:string
 
 linkml:String xsd:string
 
@@ -50,657 +44,772 @@ linkml:Jsonpath xsd:string
 
 linkml:Sparqlpath xsd:string
 
-<AlternateTerm> CLOSED {
-    (  $<AlternateTerm_tes> (  <term> @linkml:String ;
-          dct:description @linkml:String ?
-       ) ;
-       rdf:type [ <AlternateTerm> ] ?
-    )
-}
+<CweEntryId> xsd:string
 
-<ApplicablePlatforms> CLOSED {
-    (  $<ApplicablePlatforms_tes> (  <languages> @<LanguagePlatform> * ;
-          <operating_systems> @<OSPlatform> * ;
-          <architectures> @<ArchitecturePlatform> * ;
-          <technologies> @<TechnologyPlatform> *
-       ) ;
-       rdf:type [ <ApplicablePlatforms> ] ?
-    )
-}
+<CweCapecId> xsd:string
 
-<ArchitecturePlatform> CLOSED {
-    (  $<ArchitecturePlatform_tes> (  rdfs:label [ <https://w3id.org/lmodel/cwe/ArchitectureName#ALPHA>
-             <https://w3id.org/lmodel/cwe/ArchitectureName#ARM> <https://w3id.org/lmodel/cwe/ArchitectureName#ITANIUM>
-             <https://w3id.org/lmodel/cwe/ArchitectureName#POWER_ARCHITECTURE> <https://w3id.org/lmodel/cwe/ArchitectureName#SPARC>
-             <https://w3id.org/lmodel/cwe/ArchitectureName#X86> <https://w3id.org/lmodel/cwe/ArchitectureName#OTHER> ] ? ;
-          <class_> [ <https://w3id.org/lmodel/cwe/ArchitectureClass#EMBEDDED>
-             <https://w3id.org/lmodel/cwe/ArchitectureClass#MICROCOMPUTER>
-             <https://w3id.org/lmodel/cwe/ArchitectureClass#WORKSTATION>
-             <https://w3id.org/lmodel/cwe/ArchitectureClass#NOT_ARCHITECTURE_SPECIFIC> ] ? ;
-          <prevalence> [ <https://w3id.org/lmodel/cwe/PlatformPrevalence#OFTEN>
-             <https://w3id.org/lmodel/cwe/PlatformPrevalence#SOMETIMES> <https://w3id.org/lmodel/cwe/PlatformPrevalence#RARELY>
-             <https://w3id.org/lmodel/cwe/PlatformPrevalence#UNDETERMINED> ]
-       ) ;
-       rdf:type [ <ArchitecturePlatform> ] ?
-    )
-}
+<CweReferenceId> xsd:string
 
-<Audience> CLOSED {
-    (  $<Audience_tes> (  <type> [ <https://w3id.org/lmodel/cwe/StakeholderType#ACADEMIC_RESEARCHERS>
-             <https://w3id.org/lmodel/cwe/StakeholderType#APPLIED_RESEARCHERS>
-             <https://w3id.org/lmodel/cwe/StakeholderType#ASSESSMENT_TEAMS>
-             <https://w3id.org/lmodel/cwe/StakeholderType#ASSESSMENT_TOOL_VENDORS>
-             <https://w3id.org/lmodel/cwe/StakeholderType#CWE_TEAM> <https://w3id.org/lmodel/cwe/StakeholderType#EDUCATORS>
-             <https://w3id.org/lmodel/cwe/StakeholderType#HARDWARE_DESIGNERS>
-             <https://w3id.org/lmodel/cwe/StakeholderType#INFORMATION_PROVIDERS>
-             <https://w3id.org/lmodel/cwe/StakeholderType#PRODUCT_CUSTOMERS>
-             <https://w3id.org/lmodel/cwe/StakeholderType#PRODUCT_VENDORS>
-             <https://w3id.org/lmodel/cwe/StakeholderType#SOFTWARE_DEVELOPERS>
-             <https://w3id.org/lmodel/cwe/StakeholderType#VULNERABILITY_ANALYSTS>
-             <https://w3id.org/lmodel/cwe/StakeholderType#OTHER> ] ;
-          dct:description @linkml:String ?
-       ) ;
-       rdf:type [ <Audience> ] ?
-    )
-}
+<CweStructuredText> xsd:string
 
-<CatalogMember> CLOSED {
-    (  $<CatalogMember_tes> (  <cwe_id> @linkml:Integer ;
-          <view_id> @linkml:Integer
-       ) ;
-       rdf:type [ <CatalogMember> ] ?
-    )
-}
+<CwePublicationYear> xsd:gYear
 
-<Category> CLOSED {
-    (  $<Category_tes> (  rdfs:label @linkml:String ;
-          <status> [ <https://w3id.org/lmodel/cwe/WeaknessStatus#DEPRECATED> <https://w3id.org/lmodel/cwe/WeaknessStatus#DRAFT>
-             <https://w3id.org/lmodel/cwe/WeaknessStatus#INCOMPLETE> <https://w3id.org/lmodel/cwe/WeaknessStatus#OBSOLETE>
-             <https://w3id.org/lmodel/cwe/WeaknessStatus#STABLE> <https://w3id.org/lmodel/cwe/WeaknessStatus#USABLE> ] ;
-          <summary> @linkml:String ;
-          <relationships> @<Relationship> ? ;
-          <taxonomy_mappings> @<TaxonomyMapping> * ;
-          <references> @<CWEReference> * ;
-          <mapping_notes> @<MappingNotes> ;
-          skos:note @<Note> * ;
-          <content_history> @<ContentHistory>
-       ) ;
-       rdf:type [ <Category> ]
-    )
-}
+<CwePublicationMonth> xsd:gMonth
 
-<CommonConsequence> CLOSED {
-    (  $<CommonConsequence_tes> (  <consequence_id> @linkml:String ? ;
-          <scopes> [ <https://w3id.org/lmodel/cwe/SecurityScope#CONFIDENTIALITY>
-             <https://w3id.org/lmodel/cwe/SecurityScope#INTEGRITY> <https://w3id.org/lmodel/cwe/SecurityScope#AVAILABILITY>
-             <https://w3id.org/lmodel/cwe/SecurityScope#ACCESS_CONTROL> <https://w3id.org/lmodel/cwe/SecurityScope#ACCOUNTABILITY>
-             <https://w3id.org/lmodel/cwe/SecurityScope#AUTHENTICATION> <https://w3id.org/lmodel/cwe/SecurityScope#AUTHORIZATION>
-             <https://w3id.org/lmodel/cwe/SecurityScope#NON_REPUDIATION> <https://w3id.org/lmodel/cwe/SecurityScope#OTHER> ] + ;
-          <impacts> [ <https://w3id.org/lmodel/cwe/TechnicalImpact#MODIFY_MEMORY>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#READ_MEMORY>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#MODIFY_FILES_OR_DIRECTORIES>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#READ_FILES_OR_DIRECTORIES>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#MODIFY_APPLICATION_DATA>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#READ_APPLICATION_DATA>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#DOS_CRASH_EXIT_OR_RESTART>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#DOS_AMPLIFICATION>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#DOS_INSTABILITY>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#DOS_RESOURCE_CONSUMPTION_CPU>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#DOS_RESOURCE_CONSUMPTION_MEMORY>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#DOS_RESOURCE_CONSUMPTION_OTHER>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#EXECUTE_UNAUTHORIZED_CODE_OR_COMMANDS>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#GAIN_PRIVILEGES_OR_ASSUME_IDENTITY>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#BYPASS_PROTECTION_MECHANISM>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#HIDE_ACTIVITIES>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#ALTER_EXECUTION_LOGIC>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#QUALITY_DEGRADATION>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#UNEXPECTED_STATE>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#VARIES_BY_CONTEXT>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#INCREASE_ANALYTICAL_COMPLEXITY>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#REDUCE_MAINTAINABILITY>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#REDUCE_PERFORMANCE>
-             <https://w3id.org/lmodel/cwe/TechnicalImpact#REDUCE_RELIABILITY> <https://w3id.org/lmodel/cwe/TechnicalImpact#OTHER> ]
-          + ;
-          <likelihood> [ <https://w3id.org/lmodel/cwe/LikelihoodLevel#HIGH> <https://w3id.org/lmodel/cwe/LikelihoodLevel#MEDIUM>
-             <https://w3id.org/lmodel/cwe/LikelihoodLevel#LOW> <https://w3id.org/lmodel/cwe/LikelihoodLevel#UNKNOWN> ] ? ;
-          <note> @linkml:String ?
-       ) ;
-       rdf:type [ <CommonConsequence> ] ?
-    )
-}
+<CwePublicationDay> xsd:gDay
 
-<ContentHistory> CLOSED {
-    (  $<ContentHistory_tes> (  <submission> @<Submission> ;
-          <modifications> @<Modification> * ;
-          <contributions> @<Contribution> * ;
-          <previous_entry_names> @<PreviousEntryName> *
-       ) ;
-       rdf:type [ <ContentHistory> ] ?
-    )
-}
-
-<Contribution> CLOSED {
-    (  $<Contribution_tes> (  <type> [ <https://w3id.org/lmodel/cwe/ContributionType#CONTENT>
-             <https://w3id.org/lmodel/cwe/ContributionType#FEEDBACK> ] ;
-          <contribution_name> @linkml:String ? ;
-          <contribution_organization> @linkml:String ? ;
-          <contribution_date> @linkml:Date ;
-          <contribution_version> @linkml:String ? ;
-          <contribution_release_date> @linkml:Date ? ;
-          <contribution_comment> @linkml:String ?
-       ) ;
-       rdf:type [ <Contribution> ] ?
-    )
-}
-
-<CWEReference> CLOSED {
-    (  $<CWEReference_tes> (  <external_reference_id> @linkml:String ;
-          <section> @linkml:String ?
-       ) ;
-       rdf:type [ <CWEReference> ] ?
-    )
-}
-
-<DemonstrativeExample> CLOSED {
-    (  $<DemonstrativeExample_tes> (  <demonstrative_example_id> @linkml:String ? ;
-          <title_text> @linkml:String ? ;
-          <intro_text> @linkml:String ;
-          <body_texts> @linkml:String * ;
-          <example_codes> @<ExampleCode> * ;
-          <references> @<CWEReference> *
-       ) ;
-       rdf:type [ <DemonstrativeExample> ] ?
-    )
-}
-
-<DetectionMethod> CLOSED {
-    (  $<DetectionMethod_tes> (  <detection_method_id> @linkml:String ? ;
-          <method> [ <https://w3id.org/lmodel/cwe/DetectionMethodType#AUTOMATED_ANALYSIS>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#AUTOMATED_DYNAMIC_ANALYSIS>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#AUTOMATED_STATIC_ANALYSIS>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#AUTOMATED_STATIC_ANALYSIS_SOURCE_CODE>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#AUTOMATED_STATIC_ANALYSIS_BINARY_OR_BYTECODE>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#FUZZING>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#MANUAL_ANALYSIS>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#MANUAL_DYNAMIC_ANALYSIS>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#MANUAL_STATIC_ANALYSIS>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#MANUAL_STATIC_ANALYSIS_SOURCE_CODE>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#MANUAL_STATIC_ANALYSIS_BINARY_OR_BYTECODE>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#WHITE_BOX>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#BLACK_BOX>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#ARCHITECTURE_OR_DESIGN_REVIEW>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#DYNAMIC_ANALYSIS_WITH_MANUAL_RESULTS_INTERPRETATION>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#DYNAMIC_ANALYSIS_WITH_AUTOMATED_RESULTS_INTERPRETATION>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#FORMAL_VERIFICATION>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#SIMULATION_EMULATION>
-             <https://w3id.org/lmodel/cwe/DetectionMethodType#OTHER> ] ;
-          dct:description @linkml:String ;
-          <effectiveness> [ <https://w3id.org/lmodel/cwe/DetectionEffectiveness#HIGH>
-             <https://w3id.org/lmodel/cwe/DetectionEffectiveness#MODERATE>
-             <https://w3id.org/lmodel/cwe/DetectionEffectiveness#SOAR_PARTIAL>
-             <https://w3id.org/lmodel/cwe/DetectionEffectiveness#OPPORTUNISTIC>
-             <https://w3id.org/lmodel/cwe/DetectionEffectiveness#LIMITED> <https://w3id.org/lmodel/cwe/DetectionEffectiveness#NONE>
-             ] ? ;
-          <effectiveness_notes> @linkml:String ?
-       ) ;
-       rdf:type [ <DetectionMethod> ] ?
-    )
-}
-
-<ExampleCode> CLOSED {
-    (  $<ExampleCode_tes> (  skos:related [ <https://w3id.org/lmodel/cwe/CodeNature#ATTACK>
-             <https://w3id.org/lmodel/cwe/CodeNature#BAD> <https://w3id.org/lmodel/cwe/CodeNature#GOOD>
-             <https://w3id.org/lmodel/cwe/CodeNature#INFORMATIVE> <https://w3id.org/lmodel/cwe/CodeNature#MITIGATION>
-             <https://w3id.org/lmodel/cwe/CodeNature#RESULT> ] ;
-          <language> [ <https://w3id.org/lmodel/cwe/ProgrammingLanguage#ADA>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#ARM_ASSEMBLY> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#ASP>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#ASP_DOT_NET> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#BASIC>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#C> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#C_PLUS_PLUS>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#C_SHARP> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#COBOL>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#FORTRAN> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#FSHARP>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#GO> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#HTML>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#JAVA> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#JAVASCRIPT>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#JSON> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#JSP>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#OBJECTIVE_C> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#PASCAL>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#PERL> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#PHP>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#PSEUDOCODE> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#PYTHON>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#RUBY> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#RUST>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#SHELL> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#SQL>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#SWIFT> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#VB_DOT_NET>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#VERILOG> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#VHDL>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#XML> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#X86_ASSEMBLY>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#OTHER> ] ? ;
-          <content> @linkml:String ?
-       ) ;
-       rdf:type [ <ExampleCode> ] ?
-    )
-}
-
-<ExternalReference> CLOSED {
-    (  $<ExternalReference_tes> (  dct:title @linkml:String ;
-          <authors> @linkml:String * ;
-          <edition> @linkml:String ? ;
-          <publication> @linkml:String ? ;
-          <publication_year> @linkml:String ? ;
-          <publication_month> @linkml:String ? ;
-          <publication_day> @linkml:String ? ;
-          <publisher> @linkml:String ? ;
-          schema1:url @linkml:Uri ? ;
-          <url_date> @linkml:Date ?
-       ) ;
-       rdf:type [ <ExternalReference> ]
-    )
-}
-
-<LanguagePlatform> CLOSED {
-    (  $<LanguagePlatform_tes> (  rdfs:label [ <https://w3id.org/lmodel/cwe/ProgrammingLanguage#ADA>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#ARM_ASSEMBLY> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#ASP>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#ASP_DOT_NET> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#BASIC>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#C> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#C_PLUS_PLUS>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#C_SHARP> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#COBOL>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#FORTRAN> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#FSHARP>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#GO> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#HTML>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#JAVA> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#JAVASCRIPT>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#JSON> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#JSP>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#OBJECTIVE_C> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#PASCAL>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#PERL> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#PHP>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#PSEUDOCODE> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#PYTHON>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#RUBY> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#RUST>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#SHELL> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#SQL>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#SWIFT> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#VB_DOT_NET>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#VERILOG> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#VHDL>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#XML> <https://w3id.org/lmodel/cwe/ProgrammingLanguage#X86_ASSEMBLY>
-             <https://w3id.org/lmodel/cwe/ProgrammingLanguage#OTHER> ] ? ;
-          <class_> [ <https://w3id.org/lmodel/cwe/LanguageClass#ASSEMBLY> <https://w3id.org/lmodel/cwe/LanguageClass#COMPILED>
-             <https://w3id.org/lmodel/cwe/LanguageClass#HARDWARE_DESCRIPTION_LANGUAGE>
-             <https://w3id.org/lmodel/cwe/LanguageClass#INTERPRETED> <https://w3id.org/lmodel/cwe/LanguageClass#OBJECT_ORIENTED>
-             <https://w3id.org/lmodel/cwe/LanguageClass#MEMORY_UNSAFE>
-             <https://w3id.org/lmodel/cwe/LanguageClass#NOT_LANGUAGE_SPECIFIC> ] ? ;
-          <prevalence> [ <https://w3id.org/lmodel/cwe/PlatformPrevalence#OFTEN>
-             <https://w3id.org/lmodel/cwe/PlatformPrevalence#SOMETIMES> <https://w3id.org/lmodel/cwe/PlatformPrevalence#RARELY>
-             <https://w3id.org/lmodel/cwe/PlatformPrevalence#UNDETERMINED> ]
-       ) ;
-       rdf:type [ <LanguagePlatform> ] ?
-    )
-}
-
-<MappingNotes> CLOSED {
-    (  $<MappingNotes_tes> (  <usage> [ <https://w3id.org/lmodel/cwe/MappingUsage#ALLOWED>
-             <https://w3id.org/lmodel/cwe/MappingUsage#ALLOWED_WITH_REVIEW> <https://w3id.org/lmodel/cwe/MappingUsage#DISCOURAGED>
-             <https://w3id.org/lmodel/cwe/MappingUsage#PROHIBITED> ] ;
-          <rationale> @linkml:String ;
-          <comments> @linkml:String ;
-          <reasons> [ <https://w3id.org/lmodel/cwe/MappingReason#ABSTRACTION> <https://w3id.org/lmodel/cwe/MappingReason#CATEGORY>
-             <https://w3id.org/lmodel/cwe/MappingReason#VIEW> <https://w3id.org/lmodel/cwe/MappingReason#DEPRECATED>
-             <https://w3id.org/lmodel/cwe/MappingReason#POTENTIAL_DEPRECATION>
-             <https://w3id.org/lmodel/cwe/MappingReason#FREQUENT_MISUSE>
-             <https://w3id.org/lmodel/cwe/MappingReason#FREQUENT_MISINTERPRETATION>
-             <https://w3id.org/lmodel/cwe/MappingReason#MULTIPLE_USE> <https://w3id.org/lmodel/cwe/MappingReason#CWE_OVERLAP>
-             <https://w3id.org/lmodel/cwe/MappingReason#ACCEPTABLE_USE>
-             <https://w3id.org/lmodel/cwe/MappingReason#POTENTIAL_MAJOR_CHANGES> <https://w3id.org/lmodel/cwe/MappingReason#OTHER>
-             ] + ;
-          <suggestions> @<MappingSuggestion> *
-       ) ;
-       rdf:type [ <MappingNotes> ] ?
-    )
-}
-
-<MappingSuggestion> CLOSED {
-    (  $<MappingSuggestion_tes> (  <cwe_id> @linkml:Integer ;
-          <comment> @linkml:String
-       ) ;
-       rdf:type [ <MappingSuggestion> ] ?
-    )
-}
-
-<ModeOfIntroduction> CLOSED {
-    (  $<ModeOfIntroduction_tes> (  <phase> [ <https://w3id.org/lmodel/cwe/LifecyclePhase#POLICY>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#REQUIREMENTS>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#ARCHITECTURE_AND_DESIGN>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#IMPLEMENTATION>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#BUILD_AND_COMPILATION>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#TESTING> <https://w3id.org/lmodel/cwe/LifecyclePhase#DOCUMENTATION>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#BUNDLING> <https://w3id.org/lmodel/cwe/LifecyclePhase#DISTRIBUTION>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#INSTALLATION>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#SYSTEM_CONFIGURATION>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#OPERATION>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#PATCHING_AND_MAINTENANCE>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#PORTING> <https://w3id.org/lmodel/cwe/LifecyclePhase#INTEGRATION>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#MANUFACTURING>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#DECOMMISSIONING_AND_END_OF_LIFE> ] ;
-          <note> @linkml:String ?
-       ) ;
-       rdf:type [ <ModeOfIntroduction> ] ?
-    )
-}
-
-<Modification> CLOSED {
-    (  $<Modification_tes> (  <modification_name> @linkml:String ? ;
-          <modification_organization> @linkml:String ? ;
-          <modification_date> @linkml:Date ;
-          <modification_version> @linkml:String ? ;
-          <modification_release_date> @linkml:Date ? ;
-          <modification_importance> [ <https://w3id.org/lmodel/cwe/ContentImportance#NORMAL>
-             <https://w3id.org/lmodel/cwe/ContentImportance#CRITICAL> ] ? ;
-          <modification_comment> @linkml:String ?
-       ) ;
-       rdf:type [ <Modification> ] ?
-    )
-}
-
-<Note> CLOSED {
-    (  $<Note_tes> (  <type> [ <https://w3id.org/lmodel/cwe/NoteType#APPLICABLE_PLATFORM>
-             <https://w3id.org/lmodel/cwe/NoteType#MAINTENANCE> <https://w3id.org/lmodel/cwe/NoteType#RELATIONSHIP>
-             <https://w3id.org/lmodel/cwe/NoteType#RESEARCH_GAP> <https://w3id.org/lmodel/cwe/NoteType#TERMINOLOGY>
-             <https://w3id.org/lmodel/cwe/NoteType#THEORETICAL> <https://w3id.org/lmodel/cwe/NoteType#OTHER> ] ;
-          <content> @linkml:String ?
-       ) ;
-       rdf:type [ <Note> ] ?
-    )
-}
-
-<NVDWeaknessObservation> CLOSED {
-    (  $<NVDWeaknessObservation_tes> (  dct:references @<CveId> ;
-          schema1:about @<Weakness> ;
-          dct:source [ <https://w3id.org/lmodel/cwe/WeaknessSource#MITRE> <https://w3id.org/lmodel/cwe/WeaknessSource#NIST>
-             <https://w3id.org/lmodel/cwe/WeaknessSource#ASSIGNER> <https://w3id.org/lmodel/cwe/WeaknessSource#CNA>
-             <https://w3id.org/lmodel/cwe/WeaknessSource#OTHER> ] ;
-          dct:source @linkml:String ?
-       ) ;
-       rdf:type [ <NVDWeaknessObservation> ]
-    )
-}
-
-<ObservedExample> CLOSED {
-    (  $<ObservedExample_tes> (  <reference> @linkml:String ;
-          dct:description @linkml:String ;
-          <link> @linkml:Uri
-       ) ;
-       rdf:type [ <ObservedExample> ] ?
-    )
-}
-
-<OSPlatform> CLOSED {
-    (  $<OSPlatform_tes> (  rdfs:label [ <https://w3id.org/lmodel/cwe/OperatingSystemName#AIX>
-             <https://w3id.org/lmodel/cwe/OperatingSystemName#ANDROID>
-             <https://w3id.org/lmodel/cwe/OperatingSystemName#BLACKBERRY_OS>
-             <https://w3id.org/lmodel/cwe/OperatingSystemName#CHROME_OS> <https://w3id.org/lmodel/cwe/OperatingSystemName#DARWIN>
-             <https://w3id.org/lmodel/cwe/OperatingSystemName#FREEBSD> <https://w3id.org/lmodel/cwe/OperatingSystemName#IOS>
-             <https://w3id.org/lmodel/cwe/OperatingSystemName#MACOS> <https://w3id.org/lmodel/cwe/OperatingSystemName#NETBSD>
-             <https://w3id.org/lmodel/cwe/OperatingSystemName#OPENBSD> <https://w3id.org/lmodel/cwe/OperatingSystemName#RED_HAT>
-             <https://w3id.org/lmodel/cwe/OperatingSystemName#SOLARIS> <https://w3id.org/lmodel/cwe/OperatingSystemName#SUSE>
-             <https://w3id.org/lmodel/cwe/OperatingSystemName#TVOS> <https://w3id.org/lmodel/cwe/OperatingSystemName#UBUNTU>
-             <https://w3id.org/lmodel/cwe/OperatingSystemName#WATCHOS> <https://w3id.org/lmodel/cwe/OperatingSystemName#WINDOWS_9X>
-             <https://w3id.org/lmodel/cwe/OperatingSystemName#WINDOWS_EMBEDDED>
-             <https://w3id.org/lmodel/cwe/OperatingSystemName#WINDOWS_NT> ] ? ;
-          <class_> [ <https://w3id.org/lmodel/cwe/OperatingSystemClass#LINUX>
-             <https://w3id.org/lmodel/cwe/OperatingSystemClass#MACOS> <https://w3id.org/lmodel/cwe/OperatingSystemClass#UNIX>
-             <https://w3id.org/lmodel/cwe/OperatingSystemClass#WINDOWS>
-             <https://w3id.org/lmodel/cwe/OperatingSystemClass#NOT_OS_SPECIFIC> ] ? ;
-          schema1:version @linkml:String ? ;
-          <cpe_id> @linkml:String ? ;
-          <prevalence> [ <https://w3id.org/lmodel/cwe/PlatformPrevalence#OFTEN>
-             <https://w3id.org/lmodel/cwe/PlatformPrevalence#SOMETIMES> <https://w3id.org/lmodel/cwe/PlatformPrevalence#RARELY>
-             <https://w3id.org/lmodel/cwe/PlatformPrevalence#UNDETERMINED> ]
-       ) ;
-       rdf:type [ <OSPlatform> ] ?
-    )
-}
-
-<PotentialMitigation> CLOSED {
-    (  $<PotentialMitigation_tes> (  <mitigation_id> @linkml:String ? ;
-          <phases> [ <https://w3id.org/lmodel/cwe/LifecyclePhase#POLICY> <https://w3id.org/lmodel/cwe/LifecyclePhase#REQUIREMENTS>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#ARCHITECTURE_AND_DESIGN>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#IMPLEMENTATION>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#BUILD_AND_COMPILATION>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#TESTING> <https://w3id.org/lmodel/cwe/LifecyclePhase#DOCUMENTATION>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#BUNDLING> <https://w3id.org/lmodel/cwe/LifecyclePhase#DISTRIBUTION>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#INSTALLATION>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#SYSTEM_CONFIGURATION>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#OPERATION>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#PATCHING_AND_MAINTENANCE>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#PORTING> <https://w3id.org/lmodel/cwe/LifecyclePhase#INTEGRATION>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#MANUFACTURING>
-             <https://w3id.org/lmodel/cwe/LifecyclePhase#DECOMMISSIONING_AND_END_OF_LIFE> ] * ;
-          <strategy> [ <https://w3id.org/lmodel/cwe/MitigationStrategy#ATTACK_SURFACE_REDUCTION>
-             <https://w3id.org/lmodel/cwe/MitigationStrategy#COMPILATION_OR_BUILD_HARDENING>
-             <https://w3id.org/lmodel/cwe/MitigationStrategy#ENFORCEMENT_BY_CONVERSION>
-             <https://w3id.org/lmodel/cwe/MitigationStrategy#ENVIRONMENT_HARDENING>
-             <https://w3id.org/lmodel/cwe/MitigationStrategy#FIREWALL>
-             <https://w3id.org/lmodel/cwe/MitigationStrategy#INPUT_VALIDATION>
-             <https://w3id.org/lmodel/cwe/MitigationStrategy#LANGUAGE_SELECTION>
-             <https://w3id.org/lmodel/cwe/MitigationStrategy#LIBRARIES_OR_FRAMEWORKS>
-             <https://w3id.org/lmodel/cwe/MitigationStrategy#RESOURCE_LIMITATION>
-             <https://w3id.org/lmodel/cwe/MitigationStrategy#OUTPUT_ENCODING>
-             <https://w3id.org/lmodel/cwe/MitigationStrategy#PARAMETERIZATION>
-             <https://w3id.org/lmodel/cwe/MitigationStrategy#REFACTORING>
-             <https://w3id.org/lmodel/cwe/MitigationStrategy#SANDBOX_OR_JAIL>
-             <https://w3id.org/lmodel/cwe/MitigationStrategy#SEPARATION_OF_PRIVILEGE> ] ? ;
-          dct:description @linkml:String ;
-          <effectiveness> [ <https://w3id.org/lmodel/cwe/MitigationEffectiveness#HIGH>
-             <https://w3id.org/lmodel/cwe/MitigationEffectiveness#MODERATE>
-             <https://w3id.org/lmodel/cwe/MitigationEffectiveness#LIMITED>
-             <https://w3id.org/lmodel/cwe/MitigationEffectiveness#INCIDENTAL>
-             <https://w3id.org/lmodel/cwe/MitigationEffectiveness#DEFENSE_IN_DEPTH>
-             <https://w3id.org/lmodel/cwe/MitigationEffectiveness#DISCOURAGED_COMMON_PRACTICE>
-             <https://w3id.org/lmodel/cwe/MitigationEffectiveness#NONE> ] ? ;
-          <effectiveness_notes> @linkml:String ?
-       ) ;
-       rdf:type [ <PotentialMitigation> ] ?
-    )
-}
-
-<PreviousEntryName> CLOSED {
-    (  $<PreviousEntryName_tes> (  rdfs:label @linkml:String ;
-          dct:date @linkml:Date ;
-          schema1:version @linkml:String ?
-       ) ;
-       rdf:type [ <PreviousEntryName> ] ?
-    )
-}
-
-<RelatedWeakness> CLOSED {
-    (  $<RelatedWeakness_tes> (  skos:related [ <https://w3id.org/lmodel/cwe/WeaknessRelationNature#CHILD_OF>
-             <https://w3id.org/lmodel/cwe/WeaknessRelationNature#PARENT_OF>
-             <https://w3id.org/lmodel/cwe/WeaknessRelationNature#STARTS_WITH>
-             <https://w3id.org/lmodel/cwe/WeaknessRelationNature#CAN_FOLLOW>
-             <https://w3id.org/lmodel/cwe/WeaknessRelationNature#CAN_PRECEDE>
-             <https://w3id.org/lmodel/cwe/WeaknessRelationNature#REQUIRED_BY>
-             <https://w3id.org/lmodel/cwe/WeaknessRelationNature#REQUIRES>
-             <https://w3id.org/lmodel/cwe/WeaknessRelationNature#CAN_ALSO_BE>
-             <https://w3id.org/lmodel/cwe/WeaknessRelationNature#PEER_OF> ] ;
-          <cwe_id> @linkml:Integer ;
-          <view_id> @linkml:Integer ;
-          <chain_id> @linkml:Integer ? ;
-          <ordinal> [ <https://w3id.org/lmodel/cwe/OrdinalQualifier#PRIMARY> ] ?
-       ) ;
-       rdf:type [ <RelatedWeakness> ] ?
-    )
-}
-
-<Relationship> CLOSED {
-    (  $<Relationship_tes> (  <has_member> @<CatalogMember> * ;
-          <member_of> @<CatalogMember> *
-       ) ;
-       rdf:type [ <Relationship> ] ?
-    )
-}
-
-<Submission> CLOSED {
-    (  $<Submission_tes> (  <submission_name> @linkml:String ? ;
-          <submission_organization> @linkml:String ? ;
-          <submission_date> @linkml:Date ;
-          <submission_version> @linkml:String ;
-          <submission_release_date> @linkml:Date ;
-          <submission_comment> @linkml:String ?
-       ) ;
-       rdf:type [ <Submission> ] ?
-    )
-}
-
-<TaxonomyMapping> CLOSED {
-    (  $<TaxonomyMapping_tes> (  <taxonomy_name> [ <https://w3id.org/lmodel/cwe/TaxonomyName#SEVEN_PERNICIOUS_KINGDOMS>
-             <https://w3id.org/lmodel/cwe/TaxonomyName#NINETEEN_DEADLY_SINS> <https://w3id.org/lmodel/cwe/TaxonomyName#ASLAM>
-             <https://w3id.org/lmodel/cwe/TaxonomyName#BISHOP> <https://w3id.org/lmodel/cwe/TaxonomyName#CERT_C_SECURE_CODING>
-             <https://w3id.org/lmodel/cwe/TaxonomyName#CERT_CPP_SECURE_CODING>
-             <https://w3id.org/lmodel/cwe/TaxonomyName#THE_CERT_ORACLE_SECURE_CODING_STANDARD_FOR_JAVA_2011>
-             <https://w3id.org/lmodel/cwe/TaxonomyName#CLASP> <https://w3id.org/lmodel/cwe/TaxonomyName#ISA_IEC_62443>
-             <https://w3id.org/lmodel/cwe/TaxonomyName#LANDWEHR> <https://w3id.org/lmodel/cwe/TaxonomyName#OMG_ASCSM>
-             <https://w3id.org/lmodel/cwe/TaxonomyName#OMG_ASCRM> <https://w3id.org/lmodel/cwe/TaxonomyName#OMG_ASCMM>
-             <https://w3id.org/lmodel/cwe/TaxonomyName#OMG_ASCPEM> <https://w3id.org/lmodel/cwe/TaxonomyName#OWASP_TOP_TEN_2004>
-             <https://w3id.org/lmodel/cwe/TaxonomyName#OWASP_TOP_TEN_2007> <https://w3id.org/lmodel/cwe/TaxonomyName#OWASP_TOP_TEN>
-             <https://w3id.org/lmodel/cwe/TaxonomyName#PLOVER> <https://w3id.org/lmodel/cwe/TaxonomyName#PROTECTION_ANALYSIS>
-             <https://w3id.org/lmodel/cwe/TaxonomyName#RISOS> <https://w3id.org/lmodel/cwe/TaxonomyName#SEI_CERT_C_CODING_STANDARD>
-             <https://w3id.org/lmodel/cwe/TaxonomyName#SEI_CERT_CPP_CODING_STANDARD>
-             <https://w3id.org/lmodel/cwe/TaxonomyName#SEI_CERT_ORACLE_CODING_STANDARD_FOR_JAVA>
-             <https://w3id.org/lmodel/cwe/TaxonomyName#SEI_CERT_PERL_CODING_STANDARD>
-             <https://w3id.org/lmodel/cwe/TaxonomyName#SOFTWARE_FAULT_PATTERNS>
-             <https://w3id.org/lmodel/cwe/TaxonomyName#WEBER_KARGER_PARADKAR> <https://w3id.org/lmodel/cwe/TaxonomyName#WASC> ] ;
-          <entry_id> @linkml:String ? ;
-          <entry_name> @linkml:String ? ;
-          <mapping_fit> [ <https://w3id.org/lmodel/cwe/TaxonomyMappingFit#EXACT>
-             <https://w3id.org/lmodel/cwe/TaxonomyMappingFit#CWE_MORE_ABSTRACT>
-             <https://w3id.org/lmodel/cwe/TaxonomyMappingFit#CWE_MORE_SPECIFIC>
-             <https://w3id.org/lmodel/cwe/TaxonomyMappingFit#IMPRECISE>
-             <https://w3id.org/lmodel/cwe/TaxonomyMappingFit#PERSPECTIVE> ] ?
-       ) ;
-       rdf:type [ <TaxonomyMapping> ] ?
-    )
-}
-
-<TechnologyPlatform> CLOSED {
-    (  $<TechnologyPlatform_tes> (  rdfs:label [ <https://w3id.org/lmodel/cwe/TechnologyName#AI_ML>
-             <https://w3id.org/lmodel/cwe/TechnologyName#WEB_SERVER> <https://w3id.org/lmodel/cwe/TechnologyName#DATABASE_SERVER>
-             <https://w3id.org/lmodel/cwe/TechnologyName#ACCELERATOR_HARDWARE>
-             <https://w3id.org/lmodel/cwe/TechnologyName#ANALOG_AND_MIXED_SIGNAL_HARDWARE>
-             <https://w3id.org/lmodel/cwe/TechnologyName#AUDIO_VIDEO_HARDWARE>
-             <https://w3id.org/lmodel/cwe/TechnologyName#BUS_INTERFACE_HARDWARE>
-             <https://w3id.org/lmodel/cwe/TechnologyName#CLOCK_COUNTER_HARDWARE>
-             <https://w3id.org/lmodel/cwe/TechnologyName#COMMUNICATION_HARDWARE>
-             <https://w3id.org/lmodel/cwe/TechnologyName#CONTROLLER_HARDWARE>
-             <https://w3id.org/lmodel/cwe/TechnologyName#MEMORY_HARDWARE>
-             <https://w3id.org/lmodel/cwe/TechnologyName#MICROCONTROLLER_HARDWARE>
-             <https://w3id.org/lmodel/cwe/TechnologyName#NETWORK_ON_CHIP_HARDWARE>
-             <https://w3id.org/lmodel/cwe/TechnologyName#POWER_MANAGEMENT_HARDWARE>
-             <https://w3id.org/lmodel/cwe/TechnologyName#PROCESSOR_HARDWARE>
-             <https://w3id.org/lmodel/cwe/TechnologyName#SECURITY_HARDWARE>
-             <https://w3id.org/lmodel/cwe/TechnologyName#SENSOR_HARDWARE>
-             <https://w3id.org/lmodel/cwe/TechnologyName#STORAGE_HARDWARE>
-             <https://w3id.org/lmodel/cwe/TechnologyName#TEST_DEBUG_HARDWARE> <https://w3id.org/lmodel/cwe/TechnologyName#OTHER> ]
-          ? ;
-          <class_> [ <https://w3id.org/lmodel/cwe/TechnologyClass#CLIENT_SERVER>
-             <https://w3id.org/lmodel/cwe/TechnologyClass#CLOUD_COMPUTING> <https://w3id.org/lmodel/cwe/TechnologyClass#ICS_OT>
-             <https://w3id.org/lmodel/cwe/TechnologyClass#MAINFRAME> <https://w3id.org/lmodel/cwe/TechnologyClass#MOBILE>
-             <https://w3id.org/lmodel/cwe/TechnologyClass#N_TIER> <https://w3id.org/lmodel/cwe/TechnologyClass#SOA>
-             <https://w3id.org/lmodel/cwe/TechnologyClass#SYSTEM_ON_CHIP> <https://w3id.org/lmodel/cwe/TechnologyClass#WEB_BASED>
-             <https://w3id.org/lmodel/cwe/TechnologyClass#NOT_TECHNOLOGY_SPECIFIC> ] ? ;
-          <prevalence> [ <https://w3id.org/lmodel/cwe/PlatformPrevalence#OFTEN>
-             <https://w3id.org/lmodel/cwe/PlatformPrevalence#SOMETIMES> <https://w3id.org/lmodel/cwe/PlatformPrevalence#RARELY>
-             <https://w3id.org/lmodel/cwe/PlatformPrevalence#UNDETERMINED> ]
-       ) ;
-       rdf:type [ <TechnologyPlatform> ] ?
-    )
-}
-
-<View> CLOSED {
-    (  $<View_tes> (  rdfs:label @linkml:String ;
-          <type> [ <https://w3id.org/lmodel/cwe/CWEViewType#GRAPH> <https://w3id.org/lmodel/cwe/CWEViewType#EXPLICIT>
-             <https://w3id.org/lmodel/cwe/CWEViewType#IMPLICIT> ] ;
-          <status> [ <https://w3id.org/lmodel/cwe/WeaknessStatus#DEPRECATED> <https://w3id.org/lmodel/cwe/WeaknessStatus#DRAFT>
-             <https://w3id.org/lmodel/cwe/WeaknessStatus#INCOMPLETE> <https://w3id.org/lmodel/cwe/WeaknessStatus#OBSOLETE>
-             <https://w3id.org/lmodel/cwe/WeaknessStatus#STABLE> <https://w3id.org/lmodel/cwe/WeaknessStatus#USABLE> ] ;
-          <objective> @linkml:String ;
-          <audience> @<Audience> * ;
-          <members> @<CatalogMember> * ;
-          <filter> @linkml:String ? ;
-          <references> @<CWEReference> * ;
-          <mapping_notes> @<MappingNotes> ;
-          skos:note @<Note> * ;
-          <content_history> @<ContentHistory>
-       ) ;
-       rdf:type [ <View> ]
-    )
-}
-
-<Weakness> CLOSED {
-    (  $<Weakness_tes> (  rdfs:label @linkml:String ;
-          dct:description @linkml:String ;
-          <extended_description> @linkml:String ? ;
-          skos:broader [ <https://w3id.org/lmodel/cwe/WeaknessAbstraction#PILLAR>
-             <https://w3id.org/lmodel/cwe/WeaknessAbstraction#CLASS> <https://w3id.org/lmodel/cwe/WeaknessAbstraction#BASE>
-             <https://w3id.org/lmodel/cwe/WeaknessAbstraction#VARIANT> <https://w3id.org/lmodel/cwe/WeaknessAbstraction#COMPOUND> ]
+<CweAlternateTerm> CLOSED {
+    (  $<CweAlternateTerm_tes> (  <Term> @linkml:String ;
+          <Role> [ <https://w3id.org/lmodel/cwe/CweAlternateTermRole#Abbreviation>
+             <https://w3id.org/lmodel/cwe/CweAlternateTermRole#Acronym>
+             <https://w3id.org/lmodel/cwe/CweAlternateTermRole#Alternate-Spelling>
+             <https://w3id.org/lmodel/cwe/CweAlternateTermRole#Attack-Focused>
+             <https://w3id.org/lmodel/cwe/CweAlternateTermRole#Impact-Oriented>
+             <https://w3id.org/lmodel/cwe/CweAlternateTermRole#Multi-Weakness>
+             <https://w3id.org/lmodel/cwe/CweAlternateTermRole#Multiple-Interpretation>
+             <https://w3id.org/lmodel/cwe/CweAlternateTermRole#Common-Name>
+             <https://w3id.org/lmodel/cwe/CweAlternateTermRole#Discouraged>
+             <https://w3id.org/lmodel/cwe/CweAlternateTermRole#Legacy> <https://w3id.org/lmodel/cwe/CweAlternateTermRole#Other> ] *
           ;
-          <structure> [ <https://w3id.org/lmodel/cwe/WeaknessStructure#SIMPLE>
-             <https://w3id.org/lmodel/cwe/WeaknessStructure#CHAIN> <https://w3id.org/lmodel/cwe/WeaknessStructure#COMPOSITE> ] ;
-          <status> [ <https://w3id.org/lmodel/cwe/WeaknessStatus#DEPRECATED> <https://w3id.org/lmodel/cwe/WeaknessStatus#DRAFT>
-             <https://w3id.org/lmodel/cwe/WeaknessStatus#INCOMPLETE> <https://w3id.org/lmodel/cwe/WeaknessStatus#OBSOLETE>
-             <https://w3id.org/lmodel/cwe/WeaknessStatus#STABLE> <https://w3id.org/lmodel/cwe/WeaknessStatus#USABLE> ] ;
-          <diagram> @linkml:String ? ;
-          <weakness_ordinalities> @<WeaknessOrdinality> * ;
-          <applicable_platforms> @<ApplicablePlatforms> ? ;
-          <background_details> @linkml:String * ;
-          <alternate_terms> @<AlternateTerm> * ;
-          <modes_of_introduction> @<ModeOfIntroduction> * ;
-          <exploitation_factors> @linkml:String * ;
-          <likelihood_of_exploit> [ <https://w3id.org/lmodel/cwe/LikelihoodLevel#HIGH>
-             <https://w3id.org/lmodel/cwe/LikelihoodLevel#MEDIUM> <https://w3id.org/lmodel/cwe/LikelihoodLevel#LOW>
-             <https://w3id.org/lmodel/cwe/LikelihoodLevel#UNKNOWN> ] ? ;
-          <common_consequences> @<CommonConsequence> * ;
-          <detection_methods> @<DetectionMethod> * ;
-          <potential_mitigations> @<PotentialMitigation> * ;
-          <demonstrative_examples> @<DemonstrativeExample> * ;
-          <observed_examples> @<ObservedExample> * ;
-          <functional_areas> [ <https://w3id.org/lmodel/cwe/FunctionalArea#AUTHENTICATION>
-             <https://w3id.org/lmodel/cwe/FunctionalArea#AUTHORIZATION> <https://w3id.org/lmodel/cwe/FunctionalArea#CODE_LIBRARIES>
-             <https://w3id.org/lmodel/cwe/FunctionalArea#COUNTERS> <https://w3id.org/lmodel/cwe/FunctionalArea#CRYPTOGRAPHY>
-             <https://w3id.org/lmodel/cwe/FunctionalArea#ERROR_HANDLING>
-             <https://w3id.org/lmodel/cwe/FunctionalArea#INTERPROCESS_COMMUNICATION>
-             <https://w3id.org/lmodel/cwe/FunctionalArea#FILE_PROCESSING> <https://w3id.org/lmodel/cwe/FunctionalArea#LOGGING>
-             <https://w3id.org/lmodel/cwe/FunctionalArea#MEMORY_MANAGEMENT> <https://w3id.org/lmodel/cwe/FunctionalArea#NETWORKING>
-             <https://w3id.org/lmodel/cwe/FunctionalArea#NUMBER_PROCESSING>
-             <https://w3id.org/lmodel/cwe/FunctionalArea#PROGRAM_INVOCATION>
-             <https://w3id.org/lmodel/cwe/FunctionalArea#PROTECTION_MECHANISM>
-             <https://w3id.org/lmodel/cwe/FunctionalArea#SESSION_MANAGEMENT> <https://w3id.org/lmodel/cwe/FunctionalArea#SIGNALS>
-             <https://w3id.org/lmodel/cwe/FunctionalArea#STRING_PROCESSING>
-             <https://w3id.org/lmodel/cwe/FunctionalArea#NOT_FUNCTIONAL_AREA_SPECIFIC>
-             <https://w3id.org/lmodel/cwe/FunctionalArea#POWER> <https://w3id.org/lmodel/cwe/FunctionalArea#CLOCK> ] * ;
-          <affected_resources> [ <https://w3id.org/lmodel/cwe/AffectedResource#CPU>
-             <https://w3id.org/lmodel/cwe/AffectedResource#FILE_OR_DIRECTORY> <https://w3id.org/lmodel/cwe/AffectedResource#MEMORY>
-             <https://w3id.org/lmodel/cwe/AffectedResource#SYSTEM_PROCESS> <https://w3id.org/lmodel/cwe/AffectedResource#OTHER> ] *
-          ;
-          <taxonomy_mappings> @<TaxonomyMapping> * ;
-          skos:related @linkml:Integer * ;
-          <related_weaknesses> @<RelatedWeakness> * ;
-          <references> @<CWEReference> * ;
-          <mapping_notes> @<MappingNotes> ;
-          skos:note @<Note> * ;
-          <content_history> @<ContentHistory> ;
-          <tags> @linkml:String * ;
-          dct:source @linkml:String ?
+          <Description> @<CweStructuredText> ?
        ) ;
-       rdf:type [ <Weakness> ]
+       rdf:type [ <CweAlternateTerm> ] ?
     )
 }
 
-<WeaknessCatalog> CLOSED {
-    (  $<WeaknessCatalog_tes> (  schema1:version @linkml:String ;
-          dct:date @linkml:Date ;
-          <weaknesses> @<Weakness> * ;
-          <categories> @<Category> * ;
-          <views> @<View> * ;
-          <external_references> @<ExternalReference> * ;
-          <observations> @<NVDWeaknessObservation> *
+<CweApplicablePlatforms> CLOSED {
+    (  $<CweApplicablePlatforms_tes> (  <Language> @<CweLanguagePlatform> * ;
+          <Operating_System> @<CweOperatingSystemPlatform> * ;
+          <Architecture> @<CweArchitecturePlatform> * ;
+          <Technology> @<CweTechnologyPlatform> *
        ) ;
-       rdf:type [ <WeaknessCatalog> ]
+       rdf:type [ <CweApplicablePlatforms> ] ?
     )
 }
 
-<WeaknessOrdinality> CLOSED {
-    (  $<WeaknessOrdinality_tes> (  <ordinality> [ <https://w3id.org/lmodel/cwe/WeaknessOrdinalityLevel#PRIMARY>
-             <https://w3id.org/lmodel/cwe/WeaknessOrdinalityLevel#RESULTANT>
-             <https://w3id.org/lmodel/cwe/WeaknessOrdinalityLevel#INDIRECT> ] ;
-          dct:description @linkml:String ?
+<CweArchitecturePlatform> CLOSED {
+    (  $<CweArchitecturePlatform_tes> (  <Name> [ <https://w3id.org/lmodel/cwe/CweArchitectureName#Alpha>
+             <https://w3id.org/lmodel/cwe/CweArchitectureName#ARM> <https://w3id.org/lmodel/cwe/CweArchitectureName#Itanium>
+             <https://w3id.org/lmodel/cwe/CweArchitectureName#Power%20Architecture>
+             <https://w3id.org/lmodel/cwe/CweArchitectureName#SPARC> <https://w3id.org/lmodel/cwe/CweArchitectureName#x86>
+             <https://w3id.org/lmodel/cwe/CweArchitectureName#Other> ] ? ;
+          <Class> [ <https://w3id.org/lmodel/cwe/CweArchitectureClass#Embedded>
+             <https://w3id.org/lmodel/cwe/CweArchitectureClass#Microcomputer>
+             <https://w3id.org/lmodel/cwe/CweArchitectureClass#Workstation>
+             <https://w3id.org/lmodel/cwe/CweArchitectureClass#Not%20Architecture-Specific> ] ? ;
+          <Prevalence> [ <https://w3id.org/lmodel/cwe/CwePrevalence#Often> <https://w3id.org/lmodel/cwe/CwePrevalence#Sometimes>
+             <https://w3id.org/lmodel/cwe/CwePrevalence#Rarely> <https://w3id.org/lmodel/cwe/CwePrevalence#Undetermined>
+             <https://w3id.org/lmodel/cwe/CwePrevalence#None> ] ;
+          <Note> @<CweStructuredText> ?
        ) ;
-       rdf:type [ <WeaknessOrdinality> ] ?
+       rdf:type [ <CweArchitecturePlatform> ] ?
+    )
+}
+
+<CweConsequence> CLOSED {
+    (  $<CweConsequence_tes> (  <Consequence_ID> @linkml:String ? ;
+          <Scope> [ <https://w3id.org/lmodel/cwe/CweScope#Confidentiality> <https://w3id.org/lmodel/cwe/CweScope#Integrity>
+             <https://w3id.org/lmodel/cwe/CweScope#Availability> <https://w3id.org/lmodel/cwe/CweScope#Access%20Control>
+             <https://w3id.org/lmodel/cwe/CweScope#Accountability> <https://w3id.org/lmodel/cwe/CweScope#Authentication>
+             <https://w3id.org/lmodel/cwe/CweScope#Authorization> <https://w3id.org/lmodel/cwe/CweScope#Non-Repudiation>
+             <https://w3id.org/lmodel/cwe/CweScope#Other> ] + ;
+          <Impact> [ <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Modify%20Memory>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Read%20Memory>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Modify%20Files%20or%20Directories>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Read%20Files%20or%20Directories>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Modify%20Application%20Data>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Read%20Application%20Data>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#DoS%3A%20Crash%2C%20Exit%2C%20or%20Restart>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#DoS%3A%20Amplification>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#DoS%3A%20Instability>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#DoS%3A%20Prevent%20Access>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#DoS%3A%20Resource%20Consumption%20%28CPU%29>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#DoS%3A%20Resource%20Consumption%20%28Memory%29>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#DoS%3A%20Resource%20Consumption%20%28Other%29>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#DoS%3A%20Other>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Execute%20Unauthorized%20Code%20or%20Commands>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Gain%20Privileges%20or%20Assume%20Identity>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Bypass%20Protection%20Mechanism>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Hide%20Activities>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Alter%20Execution%20Logic>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Undefined%20Behavior>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Quality%20Degradation>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Unexpected%20State>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Varies%20by%20Context>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Increase%20Analytical%20Complexity>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Reduce%20Maintainability>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Reduce%20Performance>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Reduce%20Reliability>
+             <https://w3id.org/lmodel/cwe/CweTechnicalImpact#Other> ] + ;
+          <Likelihood> [ <https://w3id.org/lmodel/cwe/CweLikelihood#High> <https://w3id.org/lmodel/cwe/CweLikelihood#Medium>
+             <https://w3id.org/lmodel/cwe/CweLikelihood#Low> <https://w3id.org/lmodel/cwe/CweLikelihood#Unknown> ] ? ;
+          <Note> @<CweStructuredText> ?
+       ) ;
+       rdf:type [ <CweConsequence> ] ?
+    )
+}
+
+<CweContentHistory> CLOSED {
+    (  $<CweContentHistory_tes> (  <Submission> @<CweSubmission> + ;
+          <Modification> @<CweModification> * ;
+          <Contribution> @<CweContribution> * ;
+          <Previous_Entry_Name> @<CwePreviousEntryName> *
+       ) ;
+       rdf:type [ <CweContentHistory> ] ?
+    )
+}
+
+<CweContribution> CLOSED {
+    (  $<CweContribution_tes> (  <Type> [ <https://w3id.org/lmodel/cwe/CweContributionType#Content>
+             <https://w3id.org/lmodel/cwe/CweContributionType#Feedback> ] ;
+          <Contribution_Name> @linkml:String * ;
+          <Contribution_Organization> @linkml:String ? ;
+          <Contribution_Date> @linkml:Date ;
+          <Contribution_Version> @linkml:String ;
+          <Contribution_ReleaseDate> @linkml:Date ;
+          <Contribution_Comment> @linkml:String ?
+       ) ;
+       rdf:type [ <CweContribution> ] ?
+    )
+}
+
+<CweCustomPhase> CLOSED {
+    (  $<CweCustomPhase_tes> (  <Domain> [ <https://w3id.org/lmodel/cwe/CweCustomPhaseDomain#AI>
+             <https://w3id.org/lmodel/cwe/CweCustomPhaseDomain#Hardware> ] ;
+          <Value> @linkml:String
+       ) ;
+       rdf:type [ <CweCustomPhase> ] ?
+    )
+}
+
+<CweDemonstrativeExample> CLOSED {
+    (  $<CweDemonstrativeExample_tes> (  <Demonstrative_Example_ID> @linkml:String ? ;
+          <Title_Text> @linkml:String ? ;
+          <Intro_Text> @<CweStructuredText> ;
+          <Entries> @<CweExampleEntry> *
+       ) ;
+       rdf:type [ <CweDemonstrativeExample> ] ?
+    )
+}
+
+<CweDetectionMethod> CLOSED {
+    (  $<CweDetectionMethod_tes> (  <Detection_Method_ID> @linkml:String ? ;
+          <Method> [ <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Automated%20Analysis>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Automated%20Dynamic%20Analysis>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Automated%20Static%20Analysis>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Automated%20Static%20Analysis%20-%20Source%20Code>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Automated%20Static%20Analysis%20-%20Binary%20or%20Bytecode>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Fuzzing>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Manual%20Analysis>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Manual%20Dynamic%20Analysis>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Manual%20Static%20Analysis>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Manual%20Static%20Analysis%20-%20Source%20Code>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Manual%20Static%20Analysis%20-%20Binary%20or%20Bytecode>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#White%20Box>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Black%20Box>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Architecture%20or%20Design%20Review>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Dynamic%20Analysis%20with%20Manual%20Results%20Interpretation>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Dynamic%20Analysis%20with%20Automated%20Results%20Interpretation>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Formal%20Verification>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Simulation%20/%20Emulation>
+             <https://w3id.org/lmodel/cwe/CweDetectionMethodName#Other> ] ;
+          <Phase> [ <https://w3id.org/lmodel/cwe/CwePhase#Policy> <https://w3id.org/lmodel/cwe/CwePhase#Requirements>
+             <https://w3id.org/lmodel/cwe/CwePhase#Architecture%20and%20Design>
+             <https://w3id.org/lmodel/cwe/CwePhase#Implementation> <https://w3id.org/lmodel/cwe/CwePhase#Build%20and%20Compilation>
+             <https://w3id.org/lmodel/cwe/CwePhase#Testing> <https://w3id.org/lmodel/cwe/CwePhase#Documentation>
+             <https://w3id.org/lmodel/cwe/CwePhase#Bundling> <https://w3id.org/lmodel/cwe/CwePhase#Distribution>
+             <https://w3id.org/lmodel/cwe/CwePhase#Installation> <https://w3id.org/lmodel/cwe/CwePhase#System%20Configuration>
+             <https://w3id.org/lmodel/cwe/CwePhase#Operation> <https://w3id.org/lmodel/cwe/CwePhase#Patching%20and%20Maintenance>
+             <https://w3id.org/lmodel/cwe/CwePhase#Porting> <https://w3id.org/lmodel/cwe/CwePhase#Integration>
+             <https://w3id.org/lmodel/cwe/CwePhase#Manufacturing>
+             <https://w3id.org/lmodel/cwe/CwePhase#Decommissioning%20and%20End-of-Life> ] * ;
+          <Custom_Phase> @<CweCustomPhase> * ;
+          <Description> @<CweStructuredText> ;
+          <Effectiveness> [ <https://w3id.org/lmodel/cwe/CweDetectionEffectiveness#High>
+             <https://w3id.org/lmodel/cwe/CweDetectionEffectiveness#Moderate>
+             <https://w3id.org/lmodel/cwe/CweDetectionEffectiveness#SOAR%20Partial>
+             <https://w3id.org/lmodel/cwe/CweDetectionEffectiveness#Opportunistic>
+             <https://w3id.org/lmodel/cwe/CweDetectionEffectiveness#Limited>
+             <https://w3id.org/lmodel/cwe/CweDetectionEffectiveness#None> ] ? ;
+          <Effectiveness_Notes> @<CweStructuredText> ?
+       ) ;
+       rdf:type [ <CweDetectionMethod> ] ?
+    )
+}
+
+<CweDimension> CLOSED {
+    (  $<CweDimension_tes> (  <Type> [ <https://w3id.org/lmodel/cwe/CweDimensionType#Behavior-Type>
+             <https://w3id.org/lmodel/cwe/CweDimensionType#Behavior-Property>
+             <https://w3id.org/lmodel/cwe/CweDimensionType#Resource-Type>
+             <https://w3id.org/lmodel/cwe/CweDimensionType#Resource-Property>
+             <https://w3id.org/lmodel/cwe/CweDimensionType#Input-Type>
+             <https://w3id.org/lmodel/cwe/CweDimensionType#Input-Property> <https://w3id.org/lmodel/cwe/CweDimensionType#Info-Type>
+             <https://w3id.org/lmodel/cwe/CweDimensionType#Info-Property> <https://w3id.org/lmodel/cwe/CweDimensionType#Code-Type>
+             <https://w3id.org/lmodel/cwe/CweDimensionType#Code-Property> <https://w3id.org/lmodel/cwe/CweDimensionType#Technology>
+             <https://w3id.org/lmodel/cwe/CweDimensionType#Language-Type>
+             <https://w3id.org/lmodel/cwe/CweDimensionType#Language-Property>
+             <https://w3id.org/lmodel/cwe/CweDimensionType#Framework> <https://w3id.org/lmodel/cwe/CweDimensionType#Common-Name>
+             <https://w3id.org/lmodel/cwe/CweDimensionType#Attack> <https://w3id.org/lmodel/cwe/CweDimensionType#Acronym>
+             <https://w3id.org/lmodel/cwe/CweDimensionType#Other> ] ;
+          <Value> @linkml:String
+       ) ;
+       rdf:type [ <CweDimension> ] ?
+    )
+}
+
+<CweEntry>  (
+    @<CweGrouping> OR @<CweView> OR @<CweWeakness>
+)
+
+<CweEntry_struct> {
+    (  $<CweEntry_tes> (  <Name> @linkml:String ;
+          <Status> [ <https://w3id.org/lmodel/cwe/CweStatus#Deprecated> <https://w3id.org/lmodel/cwe/CweStatus#Draft>
+             <https://w3id.org/lmodel/cwe/CweStatus#Incomplete> <https://w3id.org/lmodel/cwe/CweStatus#Obsolete>
+             <https://w3id.org/lmodel/cwe/CweStatus#Stable> <https://w3id.org/lmodel/cwe/CweStatus#Usable> ] ;
+          <References> @<CweReference> * ;
+          <Mapping_Notes> @<CweMappingNotes> ;
+          <Notes> @<CweNote> * ;
+          <Content_History> @<CweContentHistory>
+       ) ;
+       rdf:type [ <CweEntry> ]
+    )
+}
+
+<CweExampleCode> CLOSED {
+    (  $<CweExampleCode_tes> (  <Nature> [ <https://w3id.org/lmodel/cwe/CweCodeNature#Attack>
+             <https://w3id.org/lmodel/cwe/CweCodeNature#Bad> <https://w3id.org/lmodel/cwe/CweCodeNature#Good>
+             <https://w3id.org/lmodel/cwe/CweCodeNature#Informative> <https://w3id.org/lmodel/cwe/CweCodeNature#Mitigation>
+             <https://w3id.org/lmodel/cwe/CweCodeNature#Result> ] ;
+          <Language> [ <https://w3id.org/lmodel/cwe/CweLanguageName#Ada> <https://w3id.org/lmodel/cwe/CweLanguageName#Algorithm>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#ARM%20Assembly> <https://w3id.org/lmodel/cwe/CweLanguageName#ASP>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#ASP.NET> <https://w3id.org/lmodel/cwe/CweLanguageName#Basic>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#C> <https://w3id.org/lmodel/cwe/CweLanguageName#C%2B%2B>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#C%23> <https://w3id.org/lmodel/cwe/CweLanguageName#COBOL>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#Fortran> <https://w3id.org/lmodel/cwe/CweLanguageName#F%23>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#Go> <https://w3id.org/lmodel/cwe/CweLanguageName#HTML>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#Java> <https://w3id.org/lmodel/cwe/CweLanguageName#JavaScript>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#JSON> <https://w3id.org/lmodel/cwe/CweLanguageName#JSP>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#Objective-C> <https://w3id.org/lmodel/cwe/CweLanguageName#Pascal>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#Perl> <https://w3id.org/lmodel/cwe/CweLanguageName#PHP>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#Pseudocode> <https://w3id.org/lmodel/cwe/CweLanguageName#Python>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#Ruby> <https://w3id.org/lmodel/cwe/CweLanguageName#Rust>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#Shell> <https://w3id.org/lmodel/cwe/CweLanguageName#SQL>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#Swift> <https://w3id.org/lmodel/cwe/CweLanguageName#SystemVerilog>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#VB.NET> <https://w3id.org/lmodel/cwe/CweLanguageName#Verilog>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#VHDL> <https://w3id.org/lmodel/cwe/CweLanguageName#XML>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#x86%20Assembly> <https://w3id.org/lmodel/cwe/CweLanguageName#Other> ] ? ;
+          <Value> @<CweStructuredText> ?
+       ) ;
+       rdf:type [ <CweExampleCode> ] ?
+    )
+}
+
+<CweExampleEntry> CLOSED {
+    (  $<CweExampleEntry_tes> (  <Body_Text> @<CweStructuredText> ? ;
+          <Example_Code> @<CweExampleCode> ?
+       ) ;
+       rdf:type [ <CweExampleEntry> ] ?
+    )
+}
+
+<CweExternalReference> CLOSED {
+    (  $<CweExternalReference_tes> (  <Author> @linkml:String * ;
+          <Title> @linkml:String ;
+          <Edition> @linkml:String ? ;
+          <Publication> @linkml:String ? ;
+          <Publication_Year> @<CwePublicationYear> ? ;
+          <Publication_Month> @<CwePublicationMonth> ? ;
+          <Publication_Day> @<CwePublicationDay> ? ;
+          <Publisher> @linkml:String ? ;
+          <URL> @linkml:Uri ? ;
+          <URL_Date> @linkml:Date ? ;
+          <Alt_URL> @linkml:Uri ? ;
+          <Alt_URL_Date> @linkml:Date ? ;
+          <Media_Type> [ <https://w3id.org/lmodel/cwe/CweReferenceMediaType#Text>
+             <https://w3id.org/lmodel/cwe/CweReferenceMediaType#Common-Proprietary-Text>
+             <https://w3id.org/lmodel/cwe/CweReferenceMediaType#Video> <https://w3id.org/lmodel/cwe/CweReferenceMediaType#Audio>
+             <https://w3id.org/lmodel/cwe/CweReferenceMediaType#Other> ] * ;
+          <Access_Restrictions> [ <https://w3id.org/lmodel/cwe/CweReferenceAccessRestriction#None>
+             <https://w3id.org/lmodel/cwe/CweReferenceAccessRestriction#Proprietary-Subscription>
+             <https://w3id.org/lmodel/cwe/CweReferenceAccessRestriction#Minimal-Registration>
+             <https://w3id.org/lmodel/cwe/CweReferenceAccessRestriction#Removed>
+             <https://w3id.org/lmodel/cwe/CweReferenceAccessRestriction#Other> ] ? ;
+          <Rationale> [ <https://w3id.org/lmodel/cwe/CweReferenceRationale#Example>
+             <https://w3id.org/lmodel/cwe/CweReferenceRationale#Early-Publication>
+             <https://w3id.org/lmodel/cwe/CweReferenceRationale#Influential/Newsworthy>
+             <https://w3id.org/lmodel/cwe/CweReferenceRationale#Manual/Man%20Pages>
+             <https://w3id.org/lmodel/cwe/CweReferenceRationale#Mitigation-Based>
+             <https://w3id.org/lmodel/cwe/CweReferenceRationale#Secure-Development-Rules>
+             <https://w3id.org/lmodel/cwe/CweReferenceRationale#Other> ] *
+       ) ;
+       rdf:type [ <CweExternalReference> ]
+    )
+}
+
+<CweGrouping> CLOSED {
+    (  $<CweGrouping_tes> (  &<CweEntry_tes> ;
+          rdf:type [ <CweEntry> ] ? ;
+          <Summary> @<CweStructuredText> ;
+          <Relationships> @<CweRelationships> ? ;
+          <Taxonomy_Mappings> @<CweTaxonomyMapping> *
+       ) ;
+       rdf:type [ <CweGrouping> ]
+    )
+}
+
+<CweIntroduction> CLOSED {
+    (  $<CweIntroduction_tes> (  <Phase> [ <https://w3id.org/lmodel/cwe/CwePhase#Policy>
+             <https://w3id.org/lmodel/cwe/CwePhase#Requirements> <https://w3id.org/lmodel/cwe/CwePhase#Architecture%20and%20Design>
+             <https://w3id.org/lmodel/cwe/CwePhase#Implementation> <https://w3id.org/lmodel/cwe/CwePhase#Build%20and%20Compilation>
+             <https://w3id.org/lmodel/cwe/CwePhase#Testing> <https://w3id.org/lmodel/cwe/CwePhase#Documentation>
+             <https://w3id.org/lmodel/cwe/CwePhase#Bundling> <https://w3id.org/lmodel/cwe/CwePhase#Distribution>
+             <https://w3id.org/lmodel/cwe/CwePhase#Installation> <https://w3id.org/lmodel/cwe/CwePhase#System%20Configuration>
+             <https://w3id.org/lmodel/cwe/CwePhase#Operation> <https://w3id.org/lmodel/cwe/CwePhase#Patching%20and%20Maintenance>
+             <https://w3id.org/lmodel/cwe/CwePhase#Porting> <https://w3id.org/lmodel/cwe/CwePhase#Integration>
+             <https://w3id.org/lmodel/cwe/CwePhase#Manufacturing>
+             <https://w3id.org/lmodel/cwe/CwePhase#Decommissioning%20and%20End-of-Life> ] * ;
+          <Custom_Phase> @<CweCustomPhase> * ;
+          <Note> @<CweStructuredText> ?
+       ) ;
+       rdf:type [ <CweIntroduction> ] ?
+    )
+}
+
+<CweLanguagePlatform> CLOSED {
+    (  $<CweLanguagePlatform_tes> (  <Name> [ <https://w3id.org/lmodel/cwe/CweLanguageName#Ada>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#Algorithm> <https://w3id.org/lmodel/cwe/CweLanguageName#ARM%20Assembly>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#ASP> <https://w3id.org/lmodel/cwe/CweLanguageName#ASP.NET>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#Basic> <https://w3id.org/lmodel/cwe/CweLanguageName#C>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#C%2B%2B> <https://w3id.org/lmodel/cwe/CweLanguageName#C%23>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#COBOL> <https://w3id.org/lmodel/cwe/CweLanguageName#Fortran>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#F%23> <https://w3id.org/lmodel/cwe/CweLanguageName#Go>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#HTML> <https://w3id.org/lmodel/cwe/CweLanguageName#Java>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#JavaScript> <https://w3id.org/lmodel/cwe/CweLanguageName#JSON>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#JSP> <https://w3id.org/lmodel/cwe/CweLanguageName#Objective-C>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#Pascal> <https://w3id.org/lmodel/cwe/CweLanguageName#Perl>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#PHP> <https://w3id.org/lmodel/cwe/CweLanguageName#Pseudocode>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#Python> <https://w3id.org/lmodel/cwe/CweLanguageName#Ruby>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#Rust> <https://w3id.org/lmodel/cwe/CweLanguageName#Shell>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#SQL> <https://w3id.org/lmodel/cwe/CweLanguageName#Swift>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#SystemVerilog> <https://w3id.org/lmodel/cwe/CweLanguageName#VB.NET>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#Verilog> <https://w3id.org/lmodel/cwe/CweLanguageName#VHDL>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#XML> <https://w3id.org/lmodel/cwe/CweLanguageName#x86%20Assembly>
+             <https://w3id.org/lmodel/cwe/CweLanguageName#Other> ] ? ;
+          <Class> [ <https://w3id.org/lmodel/cwe/CweLanguageClass#Assembly> <https://w3id.org/lmodel/cwe/CweLanguageClass#Compiled>
+             <https://w3id.org/lmodel/cwe/CweLanguageClass#Hardware%20Description%20Language>
+             <https://w3id.org/lmodel/cwe/CweLanguageClass#Interpreted>
+             <https://w3id.org/lmodel/cwe/CweLanguageClass#Object-Oriented>
+             <https://w3id.org/lmodel/cwe/CweLanguageClass#Memory-Unsafe>
+             <https://w3id.org/lmodel/cwe/CweLanguageClass#Not%20Language-Specific> ] ? ;
+          <Prevalence> [ <https://w3id.org/lmodel/cwe/CwePrevalence#Often> <https://w3id.org/lmodel/cwe/CwePrevalence#Sometimes>
+             <https://w3id.org/lmodel/cwe/CwePrevalence#Rarely> <https://w3id.org/lmodel/cwe/CwePrevalence#Undetermined>
+             <https://w3id.org/lmodel/cwe/CwePrevalence#None> ] ;
+          <Note> @<CweStructuredText> ?
+       ) ;
+       rdf:type [ <CweLanguagePlatform> ] ?
+    )
+}
+
+<CweMappingNotes> CLOSED {
+    (  $<CweMappingNotes_tes> (  <Usage> [ <https://w3id.org/lmodel/cwe/CweUsage#Discouraged>
+             <https://w3id.org/lmodel/cwe/CweUsage#Prohibited> <https://w3id.org/lmodel/cwe/CweUsage#Allowed>
+             <https://w3id.org/lmodel/cwe/CweUsage#Allowed-with-Review> ] ;
+          <Rationale> @<CweStructuredText> ;
+          <Comments> @<CweStructuredText> ;
+          <Reasons> @<CweMappingReason> + ;
+          <Suggestions> @<CweMappingSuggestion> *
+       ) ;
+       rdf:type [ <CweMappingNotes> ] ?
+    )
+}
+
+<CweMappingReason> CLOSED {
+    (  $<CweMappingReason_tes> <Type> [ <https://w3id.org/lmodel/cwe/CweReason#Abstraction>
+          <https://w3id.org/lmodel/cwe/CweReason#Category> <https://w3id.org/lmodel/cwe/CweReason#Grouping>
+          <https://w3id.org/lmodel/cwe/CweReason#View> <https://w3id.org/lmodel/cwe/CweReason#Deprecated>
+          <https://w3id.org/lmodel/cwe/CweReason#Potential%20Deprecation> <https://w3id.org/lmodel/cwe/CweReason#Frequent%20Misuse>
+          <https://w3id.org/lmodel/cwe/CweReason#Frequent%20Misinterpretation>
+          <https://w3id.org/lmodel/cwe/CweReason#Multiple%20Use> <https://w3id.org/lmodel/cwe/CweReason#CWE%20Overlap>
+          <https://w3id.org/lmodel/cwe/CweReason#Acceptable-Use> <https://w3id.org/lmodel/cwe/CweReason#Frequently-Resultant>
+          <https://w3id.org/lmodel/cwe/CweReason#Potential%20Major%20Changes> <https://w3id.org/lmodel/cwe/CweReason#Other> ] ;
+       rdf:type [ <CweMappingReason> ] ?
+    )
+}
+
+<CweMappingSuggestion> CLOSED {
+    (  $<CweMappingSuggestion_tes> (  <CWE_ID> @<CweWeakness> ;
+          <Comment> @linkml:String
+       ) ;
+       rdf:type [ <CweMappingSuggestion> ] ?
+    )
+}
+
+<CweMember> CLOSED {
+    (  $<CweMember_tes> (  <CWE_ID> @<CweEntry> ;
+          <View_ID> @<CweView> ;
+          <Dimensions> @<CweDimension> *
+       ) ;
+       rdf:type [ <CweMember> ] ?
+    )
+}
+
+<CweMitigation> CLOSED {
+    (  $<CweMitigation_tes> (  <Mitigation_ID> @linkml:String ? ;
+          <Phase> [ <https://w3id.org/lmodel/cwe/CwePhase#Policy> <https://w3id.org/lmodel/cwe/CwePhase#Requirements>
+             <https://w3id.org/lmodel/cwe/CwePhase#Architecture%20and%20Design>
+             <https://w3id.org/lmodel/cwe/CwePhase#Implementation> <https://w3id.org/lmodel/cwe/CwePhase#Build%20and%20Compilation>
+             <https://w3id.org/lmodel/cwe/CwePhase#Testing> <https://w3id.org/lmodel/cwe/CwePhase#Documentation>
+             <https://w3id.org/lmodel/cwe/CwePhase#Bundling> <https://w3id.org/lmodel/cwe/CwePhase#Distribution>
+             <https://w3id.org/lmodel/cwe/CwePhase#Installation> <https://w3id.org/lmodel/cwe/CwePhase#System%20Configuration>
+             <https://w3id.org/lmodel/cwe/CwePhase#Operation> <https://w3id.org/lmodel/cwe/CwePhase#Patching%20and%20Maintenance>
+             <https://w3id.org/lmodel/cwe/CwePhase#Porting> <https://w3id.org/lmodel/cwe/CwePhase#Integration>
+             <https://w3id.org/lmodel/cwe/CwePhase#Manufacturing>
+             <https://w3id.org/lmodel/cwe/CwePhase#Decommissioning%20and%20End-of-Life> ] * ;
+          <Custom_Phase> @<CweCustomPhase> * ;
+          <Strategy> [ <https://w3id.org/lmodel/cwe/CweMitigationStrategy#Attack%20Surface%20Reduction>
+             <https://w3id.org/lmodel/cwe/CweMitigationStrategy#Compilation%20or%20Build%20Hardening>
+             <https://w3id.org/lmodel/cwe/CweMitigationStrategy#Enforcement%20by%20Conversion>
+             <https://w3id.org/lmodel/cwe/CweMitigationStrategy#Environment%20Hardening>
+             <https://w3id.org/lmodel/cwe/CweMitigationStrategy#Firewall>
+             <https://w3id.org/lmodel/cwe/CweMitigationStrategy#Input%20Validation>
+             <https://w3id.org/lmodel/cwe/CweMitigationStrategy#Language%20Selection>
+             <https://w3id.org/lmodel/cwe/CweMitigationStrategy#Libraries%20or%20Frameworks>
+             <https://w3id.org/lmodel/cwe/CweMitigationStrategy#Resource%20Limitation>
+             <https://w3id.org/lmodel/cwe/CweMitigationStrategy#Output%20Encoding>
+             <https://w3id.org/lmodel/cwe/CweMitigationStrategy#Parameterization>
+             <https://w3id.org/lmodel/cwe/CweMitigationStrategy#Refactoring>
+             <https://w3id.org/lmodel/cwe/CweMitigationStrategy#Sandbox%20or%20Jail>
+             <https://w3id.org/lmodel/cwe/CweMitigationStrategy#Separation%20of%20Privilege> ] ? ;
+          <Description> @<CweStructuredText> ;
+          <Effectiveness> [ <https://w3id.org/lmodel/cwe/CweEffectiveness#High>
+             <https://w3id.org/lmodel/cwe/CweEffectiveness#Moderate> <https://w3id.org/lmodel/cwe/CweEffectiveness#Limited>
+             <https://w3id.org/lmodel/cwe/CweEffectiveness#Incidental>
+             <https://w3id.org/lmodel/cwe/CweEffectiveness#Discouraged%20Common%20Practice>
+             <https://w3id.org/lmodel/cwe/CweEffectiveness#Defense%20in%20Depth>
+             <https://w3id.org/lmodel/cwe/CweEffectiveness#None> ] ? ;
+          <Effectiveness_Notes> @<CweStructuredText> ?
+       ) ;
+       rdf:type [ <CweMitigation> ] ?
+    )
+}
+
+<CweModification> CLOSED {
+    (  $<CweModification_tes> (  <Modification_Name> @linkml:String ? ;
+          <Modification_Organization> @linkml:String ? ;
+          <Modification_Date> @linkml:Date ;
+          <Modification_Version> @linkml:String ;
+          <Modification_ReleaseDate> @linkml:Date ;
+          <Modification_Importance> [ <https://w3id.org/lmodel/cwe/CweImportance#Normal>
+             <https://w3id.org/lmodel/cwe/CweImportance#Critical> ] ? ;
+          <Modification_Comment> @linkml:String
+       ) ;
+       rdf:type [ <CweModification> ] ?
+    )
+}
+
+<CweNote> CLOSED {
+    (  $<CweNote_tes> (  <Type> [ <https://w3id.org/lmodel/cwe/CweNoteType#Applicable%20Platform>
+             <https://w3id.org/lmodel/cwe/CweNoteType#Maintenance> <https://w3id.org/lmodel/cwe/CweNoteType#Relationship>
+             <https://w3id.org/lmodel/cwe/CweNoteType#Research%20Gap> <https://w3id.org/lmodel/cwe/CweNoteType#Terminology>
+             <https://w3id.org/lmodel/cwe/CweNoteType#Theoretical> <https://w3id.org/lmodel/cwe/CweNoteType#Other> ] ;
+          <Version> @linkml:String ? ;
+          <ReleaseDate> @linkml:Date ? ;
+          <Value> @<CweStructuredText> ?
+       ) ;
+       rdf:type [ <CweNote> ] ?
+    )
+}
+
+<CweObservedExample> CLOSED {
+    (  $<CweObservedExample_tes> (  <Reference> @linkml:String ;
+          <Description> @<CweStructuredText> ;
+          <Link> @linkml:Uri ;
+          <Rationale> [ <https://w3id.org/lmodel/cwe/CweObservedExampleRationale#Chain>
+             <https://w3id.org/lmodel/cwe/CweObservedExampleRationale#Early-Publication>
+             <https://w3id.org/lmodel/cwe/CweObservedExampleRationale#Influential/Newsworthy>
+             <https://w3id.org/lmodel/cwe/CweObservedExampleRationale#Language-Variety>
+             <https://w3id.org/lmodel/cwe/CweObservedExampleRationale#Product-Variety>
+             <https://w3id.org/lmodel/cwe/CweObservedExampleRationale#Attack-Surface>
+             <https://w3id.org/lmodel/cwe/CweObservedExampleRationale#Other> ] *
+       ) ;
+       rdf:type [ <CweObservedExample> ] ?
+    )
+}
+
+<CweOperatingSystemPlatform> CLOSED {
+    (  $<CweOperatingSystemPlatform_tes> (  <Name> [ <https://w3id.org/lmodel/cwe/CweOperatingSystemName#AIX>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemName#Android>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemName#BlackBerry%20OS>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemName#Chrome%20OS>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemName#Darwin>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemName#FreeBSD> <https://w3id.org/lmodel/cwe/CweOperatingSystemName#iOS>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemName#macOS> <https://w3id.org/lmodel/cwe/CweOperatingSystemName#NetBSD>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemName#OpenBSD>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemName#Red%20Hat>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemName#Solaris> <https://w3id.org/lmodel/cwe/CweOperatingSystemName#SUSE>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemName#tvOS> <https://w3id.org/lmodel/cwe/CweOperatingSystemName#Ubuntu>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemName#watchOS>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemName#Windows%209x>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemName#Windows%20Embedded>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemName#Windows%20NT>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemName#Other> ] ? ;
+          <Version> @linkml:String ? ;
+          <CPE_ID> @linkml:String ? ;
+          <Class> [ <https://w3id.org/lmodel/cwe/CweOperatingSystemClass#Linux>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemClass#macOS> <https://w3id.org/lmodel/cwe/CweOperatingSystemClass#Unix>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemClass#Windows>
+             <https://w3id.org/lmodel/cwe/CweOperatingSystemClass#Not%20OS-Specific> ] ? ;
+          <Prevalence> [ <https://w3id.org/lmodel/cwe/CwePrevalence#Often> <https://w3id.org/lmodel/cwe/CwePrevalence#Sometimes>
+             <https://w3id.org/lmodel/cwe/CwePrevalence#Rarely> <https://w3id.org/lmodel/cwe/CwePrevalence#Undetermined>
+             <https://w3id.org/lmodel/cwe/CwePrevalence#None> ] ;
+          <Note> @<CweStructuredText> ?
+       ) ;
+       rdf:type [ <CweOperatingSystemPlatform> ] ?
+    )
+}
+
+<CwePreviousEntryName> CLOSED {
+    (  $<CwePreviousEntryName_tes> (  <Date> @linkml:Date ;
+          <Version> @linkml:String ? ;
+          <Value> @linkml:String
+       ) ;
+       rdf:type [ <CwePreviousEntryName> ] ?
+    )
+}
+
+<CweReference> CLOSED {
+    (  $<CweReference_tes> (  <External_Reference_ID> @<CweExternalReference> ;
+          <Section> @linkml:String ?
+       ) ;
+       rdf:type [ <CweReference> ] ?
+    )
+}
+
+<CweRelatedAttackPattern> CLOSED {
+    (  $<CweRelatedAttackPattern_tes> <CAPEC_ID> @<CweCapecId> ;
+       rdf:type [ <CweRelatedAttackPattern> ] ?
+    )
+}
+
+<CweRelatedWeakness> CLOSED {
+    (  $<CweRelatedWeakness_tes> (  <Nature> [ <https://w3id.org/lmodel/cwe/CweRelatedNature#ChildOf>
+             <https://w3id.org/lmodel/cwe/CweRelatedNature#ParentOf> <https://w3id.org/lmodel/cwe/CweRelatedNature#StartsWith>
+             <https://w3id.org/lmodel/cwe/CweRelatedNature#CanFollow> <https://w3id.org/lmodel/cwe/CweRelatedNature#CanPrecede>
+             <https://w3id.org/lmodel/cwe/CweRelatedNature#RequiredBy> <https://w3id.org/lmodel/cwe/CweRelatedNature#Requires>
+             <https://w3id.org/lmodel/cwe/CweRelatedNature#CanAlsoBe> <https://w3id.org/lmodel/cwe/CweRelatedNature#PeerOf>
+             <https://w3id.org/lmodel/cwe/CweRelatedNature#Overlaps> ] ;
+          <CWE_ID> @<CweWeakness> ;
+          <View_ID> @<CweView> ;
+          <Chain_ID> @<CweWeakness> ? ;
+          <Ordinal> [ <https://w3id.org/lmodel/cwe/CweOrdinal#Primary> ] ? ;
+          <Dimensions> @<CweDimension> *
+       ) ;
+       rdf:type [ <CweRelatedWeakness> ] ?
+    )
+}
+
+<CweRelationships> CLOSED {
+    (  $<CweRelationships_tes> (  <Member_Of> @<CweMember> * ;
+          <Has_Member> @<CweMember> *
+       ) ;
+       rdf:type [ <CweRelationships> ] ?
+    )
+}
+
+<CweStakeholder> CLOSED {
+    (  $<CweStakeholder_tes> (  <Type> [ <https://w3id.org/lmodel/cwe/CweStakeholderType#Academic%20Researchers>
+             <https://w3id.org/lmodel/cwe/CweStakeholderType#Applied%20Researchers>
+             <https://w3id.org/lmodel/cwe/CweStakeholderType#Assessment%20Teams>
+             <https://w3id.org/lmodel/cwe/CweStakeholderType#Assessment%20Tool%20Vendors>
+             <https://w3id.org/lmodel/cwe/CweStakeholderType#CWE%20Team> <https://w3id.org/lmodel/cwe/CweStakeholderType#Educators>
+             <https://w3id.org/lmodel/cwe/CweStakeholderType#Hardware%20Designers>
+             <https://w3id.org/lmodel/cwe/CweStakeholderType#Information%20Providers>
+             <https://w3id.org/lmodel/cwe/CweStakeholderType#Product%20Customers>
+             <https://w3id.org/lmodel/cwe/CweStakeholderType#Product%20Vendors>
+             <https://w3id.org/lmodel/cwe/CweStakeholderType#Software%20Developers>
+             <https://w3id.org/lmodel/cwe/CweStakeholderType#Vulnerability%20Analysts>
+             <https://w3id.org/lmodel/cwe/CweStakeholderType#Other> ] ;
+          <Description> @linkml:String ?
+       ) ;
+       rdf:type [ <CweStakeholder> ] ?
+    )
+}
+
+<CweSubmission> CLOSED {
+    (  $<CweSubmission_tes> (  <Submission_Name> @linkml:String * ;
+          <Submission_Organization> @linkml:String ? ;
+          <Submission_Date> @linkml:Date ;
+          <Submission_Version> @linkml:String ;
+          <Submission_ReleaseDate> @linkml:Date ;
+          <Submission_Comment> @linkml:String ?
+       ) ;
+       rdf:type [ <CweSubmission> ] ?
+    )
+}
+
+<CweTaxonomyMapping> CLOSED {
+    (  $<CweTaxonomyMapping_tes> (  <Taxonomy_Name> [ <https://w3id.org/lmodel/cwe/CweTaxonomyName#7%20Pernicious%20Kingdoms>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#19%20Deadly%20Sins> <https://w3id.org/lmodel/cwe/CweTaxonomyName#Aslam>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#Bishop>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#CERT%20C%20Secure%20Coding>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#CERT%20C%2B%2B%20Secure%20Coding>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#The%20CERT%20Oracle%20Secure%20Coding%20Standard%20for%20Java%20%282011%29>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#CLASP> <https://w3id.org/lmodel/cwe/CweTaxonomyName#ISA/IEC%2062443>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#Landwehr> <https://w3id.org/lmodel/cwe/CweTaxonomyName#OMG%20ASCSM>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#OMG%20ASCRM> <https://w3id.org/lmodel/cwe/CweTaxonomyName#OMG%20ASCMM>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#OMG%20ASCPEM>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#OpenSSF%20Secure%20Coding%20Guide%20for%20Python>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#OWASP%20Golang%20Secure%20Coding%20Practices%20Guide>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#OWASP%20Top%20Ten%202004>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#OWASP%20Top%20Ten%202007>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#OWASP%20Top%20Ten>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#PLC%20Top%2020> <https://w3id.org/lmodel/cwe/CweTaxonomyName#PLOVER>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#Protection%20Analysis>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#RISOS>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#SEI%20CERT%20C%20Coding%20Standard>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#SEI%20CERT%20C%2B%2B%20Coding%20Standard>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#SEI%20CERT%20Oracle%20Coding%20Standard%20for%20Java>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#SEI%20CERT%20Perl%20Coding%20Standard>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#Software%20Fault%20Patterns>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#Weber%2C%20Karger%2C%20Paradkar>
+             <https://w3id.org/lmodel/cwe/CweTaxonomyName#WASC> ] ;
+          <Entry_ID> @linkml:String ? ;
+          <Entry_Name> @linkml:String ? ;
+          <Mapping_Fit> [ <https://w3id.org/lmodel/cwe/CweMappingFit#Exact>
+             <https://w3id.org/lmodel/cwe/CweMappingFit#CWE%20More%20Abstract>
+             <https://w3id.org/lmodel/cwe/CweMappingFit#CWE%20More%20Specific>
+             <https://w3id.org/lmodel/cwe/CweMappingFit#Imprecise> <https://w3id.org/lmodel/cwe/CweMappingFit#Perspective> ] ?
+       ) ;
+       rdf:type [ <CweTaxonomyMapping> ] ?
+    )
+}
+
+<CweTechnologyPlatform> CLOSED {
+    (  $<CweTechnologyPlatform_tes> (  <Name> [ <https://w3id.org/lmodel/cwe/CweTechnologyName#AI/ML>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Web%20Server>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Database%20Server>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Accelerator%20Hardware>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Analog%20and%20Mixed%20Signal%20Hardware>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Audio/Video%20Hardware>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Bus/Interface%20Hardware>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Clock/Counter%20Hardware>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Communication%20Hardware>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Controller%20Hardware>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Memory%20Hardware>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Microcontroller%20Hardware>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Network%20on%20Chip%20Hardware>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Power%20Management%20Hardware>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Processor%20Hardware>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Security%20Hardware>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Sensor%20Hardware>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Storage%20Hardware>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Test/Debug%20Hardware>
+             <https://w3id.org/lmodel/cwe/CweTechnologyName#Other> ] ? ;
+          <Class> [ <https://w3id.org/lmodel/cwe/CweTechnologyClass#Client%20Server>
+             <https://w3id.org/lmodel/cwe/CweTechnologyClass#Cloud%20Computing>
+             <https://w3id.org/lmodel/cwe/CweTechnologyClass#ICS/OT> <https://w3id.org/lmodel/cwe/CweTechnologyClass#Mainframe>
+             <https://w3id.org/lmodel/cwe/CweTechnologyClass#Mobile> <https://w3id.org/lmodel/cwe/CweTechnologyClass#N-Tier>
+             <https://w3id.org/lmodel/cwe/CweTechnologyClass#SOA>
+             <https://w3id.org/lmodel/cwe/CweTechnologyClass#System%20on%20Chip>
+             <https://w3id.org/lmodel/cwe/CweTechnologyClass#Web%20Based>
+             <https://w3id.org/lmodel/cwe/CweTechnologyClass#Not%20Technology-Specific> ] ? ;
+          <Prevalence> [ <https://w3id.org/lmodel/cwe/CwePrevalence#Often> <https://w3id.org/lmodel/cwe/CwePrevalence#Sometimes>
+             <https://w3id.org/lmodel/cwe/CwePrevalence#Rarely> <https://w3id.org/lmodel/cwe/CwePrevalence#Undetermined>
+             <https://w3id.org/lmodel/cwe/CwePrevalence#None> ] ;
+          <Note> @<CweStructuredText> ?
+       ) ;
+       rdf:type [ <CweTechnologyPlatform> ] ?
+    )
+}
+
+<CweView> CLOSED {
+    (  $<CweView_tes> (  &<CweEntry_tes> ;
+          rdf:type [ <CweEntry> ] ? ;
+          <Type> [ <https://w3id.org/lmodel/cwe/CweViewType#Implicit> <https://w3id.org/lmodel/cwe/CweViewType#Explicit>
+             <https://w3id.org/lmodel/cwe/CweViewType#Graph> ] ;
+          <Objective> @<CweStructuredText> ;
+          <Audience> @<CweStakeholder> * ;
+          <Members> @<CweRelationships> ? ;
+          <Filter> @linkml:String ?
+       ) ;
+       rdf:type [ <CweView> ]
+    )
+}
+
+<CweWeakness> CLOSED {
+    (  $<CweWeakness_tes> (  &<CweEntry_tes> ;
+          rdf:type [ <CweEntry> ] ? ;
+          <Abstraction> [ <https://w3id.org/lmodel/cwe/CweAbstraction#Pillar> <https://w3id.org/lmodel/cwe/CweAbstraction#Class>
+             <https://w3id.org/lmodel/cwe/CweAbstraction#Base> <https://w3id.org/lmodel/cwe/CweAbstraction#Variant>
+             <https://w3id.org/lmodel/cwe/CweAbstraction#Compound> ] ;
+          <Structure> [ <https://w3id.org/lmodel/cwe/CweStructure#Chain> <https://w3id.org/lmodel/cwe/CweStructure#Composite>
+             <https://w3id.org/lmodel/cwe/CweStructure#Simple> ] ;
+          <Diagram> @linkml:String ? ;
+          <Description> @linkml:String ;
+          <Extended_Description> @<CweStructuredText> ? ;
+          <Technical_Nuance> @<CweStructuredText> ? ;
+          <Dimensions> @<CweDimension> * ;
+          <Related_Weaknesses> @<CweRelatedWeakness> * ;
+          <Weakness_Ordinalities> @<CweWeaknessOrdinality> * ;
+          <Applicable_Platforms> @<CweApplicablePlatforms> ? ;
+          <Background_Details> @<CweStructuredText> * ;
+          <Alternate_Terms> @<CweAlternateTerm> * ;
+          <Modes_Of_Introduction> @<CweIntroduction> * ;
+          <Exploitation_Factors> @<CweStructuredText> * ;
+          <Likelihood_Of_Exploit> [ <https://w3id.org/lmodel/cwe/CweLikelihood#High>
+             <https://w3id.org/lmodel/cwe/CweLikelihood#Medium> <https://w3id.org/lmodel/cwe/CweLikelihood#Low>
+             <https://w3id.org/lmodel/cwe/CweLikelihood#Unknown> ] ? ;
+          <Common_Consequences> @<CweConsequence> * ;
+          <Detection_Methods> @<CweDetectionMethod> * ;
+          <Potential_Mitigations> @<CweMitigation> * ;
+          <Demonstrative_Examples> @<CweDemonstrativeExample> * ;
+          <Observed_Examples> @<CweObservedExample> * ;
+          <Functional_Areas> [ <https://w3id.org/lmodel/cwe/CweFunctionalArea#Authentication>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#Authorization>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#Code%20Libraries>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#Counters> <https://w3id.org/lmodel/cwe/CweFunctionalArea#Cryptography>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#Error%20Handling>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#Interprocess%20Communication>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#File%20Processing>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#Logging>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#Memory%20Management>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#Networking>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#Number%20Processing>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#Program%20Invocation>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#Protection%20Mechanism>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#Session%20Management>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#Signals>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#String%20Processing>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#Not%20Functional-Area-Specific>
+             <https://w3id.org/lmodel/cwe/CweFunctionalArea#Power> <https://w3id.org/lmodel/cwe/CweFunctionalArea#Clock> ] * ;
+          <Affected_Resources> [ <https://w3id.org/lmodel/cwe/CweResource#CPU>
+             <https://w3id.org/lmodel/cwe/CweResource#File%20or%20Directory> <https://w3id.org/lmodel/cwe/CweResource#Memory>
+             <https://w3id.org/lmodel/cwe/CweResource#System%20Process> <https://w3id.org/lmodel/cwe/CweResource#Other> ] * ;
+          <Taxonomy_Mappings> @<CweTaxonomyMapping> * ;
+          <Related_Attack_Patterns> @<CweRelatedAttackPattern> *
+       ) ;
+       rdf:type [ <CweWeakness> ]
+    )
+}
+
+<CweWeaknessCatalog> CLOSED {
+    (  $<CweWeaknessCatalog_tes> (  <Name> @linkml:String ;
+          <Version> @linkml:String ;
+          <Date> @linkml:Date ;
+          <Weaknesses> @<CweWeakness> * ;
+          <Groupings> @<CweGrouping> * ;
+          <Views> @<CweView> * ;
+          <External_References> @<CweExternalReference> *
+       ) ;
+       rdf:type [ <CweWeaknessCatalog> ] ?
+    )
+}
+
+<CweWeaknessOrdinality> CLOSED {
+    (  $<CweWeaknessOrdinality_tes> (  <Ordinality> [ <https://w3id.org/lmodel/cwe/CweOrdinality#Indirect>
+             <https://w3id.org/lmodel/cwe/CweOrdinality#Primary> <https://w3id.org/lmodel/cwe/CweOrdinality#Resultant> ] ;
+          <Description> @linkml:String ?
+       ) ;
+       rdf:type [ <CweWeaknessOrdinality> ] ?
     )
 }

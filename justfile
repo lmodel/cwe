@@ -237,7 +237,7 @@ _gen-yaml:
   uv run gen-yaml {{source_schema_path}} > {{distrib_schema_path}}/{{schema_name}}.yaml
 
 # Overridable recipe to add project-specific artifacts to the distribution schema path
-_add-artifacts: gen-cwe-data
+_add-artifacts:
 
 # Run documentation server
 _serve:
@@ -288,15 +288,8 @@ import "project.justfile"
 # ====== Override recipes from above with custom versions =======
 
 # Uncomment the following line to allow duplicate recipe names
-set allow-duplicate-recipes
+#set allow-duplicate-recipes
 
 # Overriding recipes from the root justfile by adding a recipe with the same
 # name in an imported file is not possible until a known issue in just is fixed,
 # https://github.com/casey/just/issues/2540 - So we need to override them here.
-
-# Generate the Python data models, then fix the reserved 'class' keyword.
-[group('model development')]
-gen-python:
-  uv run gen-project -d  {{pymodel}} -I python {{source_schema_path}}
-  uv run gen-pydantic {{gen_pydantic_args}} {{source_schema_path}} > {{pymodel}}/{{schema_name}}_pydantic.py
-  just fix-python-keywords
