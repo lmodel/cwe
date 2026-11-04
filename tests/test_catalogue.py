@@ -323,3 +323,20 @@ def test_the_known_oddities_of_cwe_5_0():
         for mode in weakness.get("Modes_Of_Introduction", [])
         if mode.get("Note") == ""
     ] == EMPTY_NOTE
+
+
+def test_the_attack_pattern_links_are_the_ones_capec_names():
+    """CWE 5.0 and CAPEC 3.9 each hold this link from their own side, and they agree."""
+    pairs = ROOT / "tests" / "upstream" / "capec-3.9-weakness-pairs.txt"
+    theirs = {
+        tuple(line.split())
+        for line in pairs.read_text().splitlines()
+        if not line.startswith("#")
+    }
+    ours = {
+        (weakness["ID"], link["CAPEC_ID"])
+        for weakness in document()["Weaknesses"]
+        for link in weakness.get("Related_Attack_Patterns", [])
+    }
+    assert len(ours) == 1212
+    assert ours == theirs
