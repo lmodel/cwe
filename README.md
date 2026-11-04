@@ -55,6 +55,8 @@ CweWeakness, CweGrouping, CweView, CweExternalReference
 
 The copy drops `ID` and `Reference_ID` for LOKF's `id`. It folds `Name` and `Title` into LOKF's `title`, and `Description`, `Summary` and `Objective` into its `description`. Every other key keeps its capital, so no key is LOKF's. `tests/test_schema_rules.py` holds all this.
 
+KTL v0.61.0's librarian pen compares a key with its reserved names without regard to case, so it refuses the key `Status` that a weakness, a grouping or a view must hold. Until that changes, write such a concept by hand and let `just lokf-validate` check it. The bundle's own typed example is a `CweExternalReference`, which has no such key.
+
 ## License
 
 The schema and the code are under the Apache License 2.0 ([LICENSE](LICENSE)), and the knowledge bundle in [.lokf/knowledge/](.lokf/knowledge) is under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).

@@ -1,10 +1,13 @@
 """Checks that the adapt copy can sit beside LOKF and the neighbours' copies."""
 
 import hashlib
+import json
 import keyword
 from pathlib import Path
 
+import jsonschema
 import yaml
+from linkml.generators.jsonschemagen import JsonSchemaGenerator
 
 ROOT = Path(__file__).parent.parent
 
@@ -319,3 +322,54 @@ def test_no_slot_is_a_python_keyword():
     for cls in source["classes"].values():
         slots |= set(cls.get("attributes") or {})
     assert not {name for name in slots if keyword.iskeyword(name)}
+
+
+def _concept_schema():
+    """The JSON Schema of the adapt copy, as `lokf validate` reads it beside LOKF."""
+    generator = JsonSchemaGenerator(str(COPY), mergeimports=True)
+    return json.loads(generator.serialize())["$defs"]
+
+
+# What a concept of each type holds beside the example it comes from: the keys adapt
+# drops or folds go, and LOKF's stand for them.
+_CONCEPT_EXAMPLES = {
+    "CweWeakness": ("CweWeakness-smallest", ("ID", "Name", "Description")),
+    "CweGrouping": ("CweGrouping-smallest", ("ID", "Name", "Summary")),
+    "CweView": ("CweView-smallest", ("ID", "Name", "Objective")),
+    "CweExternalReference": (
+        "CweExternalReference-smallest",
+        ("Reference_ID", "Title"),
+    ),
+}
+
+
+def test_a_concept_of_each_type_validates_against_the_copy():
+    """Each class a concept may name admits a real example, in the copy's keys."""
+    definitions = _concept_schema()
+    for class_name, (example, moved) in _CONCEPT_EXAMPLES.items():
+        data = _load(ROOT / "tests" / "data" / "valid" / f"{example}.yaml")
+        concept = {key: value for key, value in data.items() if key not in moved}
+        concept.update(
+            type=class_name,
+            id=f"https://example.org/knowledge/{class_name}",
+            title="A title",
+            description="A description.",
+        )
+        schema = {"$ref": f"#/$defs/{class_name}", "$defs": definitions}
+        validator = jsonschema.validators.validator_for(schema)(schema)
+        errors = [e.message[:160] for e in validator.iter_errors(concept)]
+        assert not errors, (class_name, errors)
+        concept.pop("title")
+        assert list(validator.iter_errors(concept)), (class_name, "needs a title")
+
+
+def test_the_pen_refuses_a_status_key_on_create():
+    """KTL v0.61.0's pen compares a key with its reserved names without regard to
+    case, so a concept of a kind of entry, which this schema requires to hold
+    `Status`, cannot be created through it. Only CweExternalReference can. This test
+    fails when a KTL sync brings a pen that compares exact case: then the bundle's
+    example can move to a CweWeakness, and the README's note can go."""
+    pen = (ROOT / ".lokf" / "scripts" / "knowledge-apply.py").read_text(
+        encoding="utf-8"
+    )
+    assert "k.lower() in DENIED_CREATE" in pen
