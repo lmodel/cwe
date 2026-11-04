@@ -1,0 +1,17 @@
+# Fails at: /Content_History
+# From the CWE List 5.0, CWE-1187. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+ID: '1187'
+Name: 'DEPRECATED: Use of Uninitialized Resource'
+Abstraction: Base
+Structure: Simple
+Status: Deprecated
+Description: This entry has been deprecated because it was a duplicate of CWE-908. All content
+  has been transferred to CWE-908.
+Mapping_Notes:
+  Usage: Prohibited
+  Rationale: This CWE has been deprecated.
+  Comments: See description and name for possible suggestions of other CWEs to consider.
+  Reasons:
+    - Type: Deprecated
+Content_History: x

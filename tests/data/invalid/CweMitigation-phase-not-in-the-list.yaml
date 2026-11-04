@@ -1,0 +1,6 @@
+# Fails at: /Phase/0
+# From the CWE List 5.0, CWE-342. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Description: Increase the entropy used to seed a PRNG.
+Phase:
+  - Not a value

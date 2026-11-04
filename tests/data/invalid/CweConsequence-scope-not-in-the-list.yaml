@@ -1,0 +1,7 @@
+# Fails at: /Scope/0
+# From the CWE List 5.0, CWE-351. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Scope:
+  - Not a value
+Impact:
+  - Other

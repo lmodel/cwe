@@ -1,0 +1,17 @@
+# Fails at: /Content_History
+# From the CWE List 5.0, CWE-2000. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+ID: '2000'
+Name: Comprehensive CWE Dictionary
+Type: Implicit
+Status: Draft
+Objective: This view (slice) covers all the elements in CWE.
+Filter: /Weakness_Catalog/*[not(self::External_References)]/*
+Mapping_Notes:
+  Usage: Prohibited
+  Rationale: This entry is a View. Views are not weaknesses and therefore inappropriate to
+    describe the root causes of vulnerabilities.
+  Comments: Use this View or other Views to search and navigate for the appropriate weakness.
+  Reasons:
+    - Type: View
+Content_History: x

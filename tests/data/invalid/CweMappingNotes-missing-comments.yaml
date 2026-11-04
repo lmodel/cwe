@@ -1,0 +1,7 @@
+# Fails at: /
+# From the CWE List 5.0, CWE-630. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Usage: Prohibited
+Rationale: This CWE has been deprecated. It is also a View.
+Reasons:
+  - Type: Deprecated

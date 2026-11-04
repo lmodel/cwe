@@ -1,0 +1,100 @@
+# Fails at: /External_References/1/Reference_ID
+Name: CWE
+Version: '5.0'
+Date: '2026-10-28'
+Weaknesses:
+  - ID: '1'
+    Name: An example of a general weakness
+    Abstraction: Class
+    Structure: Simple
+    Status: Draft
+    Description: A weakness made up for this example.
+    References:
+      - External_Reference_ID: REF-1
+    Mapping_Notes:
+      Usage: Allowed
+      Rationale: This example is general.
+      Comments: Nothing to add.
+      Reasons:
+        - Type: Acceptable-Use
+    Content_History:
+      Submission:
+        - Submission_Name:
+            - An example
+          Submission_Date: '2026-10-28'
+          Submission_Version: '5.0'
+          Submission_ReleaseDate: '2026-10-28'
+  - ID: '2'
+    Name: An example of a specific weakness
+    Abstraction: Base
+    Structure: Simple
+    Status: Draft
+    Description: A narrower weakness made up for this example.
+    Related_Weaknesses:
+      - Nature: ChildOf
+        CWE_ID: '1'
+        View_ID: '4'
+        Ordinal: Primary
+    Mapping_Notes:
+      Usage: Allowed
+      Rationale: This example is specific.
+      Comments: Nothing to add.
+      Reasons:
+        - Type: Acceptable-Use
+      Suggestions:
+        - CWE_ID: '1'
+          Comment: A more general choice.
+    Content_History:
+      Submission:
+        - Submission_Organization: An example
+          Submission_Date: '2026-10-28'
+          Submission_Version: '5.0'
+          Submission_ReleaseDate: '2026-10-28'
+Groupings:
+  - ID: '3'
+    Name: An example of a grouping
+    Status: Draft
+    Summary: Weaknesses made up for this example.
+    Relationships:
+      Has_Member:
+        - CWE_ID: '2'
+          View_ID: '4'
+    Mapping_Notes:
+      Usage: Prohibited
+      Rationale: This entry is a grouping.
+      Comments: Use a weakness.
+      Reasons:
+        - Type: Grouping
+    Content_History:
+      Submission:
+        - Submission_Organization: An example
+          Submission_Date: '2026-10-28'
+          Submission_Version: '5.0'
+          Submission_ReleaseDate: '2026-10-28'
+Views:
+  - ID: '4'
+    Name: An example of a view
+    Type: Graph
+    Status: Draft
+    Objective: To show how a catalogue fits together.
+    Members:
+      Has_Member:
+        - CWE_ID: '3'
+          View_ID: '4'
+    Mapping_Notes:
+      Usage: Prohibited
+      Rationale: This entry is a view.
+      Comments: Use a weakness.
+      Reasons:
+        - Type: View
+    Content_History:
+      Submission:
+        - Submission_Organization: An example
+          Submission_Date: '2026-10-28'
+          Submission_Version: '5.0'
+          Submission_ReleaseDate: '2026-10-28'
+External_References:
+  - Reference_ID: REF-1
+    Title: An example of a source
+  - Reference_ID: REF-1
+    Title: Another source

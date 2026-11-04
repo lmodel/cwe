@@ -1,0 +1,6 @@
+# Fails at: /Dimensions
+# From the CWE List 5.0, CWE-2. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+CWE_ID: '5'
+View_ID: '700'
+Dimensions: x

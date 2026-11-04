@@ -1,0 +1,15 @@
+# From the CWE List 5.0, REF-9. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Reference_ID: REF-9
+Author:
+  - Santos, J. C. S.
+  - Tarrit, K.
+  - Mirakhorli, M.
+Title: A Catalog of Security Architecture Weaknesses.
+Publication: 2017 IEEE International Conference on Software Architecture (ICSA)
+Publication_Year: '2017'
+URL: https://ieeexplore.ieee.org/document/7958491
+URL_Date: '2026-10-23'
+Alt_URL: https://joannacss.com/preprints/icsaw17-preprint.pdf
+Alt_URL_Date: '2026-10-23'
+Access_Restrictions: Proprietary-Subscription

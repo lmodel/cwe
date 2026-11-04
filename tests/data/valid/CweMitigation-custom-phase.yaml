@@ -1,0 +1,9 @@
+# From the CWE List 5.0, CWE-1426. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Phase:
+  - Build and Compilation
+Custom_Phase:
+  - Domain: AI
+    Value: Training
+Description: "<p>During model training, use an appropriate variety of good\n\t\t\t\t  and\
+  \ bad examples to guide preferred outputs.</p>"

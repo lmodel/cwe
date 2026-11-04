@@ -1,0 +1,7 @@
+# From the CWE List 5.0, CWE-561. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Type: Maintenance
+ReleaseDate: '2026-10-28'
+Version: '5.0'
+Value: <p>After the release of CWE 5.0, the CWE Team plans to work with stakeholders to address
+  the ambiguity of "dead code" phrase.</p>

@@ -1,0 +1,75 @@
+# From the CWE List 5.0, CWE-1343. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+ID: '1343'
+Name: Weaknesses in the 2021 CWE Most Important Hardware Weaknesses List
+Type: Explicit
+Status: Stable
+Objective: CWE entries in this view are listed in the 2021 CWE Most Important Hardware Weaknesses
+  List, as determined by the Hardware CWE Special Interest Group (HW CWE SIG).
+Audience:
+  - Type: Hardware Designers
+    Description: By following this list, hardware designers and implementers are able to significantly
+      reduce the number of weaknesses that occur in their products.
+  - Type: Product Customers
+    Description: Customers can use the weaknesses in this view in order to formulate independent
+      evidence of a claim by a product vendor to have eliminated / mitigated the most dangerous
+      weaknesses.
+  - Type: Educators
+    Description: Educators can use this view to focus curriculum on the most important hardware
+      weaknesses.
+Members:
+  Has_Member:
+    - CWE_ID: '1189'
+      View_ID: '1343'
+    - CWE_ID: '1191'
+      View_ID: '1343'
+    - CWE_ID: '1231'
+      View_ID: '1343'
+    - CWE_ID: '1233'
+      View_ID: '1343'
+    - CWE_ID: '1240'
+      View_ID: '1343'
+    - CWE_ID: '1244'
+      View_ID: '1343'
+    - CWE_ID: '1256'
+      View_ID: '1343'
+    - CWE_ID: '1260'
+      View_ID: '1343'
+    - CWE_ID: '1272'
+      View_ID: '1343'
+    - CWE_ID: '1274'
+      View_ID: '1343'
+    - CWE_ID: '1277'
+      View_ID: '1343'
+    - CWE_ID: '1300'
+      View_ID: '1343'
+References:
+  - External_Reference_ID: REF-1238
+Mapping_Notes:
+  Usage: Prohibited
+  Rationale: This entry is a View. Views are not weaknesses and therefore inappropriate to
+    describe the root causes of vulnerabilities.
+  Comments: Use this View or other Views to search and navigate for the appropriate weakness.
+  Reasons:
+    - Type: View
+Content_History:
+  Submission:
+    - Submission_Name:
+        - CWE Content Team
+      Submission_Organization: MITRE
+      Submission_Date: '2021-09-29'
+      Submission_Version: '4.6'
+      Submission_ReleaseDate: '2021-10-28'
+  Modification:
+    - Modification_Name: CWE Content Team
+      Modification_Organization: MITRE
+      Modification_Date: '2023-06-29'
+      Modification_Version: '4.12'
+      Modification_ReleaseDate: '2023-06-29'
+      Modification_Comment: updated Mapping_Notes
+    - Modification_Name: CWE Content Team
+      Modification_Organization: MITRE
+      Modification_Date: '2025-09-09'
+      Modification_Version: '4.18'
+      Modification_ReleaseDate: '2025-09-09'
+      Modification_Comment: updated References

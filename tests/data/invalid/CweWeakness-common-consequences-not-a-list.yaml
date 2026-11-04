@@ -1,0 +1,41 @@
+# Fails at: /Common_Consequences
+# From the CWE List 5.0, CWE-1187. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+ID: '1187'
+Name: 'DEPRECATED: Use of Uninitialized Resource'
+Abstraction: Base
+Structure: Simple
+Status: Deprecated
+Description: This entry has been deprecated because it was a duplicate of CWE-908. All content
+  has been transferred to CWE-908.
+Mapping_Notes:
+  Usage: Prohibited
+  Rationale: This CWE has been deprecated.
+  Comments: See description and name for possible suggestions of other CWEs to consider.
+  Reasons:
+    - Type: Deprecated
+Content_History:
+  Submission:
+    - Submission_Name:
+        - CWE Content Team
+      Submission_Organization: MITRE
+      Submission_Date: '2019-03-25'
+      Submission_Version: '3.3'
+      Submission_ReleaseDate: '2019-06-20'
+  Modification:
+    - Modification_Name: CWE Content Team
+      Modification_Organization: MITRE
+      Modification_Date: '2020-02-24'
+      Modification_Version: '4.0'
+      Modification_ReleaseDate: '2020-02-24'
+      Modification_Comment: updated Description, Name, Relationships, Type, Weakness_Ordinalities
+    - Modification_Name: CWE Content Team
+      Modification_Organization: MITRE
+      Modification_Date: '2023-06-29'
+      Modification_Version: '4.12'
+      Modification_ReleaseDate: '2023-06-29'
+      Modification_Comment: updated Mapping_Notes
+  Previous_Entry_Name:
+    - Date: '2020-02-24'
+      Value: Use of Uninitialized Resource
+Common_Consequences: x

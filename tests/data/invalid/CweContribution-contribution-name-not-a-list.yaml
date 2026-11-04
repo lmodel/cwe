@@ -1,0 +1,9 @@
+# Fails at: /Contribution_Name
+# From the CWE List 5.0, CWE-1003. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Type: Content
+Contribution_Name: x
+Contribution_Date: '2015-12-07'
+Contribution_Version: '2.9'
+Contribution_ReleaseDate: '2015-12-07'
+Contribution_Comment: Provided many relationships.

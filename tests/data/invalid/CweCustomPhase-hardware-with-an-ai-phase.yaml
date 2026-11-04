@@ -1,0 +1,5 @@
+# Fails at: /Value
+# From the CWE List 5.0, CWE-1039. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Domain: Hardware
+Value: Prompting

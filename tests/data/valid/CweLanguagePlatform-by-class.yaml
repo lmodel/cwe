@@ -1,0 +1,4 @@
+# From the CWE List 5.0, CWE-121. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Class: Memory-Unsafe
+Prevalence: Often

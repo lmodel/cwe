@@ -1,0 +1,8 @@
+# Fails at: /Media_Type/0
+# From the CWE List 5.0, REF-723. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Reference_ID: REF-723
+Title: Apache Wicket
+URL: http://wicket.apache.org/
+Media_Type:
+  - Not a value

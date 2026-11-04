@@ -1,0 +1,5 @@
+# Fails at: /
+# From the CWE List 5.0, CWE-263. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Intro_Text: A system requires the changing of passwords every five years.
+Not_A_Key: x

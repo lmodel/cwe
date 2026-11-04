@@ -1,0 +1,10 @@
+# From the CWE List 5.0, CWE-1461. Copyright (c) 2006-2026, The MITRE Corporation.
+# See NOTICE for the licence.
+Custom_Phase:
+  - Domain: Hardware
+    Value: Implementation & Physical Design
+Note: "<p>This weakness can be introduced when HDL\n\t\t\tconstructs, assignment ordering,\
+  \ synthesis directives, or\n\t\t\ttool-dependent semantics are used whose simulation\n\t\
+  \t\tbehavior may not match synthesis interpretation. These\n\t\t\tconstructs may behave\
+  \ correctly during HDL simulation but\n\t\t\tproduce different security-relevant behavior\
+  \ in the\n\t\t\tsynthesized implementation.</p>"
