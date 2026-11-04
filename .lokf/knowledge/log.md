@@ -2,6 +2,7 @@
 
 ## 2026-11-04
 
+* **Changed**: lmodel/capec's neighbour copy is its v0.1.0 release asset.
 * **Changed**: the neighbour copies and the mappings now include lmodel/capec.
 * **Changed**: What the data shows and the schema does not say. The two views that name no members are both deprecated.
 * **Changed**: A Catalog of Security Architecture Weaknesses. The heading loses the full stop that the Markdown lint refuses, and the title keeps the source's own.
