@@ -1658,6 +1658,9 @@ class CweApplicablePlatforms(ConfiguredBaseModel):
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'annotations': {'xsd_type': {'tag': 'xsd_type',
                                       'value': 'ApplicablePlatformsType'}},
          'close_mappings': ['sepses_cwe:ApplicablePlatform'],
+         'comments': ['The four platform classes each require at least one of Name and '
+                      'Class, which the XSD leaves optional. A platform with neither '
+                      'would say nothing, and CWE 5.0 has none.'],
          'from_schema': 'https://w3id.org/lmodel/cwe/cwe_entries'})
 
     Language: Optional[list[CweLanguagePlatform]] = Field(default=None, description="""A programming language, or a family of them.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CweApplicablePlatforms', 'CweExampleCode']} })

@@ -260,6 +260,7 @@ cwe:CweApplicablePlatforms a owl:Class ;
 	skos:closeMatch <http://w3id.org/sepses/vocab/ref/cwe#ApplicablePlatform> ;
 	skos:definition "The kinds of platform where a weakness can appear." ;
 	skos:inScheme cwe:cwe_entries ;
+	skos:note "The four platform classes each require at least one of Name and Class, which the XSD leaves optional. A platform with neither would say nothing, and CWE 5.0 has none." ;
 	cwe:xsd_type "ApplicablePlatformsType" .
 cwe:CweArchitectureClass\#Embedded a owl:Class ;
 	rdfs:label "Embedded" ;

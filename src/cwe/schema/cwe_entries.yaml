@@ -426,6 +426,10 @@ classes:
 
   CweApplicablePlatforms:
     description: The kinds of platform where a weakness can appear.
+    comments:
+      - >-
+        The four platform classes each require at least one of Name and Class, which the XSD
+        leaves optional. A platform with neither would say nothing, and CWE 5.0 has none.
     close_mappings:
       - sepses_cwe:ApplicablePlatform
     annotations:
