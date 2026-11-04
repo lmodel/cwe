@@ -23,6 +23,7 @@ notes:
     xsd_type annotation, which tests/test_coverage.py reads.
 
 prefixes:
+  capec: https://w3id.org/lmodel/capec/
   cwe: https://w3id.org/lmodel/cwe/
   dcterms: http://purl.org/dc/terms/
   linkml: https://w3id.org/linkml/
@@ -972,6 +973,7 @@ classes:
     description: A source that entries of the catalogue cite, such as a paper, a book or a web page.
     close_mappings:
       - sepses_cwe:Reference
+      - capec:CapecExternalReference
     annotations:
       xsd_type: ExternalReferenceType
     attributes:

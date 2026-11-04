@@ -1,6 +1,7 @@
 {
    "@context": {
       "xsd": "http://www.w3.org/2001/XMLSchema#",
+      "capec": "https://w3id.org/lmodel/capec/",
       "cve": "https://w3id.org/lmodel/cve/",
       "cwe": "https://w3id.org/lmodel/cwe/",
       "dcterms": "http://purl.org/dc/terms/",

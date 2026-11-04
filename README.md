@@ -25,6 +25,7 @@ The schema is the one home for mappings. The hand-kept SSSOM file that sat under
 * **[SEPSES](https://www.sepses.org/vocab/ref/cwe/) CWE ontology**: `close_mappings` on the classes and `exact_mappings` on the keys its conversion reads from the same XML. `tests/test_mappings.py` checks each against the term list from its pinned file.
 * **[SKOS](https://www.w3.org/TR/skos-reference/), [schema.org](https://schema.org/) and [Dublin Core](https://www.dublincore.org/specifications/dublin-core/dcmi-terms/)**: `close_mappings` for a weakness as a concept and a defined term, the catalogue as a scheme, a grouping as a collection and the fields of a citation, and `related_mappings` for a view as a scheme. `tests/test_mappings.py` checks each against the term list from their pinned files.
 * **[lmodel/cve](https://github.com/lmodel/cve), [lmodel/kev-catalog](https://github.com/lmodel/kev-catalog) and [lmodel/nist-nvd](https://github.com/lmodel/nist-nvd)**: `related_mappings` to the fields that name a weakness in a vulnerability record. `tests/test_mappings.py` checks each against its released copy.
+* **[lmodel/capec](https://github.com/lmodel/capec)**: `related_mappings` from the link to an attack pattern and its number, and `close_mappings` on an external reference. `tests/test_schema_rules.py` checks them against capec's copy, and `tests/test_catalogue.py` holds the 1212 pairs both catalogues name.
 * **[SPDX](https://spdx.github.io/spdx-spec/v3.0.1/) 3.0.1 Core**: `related_mappings` on a weakness to `ExternalRefType/cwe`. `tests/test_mappings.py` checks it against lmodel/spdx's released copy.
 * **[Wikidata](https://www.wikidata.org/wiki/Q2682392)**: `close_mappings` on the ID to the property P3624, and `related_mappings` on the catalogue to Q2682392. The term list names the two by hand, as read on 4 November 2026.
 
@@ -54,6 +55,8 @@ CweWeakness, CweGrouping, CweView, CweExternalReference
 ```
 
 The copy drops `ID` and `Reference_ID` for LOKF's `id`. It folds `Name` and `Title` into LOKF's `title`, and `Description`, `Summary` and `Objective` into its `description`. Every other key keeps its capital, so no key is LOKF's. `tests/test_schema_rules.py` holds all this.
+
+No key is another released copy's, but lmodel/capec's copy shares 66, such as `Status`. A host importing both validates each class against its own lists, while the shared keys project under one prefix, `cwe:`, until `lokf adapt` can rename what a neighbour copy defines (lokf #169).
 
 KTL v0.61.0's librarian pen compares a key with its reserved names without regard to case, so it refuses the key `Status` that a weakness, a grouping or a view must hold. Until that changes, write such a concept by hand and let `just lokf-validate` check it. The bundle's own typed example is a `CweExternalReference`, which has no such key.
 

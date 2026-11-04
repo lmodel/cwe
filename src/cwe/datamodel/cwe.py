@@ -62,6 +62,7 @@ metamodel_version = "1.12.0"
 version = "5.0"
 
 # Namespaces
+CAPEC = CurieNamespace('capec', 'https://w3id.org/lmodel/capec/')
 CVE = CurieNamespace('cve', 'https://w3id.org/lmodel/cve/')
 CWE = CurieNamespace('cwe', 'https://w3id.org/lmodel/cwe/')
 DCTERMS = CurieNamespace('dcterms', 'http://purl.org/dc/terms/')

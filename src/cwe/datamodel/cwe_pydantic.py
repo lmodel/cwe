@@ -1085,7 +1085,7 @@ class CweExternalReference(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'annotations': {'xsd_type': {'tag': 'xsd_type',
                                       'value': 'ExternalReferenceType'}},
-         'close_mappings': ['sepses_cwe:Reference'],
+         'close_mappings': ['sepses_cwe:Reference', 'capec:CapecExternalReference'],
          'from_schema': 'https://w3id.org/lmodel/cwe/cwe_core'})
 
     Reference_ID: str = Field(default=..., description="""The identifier entries use to cite this source.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CweExternalReference']} })
@@ -1993,9 +1993,15 @@ class CweRelatedAttackPattern(ConfiguredBaseModel):
     """
     linkml_meta: ClassVar[LinkMLMeta] = LinkMLMeta({'annotations': {'xsd_type': {'tag': 'xsd_type',
                                       'value': 'RelatedAttackPatternsType/Related_Attack_Pattern'}},
-         'from_schema': 'https://w3id.org/lmodel/cwe/cwe_entries'})
+         'comments': ['CAPEC holds the same link from its own side. CWE 5.0 and CAPEC '
+                      '3.9 each name the same 1212 pairs, which '
+                      'tests/test_catalogue.py holds, so the two classes are the two '
+                      'ends of one link and the mapping is related.'],
+         'from_schema': 'https://w3id.org/lmodel/cwe/cwe_entries',
+         'related_mappings': ['capec:CapecRelatedWeakness']})
 
-    CAPEC_ID: str = Field(default=..., description="""The number of the attack pattern in the CAPEC list.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CweRelatedAttackPattern']} })
+    CAPEC_ID: str = Field(default=..., description="""The number of the attack pattern in the CAPEC list.""", json_schema_extra = { "linkml_meta": {'domain_of': ['CweRelatedAttackPattern'],
+         'related_mappings': ['capec:CapecAttackPattern']} })
 
 
 class CweStakeholder(ConfiguredBaseModel):

@@ -24,6 +24,7 @@ notes:
     tests/test_coverage.py names Category as the one exclusion.
 
 prefixes:
+  capec: https://w3id.org/lmodel/capec/
   cve: https://w3id.org/lmodel/cve/
   cwe: https://w3id.org/lmodel/cwe/
   dcterms: http://purl.org/dc/terms/
@@ -786,13 +787,22 @@ classes:
 
   CweRelatedAttackPattern:
     description: A pointer from a weakness to an attack pattern in the CAPEC list.
+    comments:
+      - >-
+        CAPEC holds the same link from its own side. CWE 5.0 and CAPEC 3.9 each name the
+        same 1212 pairs, which tests/test_catalogue.py holds, so the two classes are the
+        two ends of one link and the mapping is related.
     annotations:
       xsd_type: RelatedAttackPatternsType/Related_Attack_Pattern
+    related_mappings:
+      - capec:CapecRelatedWeakness
     attributes:
       CAPEC_ID:
         description: The number of the attack pattern in the CAPEC list.
         required: true
         range: cwe_capec_id
+        related_mappings:
+          - capec:CapecAttackPattern
 
   CweStakeholder:
     description: A group of people who may find a view useful.

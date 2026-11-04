@@ -86,7 +86,8 @@ cwe:Body_Text a owl:DatatypeProperty ;
 cwe:CAPEC_ID a owl:DatatypeProperty ;
 	rdfs:label "CAPEC_ID" ;
 	skos:definition "The number of the attack pattern in the CAPEC list." ;
-	skos:inScheme cwe:cwe_entries .
+	skos:inScheme cwe:cwe_entries ;
+	skos:relatedMatch <https://w3id.org/lmodel/capec/CapecAttackPattern> .
 cwe:CPE_ID a owl:DatatypeProperty ;
 	rdfs:label "CPE_ID" ;
 	skos:definition "The Common Platform Enumeration name of the operating system." ;
@@ -633,7 +634,7 @@ cwe:CweExampleEntry a owl:Class ;
 cwe:CweExternalReference a owl:Class ;
 	rdfs:label "CweExternalReference" ;
 	rdfs:subClassOf _:c14n111 , _:c14n148 , _:c14n182 , _:c14n215 , _:c14n225 , _:c14n23 , _:c14n240 , _:c14n245 , _:c14n284 , _:c14n314 , _:c14n32 , _:c14n343 , _:c14n354 , _:c14n358 , _:c14n385 , _:c14n418 , _:c14n433 , _:c14n514 , _:c14n530 , _:c14n538 , _:c14n550 , _:c14n554 , _:c14n560 , _:c14n577 , _:c14n578 , _:c14n584 , _:c14n595 , _:c14n612 , _:c14n627 , _:c14n632 , _:c14n643 , _:c14n664 , _:c14n684 , _:c14n691 , _:c14n702 , _:c14n760 , _:c14n767 , _:c14n768 , _:c14n787 , _:c14n835 , _:c14n866 , _:c14n869 , _:c14n915 , _:c14n930 , _:c14n963 ;
-	skos:closeMatch <http://w3id.org/sepses/vocab/ref/cwe#Reference> ;
+	skos:closeMatch <http://w3id.org/sepses/vocab/ref/cwe#Reference> , <https://w3id.org/lmodel/capec/CapecExternalReference> ;
 	skos:definition "A source that entries of the catalogue cite, such as a paper, a book or a web page." ;
 	skos:inScheme cwe:cwe_core ;
 	cwe:xsd_type "ExternalReferenceType" .
@@ -1497,6 +1498,8 @@ cwe:CweRelatedAttackPattern a owl:Class ;
 	rdfs:subClassOf _:c14n223 , _:c14n474 , _:c14n805 ;
 	skos:definition "A pointer from a weakness to an attack pattern in the CAPEC list." ;
 	skos:inScheme cwe:cwe_entries ;
+	skos:note "CAPEC holds the same link from its own side. CWE 5.0 and CAPEC 3.9 each name the same 1212 pairs, which tests/test_catalogue.py holds, so the two classes are the two ends of one link and the mapping is related." ;
+	skos:relatedMatch <https://w3id.org/lmodel/capec/CapecRelatedWeakness> ;
 	cwe:xsd_type "RelatedAttackPatternsType/Related_Attack_Pattern" .
 cwe:CweRelatedNature\#CanAlsoBe a owl:Class ;
 	rdfs:label "CanAlsoBe" ;

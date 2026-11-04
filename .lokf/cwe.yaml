@@ -30,6 +30,7 @@ comments:
 - The file behind the cwe_schema_latest.xsd link is an earlier copy of 8.0, which the catalogue breaks
   in 69 places. The source above is the file the catalogue itself names, and it validates with no error.
 prefixes:
+  capec: https://w3id.org/lmodel/capec/
   cwe: https://w3id.org/lmodel/cwe/
   dcterms: http://purl.org/dc/terms/
   linkml: https://w3id.org/linkml/
@@ -53,6 +54,7 @@ classes:
     description: A source that entries of the catalogue cite, such as a paper, a book or a web page.
     close_mappings:
     - sepses_cwe:Reference
+    - capec:CapecExternalReference
     annotations:
       xsd_type: ExternalReferenceType
     attributes:
@@ -1111,13 +1113,21 @@ classes:
         range: CweObservedExampleRationale
   CweRelatedAttackPattern:
     description: A pointer from a weakness to an attack pattern in the CAPEC list.
+    comments:
+    - CAPEC holds the same link from its own side. CWE 5.0 and CAPEC 3.9 each name the same 1212 pairs,
+      which tests/test_catalogue.py holds, so the two classes are the two ends of one link and the mapping
+      is related.
     annotations:
       xsd_type: RelatedAttackPatternsType/Related_Attack_Pattern
+    related_mappings:
+    - capec:CapecRelatedWeakness
     attributes:
       CAPEC_ID:
         description: The number of the attack pattern in the CAPEC list.
         required: true
         range: cwe_capec_id
+        related_mappings:
+        - capec:CapecAttackPattern
   CweStakeholder:
     description: A group of people who may find a view useful.
     annotations:

@@ -5204,6 +5204,9 @@
       "name": "cweRelatedAttackPattern__CAPEC_ID",
       "description": "The number of the attack pattern in the CAPEC list.",
       "from_schema": "https://w3id.org/lmodel/cwe/cwe_entries",
+      "related_mappings": [
+        "https://w3id.org/lmodel/capec/CapecAttackPattern"
+      ],
       "slot_uri": "https://w3id.org/lmodel/cwe/CAPEC_ID",
       "alias": "CAPEC_ID",
       "owner": "CweRelatedAttackPattern",
@@ -5548,7 +5551,8 @@
       "description": "A source that entries of the catalogue cite, such as a paper, a book or a web page.",
       "from_schema": "https://w3id.org/lmodel/cwe/cwe_core",
       "close_mappings": [
-        "sepses_cwe:Reference"
+        "sepses_cwe:Reference",
+        "capec:CapecExternalReference"
       ],
       "slots": [
         "cweExternalReference__Reference_ID",
@@ -7974,7 +7978,13 @@
         }
       ],
       "description": "A pointer from a weakness to an attack pattern in the CAPEC list.",
+      "comments": [
+        "CAPEC holds the same link from its own side. CWE 5.0 and CAPEC 3.9 each name the same 1212 pairs, which tests/test_catalogue.py holds, so the two classes are the two ends of one link and the mapping is related."
+      ],
       "from_schema": "https://w3id.org/lmodel/cwe/cwe_entries",
+      "related_mappings": [
+        "capec:CapecRelatedWeakness"
+      ],
       "slots": [
         "cweRelatedAttackPattern__CAPEC_ID"
       ],
@@ -7983,6 +7993,9 @@
         {
           "name": "CAPEC_ID",
           "description": "The number of the attack pattern in the CAPEC list.",
+          "related_mappings": [
+            "capec:CapecAttackPattern"
+          ],
           "range": "cwe_capec_id",
           "required": true,
           "@type": "SlotDefinition"
