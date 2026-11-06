@@ -38,7 +38,7 @@ npx skills add noelmcloughlin/knowledge-trust-ladder --skill ktl-curator --yes  
 
 ## Before opening a pull request
 
-- **Edit the schema, then regenerate.** Edit `src/cwe/schema/`, run `just gen-project`, `just gen-doc` and `just lokf-adapt`, and commit the output. `project/`, `src/cwe/datamodel/`, `docs/schema/` and `.lokf/cwe.yaml` are generated.
+- **Edit the schema, then regenerate.** Edit `src/cwe/schema/`, run `just gen-project`, `just gen-doc` and `just lokf-adapt`, and commit the output. `project/`, `src/cwe/datamodel/`, `docs/schema/` and `.lokf/schema/cwe.yaml` are generated.
 - **Keep the upstream's keys and values.** A real entry must validate unchanged, so a slot or permissible value is spelled as the XSD spells it. `tests/test_coverage.py` walks the XSD in `upstream/` and fails on anything missing, added or of another cardinality; a departure is listed there with its reason.
 - **State only what the upstream states.** No bound or rule of your own. What JSON Schema cannot check is in `tests/cwe_rules.py`, and what the data merely shows stays in `tests/test_catalogue.py`.
 - **A mapping is read at its source.** `tests/test_mappings.py` holds each one to a pinned term list or a neighbour copy. A term with no sure match stays unmapped.

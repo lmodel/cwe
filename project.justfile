@@ -6,8 +6,8 @@
 
 # ============ Knowledge bundle: the adapted domain schema ============
 
-# `.lokf/cwe.yaml` is the copy `lokf adapt` writes from the schema so that it can
-# sit beside `.lokf/lokf.yaml` (`lokf adapt --help` lists the moves). The roots are
+# `.lokf/schema/cwe.yaml` is the copy `lokf adapt` writes from the schema so that it can
+# sit beside `.lokf/schema/lokf.yaml` (`lokf adapt --help` lists the moves). The roots are
 # the two classes that carry the schema's identifiers: CweEntry, the abstract base
 # of a weakness, a grouping and a view, and CweExternalReference. A concept names
 # CweWeakness, CweGrouping, CweView or CweExternalReference as its `type`, and LOKF's
@@ -19,12 +19,12 @@
 lokf_cmd := env_var_or_default("LOKF_CMD", "uv run --project .lokf lokf")
 lokf_adapt_roots := "--root CweEntry --root CweExternalReference --prefix cwe --fold CweEntry.Name=title --fold CweExternalReference.Title=title --fold CweWeakness.Description=description --fold CweGrouping.Summary=description --fold CweView.Objective=description"
 
-# Rewrite .lokf/cwe.yaml from the schema (run after every schema change)
+# Rewrite .lokf/schema/cwe.yaml from the schema (run after every schema change)
 [group('knowledge bundle')]
 lokf-adapt:
-  {{lokf_cmd}} adapt {{source_schema_path}} {{lokf_adapt_roots}} --lokf .lokf/lokf.yaml -o .lokf/cwe.yaml
+  {{lokf_cmd}} adapt {{source_schema_path}} {{lokf_adapt_roots}} --lokf .lokf/schema/lokf.yaml -o .lokf/schema/cwe.yaml
 
-# Fail when .lokf/cwe.yaml is stale against the schema or .lokf/lokf.yaml
+# Fail when .lokf/schema/cwe.yaml is stale against the schema or .lokf/schema/lokf.yaml
 [group('knowledge bundle')]
 lokf-adapt-check:
-  {{lokf_cmd}} adapt {{source_schema_path}} {{lokf_adapt_roots}} --lokf .lokf/lokf.yaml -o .lokf/cwe.yaml --check
+  {{lokf_cmd}} adapt {{source_schema_path}} {{lokf_adapt_roots}} --lokf .lokf/schema/lokf.yaml -o .lokf/schema/cwe.yaml --check

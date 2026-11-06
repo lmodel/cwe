@@ -3,8 +3,8 @@ type: Dataset
 id: https://w3id.org/lmodel/cwe/knowledge/datasets/adapt-copy
 genre: reference
 title: The schema's adapt copy
-description: "`.lokf/cwe.yaml`, the copy `just lokf-adapt` writes from the schema so that it sits beside LOKF's `lokf.yaml`: rooted on `CweEntry` and `CweExternalReference`, with `ID` and `Reference_ID` dropped for LOKF's `id`, and five keys folded into LOKF's `title` and `description`."
-resource: .lokf/cwe.yaml
+description: "`.lokf/schema/cwe.yaml`, the copy `just lokf-adapt` writes from the schema so that it sits beside LOKF's `lokf.yaml`: rooted on `CweEntry` and `CweExternalReference`, with `ID` and `Reference_ID` dropped for LOKF's `id`, and five keys folded into LOKF's `title` and `description`."
+resource: .lokf/schema/cwe.yaml
 derivedFrom:
   - https://w3id.org/lmodel/cwe/knowledge/datasets/cwe-linkml-schema
 about:
@@ -19,20 +19,20 @@ sources:
   - id: test_schema_rules.py
     resource: tests/test_schema_rules.py
     title: FOLDED and DROPPED
-  - resource: .lokf/cwe.yaml
+  - resource: .lokf/schema/cwe.yaml
   - resource: .lokf/justfile
     title: the schema line
   - resource: .lokf/pyproject.toml
     title: the schema setting
 generated:
   by: process:ktl-librarian
-  at: "2026-11-04T02:42:50Z"
+  at: "2026-11-06T21:18:44Z"
 status: draft
 ---
 
 # The schema's adapt copy
 
-`just lokf-adapt` writes `.lokf/cwe.yaml` from `src/cwe/schema/cwe.yaml`, and `just lokf-adapt-check` fails when it is stale. CI runs the check.[^project.justfile]
+`just lokf-adapt` writes `.lokf/schema/cwe.yaml` from `src/cwe/schema/cwe.yaml`, and `just lokf-adapt-check` fails when it is stale. CI runs the check.[^project.justfile]
 
 A concept may name `CweWeakness`, `CweGrouping`, `CweView` or `CweExternalReference` as its `type`.[^readme.md]
 
