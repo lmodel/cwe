@@ -2,6 +2,11 @@
 
 # cwe
 
+[![Build and test](https://github.com/lmodel/cwe/actions/workflows/main.yaml/badge.svg)](https://github.com/lmodel/cwe/actions/workflows/main.yaml)
+[![Licence](https://img.shields.io/github/license/lmodel/cwe?label=licence)](LICENSE)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/lmodel/cwe/badge)](https://scorecard.dev/viewer/?uri=github.com/lmodel/cwe)
+[![KTL scorecard](https://img.shields.io/endpoint?url=https://lmodel.github.io/cwe/badge.json)](https://lmodel.github.io/cwe/health/)
+
 Common Weakness Enumeration (CWE) List 5.0 and Schema 8.0 (LinkML)
 
 > **Only want to ask?** Install `ktl-docent` into any agent you use, by a route from [the install page](https://w3id.org/ktl/docs/install/), and ask it about this project. It answers from the bundle and says how far each answer has been checked.
