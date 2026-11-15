@@ -1,0 +1,864 @@
+# This repository's own values for the knowledge website. hugo.toml beside
+# this file holds everything that is the same on every site. The ktl-website
+# skill wrote this file once and never replaces it.
+
+# The site's address: the owner's GitHub Pages domain and the repository's
+# name under it. A user site (the <owner>.github.io repository) or a custom
+# domain has no name after the domain: "https://docs.example.org/".
+baseURL = "https://lmodel.github.io/cwe/"
+
+# The site's title, in the header and on every social card.
+title = "cwe"
+
+[params]
+# One sentence, for search engines and link previews.
+description = "Common Weakness Enumeration (CWE) List 5.0 and Schema 8.0 (LinkML)"
+# The repository. Links to files that are not pages go here.
+repo = "https://github.com/lmodel/cwe"
+
+# Everything below is optional. The site finds the README, the docs, the
+# figures, the changelog, a LinkML schema and a workspace by itself.
+
+# The default branch, when it is not main, and the tag a release carries,
+# when it is not v<version>.
+# branch = "master"
+# releaseTag = "{version}"
+
+# A logo of the repository's own, as files under .assets/. Left out, the
+# site shows the Knowledge Trust Ladder logo.
+# logo = ".assets/logo.svg"
+# logoDark = ".assets/logo-dark.svg"
+
+# The data: a folder of SQLite databases and their Datasette metadata, from
+# the repository's root, served under browse/ with a page that opens each in
+# Datasette Lite, and the command that writes the folder when it holds no
+# database. The databases go on the public site, so none is served until
+# this is set.
+# browse = "my-project/browse"
+# browseBuild = "just build-browse"
+
+# More folders under docs/ that are not pages.
+# docsExclude = ["templates-linkml", "elements", "drafts"]
+
+# The docs pages in groups of your choosing, each page by its path under
+# docs/ without .md. Left out, the pages at the top of docs/ are one group
+# and each folder is a group of its own. With groups, the build stops when
+# one names a missing page or a page is in no group.
+# [[params.docsGroups]]
+# label = "Start here"
+# pages = ["install", "usage"]
+
+# Old addresses, each sent on to the page built from a repository file. One
+# ending in /* stands for every page of the schema. Hugo lowercases a
+# table's keys, so an address with capitals takes the list form below.
+# [params.redirects]
+# "about" = "docs/about.md"
+# "elements/*" = "schema/*"
+#
+# [[params.redirects]]
+# from = "elements/OldName"
+# to = "website/generated/schema/classes/NewName.md"
+
+[[params.redirects]]
+from = "about"
+to = "docs/about.md"
+
+[[params.redirects]]
+from = "elements/AffectedResource"
+to = "website/generated/schema/enums/CweResource.md"
+
+[[params.redirects]]
+from = "elements/AlternateTerm"
+to = "website/generated/schema/classes/CweAlternateTerm.md"
+
+[[params.redirects]]
+from = "elements/ApplicablePlatforms"
+to = "website/generated/schema/classes/CweApplicablePlatforms.md"
+
+[[params.redirects]]
+from = "elements/ArchitectureClass"
+to = "website/generated/schema/enums/CweArchitectureClass.md"
+
+[[params.redirects]]
+from = "elements/ArchitectureName"
+to = "website/generated/schema/enums/CweArchitectureName.md"
+
+[[params.redirects]]
+from = "elements/ArchitecturePlatform"
+to = "website/generated/schema/classes/CweArchitecturePlatform.md"
+
+[[params.redirects]]
+from = "elements/CWEReference"
+to = "website/generated/schema/classes/CweReference.md"
+
+[[params.redirects]]
+from = "elements/CWEViewType"
+to = "website/generated/schema/enums/CweViewType.md"
+
+[[params.redirects]]
+from = "elements/CatalogMember"
+to = "website/generated/schema/classes/CweMember.md"
+
+[[params.redirects]]
+from = "elements/Category"
+to = "website/generated/schema/classes/CweGrouping.md"
+
+[[params.redirects]]
+from = "elements/CodeNature"
+to = "website/generated/schema/enums/CweCodeNature.md"
+
+[[params.redirects]]
+from = "elements/CommonConsequence"
+to = "website/generated/schema/classes/CweConsequence.md"
+
+[[params.redirects]]
+from = "elements/ContentHistory"
+to = "website/generated/schema/classes/CweContentHistory.md"
+
+[[params.redirects]]
+from = "elements/ContentImportance"
+to = "website/generated/schema/enums/CweImportance.md"
+
+[[params.redirects]]
+from = "elements/ContributionType"
+to = "website/generated/schema/enums/CweContributionType.md"
+
+[[params.redirects]]
+from = "elements/CveId"
+to = "website/generated/schema/_index.md"
+
+[[params.redirects]]
+from = "elements/DemonstrativeExample"
+to = "website/generated/schema/classes/CweDemonstrativeExample.md"
+
+[[params.redirects]]
+from = "elements/DetectionEffectiveness"
+to = "website/generated/schema/enums/CweDetectionEffectiveness.md"
+
+[[params.redirects]]
+from = "elements/DetectionMethod"
+to = "website/generated/schema/classes/CweDetectionMethod.md"
+
+[[params.redirects]]
+from = "elements/DetectionMethodType"
+to = "website/generated/schema/enums/CweDetectionMethodName.md"
+
+[[params.redirects]]
+from = "elements/ExampleCode"
+to = "website/generated/schema/classes/CweExampleCode.md"
+
+[[params.redirects]]
+from = "elements/ExternalReference"
+to = "website/generated/schema/classes/CweExternalReference.md"
+
+[[params.redirects]]
+from = "elements/FunctionalArea"
+to = "website/generated/schema/enums/CweFunctionalArea.md"
+
+[[params.redirects]]
+from = "elements/LanguageClass"
+to = "website/generated/schema/enums/CweLanguageClass.md"
+
+[[params.redirects]]
+from = "elements/LanguagePlatform"
+to = "website/generated/schema/classes/CweLanguagePlatform.md"
+
+[[params.redirects]]
+from = "elements/LifecyclePhase"
+to = "website/generated/schema/enums/CwePhase.md"
+
+[[params.redirects]]
+from = "elements/LikelihoodLevel"
+to = "website/generated/schema/enums/CweLikelihood.md"
+
+[[params.redirects]]
+from = "elements/MappingNotes"
+to = "website/generated/schema/classes/CweMappingNotes.md"
+
+[[params.redirects]]
+from = "elements/MappingReason"
+to = "website/generated/schema/enums/CweReason.md"
+
+[[params.redirects]]
+from = "elements/MappingSuggestion"
+to = "website/generated/schema/classes/CweMappingSuggestion.md"
+
+[[params.redirects]]
+from = "elements/MappingUsage"
+to = "website/generated/schema/enums/CweUsage.md"
+
+[[params.redirects]]
+from = "elements/MitigationEffectiveness"
+to = "website/generated/schema/enums/CweEffectiveness.md"
+
+[[params.redirects]]
+from = "elements/MitigationStrategy"
+to = "website/generated/schema/enums/CweMitigationStrategy.md"
+
+[[params.redirects]]
+from = "elements/ModeOfIntroduction"
+to = "website/generated/schema/classes/CweIntroduction.md"
+
+[[params.redirects]]
+from = "elements/NVDWeaknessObservation"
+to = "website/generated/schema/_index.md"
+
+[[params.redirects]]
+from = "elements/NoteType"
+to = "website/generated/schema/enums/CweNoteType.md"
+
+[[params.redirects]]
+from = "elements/OSPlatform"
+to = "website/generated/schema/classes/CweOperatingSystemPlatform.md"
+
+[[params.redirects]]
+from = "elements/ObservedExample"
+to = "website/generated/schema/classes/CweObservedExample.md"
+
+[[params.redirects]]
+from = "elements/OperatingSystemClass"
+to = "website/generated/schema/enums/CweOperatingSystemClass.md"
+
+[[params.redirects]]
+from = "elements/OperatingSystemName"
+to = "website/generated/schema/enums/CweOperatingSystemName.md"
+
+[[params.redirects]]
+from = "elements/OrdinalQualifier"
+to = "website/generated/schema/enums/CweOrdinal.md"
+
+[[params.redirects]]
+from = "elements/PlatformPrevalence"
+to = "website/generated/schema/enums/CwePrevalence.md"
+
+[[params.redirects]]
+from = "elements/PotentialMitigation"
+to = "website/generated/schema/classes/CweMitigation.md"
+
+[[params.redirects]]
+from = "elements/PreviousEntryName"
+to = "website/generated/schema/classes/CwePreviousEntryName.md"
+
+[[params.redirects]]
+from = "elements/ProgrammingLanguage"
+to = "website/generated/schema/enums/CweLanguageName.md"
+
+[[params.redirects]]
+from = "elements/RelatedWeakness"
+to = "website/generated/schema/classes/CweRelatedWeakness.md"
+
+[[params.redirects]]
+from = "elements/Relationship"
+to = "website/generated/schema/classes/CweRelationships.md"
+
+[[params.redirects]]
+from = "elements/SecurityScope"
+to = "website/generated/schema/enums/CweScope.md"
+
+[[params.redirects]]
+from = "elements/StakeholderType"
+to = "website/generated/schema/enums/CweStakeholderType.md"
+
+[[params.redirects]]
+from = "elements/TaxonomyMapping"
+to = "website/generated/schema/classes/CweTaxonomyMapping.md"
+
+[[params.redirects]]
+from = "elements/TaxonomyMappingFit"
+to = "website/generated/schema/enums/CweMappingFit.md"
+
+[[params.redirects]]
+from = "elements/TaxonomyName"
+to = "website/generated/schema/enums/CweTaxonomyName.md"
+
+[[params.redirects]]
+from = "elements/TechnicalImpact"
+to = "website/generated/schema/enums/CweTechnicalImpact.md"
+
+[[params.redirects]]
+from = "elements/TechnologyClass"
+to = "website/generated/schema/enums/CweTechnologyClass.md"
+
+[[params.redirects]]
+from = "elements/TechnologyName"
+to = "website/generated/schema/enums/CweTechnologyName.md"
+
+[[params.redirects]]
+from = "elements/TechnologyPlatform"
+to = "website/generated/schema/classes/CweTechnologyPlatform.md"
+
+[[params.redirects]]
+from = "elements/View"
+to = "website/generated/schema/classes/CweView.md"
+
+[[params.redirects]]
+from = "elements/Weakness"
+to = "website/generated/schema/classes/CweWeakness.md"
+
+[[params.redirects]]
+from = "elements/WeaknessAbstraction"
+to = "website/generated/schema/enums/CweAbstraction.md"
+
+[[params.redirects]]
+from = "elements/WeaknessCatalog"
+to = "website/generated/schema/classes/CweWeaknessCatalog.md"
+
+[[params.redirects]]
+from = "elements/WeaknessOrdinality"
+to = "website/generated/schema/classes/CweWeaknessOrdinality.md"
+
+[[params.redirects]]
+from = "elements/WeaknessOrdinalityLevel"
+to = "website/generated/schema/enums/CweOrdinality.md"
+
+[[params.redirects]]
+from = "elements/WeaknessRelationNature"
+to = "website/generated/schema/enums/CweRelatedNature.md"
+
+[[params.redirects]]
+from = "elements/WeaknessSource"
+to = "website/generated/schema/_index.md"
+
+[[params.redirects]]
+from = "elements/WeaknessStatus"
+to = "website/generated/schema/enums/CweStatus.md"
+
+[[params.redirects]]
+from = "elements/WeaknessStructure"
+to = "website/generated/schema/enums/CweStructure.md"
+
+[[params.redirects]]
+from = "elements/abstraction"
+to = "website/generated/schema/slots/Abstraction.md"
+
+[[params.redirects]]
+from = "elements/affected_resources"
+to = "website/generated/schema/slots/Affected_Resources.md"
+
+[[params.redirects]]
+from = "elements/alternate_terms"
+to = "website/generated/schema/slots/Alternate_Terms.md"
+
+[[params.redirects]]
+from = "elements/applicable_platforms"
+to = "website/generated/schema/slots/Applicable_Platforms.md"
+
+[[params.redirects]]
+from = "elements/architectures"
+to = "website/generated/schema/slots/Architecture.md"
+
+[[params.redirects]]
+from = "elements/audience"
+to = "website/generated/schema/slots/Audience.md"
+
+[[params.redirects]]
+from = "elements/authors"
+to = "website/generated/schema/slots/Author.md"
+
+[[params.redirects]]
+from = "elements/background_details"
+to = "website/generated/schema/slots/Background_Details.md"
+
+[[params.redirects]]
+from = "elements/body_texts"
+to = "website/generated/schema/slots/Body_Text.md"
+
+[[params.redirects]]
+from = "elements/categories"
+to = "website/generated/schema/slots/Groupings.md"
+
+[[params.redirects]]
+from = "elements/chain_id"
+to = "website/generated/schema/slots/Chain_ID.md"
+
+[[params.redirects]]
+from = "elements/class_"
+to = "website/generated/schema/slots/Class.md"
+
+[[params.redirects]]
+from = "elements/comment"
+to = "website/generated/schema/slots/Comment.md"
+
+[[params.redirects]]
+from = "elements/comments"
+to = "website/generated/schema/slots/Comments.md"
+
+[[params.redirects]]
+from = "elements/common_consequences"
+to = "website/generated/schema/slots/Common_Consequences.md"
+
+[[params.redirects]]
+from = "elements/consequence_id"
+to = "website/generated/schema/slots/Consequence_ID.md"
+
+[[params.redirects]]
+from = "elements/content"
+to = "website/generated/schema/_index.md"
+
+[[params.redirects]]
+from = "elements/content_history"
+to = "website/generated/schema/slots/Content_History.md"
+
+[[params.redirects]]
+from = "elements/contribution_comment"
+to = "website/generated/schema/slots/Contribution_Comment.md"
+
+[[params.redirects]]
+from = "elements/contribution_date"
+to = "website/generated/schema/slots/Contribution_Date.md"
+
+[[params.redirects]]
+from = "elements/contribution_name"
+to = "website/generated/schema/slots/Contribution_Name.md"
+
+[[params.redirects]]
+from = "elements/contribution_organization"
+to = "website/generated/schema/slots/Contribution_Organization.md"
+
+[[params.redirects]]
+from = "elements/contribution_release_date"
+to = "website/generated/schema/slots/Contribution_ReleaseDate.md"
+
+[[params.redirects]]
+from = "elements/contribution_version"
+to = "website/generated/schema/slots/Contribution_Version.md"
+
+[[params.redirects]]
+from = "elements/contributions"
+to = "website/generated/schema/slots/Contribution.md"
+
+[[params.redirects]]
+from = "elements/cpe_id"
+to = "website/generated/schema/slots/CPE_ID.md"
+
+[[params.redirects]]
+from = "elements/cwe_id"
+to = "website/generated/schema/slots/CWE_ID.md"
+
+[[params.redirects]]
+from = "elements/date"
+to = "website/generated/schema/slots/Date.md"
+
+[[params.redirects]]
+from = "elements/demonstrative_example_id"
+to = "website/generated/schema/slots/Demonstrative_Example_ID.md"
+
+[[params.redirects]]
+from = "elements/demonstrative_examples"
+to = "website/generated/schema/slots/Demonstrative_Examples.md"
+
+[[params.redirects]]
+from = "elements/description"
+to = "website/generated/schema/slots/Description.md"
+
+[[params.redirects]]
+from = "elements/detection_method_id"
+to = "website/generated/schema/slots/Detection_Method_ID.md"
+
+[[params.redirects]]
+from = "elements/detection_methods"
+to = "website/generated/schema/slots/Detection_Methods.md"
+
+[[params.redirects]]
+from = "elements/diagram"
+to = "website/generated/schema/slots/Diagram.md"
+
+[[params.redirects]]
+from = "elements/edition"
+to = "website/generated/schema/slots/Edition.md"
+
+[[params.redirects]]
+from = "elements/effectiveness"
+to = "website/generated/schema/slots/Effectiveness.md"
+
+[[params.redirects]]
+from = "elements/effectiveness_notes"
+to = "website/generated/schema/slots/Effectiveness_Notes.md"
+
+[[params.redirects]]
+from = "elements/entry_id"
+to = "website/generated/schema/slots/Entry_ID.md"
+
+[[params.redirects]]
+from = "elements/entry_name"
+to = "website/generated/schema/slots/Entry_Name.md"
+
+[[params.redirects]]
+from = "elements/example_codes"
+to = "website/generated/schema/slots/Example_Code.md"
+
+[[params.redirects]]
+from = "elements/exploitation_factors"
+to = "website/generated/schema/slots/Exploitation_Factors.md"
+
+[[params.redirects]]
+from = "elements/extended_description"
+to = "website/generated/schema/slots/Extended_Description.md"
+
+[[params.redirects]]
+from = "elements/external_reference_id"
+to = "website/generated/schema/slots/External_Reference_ID.md"
+
+[[params.redirects]]
+from = "elements/external_references"
+to = "website/generated/schema/slots/External_References.md"
+
+[[params.redirects]]
+from = "elements/filter"
+to = "website/generated/schema/slots/Filter.md"
+
+[[params.redirects]]
+from = "elements/functional_areas"
+to = "website/generated/schema/slots/Functional_Areas.md"
+
+[[params.redirects]]
+from = "elements/has_member"
+to = "website/generated/schema/slots/Has_Member.md"
+
+[[params.redirects]]
+from = "elements/id"
+to = "website/generated/schema/slots/ID.md"
+
+[[params.redirects]]
+from = "elements/impacts"
+to = "website/generated/schema/slots/Impact.md"
+
+[[params.redirects]]
+from = "elements/intro_text"
+to = "website/generated/schema/slots/Intro_Text.md"
+
+[[params.redirects]]
+from = "elements/language"
+to = "website/generated/schema/slots/Language.md"
+
+[[params.redirects]]
+from = "elements/languages"
+to = "website/generated/schema/slots/Language.md"
+
+[[params.redirects]]
+from = "elements/likelihood"
+to = "website/generated/schema/slots/Likelihood.md"
+
+[[params.redirects]]
+from = "elements/likelihood_of_exploit"
+to = "website/generated/schema/slots/Likelihood_Of_Exploit.md"
+
+[[params.redirects]]
+from = "elements/link"
+to = "website/generated/schema/slots/Link.md"
+
+[[params.redirects]]
+from = "elements/mapping_fit"
+to = "website/generated/schema/slots/Mapping_Fit.md"
+
+[[params.redirects]]
+from = "elements/mapping_notes"
+to = "website/generated/schema/slots/Mapping_Notes.md"
+
+[[params.redirects]]
+from = "elements/member_of"
+to = "website/generated/schema/slots/Member_Of.md"
+
+[[params.redirects]]
+from = "elements/members"
+to = "website/generated/schema/slots/Members.md"
+
+[[params.redirects]]
+from = "elements/method"
+to = "website/generated/schema/slots/Method.md"
+
+[[params.redirects]]
+from = "elements/mitigation_id"
+to = "website/generated/schema/slots/Mitigation_ID.md"
+
+[[params.redirects]]
+from = "elements/modes_of_introduction"
+to = "website/generated/schema/slots/Modes_Of_Introduction.md"
+
+[[params.redirects]]
+from = "elements/modification_comment"
+to = "website/generated/schema/slots/Modification_Comment.md"
+
+[[params.redirects]]
+from = "elements/modification_date"
+to = "website/generated/schema/slots/Modification_Date.md"
+
+[[params.redirects]]
+from = "elements/modification_importance"
+to = "website/generated/schema/slots/Modification_Importance.md"
+
+[[params.redirects]]
+from = "elements/modification_name"
+to = "website/generated/schema/slots/Modification_Name.md"
+
+[[params.redirects]]
+from = "elements/modification_organization"
+to = "website/generated/schema/slots/Modification_Organization.md"
+
+[[params.redirects]]
+from = "elements/modification_release_date"
+to = "website/generated/schema/slots/Modification_ReleaseDate.md"
+
+[[params.redirects]]
+from = "elements/modification_version"
+to = "website/generated/schema/slots/Modification_Version.md"
+
+[[params.redirects]]
+from = "elements/modifications"
+to = "website/generated/schema/slots/Modification.md"
+
+[[params.redirects]]
+from = "elements/name"
+to = "website/generated/schema/slots/Name.md"
+
+[[params.redirects]]
+from = "elements/nature"
+to = "website/generated/schema/slots/Nature.md"
+
+[[params.redirects]]
+from = "elements/note"
+to = "website/generated/schema/slots/Note.md"
+
+[[params.redirects]]
+from = "elements/notes"
+to = "website/generated/schema/slots/Notes.md"
+
+[[params.redirects]]
+from = "elements/objective"
+to = "website/generated/schema/slots/Objective.md"
+
+[[params.redirects]]
+from = "elements/observation_id"
+to = "website/generated/schema/_index.md"
+
+[[params.redirects]]
+from = "elements/observations"
+to = "website/generated/schema/_index.md"
+
+[[params.redirects]]
+from = "elements/observed_examples"
+to = "website/generated/schema/slots/Observed_Examples.md"
+
+[[params.redirects]]
+from = "elements/observed_in_cve"
+to = "website/generated/schema/_index.md"
+
+[[params.redirects]]
+from = "elements/operating_systems"
+to = "website/generated/schema/slots/Operating_System.md"
+
+[[params.redirects]]
+from = "elements/ordinal"
+to = "website/generated/schema/slots/Ordinal.md"
+
+[[params.redirects]]
+from = "elements/ordinality"
+to = "website/generated/schema/slots/Ordinality.md"
+
+[[params.redirects]]
+from = "elements/phase"
+to = "website/generated/schema/slots/Phase.md"
+
+[[params.redirects]]
+from = "elements/phases"
+to = "website/generated/schema/slots/Phase.md"
+
+[[params.redirects]]
+from = "elements/potential_mitigations"
+to = "website/generated/schema/slots/Potential_Mitigations.md"
+
+[[params.redirects]]
+from = "elements/prevalence"
+to = "website/generated/schema/slots/Prevalence.md"
+
+[[params.redirects]]
+from = "elements/previous_entry_names"
+to = "website/generated/schema/slots/Previous_Entry_Name.md"
+
+[[params.redirects]]
+from = "elements/publication"
+to = "website/generated/schema/slots/Publication.md"
+
+[[params.redirects]]
+from = "elements/publication_day"
+to = "website/generated/schema/slots/Publication_Day.md"
+
+[[params.redirects]]
+from = "elements/publication_month"
+to = "website/generated/schema/slots/Publication_Month.md"
+
+[[params.redirects]]
+from = "elements/publication_year"
+to = "website/generated/schema/slots/Publication_Year.md"
+
+[[params.redirects]]
+from = "elements/publisher"
+to = "website/generated/schema/slots/Publisher.md"
+
+[[params.redirects]]
+from = "elements/rationale"
+to = "website/generated/schema/slots/Rationale.md"
+
+[[params.redirects]]
+from = "elements/reasons"
+to = "website/generated/schema/slots/Reasons.md"
+
+[[params.redirects]]
+from = "elements/reference"
+to = "website/generated/schema/slots/Reference.md"
+
+[[params.redirects]]
+from = "elements/reference_id"
+to = "website/generated/schema/slots/Reference_ID.md"
+
+[[params.redirects]]
+from = "elements/references"
+to = "website/generated/schema/slots/References.md"
+
+[[params.redirects]]
+from = "elements/related_attack_patterns"
+to = "website/generated/schema/slots/Related_Attack_Patterns.md"
+
+[[params.redirects]]
+from = "elements/related_weaknesses"
+to = "website/generated/schema/slots/Related_Weaknesses.md"
+
+[[params.redirects]]
+from = "elements/relationships"
+to = "website/generated/schema/slots/Relationships.md"
+
+[[params.redirects]]
+from = "elements/reported_by"
+to = "website/generated/schema/_index.md"
+
+[[params.redirects]]
+from = "elements/scopes"
+to = "website/generated/schema/slots/Scope.md"
+
+[[params.redirects]]
+from = "elements/section"
+to = "website/generated/schema/slots/Section.md"
+
+[[params.redirects]]
+from = "elements/source"
+to = "website/generated/schema/_index.md"
+
+[[params.redirects]]
+from = "elements/status"
+to = "website/generated/schema/slots/Status.md"
+
+[[params.redirects]]
+from = "elements/strategy"
+to = "website/generated/schema/slots/Strategy.md"
+
+[[params.redirects]]
+from = "elements/structure"
+to = "website/generated/schema/slots/Structure.md"
+
+[[params.redirects]]
+from = "elements/submission"
+to = "website/generated/schema/slots/Submission.md"
+
+[[params.redirects]]
+from = "elements/submission_comment"
+to = "website/generated/schema/slots/Submission_Comment.md"
+
+[[params.redirects]]
+from = "elements/submission_date"
+to = "website/generated/schema/slots/Submission_Date.md"
+
+[[params.redirects]]
+from = "elements/submission_name"
+to = "website/generated/schema/slots/Submission_Name.md"
+
+[[params.redirects]]
+from = "elements/submission_organization"
+to = "website/generated/schema/slots/Submission_Organization.md"
+
+[[params.redirects]]
+from = "elements/submission_release_date"
+to = "website/generated/schema/slots/Submission_ReleaseDate.md"
+
+[[params.redirects]]
+from = "elements/submission_version"
+to = "website/generated/schema/slots/Submission_Version.md"
+
+[[params.redirects]]
+from = "elements/suggestions"
+to = "website/generated/schema/slots/Suggestions.md"
+
+[[params.redirects]]
+from = "elements/summary"
+to = "website/generated/schema/slots/Summary.md"
+
+[[params.redirects]]
+from = "elements/tags"
+to = "website/generated/schema/_index.md"
+
+[[params.redirects]]
+from = "elements/taxonomy_mappings"
+to = "website/generated/schema/slots/Taxonomy_Mappings.md"
+
+[[params.redirects]]
+from = "elements/taxonomy_name"
+to = "website/generated/schema/slots/Taxonomy_Name.md"
+
+[[params.redirects]]
+from = "elements/technologies"
+to = "website/generated/schema/slots/Technology.md"
+
+[[params.redirects]]
+from = "elements/term"
+to = "website/generated/schema/slots/Term.md"
+
+[[params.redirects]]
+from = "elements/title"
+to = "website/generated/schema/slots/Title.md"
+
+[[params.redirects]]
+from = "elements/title_text"
+to = "website/generated/schema/slots/Title_Text.md"
+
+[[params.redirects]]
+from = "elements/type"
+to = "website/generated/schema/slots/Type.md"
+
+[[params.redirects]]
+from = "elements/url"
+to = "website/generated/schema/slots/URL.md"
+
+[[params.redirects]]
+from = "elements/url_date"
+to = "website/generated/schema/slots/URL_Date.md"
+
+[[params.redirects]]
+from = "elements/usage"
+to = "website/generated/schema/slots/Usage.md"
+
+[[params.redirects]]
+from = "elements/version"
+to = "website/generated/schema/slots/Version.md"
+
+[[params.redirects]]
+from = "elements/view_id"
+to = "website/generated/schema/slots/View_ID.md"
+
+[[params.redirects]]
+from = "elements/views"
+to = "website/generated/schema/slots/Views.md"
+
+[[params.redirects]]
+from = "elements/weakness"
+to = "website/generated/schema/classes/CweWeakness.md"
+
+[[params.redirects]]
+from = "elements/weakness_ordinalities"
+to = "website/generated/schema/slots/Weakness_Ordinalities.md"
+
+[[params.redirects]]
+from = "elements/weaknesses"
+to = "website/generated/schema/slots/Weaknesses.md"
+
+[[params.redirects]]
+from = "schema/*"
+to = "schema/*"
